@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专利列表 - ScholarMate 专利交易平台</title>
+    <link rel="icon" href="figures/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="navbar">
+        <div class="container navbar__container">
+            <a href="index.html" class="navbar__logo">
+                <span class="navbar__logo-icon">📋</span>
+                <span class="navbar__logo-text">ScholarMate</span>
+            </a>
+            <nav class="navbar__menu">
+                <a href="index.html" class="navbar__link">首页</a>
+                <a href="patent-list.html" class="navbar__link navbar__link--active">专利列表</a>
+                <a href="patent-publish.html" class="navbar__link">发布专利</a>
+                <a href="user-center.html" class="navbar__link">用户中心</a>
+            </nav>
+            <div class="navbar__actions">
+                <a href="user-center.html" class="btn btn--outline">登录</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="section">
+        <div class="container">
+            <!-- 页面标题 -->
+            <div class="flex items-center justify-between mb-6">
+                <h1 class="font-semibold" style="font-size: var(--font-2xl);">专利列表</h1>
+                <span class="text-secondary results-count">共找到 6 件专利</span>
+            </div>
+
+            <!-- 搜索框 -->
+            <div class="patent-list-search">
+                <form action="patent-list.html" method="GET" class="patent-list-search__form">
+                    <input
+                        type="text"
+                        name="search"
+                        class="input patent-list-search__input search-input"
+                        placeholder="搜索专利名称、关键词..."
+                        value=""
+                    >
+                    <button type="submit" class="btn btn--primary">搜索</button>
+                </form>
+            </div>
+
+            <section class="demand-upload-card" aria-labelledby="demandUploadTitle">
+                <div class="demand-upload-card__header">
+                    <div>
+                        <h2 id="demandUploadTitle" class="demand-upload-card__title">上传需求文本，生成需求推荐</h2>
+                        <p class="demand-upload-card__desc">适合企业已有技术需求说明、采购调研文档或试点方案。上传后会创建技术需求项目，再按需求上下文推荐专利。</p>
+                    </div>
+                    <span class="tag">需求推荐</span>
+                </div>
+                <div class="demand-upload-card__grid">
+                    <label class="demand-upload-dropzone" for="demandTextFile">
+                        <input id="demandTextFile" class="demand-upload-dropzone__input" type="file" accept=".txt,.md,text/plain,text/markdown">
+                        <span class="demand-upload-dropzone__icon">⇧</span>
+                        <span class="demand-upload-dropzone__title">选择或拖拽 .txt / .md</span>
+                        <span class="demand-upload-dropzone__hint">Word/PDF 请先复制正文粘贴</span>
+                    </label>
+                    <div class="demand-upload-card__paste">
+                        <label class="input__label" for="demandTextInput">也可以直接粘贴需求文本</label>
+                        <textarea id="demandTextInput" class="input demand-upload-card__textarea" rows="5" placeholder="例如：基层医院影像诊断效率提升&#10;希望用AI医学影像能力提升基层医生诊断效率，优先考虑能快速试点、可解释性较强的方案。"></textarea>
+                    </div>
+                </div>
+                <div id="demandUploadPreview" class="demand-upload-preview" hidden></div>
+                <div id="demandUploadActions" class="demand-upload-actions" hidden>
+                    <button id="createDemandRecommendationBtn" class="btn btn--primary" type="button">生成需求推荐</button>
+                    <button id="clearDemandTextBtn" class="btn btn--ghost" type="button">清空</button>
+                </div>
+            </section>
+
+            <!-- 横向筛选栏 -->
+            <div class="patent-list-filters">
+                <div class="patent-list-filter">
+                    <span class="patent-list-filter__label">专利类型：</span>
+                    <div class="patent-list-filter__options">
+                        <button class="patent-list-filter__option patent-list-filter__option--active">全部</button>
+                        <button class="patent-list-filter__option">发明专利</button>
+                        <button class="patent-list-filter__option">实用新型</button>
+                        <button class="patent-list-filter__option">外观设计</button>
+                    </div>
+                </div>
+                <div class="patent-list-filter">
+                    <span class="patent-list-filter__label">技术领域：</span>
+                    <div class="patent-list-filter__options">
+                        <button class="patent-list-filter__option patent-list-filter__option--active">全部</button>
+                        <button class="patent-list-filter__option">人工智能</button>
+                        <button class="patent-list-filter__option">新能源</button>
+                        <button class="patent-list-filter__option">医疗健康</button>
+                        <button class="patent-list-filter__option">物联网</button>
+                        <button class="patent-list-filter__option">智能制造</button>
+                    </div>
+                </div>
+                <div class="patent-list-filter">
+                    <span class="patent-list-filter__label">价格区间：</span>
+                    <div class="patent-list-filter__options">
+                        <button class="patent-list-filter__option patent-list-filter__option--active">不限</button>
+                        <button class="patent-list-filter__option">免费共享</button>
+                        <button class="patent-list-filter__option">付费许可</button>
+                        <button class="patent-list-filter__option">¥1,999/年</button>
+                        <button class="patent-list-filter__option">¥2,999/年及以上</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 排序和视图切换 -->
+            <div class="flex items-center justify-between mb-4 mt-6">
+                <span class="text-secondary" style="font-size: var(--font-sm);">按最新发布排序</span>
+                <span class="text-secondary semantic-search-status" style="font-size: var(--font-sm);">搜索时将按自然语言相关度排序</span>
+                <div class="flex gap-2">
+                    <span class="tag tag--sm">Top 5</span>
+                    <span class="tag tag--sm">列表视图</span>
+                </div>
+            </div>
+
+            <!-- 专利列表 -->
+            <div class="patent-list">
+                        <!-- 专利卡片 1 -->
+                        <article class="patent-card" data-patent-id="ZL202410001234.5">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/patent1/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">发明专利</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <div class="patent-card__header">
+                                    <h3 class="patent-card__title">
+                                        <a href="patent-detail.html?id=ZL202410001234.5">一种基于人工智能的医疗诊断系统及方法</a>
+                                    </h3>
+                                    <span class="patent-card__favorite" data-patent-id="ZL202410001234.5" role="button" aria-label="收藏" tabindex="0">♡</span>
+                                </div>
+                                <p class="patent-card__desc">利用深度学习算法对医学影像进行自动分析，辅助医生进行疾病诊断，提高诊断效率和准确性。</p>
+                                <div class="patent-card__meta">
+                                    <div class="patent-card__info">
+                                        <span class="patent-card__info-item">📂 人工智能</span>
+                                        <span class="patent-card__info-item">🔢 ZL202410001234.5</span>
+                                        <span class="patent-card__info-item">📍 上海</span>
+                                        <span class="patent-card__info-item">👁️ 1,234</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="patent-card__chat">
+                                <button class="patent-card__chat-btn" onclick="ScholarMate.handleListChatClick('inv_001', 'ZL202410001234.5', '张明远')" title="与张明远对话">
+                                    <img src="https://api.dicebear.com/7.x/personas/svg?seed=ZhangMingyuan" alt="张明远" class="patent-card__chat-avatar">
+                                    <span class="patent-card__chat-label">💬 问顾问</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 专利卡片 2 -->
+                        <article class="patent-card" data-patent-id="ZL202410005678.9">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/patent2/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">实用新型</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <div class="patent-card__header">
+                                    <h3 class="patent-card__title">
+                                        <a href="patent-detail.html?id=ZL202410005678.9">一种智能家居控制系统及其控制方法</a>
+                                    </h3>
+                                    <span class="patent-card__favorite" data-patent-id="ZL202410005678.9" role="button" aria-label="收藏" tabindex="0">♡</span>
+                                </div>
+                                <p class="patent-card__desc">通过物联网技术实现家居设备的互联互通，支持语音控制和远程管理。</p>
+                                <div class="patent-card__meta">
+                                    <div class="patent-card__info">
+                                        <span class="patent-card__info-item">📂 物联网</span>
+                                        <span class="patent-card__info-item">🔢 ZL202410005678.9</span>
+                                        <span class="patent-card__info-item">📍 北京</span>
+                                        <span class="patent-card__info-item">👁️ 856</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="patent-card__chat">
+                                <button class="patent-card__chat-btn" onclick="ScholarMate.handleListChatClick('inv_003', 'ZL202410005678.9', '王物联')" title="与王物联对话">
+                                    <img src="https://api.dicebear.com/7.x/personas/svg?seed=WangWulian" alt="王物联" class="patent-card__chat-avatar">
+                                    <span class="patent-card__chat-label">💬 问顾问</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 专利卡片 3 -->
+                        <article class="patent-card" data-patent-id="ZL202410009012.3">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/patent3/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">发明专利</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <div class="patent-card__header">
+                                    <h3 class="patent-card__title">
+                                        <a href="patent-detail.html?id=ZL202410009012.3">一种新能源汽车电池热管理系统</a>
+                                    </h3>
+                                    <span class="patent-card__favorite" data-patent-id="ZL202410009012.3" role="button" aria-label="收藏" tabindex="0">♡</span>
+                                </div>
+                                <p class="patent-card__desc">有效控制电池温度，提高电池使用寿命和安全性，适用于各种新能源汽车。</p>
+                                <div class="patent-card__meta">
+                                    <div class="patent-card__info">
+                                        <span class="patent-card__info-item">📂 新能源</span>
+                                        <span class="patent-card__info-item">🔢 ZL202410009012.3</span>
+                                        <span class="patent-card__info-item">📍 深圳</span>
+                                        <span class="patent-card__info-item">👁️ 2,156</span>
+                                    </div>
+                                    <div class="patent-card__price">¥2,999/年 资料/对话许可</div>
+                                </div>
+                            </div>
+                            <div class="patent-card__chat">
+                                <button class="patent-card__chat-btn" onclick="ScholarMate.handleListChatClick('inv_002', 'ZL202410009012.3', '李智能')" title="与李智能对话">
+                                    <img src="https://api.dicebear.com/7.x/personas/svg?seed=LiZhineng" alt="李智能" class="patent-card__chat-avatar">
+                                    <span class="patent-card__chat-label">💬 立即咨询</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 专利卡片 4 -->
+                        <article class="patent-card" data-patent-id="ZL202410003456.7">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/patent4/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">外观设计</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <div class="patent-card__header">
+                                    <h3 class="patent-card__title">
+                                        <a href="patent-detail.html?id=ZL202410003456.7">一种折叠式智能穿戴设备外观设计</a>
+                                    </h3>
+                                    <span class="patent-card__favorite" data-patent-id="ZL202410003456.7" role="button" aria-label="收藏" tabindex="0">♡</span>
+                                </div>
+                                <p class="patent-card__desc">创新的折叠结构设计，便于携带，兼具时尚感和实用性。</p>
+                                <div class="patent-card__meta">
+                                    <div class="patent-card__info">
+                                        <span class="patent-card__info-item">📂 智能制造</span>
+                                        <span class="patent-card__info-item">🔢 ZL202410003456.7</span>
+                                        <span class="patent-card__info-item">📍 杭州</span>
+                                        <span class="patent-card__info-item">👁️ 543</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="patent-card__chat">
+                                <button class="patent-card__chat-btn" onclick="ScholarMate.handleListChatClick('inv_005', 'ZL202410003456.7', '钱机器人')" title="与钱机器人对话">
+                                    <img src="https://api.dicebear.com/7.x/personas/svg?seed=QianJiqiren" alt="钱机器人" class="patent-card__chat-avatar">
+                                    <span class="patent-card__chat-label">💬 问顾问</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 专利卡片 5 -->
+                        <article class="patent-card" data-patent-id="ZL202410007890.1">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/patent5/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">发明专利</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <div class="patent-card__header">
+                                    <h3 class="patent-card__title">
+                                        <a href="patent-detail.html?id=ZL202410007890.1">一种区块链隐私保护方法及系统</a>
+                                    </h3>
+                                    <span class="patent-card__favorite" data-patent-id="ZL202410007890.1" role="button" aria-label="收藏" tabindex="0">♡</span>
+                                </div>
+                                <p class="patent-card__desc">在保证区块链透明性的同时实现用户隐私保护，适用于金融、医疗等场景。</p>
+                                <div class="patent-card__meta">
+                                    <div class="patent-card__info">
+                                        <span class="patent-card__info-item">📂 区块链</span>
+                                        <span class="patent-card__info-item">🔢 ZL202410007890.1</span>
+                                        <span class="patent-card__info-item">📍 广州</span>
+                                        <span class="patent-card__info-item">👁️ 1,892</span>
+                                    </div>
+                                    <div class="patent-card__price">¥3,999/年 资料/对话许可</div>
+                                </div>
+                            </div>
+                            <div class="patent-card__chat">
+                                <button class="patent-card__chat-btn" onclick="ScholarMate.handleListChatClick('inv_004', 'ZL202410007890.1', '赵区块链')" title="与赵区块链对话">
+                                    <img src="https://api.dicebear.com/7.x/personas/svg?seed=ZhaoQukuailian" alt="赵区块链" class="patent-card__chat-avatar">
+                                    <span class="patent-card__chat-label">💬 立即咨询</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 专利卡片 6 -->
+                        <article class="patent-card" data-patent-id="ZL202410002345.8">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/patent6/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">实用新型</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <div class="patent-card__header">
+                                    <h3 class="patent-card__title">
+                                        <a href="patent-detail.html?id=ZL202410002345.8">一种工业机器人协作控制系统</a>
+                                    </h3>
+                                    <span class="patent-card__favorite" data-patent-id="ZL202410002345.8" role="button" aria-label="收藏" tabindex="0">♡</span>
+                                </div>
+                                <p class="patent-card__desc">实现多台工业机器人的协同作业，提高生产效率和灵活性。</p>
+                                <div class="patent-card__meta">
+                                    <div class="patent-card__info">
+                                        <span class="patent-card__info-item">📂 智能制造</span>
+                                        <span class="patent-card__info-item">🔢 ZL202410002345.8</span>
+                                        <span class="patent-card__info-item">📍 苏州</span>
+                                        <span class="patent-card__info-item">👁️ 678</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="patent-card__chat">
+                                <button class="patent-card__chat-btn" onclick="ScholarMate.handleListChatClick('inv_005', 'ZL202410002345.8', '钱机器人')" title="与钱机器人对话">
+                                    <img src="https://api.dicebear.com/7.x/personas/svg?seed=QianJiqiren" alt="钱机器人" class="patent-card__chat-avatar">
+                                    <span class="patent-card__chat-label">💬 问顾问</span>
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h3 class="footer__title">关于我们</h3>
+                    <p class="footer__text">
+                        ScholarMate 是一个专业的企业端专利交易平台，致力于连接创新资源，助力企业发展。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="footer__title">快速链接</h3>
+                    <div class="footer__links">
+                        <a href="patent-list.html" class="footer__link">专利列表</a>
+                        <a href="patent-publish.html" class="footer__link">发布专利</a>
+                        <a href="user-center.html" class="footer__link">用户中心</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="footer__title">联系方式</h3>
+                    <p class="footer__text">
+                        邮箱: contact@scholarmate.com<br>
+                        电话: 400-123-4567
+                    </p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                © 2024 ScholarMate. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/business-core.js"></script>
+    <script src="scripts/semantic-search.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>

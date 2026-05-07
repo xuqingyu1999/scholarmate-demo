@@ -1,0 +1,69 @@
+<!DOCTYPE html><html  lang="zh"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 - 页面不存在 - 科研之友 - Scholarmate</title>
+<link rel="preconnect" href="https://api.scholarmate.com">
+<link rel="preconnect" href="https://video.scholarmate.com">
+<link rel="stylesheet" href="https://video.scholarmate.com/resource/smate-web/_nuxt/entry.cN9AZIL1.css" crossorigin>
+<link rel="stylesheet" href="https://video.scholarmate.com/resource/smate-web/_nuxt/vendor-ui.BQTh0kvz.css" crossorigin>
+<link rel="stylesheet" href="https://video.scholarmate.com/resource/smate-web/_nuxt/blank.C-Y9uMmw.css" crossorigin>
+<link rel="stylesheet" href="https://video.scholarmate.com/resource/smate-web/_nuxt/tailwind.B0HfU6LP.css" crossorigin>
+<link rel="stylesheet" href="https://video.scholarmate.com/resource/smate-web/_nuxt/_...D6kt7BWe.css" crossorigin>
+<link rel="modulepreload" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Bp-MLBXP.js">
+<link rel="modulepreload" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/D6BK1Pof.js">
+<link rel="modulepreload" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/CvKaWgng.js">
+<link rel="modulepreload" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Ba0LtE41.js">
+<link rel="modulepreload" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/DJOaQX_e.js">
+<link rel="modulepreload" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/CuEn0EFd.js">
+<link rel="modulepreload" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/BCo6x5W8.js">
+<link rel="modulepreload" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/CrNCja0R.js">
+<link rel="preload" as="fetch" fetchpriority="low" crossorigin="anonymous" href="https://video.scholarmate.com/resource/smate-web/_nuxt/builds/meta/5b3358c7-b6c5-4dcf-8121-07d7748f5907.json">
+<script type="module" src="https://video.scholarmate.com/resource/smate-web/_nuxt/Bp-MLBXP.js" crossorigin></script>
+<link rel="dns-prefetch" href="https://api.scholarmate.com">
+<link rel="dns-prefetch" href="https://video.scholarmate.com">
+<link rel="prefetch" as="image" type="image/svg+xml" href="https://video.scholarmate.com/resource/smate-web/_nuxt/favicon.C-sliTOh.svg">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/index.B21WFxiH.css">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/InvoiceList.B2QqLCt_.css">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Di9fgVfk.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/RXvaOY_V.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/QrbFWH3z.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/FnV0Ulrg.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/CVyvWFFq.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Dm892DuN.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/C9PXCIia.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/BcGViz-a.js">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/apps-no-header.B9s5U-Rl.css">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/AuthGuard.D1tB8dec.css">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/BYGcpN--.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/COwAZlXz.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/toc7GLia.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Cp7IEN4C.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/BOBCLNbC.js">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/apps.B-kSQTJU.css">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Footer.5p93PmHH.css">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/CYMEgCUy.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/An9TVSHI.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/D9a0qn8f.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/IIMyKg_w.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/DFJs64je.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Dt8UoO5L.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/a0h3qx6V.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Dv5NTrly.js">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/default.9CaZ7QVp.css">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Header.B4F5rD0k.css">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/F5Ro089H.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/CJ_Uafq3.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/CHv7khS6.js">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/public-lite-static.B8jyJEjD.css">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/BSP_-drh.js">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/public-lite.BmaWveyS.css">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/CDK8DaRj.js">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/shortlink-lite.WCKtiDK-.css">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/ShortlinkHeader.BFv6PCwm.css">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/CJLGdWIN.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/BpeDMHv7.js">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/Cc-7Jyc6.js">
+<link rel="prefetch" as="style" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/shortlink-seo.-2TbU710.css">
+<link rel="prefetch" as="script" crossorigin href="https://video.scholarmate.com/resource/smate-web/_nuxt/DuqXG9Py.js">
+<meta name="description" content="科研之友 个人文档站">
+<link rel="icon" type="image/svg+xml" href="https://video.scholarmate.com/resource/smate-web/_nuxt/favicon.C-sliTOh.svg"></head><body><div id="__nuxt"><div class="blank-layout" data-v-dd97d3b0><main data-v-dd97d3b0><!--[--><!--[--><div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 p-5" data-v-22cb42df><div class="text-center max-w-[500px]" data-v-22cb42df><div class="text-[80px] mb-5" data-v-22cb42df>🔍</div><h1 class="text-[120px] sm:text-[80px] font-bold text-gray-400 m-0 leading-none" data-v-22cb42df> 404 </h1><h2 class="text-[28px] sm:text-[22px] text-gray-800 mt-5 mb-3 font-medium" data-v-22cb42df> 页面不存在 </h2><div class="flex justify-center" data-v-22cb42df><a href="/" class="btn-home px-8 py-3 rounded-lg text-base cursor-pointer transition-all duration-300 no-underline border-none text-white hover:opacity-90 hover:-translate-y-0.5" data-v-22cb42df> 返回首页 </a></div></div></div><!--]--><!--]--></main></div></div><div id="teleports"></div><script>window.__NUXT__={};window.__NUXT__.config={public:{apiBaseUrl:"https://api.scholarmate.com",apiAuthUrl:"https://auth.scholarmate.com",clientId:"smateRun",responseType:"code",debugMode:false,nodeEnv:"production",publicDomain:"/",emailApiUrl:"https://www.scholarmate.com/scmmanagement/newirismail",stigptBaseUrl:"https://test.scholarmate.com/stigpt/",env:"prod",i18n:{baseUrl:"",defaultLocale:"zh_CN",defaultDirection:"ltr",strategy:"no_prefix",lazy:true,rootRedirect:"",routesNameSeparator:"___",defaultLocaleRouteNameSuffix:"default",skipSettingLocaleOnNavigate:false,differentDomains:false,trailingSlash:false,locales:[{code:"en_US",iso:"en-US",name:"English",files:[{path:"/smate-web/i18n/locales/en_US.json",cache:""}]},{code:"zh_CN",iso:"zh-CN",name:"简体中文",files:[{path:"/smate-web/i18n/locales/zh_CN.json",cache:""}]}],detectBrowserLanguage:{alwaysRedirect:false,cookieCrossOrigin:false,cookieDomain:"",cookieKey:"i18n_redirected",cookieSecure:false,fallbackLocale:"",redirectOn:"root",useCookie:true},experimental:{localeDetector:"",switchLocalePathLinkSSR:false,autoImportTranslationFunctions:false,typedPages:true,typedOptionsAndMessages:false,generatedLocaleFilePathFormat:"absolute",alternateLinkCanonicalQueries:false,hmr:true},multiDomainLocales:false}},app:{baseURL:"/",buildId:"5b3358c7-b6c5-4dcf-8121-07d7748f5907",buildAssetsDir:"/_nuxt/",cdnURL:"https://video.scholarmate.com/resource/smate-web"}}</script>
+<script type="application/json" data-nuxt-data="nuxt-app" data-ssr="true" id="__NUXT_DATA__">[["ShallowReactive",1],{"data":2,"state":4,"once":7,"_errors":8,"serverRendered":10,"path":11,"pinia":12},["ShallowReactive",3],{},["Reactive",5],{"$snuxt-i18n-meta":6},{},["Set"],["ShallowReactive",9],{},true,"/images/logo.png",{}]</script></body></html>

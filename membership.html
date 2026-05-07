@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会员中心 - ScholarMate</title>
+    <link rel="icon" href="figures/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="navbar">
+        <div class="container navbar__container">
+            <a href="index.html" class="navbar__logo">
+                <span class="navbar__logo-icon">📋</span>
+                <span class="navbar__logo-text">ScholarMate</span>
+            </a>
+            <nav class="navbar__menu">
+                <a href="index.html" class="navbar__link">首页</a>
+                <a href="patent-list.html" class="navbar__link">专利列表</a>
+                <a href="patent-publish.html" class="navbar__link">发布专利</a>
+                <a href="user-center.html" class="navbar__link navbar__link--active">用户中心</a>
+            </nav>
+            <div class="navbar__actions">
+                <a href="user-center.html" class="btn btn--outline">登录</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="section">
+        <div class="container">
+            <!-- 会员状态Banner -->
+            <div class="membership-hero">
+                <h1 class="membership-hero__title" id="membershipTitle">开通会员服务</h1>
+                <p class="membership-hero__subtitle" id="membershipSubtitle">围绕企业技术需求项目，解锁推荐、顾问深聊和交易跟进能力</p>
+                <div class="membership-status">
+                    <div class="membership-status__item">
+                        <div class="membership-status__label">当前会员</div>
+                        <div class="membership-status__value" id="currentPlan">未开通</div>
+                    </div>
+                    <div class="membership-status__item">
+                        <div class="membership-status__label">今日剩余Token</div>
+                        <div class="membership-status__value" id="remainingToken">0</div>
+                    </div>
+                    <div class="membership-status__item">
+                        <div class="membership-status__label">顾问席位</div>
+                        <div class="membership-status__value" id="advisorSeats">0/0</div>
+                    </div>
+                    <div class="membership-status__item">
+                        <div class="membership-status__label">到期时间</div>
+                        <div class="membership-status__value" id="expireDate">--</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 会员套餐选择 -->
+            <div class="membership-section">
+                <h2 class="membership-section__title">选择会员套餐</h2>
+                <div class="membership-plans">
+                    <div class="membership-plan" data-level="free" id="planBasic">
+                        <div class="membership-plan__header">
+                            <h3 class="membership-plan__name">免费认证版</h3>
+                            <div class="membership-plan__price">免费</div>
+                        </div>
+                        <ul class="membership-plan__features">
+                            <li>✓ 2 个技术需求项目</li>
+                            <li>✓ 每日 100 Token</li>
+                            <li>✓ 基础专利推荐</li>
+                            <li>✓ 0 个长期顾问席位</li>
+                            <li>✓ 免费共享专利试聊</li>
+                        </ul>
+                        <button class="btn btn--outline btn--full" onclick="selectPlan('free')">选择免费认证版</button>
+                    </div>
+
+                    <div class="membership-plan membership-plan--recommended" data-level="professional" id="planAdvanced">
+                        <div class="membership-plan__badge">推荐</div>
+                        <div class="membership-plan__header">
+                            <h3 class="membership-plan__name">专业版</h3>
+                            <div class="membership-plan__price">¥299<span>/年</span></div>
+                        </div>
+                        <ul class="membership-plan__features">
+                            <li>✓ 8 个技术需求项目</li>
+                            <li>✓ 10 个顾问席位</li>
+                            <li>✓ 每日 500 Token</li>
+                            <li>✓ 深度推荐与匹配理由</li>
+                            <li>✓ 资料/对话许可 9 折</li>
+                        </ul>
+                        <button class="btn btn--primary btn--full" onclick="selectPlan('professional')">选择专业版</button>
+                    </div>
+
+                    <div class="membership-plan" data-level="enterprise" id="planPremium">
+                        <div class="membership-plan__header">
+                            <h3 class="membership-plan__name">企业版</h3>
+                            <div class="membership-plan__price">¥799<span>/年</span></div>
+                        </div>
+                        <ul class="membership-plan__features">
+                            <li>✓ 30 个技术需求项目</li>
+                            <li>✓ 不限顾问席位</li>
+                            <li>✓ 每日 2000 Token</li>
+                            <li>✓ 交易意向优先跟进</li>
+                            <li>✓ 资料/对话许可 8 折</li>
+                        </ul>
+                        <button class="btn btn--outline btn--full" onclick="selectPlan('enterprise')">选择企业版</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 会员权益说明 -->
+            <div class="membership-section">
+                <h2 class="membership-section__title">会员权益说明</h2>
+                <div class="grid grid--3">
+                    <div class="card">
+                        <div class="card__body text-center">
+                            <div style="font-size: 32px; margin-bottom: var(--space-3);">💬</div>
+                            <h3 class="font-semibold mb-2">需求项目</h3>
+                            <p class="text-secondary" style="font-size: var(--font-sm);">
+                                以企业真实技术需求为中心，沉淀推荐、对话和交易意向
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__body text-center">
+                            <div style="font-size: 32px; margin-bottom: var(--space-3);">⚡</div>
+                            <h3 class="font-semibold mb-2">顾问席位</h3>
+                            <p class="text-secondary" style="font-size: var(--font-sm);">
+                                专业版/企业版可长期保存常用数字顾问，并持续保留多会话上下文
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__body text-center">
+                            <div style="font-size: 32px; margin-bottom: var(--space-3);">🔒</div>
+                            <h3 class="font-semibold mb-2">资料/对话许可</h3>
+                            <p class="text-secondary" style="font-size: var(--font-sm);">
+                                解锁深度资料摘要、匹配分析和后续交易意向入口
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Token使用记录 -->
+            <div class="membership-section">
+                <h2 class="membership-section__title">Token 使用说明</h2>
+                <div class="card">
+                    <div class="card__body">
+                        <div class="text-secondary" style="line-height: 1.8;">
+                            <p class="mb-4"><strong>Token 在这里代表什么？</strong></p>
+                            <p class="mb-4">
+                                Token 是数字顾问围绕企业需求做技术解释、匹配分析和落地建议时消耗的服务额度。
+                            </p>
+                            <p class="mb-4"><strong>如何提高匹配效率？</strong></p>
+                            <ul style="margin-left: var(--space-4); margin-bottom: var(--space-4);">
+                                <li style="list-style: disc; margin-bottom: var(--space-2);">先创建清晰的技术需求项目</li>
+                                <li style="list-style: disc; margin-bottom: var(--space-2);">在对话中围绕预算、场景和落地阶段提问</li>
+                                <li style="list-style: disc; margin-bottom: var(--space-2);">匹配度明确后提交交易意向</li>
+                            </ul>
+                            <p><strong>Token计算规则：</strong></p>
+                            <ul style="margin-left: var(--space-4);">
+                                <li style="list-style: disc; margin-bottom: var(--space-2);">简单问答：约 10-30 Token</li>
+                                <li style="list-style: disc; margin-bottom: var(--space-2);">技术详解：约 30-50 Token</li>
+                                <li style="list-style: disc; margin-bottom: var(--space-2);">深度讨论：约 50-100 Token</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 确认开通弹窗 -->
+    <div class="modal" id="confirmModal">
+        <div class="modal__overlay" onclick="closeConfirmModal()"></div>
+        <div class="modal__content modal__content--sm">
+            <button class="modal__close" onclick="closeConfirmModal()">×</button>
+            <h2 class="modal__title" id="confirmTitle">确认开通</h2>
+            <div class="license-info">
+                <div class="license-info__patent" style="background: var(--bg-gray);">
+                    <div style="width: 60px; height: 60px; background: var(--primary-light); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 24px;">
+                        👑
+                    </div>
+                    <div>
+                        <div class="font-medium" id="confirmPlanName">专业版会员</div>
+                        <div class="text-secondary" style="font-size: var(--font-sm);" id="confirmPlanDesc">8个需求项目 · 10个顾问席位 · 每日500 Token</div>
+                    </div>
+                </div>
+                <div class="license-info__price">
+                    <span>支付金额</span>
+                    <span class="license-info__price-value" id="confirmPrice">¥299</span>
+                </div>
+            </div>
+            <p class="text-secondary text-center" style="font-size: var(--font-sm); margin-bottom: var(--space-4);">
+                开通即表示同意《会员服务协议》
+            </p>
+            <div class="modal__actions">
+                <button class="btn btn--outline" onclick="closeConfirmModal()">取消</button>
+                <button class="btn btn--primary" onclick="confirmPurchase()">确认支付</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 成功弹窗 -->
+    <div class="modal" id="successModal">
+        <div class="modal__overlay" onclick="closeSuccessModal()"></div>
+        <div class="modal__content modal__content--sm">
+            <button class="modal__close" onclick="closeSuccessModal()">×</button>
+            <div class="text-center" style="padding: var(--space-4);">
+                <div style="font-size: 64px; margin-bottom: var(--space-4);">🎉</div>
+                <h2 class="modal__title mb-4">开通成功！</h2>
+                <p class="text-secondary mb-6" id="successMessage">
+                    您已成功开通专业版会员
+                </p>
+            </div>
+            <div class="modal__actions" style="justify-content: center;">
+                <button class="btn btn--primary" onclick="goToChat()">开始对话</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h3 class="footer__title">关于我们</h3>
+                    <p class="footer__text">
+                        ScholarMate 是一个专业的企业端专利交易平台，致力于连接创新资源，助力企业发展。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="footer__title">快速链接</h3>
+                    <div class="footer__links">
+                        <a href="patent-list.html" class="footer__link">专利列表</a>
+                        <a href="patent-publish.html" class="footer__link">发布专利</a>
+                        <a href="user-center.html" class="footer__link">用户中心</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="footer__title">联系方式</h3>
+                    <p class="footer__text">
+                        邮箱: contact@scholarmate.com<br>
+                        电话: 400-123-4567
+                    </p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                © 2024 ScholarMate. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/business-core.js"></script>
+    <script src="scripts/semantic-search.js"></script>
+    <script src="scripts/main.js"></script>
+    <script>
+        const planPrices = {
+            free: '免费',
+            professional: '¥299',
+            enterprise: '¥799'
+        };
+
+        const planDescriptions = {
+            free: '2个需求项目 · 0个长期顾问席位 · 每日100 Token · 基础推荐',
+            professional: '8个需求项目 · 10个顾问席位 · 每日500 Token · 深度推荐',
+            enterprise: '30个需求项目 · 不限顾问席位 · 每日2000 Token · 交易优先跟进'
+        };
+
+        let selectedPlan = null;
+
+        function initPage() {
+            updateMembershipStatus();
+            highlightCurrentPlan();
+        }
+
+        function updateMembershipStatus() {
+            const user = UserManager.getUser();
+
+            if (user && user.membership) {
+                document.getElementById('currentPlan').textContent = user.membership.name;
+                document.getElementById('remainingToken').textContent = UserManager.getRemainingToken();
+                document.getElementById('advisorSeats').textContent = UserManager.getAdvisorSeatUsage().label;
+                document.getElementById('expireDate').textContent = new Date(user.membership.expiresAt).toLocaleDateString('zh-CN');
+                document.getElementById('membershipTitle').textContent = '我的会员';
+                document.getElementById('membershipSubtitle').textContent = '您的需求项目与顾问席位服务能力已开通';
+            } else {
+                document.getElementById('currentPlan').textContent = '未开通';
+                document.getElementById('remainingToken').textContent = '0';
+                document.getElementById('advisorSeats').textContent = '0/0';
+                document.getElementById('expireDate').textContent = '--';
+            }
+        }
+
+        function highlightCurrentPlan() {
+            const user = UserManager.getUser();
+            const currentLevel = user && user.membership ? user.membership.level : null;
+
+            document.querySelectorAll('.membership-plan').forEach(plan => {
+                const level = plan.dataset.level;
+                const btn = plan.querySelector('.btn');
+
+                if (level === currentLevel) {
+                    plan.style.borderColor = 'var(--primary)';
+                    plan.style.boxShadow = '0 0 0 2px var(--primary-light)';
+                    btn.textContent = '当前方案';
+                    btn.disabled = true;
+                } else {
+                    btn.textContent =
+                        level === 'free' ? '选择免费认证版' :
+                        level === 'professional' ? '选择专业版' : '选择企业版';
+                    btn.disabled = false;
+                }
+            });
+        }
+
+        function selectPlan(level) {
+            const user = UserManager.getUser();
+            if (user && user.membership && user.membership.level === level) {
+                return;
+            }
+
+            if (!UserManager.isVerified()) {
+                UserManager.promptVerification('开通买方企业会员');
+                return;
+            }
+
+            selectedPlan = level;
+            document.getElementById('confirmPlanName').textContent =
+                level === 'free' ? '免费认证版' :
+                level === 'professional' ? '专业版' : '企业版';
+            document.getElementById('confirmPlanDesc').textContent = planDescriptions[level];
+            document.getElementById('confirmPrice').textContent = planPrices[level];
+
+            openConfirmModal();
+        }
+
+        function confirmPurchase() {
+            if (!selectedPlan) return;
+
+            UserManager.activateMembership(selectedPlan);
+            closeConfirmModal();
+            showSuccessModal();
+        }
+
+        function showSuccessModal() {
+            const user = UserManager.getUser();
+            document.getElementById('successMessage').textContent =
+                `您已成功开通${user.membership.name}，有效期至${new Date(user.membership.expiresAt).toLocaleDateString('zh-CN')}`;
+            document.getElementById('successModal').classList.add('modal--active');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('modal--active');
+            updateMembershipStatus();
+            highlightCurrentPlan();
+        }
+
+        function openConfirmModal() {
+            document.getElementById('confirmModal').classList.add('modal--active');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('modal--active');
+        }
+
+        function goToChat() {
+            closeSuccessModal();
+            window.location.href = 'patent-list.html';
+        }
+
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>

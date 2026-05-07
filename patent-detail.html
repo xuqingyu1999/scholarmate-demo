@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专利详情 - ScholarMate 专利交易平台</title>
+    <link rel="icon" href="figures/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="navbar">
+        <div class="container navbar__container">
+            <a href="index.html" class="navbar__logo">
+                <span class="navbar__logo-icon">📋</span>
+                <span class="navbar__logo-text">ScholarMate</span>
+            </a>
+            <nav class="navbar__menu">
+                <a href="index.html" class="navbar__link">首页</a>
+                <a href="patent-list.html" class="navbar__link navbar__link--active">专利列表</a>
+                <a href="patent-publish.html" class="navbar__link">发布专利</a>
+                <a href="user-center.html" class="navbar__link">用户中心</a>
+            </nav>
+            <div class="navbar__actions">
+                <a href="user-center.html" class="btn btn--outline">登录</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main>
+        <!-- 详情头部 -->
+        <section class="detail-header">
+            <div class="container">
+                <h1 class="detail-header__title">一种基于人工智能的医疗诊断系统及方法</h1>
+                <div class="detail-header__meta">
+                    <span class="detail-header__meta-item">
+                        <span>🏷️</span> 发明专利
+                    </span>
+                    <span class="detail-header__meta-item">
+                        <span>📅</span> 2024-01-15
+                    </span>
+                    <span class="detail-header__meta-item">
+                        <span>👁️</span> 1,234 次浏览
+                    </span>
+                    <span class="detail-header__meta-item">
+                        <span>📂</span> 人工智能 / 医疗健康
+                    </span>
+                    <span class="detail-header__meta-item">
+                        <span>🔢</span> ZL202410001234.5
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 详情主体 -->
+        <section class="detail-body">
+            <div class="container">
+                <div class="detail-grid">
+                    <!-- 左侧内容 -->
+                    <div>
+                        <!-- 专利图片 -->
+                        <div class="detail-section">
+                            <div style="background-color: var(--bg-gray); border-radius: var(--radius-md); overflow: hidden;">
+                                <img src="https://picsum.photos/seed/patent1/800/400" alt="专利展示图片" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <!-- 专利摘要 -->
+                        <div class="detail-section">
+                            <h2 class="detail-section__title">专利摘要</h2>
+                            <p class="text-secondary" style="line-height: 1.8;">
+                                本发明公开了一种基于人工智能的医疗诊断系统及方法，该系统包括数据采集模块、预处理模块、深度学习分析模块和诊断输出模块。数据采集模块用于获取患者的医学影像数据；预处理模块对影像数据进行去噪和增强处理；深度学习分析模块采用卷积神经网络对预处理后的影像进行分析，提取特征并生成诊断建议；诊断输出模块将分析结果以可视化方式展示给医生。本发明能够有效辅助医生进行疾病诊断，提高诊断效率和准确性，特别适用于早期癌症筛查和疑难杂症诊断。
+                            </p>
+                        </div>
+
+                        <!-- 技术领域 -->
+                        <div class="detail-section">
+                            <h2 class="detail-section__title">技术领域</h2>
+                            <p class="text-secondary">
+                                本发明属于人工智能技术领域，具体涉及医学影像处理和计算机辅助诊断技术。
+                            </p>
+                        </div>
+
+                        <!-- 背景技术 -->
+                        <div class="detail-section">
+                            <h2 class="detail-section__title">背景技术</h2>
+                            <p class="text-secondary" style="line-height: 1.8;">
+                                随着医学影像技术的快速发展，医生每天需要阅读大量的医学影像，如X光片、CT扫描、MRI等。传统的人工阅片方式存在效率低、主观性强等问题，特别是在基层医疗机构，专业影像医生资源匮乏，导致诊断质量和效率难以保证。虽然已有一些计算机辅助诊断系统，但存在准确率不高、泛化能力差等缺点，无法满足临床实际需求。
+                            </p>
+                        </div>
+
+                        <!-- 发明内容 -->
+                        <div class="detail-section">
+                            <h2 class="detail-section__title">发明内容</h2>
+                            <p class="text-secondary" style="line-height: 1.8;">
+                                本发明的目的是提供一种基于人工智能的医疗诊断系统及方法，以解决现有技术中诊断效率低、准确率不高的问题。本发明采用深度学习算法，通过大量标注数据训练模型，能够自动识别医学影像中的异常区域，并给出诊断建议。系统支持多模态影像输入，可同时处理CT、MRI、X光等多种影像类型。此外，系统还具有迁移学习能力，可以针对不同医院的数据进行个性化优化，提高诊断准确率。
+                            </p>
+                        </div>
+
+                        <!-- 附图说明 -->
+                        <div class="detail-section">
+                            <h2 class="detail-section__title">附图说明</h2>
+                            <p class="text-secondary mb-4">图1为本发明的系统架构图</p>
+                            <p class="text-secondary mb-4">图2为本发明的方法流程图</p>
+                            <div class="grid grid--2" style="gap: var(--space-3);">
+                                <img src="https://picsum.photos/seed/diag1/400/300" alt="系统架构图" style="border-radius: var(--radius-md);">
+                                <img src="https://picsum.photos/seed/diag2/400/300" alt="方法流程图" style="border-radius: var(--radius-md);">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右侧侧边栏 -->
+                    <aside class="detail-sidebar">
+                        <!-- 价格卡片 -->
+                        <div class="detail-price-card">
+                            <div class="detail-price">
+                                免费共享 / 可先沟通
+                                <span class="detail-price__unit"> / 免费共享专利</span>
+                            </div>
+                            <div class="detail-actions">
+                                <button class="btn btn--primary btn--lg btn--full" onclick="handleChatClick()">问数字顾问</button>
+                                <button class="btn btn--outline btn--lg btn--full" onclick="submitDetailTradeIntent()">提交交易意向</button>
+                                <button class="btn btn--outline btn--lg btn--full" onclick="handleDetailFavoriteClick()">收藏专利</button>
+                                <button class="btn btn--outline btn--lg btn--full" onclick="openAppointmentModal()">📅 预约真人</button>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <span class="text-light" style="font-size: var(--font-sm);">
+                                    138-1234-5678（点击复制）
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- 数字顾问卡片 -->
+                        <div class="inventor-chat-card" id="inventorCard">
+                            <div class="inventor-chat-card__header">
+                                <div class="inventor-chat-card__avatar">
+                                    <img src="https://api.dicebear.com/7.x/personas/svg?seed=ZhangMingyuan" alt="张明远" width="64" height="64">
+                                </div>
+                                <div class="inventor-chat-card__info">
+                                    <div class="inventor-chat-card__name">
+                                        <span>张明远</span>
+                                        <span class="inventor-chat-card__badge">数字顾问</span>
+                                    </div>
+                                    <div class="inventor-chat-card__expertise">
+                                        <span class="tag tag--sm">人工智能</span>
+                                        <span class="tag tag--sm">医疗影像</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="inventor-chat-card__bio">
+                                AI医疗领域专家，10年+深度学习研发经验，擅长将复杂技术问题转化为易懂方案。
+                            </p>
+                            <div class="inventor-chat-card__status" id="chatStatus">
+                                <span class="status-dot status-dot--authorized"></span>
+                                <span class="inventor-chat-card__status-text">可免费对话</span>
+                                <span class="inventor-chat-card__token-hint">约消耗 30 Token/次</span>
+                            </div>
+                            <button class="btn btn--primary btn--full" onclick="handleChatClick()">
+                                <span>💬</span> 与发明人对话
+                            </button>
+                        </div>
+
+                        <!-- 卖家信息 -->
+                        <div class="card mt-4">
+                            <div class="card__body">
+                                <h3 class="font-semibold mb-4">卖家信息</h3>
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div style="width: 48px; height: 48px; background: var(--primary-light); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: var(--primary); font-weight: var(--font-semibold);">
+                                        华创
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">华创科技有限公司</div>
+                                        <div class="text-light" style="font-size: var(--font-sm);">已认证企业</div>
+                                    </div>
+                                </div>
+                                <div class="text-secondary" style="font-size: var(--font-sm);">
+                                    <p class="mb-2">📍 上海市浦东新区</p>
+                                    <p class="mb-2">⏰ 平均响应时间: 2小时内</p>
+                                    <p>⭐ 好评率: 98.5%</p>
+                                </div>
+                                <button class="btn btn--outline btn--full mt-4" onclick="submitDetailTradeIntent()">联系卖家</button>
+                            </div>
+                        </div>
+
+                        <!-- 专利信息 -->
+                        <div class="card mt-4">
+                            <div class="card__body">
+                                <h3 class="font-semibold mb-4">专利信息</h3>
+                                <div class="text-secondary" style="font-size: var(--font-sm);">
+                                    <div class="flex justify-between mb-2">
+                                        <span>专利号</span>
+                                        <span class="font-medium">ZL202410001234.5</span>
+                                    </div>
+                                    <div class="flex justify-between mb-2">
+                                        <span>申请日</span>
+                                        <span class="font-medium">2024-01-15</span>
+                                    </div>
+                                    <div class="flex justify-between mb-2">
+                                        <span>授权日</span>
+                                        <span class="font-medium">2024-06-20</span>
+                                    </div>
+                                    <div class="flex justify-between mb-2">
+                                        <span>专利类型</span>
+                                        <span class="tag">发明专利</span>
+                                    </div>
+                                    <div class="flex justify-between mb-2">
+                                        <span>有效期</span>
+                                        <span class="font-medium">至2044-01-15</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>专利状态</span>
+                                        <span class="tag tag--success">有效</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+                <!-- 相关推荐 -->
+                <div class="section">
+                    <h2 class="font-semibold mb-6" style="font-size: var(--font-xl);">相关专利推荐</h2>
+                    <div class="grid grid--4">
+                        <article class="patent-card">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/rel1/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">发明专利</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <h3 class="patent-card__title">
+                                    <a href="patent-detail.html">一种医学影像增强方法及系统</a>
+                                </h3>
+                                <div class="patent-card__meta">
+                                    <span class="patent-card__price">免费共享 / 可先沟通</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="patent-card">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/rel2/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">实用新型</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <h3 class="patent-card__title">
+                                    <a href="patent-detail.html">一种智能问诊系统</a>
+                                </h3>
+                                <div class="patent-card__meta">
+                                    <span class="patent-card__price">免费共享 / 可先沟通</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="patent-card">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/rel3/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">发明专利</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <h3 class="patent-card__title">
+                                    <a href="patent-detail.html">一种疾病预测方法及装置</a>
+                                </h3>
+                                <div class="patent-card__meta">
+                                    <span class="patent-card__price">¥2,999/年 资料/对话许可</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="patent-card">
+                            <div class="patent-card__image-wrapper">
+                                <img src="https://picsum.photos/seed/rel4/400/300" alt="专利图片" class="patent-card__image">
+                                <span class="patent-card__tag">外观设计</span>
+                            </div>
+                            <div class="patent-card__body">
+                                <h3 class="patent-card__title">
+                                    <a href="patent-detail.html">一种医疗机器人外观设计</a>
+                                </h3>
+                                <div class="patent-card__meta">
+                                    <span class="patent-card__price">免费共享 / 可先沟通</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 会员升级弹窗 -->
+    <div class="modal" id="membershipModal">
+        <div class="modal__overlay" onclick="closeMembershipModal()"></div>
+        <div class="modal__content">
+            <button class="modal__close" onclick="closeMembershipModal()">×</button>
+            <h2 class="modal__title">开通会员服务</h2>
+            <p class="modal__desc text-secondary">升级会员，获得更多需求项目、顾问席位和交易跟进</p>
+
+            <div class="membership-plans">
+                <div class="membership-plan" data-level="free">
+                    <div class="membership-plan__header">
+                        <h3 class="membership-plan__name">免费认证版</h3>
+                        <div class="membership-plan__price">免费</div>
+                    </div>
+                    <ul class="membership-plan__features">
+                        <li>✓ 2 个技术需求项目</li>
+                        <li>✓ 每日 100 Token</li>
+                        <li>✓ 基础专利推荐</li>
+                        <li>✓ 0 个长期顾问席位</li>
+                    </ul>
+                    <button class="btn btn--outline btn--full" onclick="selectMembership('free')">选择</button>
+                </div>
+                <div class="membership-plan membership-plan--recommended" data-level="professional">
+                    <div class="membership-plan__badge">推荐</div>
+                    <div class="membership-plan__header">
+                        <h3 class="membership-plan__name">专业版</h3>
+                        <div class="membership-plan__price">¥299<span>/年</span></div>
+                    </div>
+                    <ul class="membership-plan__features">
+                        <li>✓ 8 个技术需求项目</li>
+                        <li>✓ 10 个顾问席位</li>
+                        <li>✓ 每日 500 Token</li>
+                        <li>✓ 资料/对话许可 9 折</li>
+                    </ul>
+                    <button class="btn btn--primary btn--full" onclick="selectMembership('professional')">选择</button>
+                </div>
+                <div class="membership-plan" data-level="enterprise">
+                    <div class="membership-plan__header">
+                        <h3 class="membership-plan__name">企业版</h3>
+                        <div class="membership-plan__price">¥799<span>/年</span></div>
+                    </div>
+                    <ul class="membership-plan__features">
+                        <li>✓ 30 个技术需求项目</li>
+                        <li>✓ 不限顾问席位</li>
+                        <li>✓ 每日 2000 Token</li>
+                        <li>✓ 资料/对话许可 8 折</li>
+                    </ul>
+                    <button class="btn btn--outline btn--full" onclick="selectMembership('enterprise')">选择</button>
+                </div>
+            </div>
+
+            <div class="modal__actions">
+                <button class="btn btn--ghost" onclick="closeMembershipModal()">稍后再说</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 专利许可购买弹窗 -->
+    <div class="modal" id="licenseModal">
+        <div class="modal__overlay" onclick="closeLicenseModal()"></div>
+        <div class="modal__content modal__content--sm">
+            <button class="modal__close" onclick="closeLicenseModal()">×</button>
+            <h2 class="modal__title">购买资料/对话许可</h2>
+
+            <div class="license-info">
+                <div class="license-info__patent">
+                    <img src="https://picsum.photos/seed/patent1/80/80" alt="专利图片" class="license-info__img">
+                    <div>
+                        <div class="font-medium">一种基于人工智能的医疗诊断系统及方法</div>
+                        <div class="text-secondary" style="font-size: var(--font-sm);">专利号：ZL202410001234.5</div>
+                    </div>
+                </div>
+                <div class="license-info__price">
+                    <span class="text-secondary">许可价格</span>
+                    <span class="license-info__price-value">免费共享 / 可先沟通</span>
+                </div>
+                <div class="license-info__desc text-secondary">
+                    购买后解锁该专利的深度数字人问答、技术资料摘要、匹配分析和交易意向入口；这不是法律意义上的专利使用授权。
+                </div>
+            </div>
+
+            <div class="modal__actions">
+                <button class="btn btn--outline" onclick="closeLicenseModal()">取消</button>
+                <button class="btn btn--primary" onclick="confirmLicensePurchase()">立即购买</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Token不足弹窗 -->
+    <div class="modal" id="tokenModal">
+        <div class="modal__overlay" onclick="closeTokenModal()"></div>
+        <div class="modal__content modal__content--sm">
+            <button class="modal__close" onclick="closeTokenModal()">×</button>
+            <div class="text-center">
+                <div style="font-size: 48px; margin-bottom: var(--space-4);">⚠️</div>
+                <h2 class="modal__title">Token 不足</h2>
+                <p class="text-secondary mb-4">
+                    您的今日 Token 已用完（100/100）<br>
+                    请明日再来或升级会员获取更多 Token
+                </p>
+            </div>
+            <div class="modal__actions">
+                <button class="btn btn--outline" onclick="closeTokenModal()">关闭</button>
+                <button class="btn btn--primary" onclick="goToMembership()">升级会员</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 预约真人弹窗 -->
+    <div class="modal" id="appointmentModal">
+        <div class="modal__overlay" onclick="closeAppointmentModal()"></div>
+        <div class="modal__content">
+            <button class="modal__close" onclick="closeAppointmentModal()">×</button>
+            <h2 class="modal__title">预约真人咨询</h2>
+            <p class="modal__desc text-secondary">选择您希望的咨询方式、日期和时间</p>
+
+            <!-- 咨询方式 -->
+            <div class="appointment-type">
+                <button class="appointment-type__btn appointment-type__btn--active" data-type="phone" onclick="selectAppointmentType('phone')">
+                    <span class="appointment-type__icon">📞</span>
+                    <span class="appointment-type__label">电话咨询</span>
+                </button>
+                <button class="appointment-type__btn" data-type="video" onclick="selectAppointmentType('video')">
+                    <span class="appointment-type__icon">🎥</span>
+                    <span class="appointment-type__label">视频咨询</span>
+                </button>
+            </div>
+
+            <!-- 预约表单 -->
+            <div class="appointment-form">
+                <!-- 日期选择 -->
+                <div class="appointment-calendar">
+                    <div class="appointment-calendar__title">选择日期</div>
+                    <div class="calendar-nav">
+                        <button class="calendar-nav__btn" onclick="prevWeek()" aria-label="上一周">‹</button>
+                        <span class="calendar-nav__info" id="calendarMonth"></span>
+                        <button class="calendar-nav__btn" onclick="nextWeek()" aria-label="下一周">›</button>
+                    </div>
+                    <div class="calendar-weekdays">
+                        <span class="calendar-weekday">日</span>
+                        <span class="calendar-weekday">一</span>
+                        <span class="calendar-weekday">二</span>
+                        <span class="calendar-weekday">三</span>
+                        <span class="calendar-weekday">四</span>
+                        <span class="calendar-weekday">五</span>
+                        <span class="calendar-weekday">六</span>
+                    </div>
+                    <div class="calendar-days" id="calendarDays"></div>
+                </div>
+
+                <!-- 时间段选择 -->
+                <div class="appointment-time-slots">
+                    <div class="appointment-time-slots__title">选择时间段</div>
+                    <div class="appointment-time-slots__grid">
+                        <button class="time-slot-btn" data-slot="morning" onclick="selectTimeSlot('morning')">
+                            <span class="time-slot-btn__time">上午 9:00-12:00</span>
+                            <span class="time-slot-btn__status">可预约</span>
+                        </button>
+                        <button class="time-slot-btn" data-slot="afternoon" onclick="selectTimeSlot('afternoon')">
+                            <span class="time-slot-btn__time">下午 14:00-17:00</span>
+                            <span class="time-slot-btn__status">可预约</span>
+                        </button>
+                        <button class="time-slot-btn" data-slot="evening" onclick="selectTimeSlot('evening')">
+                            <span class="time-slot-btn__time">晚上 19:00-21:00</span>
+                            <span class="time-slot-btn__status">可预约</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 联系信息 -->
+                <div class="appointment-contact">
+                    <div class="appointment-contact__title">联系信息</div>
+                    <div class="appointment-contact__row">
+                        <input type="text" id="appointmentName" class="input" placeholder="您的姓名 *" required>
+                        <input type="tel" id="appointmentPhone" class="input" placeholder="联系电话 *" required>
+                    </div>
+                    <input type="email" id="appointmentEmail" class="input" placeholder="电子邮箱（选填）">
+                </div>
+
+                <!-- 备注 -->
+                <div class="appointment-note">
+                    <div class="appointment-note__title">备注（选填）</div>
+                    <textarea id="appointmentNote" class="input form__textarea" placeholder="请简要描述您想咨询的问题..." rows="3"></textarea>
+                    <div class="appointment-note__hint">提交预约后，工作人员将在2小时内与您联系确认</div>
+                </div>
+            </div>
+
+            <div class="modal__actions">
+                <button class="btn btn--outline" onclick="closeAppointmentModal()">取消</button>
+                <button class="btn btn--primary" onclick="confirmAppointment()">确认预约</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 预约成功弹窗 -->
+    <div class="modal" id="appointmentSuccessModal">
+        <div class="modal__overlay" onclick="closeAppointmentSuccessModal()"></div>
+        <div class="modal__content modal__content--sm">
+            <button class="modal__close" onclick="closeAppointmentSuccessModal()">×</button>
+            <div class="text-center">
+                <div style="font-size: 48px; margin-bottom: var(--space-4);">✅</div>
+                <h2 class="modal__title">预约成功</h2>
+                <p class="text-secondary mb-4" id="appointmentSuccessInfo">
+                    我们将在2小时内与您联系确认
+                </p>
+            </div>
+            <div class="modal__actions">
+                <button class="btn btn--primary btn--full" onclick="closeAppointmentSuccessModal()">知道了</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h3 class="footer__title">关于我们</h3>
+                    <p class="footer__text">
+                        ScholarMate 是一个专业的企业端专利交易平台，致力于连接创新资源，助力企业发展。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="footer__title">快速链接</h3>
+                    <div class="footer__links">
+                        <a href="patent-list.html" class="footer__link">专利列表</a>
+                        <a href="patent-publish.html" class="footer__link">发布专利</a>
+                        <a href="user-center.html" class="footer__link">用户中心</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="footer__title">联系方式</h3>
+                    <p class="footer__text">
+                        邮箱: contact@scholarmate.com<br>
+                        电话: 400-123-4567
+                    </p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                © 2024 ScholarMate. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/business-core.js"></script>
+    <script src="scripts/semantic-search.js"></script>
+    <script src="scripts/main.js"></script>
+    <script>
+        const detailParams = new URLSearchParams(window.location.search);
+        const currentProjectId = detailParams.get('project') || '';
+        const currentPatent = (() => {
+            const patentId = detailParams.get('id') || 'ZL202410001234.5';
+            const patent = getPatentById(patentId);
+            const inventor = inventors.find(item => item.id === patent.inventorId) || inventors[0];
+            return Object.assign({}, patent, {
+                inventor: {
+                    id: inventor.id,
+                    name: inventor.name,
+                    avatar: inventor.avatar,
+                    expertise: inventor.expertise
+                },
+                licensePrice: ScholarMateBusinessCore.getPatentLicensePrice(patent)
+            });
+        })();
+
+        // 初始化
+        function initDetailPage() {
+            renderDetailContext();
+            updateChatStatus();
+            updateFavoriteButton();
+        }
+
+        function renderDetailContext() {
+            document.querySelector('.detail-header__title').textContent = currentPatent.title;
+            const priceCard = document.querySelector('.detail-price-card');
+            if (priceCard) {
+                const label = ScholarMateBusinessCore.getPatentLicenseLabel(currentPatent);
+                priceCard.querySelector('.detail-price').innerHTML = ScholarMateBusinessCore.isFreeSharedPatent(currentPatent)
+                    ? `${label}<span class="detail-price__unit"> / 免费共享专利</span>`
+                    : `${label}<span class="detail-price__unit"> / 年费</span>`;
+            }
+            document.querySelector('.inventor-chat-card__avatar img').src = currentPatent.inventor.avatar;
+            document.querySelector('.inventor-chat-card__avatar img').alt = currentPatent.inventor.name;
+            document.querySelector('.inventor-chat-card__name span:first-child').textContent = currentPatent.inventor.name;
+            document.querySelector('.inventor-chat-card__expertise').innerHTML = currentPatent.inventor.expertise.map(item => `<span class="tag tag--sm">${item}</span>`).join('');
+            document.querySelector('.license-info__patent .font-medium').textContent = currentPatent.title;
+            document.querySelector('.license-info__patent .text-secondary').textContent = `专利号：${currentPatent.id}`;
+            document.querySelector('.license-info__price-value').textContent = ScholarMateBusinessCore.getPatentLicenseLabel(currentPatent);
+        }
+
+        // 更新收藏按钮状态
+        function updateFavoriteButton() {
+            const favoriteBtn = document.querySelector('[onclick="handleDetailFavoriteClick()"]');
+            if (UserManager.isFavorite(currentPatent.id)) {
+                favoriteBtn.textContent = '已收藏';
+            }
+        }
+
+        // 更新对话状态显示
+        function updateChatStatus() {
+            const user = UserManager.getUser();
+            const statusEl = document.getElementById('chatStatus');
+            const statusText = statusEl.querySelector('.inventor-chat-card__status-text');
+            const statusDot = statusEl.querySelector('.status-dot');
+
+            statusDot.className = 'status-dot';
+
+            if (!user || !user.isLoggedIn) {
+                statusText.textContent = '注册企业后可试聊';
+                statusDot.classList.add('status-dot--vip');
+            } else if (!ScholarMateBusinessCore.isFreeSharedPatent(currentPatent) && !UserManager.hasPatentLicense(currentPatent.id)) {
+                statusText.textContent = '需购买资料/对话许可';
+                statusDot.classList.add('status-dot--unauthorized');
+            } else if (UserManager.getRemainingToken() <= 0) {
+                statusText.textContent = '今日Token已用完';
+                statusDot.classList.add('status-dot--token-low');
+            } else {
+                statusText.textContent = '可免费对话';
+                statusDot.classList.add('status-dot--authorized');
+            }
+        }
+
+        // 处理对话按钮点击
+        function handleChatClick() {
+            if (!UserManager.isLoggedIn()) {
+                if (confirm('注册企业账号后可试聊数字顾问，是否前往用户中心？')) {
+                    UserManager.registerEnterprise();
+                    window.location.href = 'user-center.html#enterprise-verification';
+                }
+                return;
+            }
+
+            if (!ScholarMateBusinessCore.isFreeSharedPatent(currentPatent) && !UserManager.hasPatentLicense(currentPatent.id)) {
+                if (!UserManager.isVerified()) {
+                    UserManager.promptVerification('购买资料/对话许可');
+                    return;
+                }
+                openLicenseModal();
+                return;
+            }
+
+            // 4. 检查Token
+            if (UserManager.getRemainingToken() <= 0) {
+                openTokenModal();
+                return;
+            }
+
+            // 5. 进入对话页面
+            const projectQuery = currentProjectId ? `&project=${encodeURIComponent(currentProjectId)}` : '';
+            window.location.href = `chat.html?inventor=${currentPatent.inventor.id}&patent=${currentPatent.id}${projectQuery}`;
+        }
+
+        function submitDetailTradeIntent() {
+            const gate = UserManager.canPerformCommercialAction();
+            if (!gate.allowed) {
+                UserManager.promptVerification('提交交易意向');
+                return;
+            }
+            let projectId = currentProjectId;
+            if (!projectId) {
+                const firstProject = UserManager.getDemandProjects()[0];
+                projectId = firstProject ? firstProject.id : '';
+            }
+            if (!projectId) {
+                alert('请先在用户中心创建技术需求项目，再提交交易意向。');
+                window.location.href = 'user-center.html#demand-projects';
+                return;
+            }
+            UserManager.createTradeIntent({
+                projectId,
+                patentId: currentPatent.id,
+                contactName: UserManager.getUser().name || '张明',
+                contactPhone: '13812345678',
+                message: `希望进一步评估“${currentPatent.title}”与我方技术需求的交易合作。`,
+                needAdvisor: true
+            });
+            ScholarMate.showToast('交易意向已提交');
+            window.location.href = 'user-center.html#trade-intents';
+        }
+
+        // 处理详情页收藏按钮点击
+        function handleDetailFavoriteClick() {
+            const favoriteBtn = document.querySelector('[onclick="handleDetailFavoriteClick()"]');
+            if (!UserManager.isLoggedIn()) {
+                if (confirm('登录后即可收藏专利，是否前往登录？')) {
+                    window.location.href = 'user-center.html';
+                }
+                return;
+            }
+
+            if (UserManager.isFavorite(currentPatent.id)) {
+                UserManager.removeFavorite(currentPatent.id);
+                favoriteBtn.textContent = '收藏专利';
+                ScholarMate.showToast('已取消收藏');
+            } else {
+                UserManager.addFavorite(currentPatent.id);
+                favoriteBtn.textContent = '已收藏';
+                ScholarMate.showToast('收藏成功');
+            }
+        }
+
+        // 弹窗控制函数
+        function openMembershipModal() {
+            document.getElementById('membershipModal').classList.add('modal--active');
+        }
+
+        function closeMembershipModal() {
+            document.getElementById('membershipModal').classList.remove('modal--active');
+        }
+
+        function openLicenseModal() {
+            document.getElementById('licenseModal').classList.add('modal--active');
+        }
+
+        function closeLicenseModal() {
+            document.getElementById('licenseModal').classList.remove('modal--active');
+        }
+
+        function openTokenModal() {
+            document.getElementById('tokenModal').classList.add('modal--active');
+        }
+
+        function closeTokenModal() {
+            document.getElementById('tokenModal').classList.remove('modal--active');
+        }
+
+        // 选择会员
+        function selectMembership(level) {
+            const plans = {
+                free: { name: '免费认证版' },
+                professional: { name: '专业版' },
+                enterprise: { name: '企业版' }
+            };
+
+            UserManager.activateMembership(level);
+            closeMembershipModal();
+            updateChatStatus();
+
+            alert(`恭喜！您已成功开通${plans[level].name}会员`);
+        }
+
+        // 确认购买专利许可
+        function confirmLicensePurchase() {
+            if (!UserManager.isVerified()) {
+                UserManager.promptVerification('购买资料/对话许可');
+                return;
+            }
+            UserManager.purchasePatentLicense(currentPatent.id);
+            closeLicenseModal();
+            updateChatStatus();
+            alert('购买成功！您已解锁该专利的资料/对话许可。');
+        }
+
+        // 前往会员页
+        function goToMembership() {
+            closeTokenModal();
+            window.location.href = 'membership.html';
+        }
+
+        // =============================================
+        // 预约真人功能
+        // =============================================
+        const appointmentState = {
+            type: 'phone',      // 'phone' | 'video'
+            date: null,         // 'YYYY-MM-DD'
+            timeSlot: null,     // 'morning' | 'afternoon' | 'evening'
+            calendarWeekOffset: 0
+        };
+
+        // 打开预约弹窗
+        function openAppointmentModal() {
+            const gate = ScholarMateBusinessCore.canBookAppointment(UserManager.getUser(), currentPatent);
+            if (!gate.allowed) {
+                if (!UserManager.isVerified()) {
+                    UserManager.promptVerification('预约真人咨询');
+                    return;
+                }
+                if (confirm(`${gate.reason}，是否前往会员页？`)) {
+                    window.location.href = 'membership.html';
+                }
+                return;
+            }
+            document.getElementById('appointmentModal').classList.add('modal--active');
+            renderCalendar();
+        }
+
+        function closeAppointmentModal() {
+            document.getElementById('appointmentModal').classList.remove('modal--active');
+        }
+
+        function closeAppointmentSuccessModal() {
+            document.getElementById('appointmentSuccessModal').classList.remove('modal--active');
+        }
+
+        // 选择预约类型
+        function selectAppointmentType(type) {
+            appointmentState.type = type;
+            document.querySelectorAll('.appointment-type__btn').forEach(btn => {
+                btn.classList.toggle('appointment-type__btn--active', btn.dataset.type === type);
+            });
+        }
+
+        // 渲染日历（显示未来2周）
+        function renderCalendar() {
+            const today = new Date();
+            const startDate = new Date(today);
+            startDate.setDate(today.getDate() + appointmentState.calendarWeekOffset * 7);
+
+            const monthStr = startDate.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long' });
+            document.getElementById('calendarMonth').textContent = monthStr;
+
+            const daysContainer = document.getElementById('calendarDays');
+            daysContainer.innerHTML = '';
+
+            // 计算起始日期（周日开始）
+            const dayOfWeek = startDate.getDay() || 7;
+            const gridStart = new Date(startDate);
+            gridStart.setDate(startDate.getDate() - dayOfWeek + 1);
+
+            // 最多显示2周
+            const maxDays = 14;
+            const endDate = new Date(gridStart);
+            endDate.setDate(gridStart.getDate() + maxDays);
+
+            for (let d = new Date(gridStart); d < endDate; d.setDate(d.getDate() + 1)) {
+                const date = new Date(d);
+                const dateStr = formatDate(date);
+                const isPast = date < today && !isSameDay(date, today);
+                const isToday = isSameDay(date, today);
+                const isSelected = dateStr === appointmentState.date;
+                const isWeekend = date.getDay() === 0 || date.getDay() === 6;
+
+                const btn = document.createElement('button');
+                btn.className = 'calendar-day';
+                btn.textContent = date.getDate();
+                btn.disabled = isPast || isWeekend;
+
+                if (isPast) btn.classList.add('calendar-day--past');
+                if (isToday) btn.classList.add('calendar-day--today');
+                if (isSelected) btn.classList.add('calendar-day--selected');
+                if (isWeekend) btn.classList.add('calendar-day--disabled');
+
+                btn.onclick = () => selectDate(dateStr, btn);
+                daysContainer.appendChild(btn);
+            }
+        }
+
+        function prevWeek() {
+            if (appointmentState.calendarWeekOffset > 0) {
+                appointmentState.calendarWeekOffset--;
+                renderCalendar();
+            }
+        }
+
+        function nextWeek() {
+            if (appointmentState.calendarWeekOffset < 1) {
+                appointmentState.calendarWeekOffset++;
+                renderCalendar();
+            }
+        }
+
+        function selectDate(dateStr, btn) {
+            appointmentState.date = dateStr;
+            document.querySelectorAll('.calendar-day').forEach(b => b.classList.remove('calendar-day--selected'));
+            btn.classList.add('calendar-day--selected');
+        }
+
+        // 选择时间段
+        function selectTimeSlot(slot) {
+            appointmentState.timeSlot = slot;
+            document.querySelectorAll('.time-slot-btn').forEach(btn => {
+                btn.classList.toggle('time-slot-btn--active', btn.dataset.slot === slot);
+            });
+        }
+
+        // 确认预约
+        function confirmAppointment() {
+            const name = document.getElementById('appointmentName').value.trim();
+            const phone = document.getElementById('appointmentPhone').value.trim();
+            const email = document.getElementById('appointmentEmail').value.trim();
+            const note = document.getElementById('appointmentNote').value.trim();
+
+            // 表单验证
+            if (!name) {
+                alert('请输入您的姓名');
+                return;
+            }
+            if (!phone) {
+                alert('请输入联系电话');
+                return;
+            }
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+                alert('请输入正确的手机号码');
+                return;
+            }
+            if (!appointmentState.date) {
+                alert('请选择预约日期');
+                return;
+            }
+            if (!appointmentState.timeSlot) {
+                alert('请选择时间段');
+                return;
+            }
+
+            // 构建预约信息
+            const timeSlotLabels = {
+                morning: '上午 9:00-12:00',
+                afternoon: '下午 14:00-17:00',
+                evening: '晚上 19:00-21:00'
+            };
+
+            const appointmentInfo = `
+咨询方式：${appointmentState.type === 'phone' ? '电话咨询' : '视频咨询'}
+预约日期：${appointmentState.date} ${timeSlotLabels[appointmentState.timeSlot]}
+姓名：${name}
+电话：${phone}
+${email ? '邮箱：' + email : ''}
+${note ? '备注：' + note : ''}
+            `.trim();
+
+            // 关闭预约弹窗，显示成功弹窗
+            closeAppointmentModal();
+            document.getElementById('appointmentSuccessInfo').textContent =
+                `您的${appointmentState.type === 'phone' ? '电话' : '视频'}预约已提交\n${appointmentState.date} ${timeSlotLabels[appointmentState.timeSlot]}\n工作人员将在2小时内与您联系确认`;
+            document.getElementById('appointmentSuccessModal').classList.add('modal--active');
+
+            // 重置状态
+            appointmentState.date = null;
+            appointmentState.timeSlot = null;
+            document.getElementById('appointmentName').value = '';
+            document.getElementById('appointmentPhone').value = '';
+            document.getElementById('appointmentEmail').value = '';
+            document.getElementById('appointmentNote').value = '';
+            document.querySelectorAll('.time-slot-btn').forEach(b => b.classList.remove('time-slot-btn--active'));
+        }
+
+        // 工具函数
+        function formatDate(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function isSameDay(d1, d2) {
+            return d1.getFullYear() === d2.getFullYear() &&
+                   d1.getMonth() === d2.getMonth() &&
+                   d1.getDate() === d2.getDate();
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initDetailPage);
+    </script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布专利 - ScholarMate 专利交易平台</title>
+    <link rel="icon" href="figures/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="navbar">
+        <div class="container navbar__container">
+            <a href="index.html" class="navbar__logo">
+                <span class="navbar__logo-icon">📋</span>
+                <span class="navbar__logo-text">ScholarMate</span>
+            </a>
+            <nav class="navbar__menu">
+                <a href="index.html" class="navbar__link">首页</a>
+                <a href="patent-list.html" class="navbar__link">专利列表</a>
+                <a href="patent-publish.html" class="navbar__link navbar__link--active">发布专利</a>
+                <a href="user-center.html" class="navbar__link">用户中心</a>
+            </nav>
+            <div class="navbar__actions">
+                <a href="user-center.html" class="btn btn--outline">登录</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main class="section">
+        <div class="container">
+            <div class="user-content" style="max-width: 800px; margin: 0 auto;">
+                <div class="user-content__header">
+                    <h1 class="user-content__title">发布专利</h1>
+                    <a href="patent-list.html" class="btn btn--ghost">返回列表</a>
+                </div>
+
+                <form class="publish-form">
+                    <!-- 基本信息 -->
+                    <section class="mb-8">
+                        <h2 class="font-semibold mb-4" style="font-size: var(--font-lg);">基本信息</h2>
+
+                        <div class="input__wrapper">
+                            <label for="title" class="input__label">
+                                专利名称 <span class="input__required">*</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                class="input"
+                                placeholder="请输入专利名称"
+                                required
+                            >
+                        </div>
+
+                        <div class="form__row">
+                            <div class="input__wrapper">
+                                <label for="type" class="input__label">
+                                    专利类型 <span class="input__required">*</span>
+                                </label>
+                                <select id="type" name="type" class="select" required>
+                                    <option value="">请选择专利类型</option>
+                                    <option value="invention">发明专利</option>
+                                    <option value="utility">实用新型</option>
+                                    <option value="design">外观设计</option>
+                                </select>
+                            </div>
+
+                            <div class="input__wrapper">
+                                <label for="category" class="input__label">
+                                    技术领域 <span class="input__required">*</span>
+                                </label>
+                                <select id="category" name="category" class="select" required>
+                                    <option value="">请选择技术领域</option>
+                                    <option value="ai">人工智能</option>
+                                    <option value="energy">新能源</option>
+                                    <option value="medical">医疗健康</option>
+                                    <option value="iot">物联网</option>
+                                    <option value="manufacturing">智能制造</option>
+                                    <option value="blockchain">区块链</option>
+                                    <option value="other">其他</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form__row">
+                            <div class="input__wrapper">
+                                <label for="patent_no" class="input__label">
+                                    专利号
+                                </label>
+                                <input
+                                    type="text"
+                                    id="patent_no"
+                                    name="patent_no"
+                                    class="input"
+                                    placeholder="如: ZL202410001234.5"
+                                >
+                            </div>
+
+                            <div class="input__wrapper">
+                                <label for="price" class="input__label">
+                                    转让价格 (元) <span class="input__required">*</span>
+                                </label>
+                                <input
+                                    type="number"
+                                    id="price"
+                                    name="price"
+                                    class="input"
+                                    placeholder="请输入期望价格"
+                                    min="0"
+                                    required
+                                >
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 专利详情 -->
+                    <section class="mb-8">
+                        <h2 class="font-semibold mb-4" style="font-size: var(--font-lg);">专利详情</h2>
+
+                        <div class="input__wrapper">
+                            <label for="summary" class="input__label">
+                                专利摘要 <span class="input__required">*</span>
+                            </label>
+                            <textarea
+                                id="summary"
+                                name="summary"
+                                class="form__textarea"
+                                placeholder="请简要描述专利的核心技术、功能和适用场景（建议100-500字）"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="input__wrapper">
+                            <label for="description" class="input__label">
+                                详细说明
+                            </label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                class="form__textarea"
+                                style="min-height: 200px;"
+                                placeholder="请详细描述专利的技术方案、发明内容、优势特点等"
+                            ></textarea>
+                        </div>
+
+                        <div class="input__wrapper">
+                            <label for="advantages" class="input__label">
+                                技术优势
+                            </label>
+                            <textarea
+                                id="advantages"
+                                name="advantages"
+                                class="form__textarea"
+                                placeholder="请描述该专利相比现有技术的主要优势"
+                            ></textarea>
+                        </div>
+                    </section>
+
+                    <!-- 上传图片 -->
+                    <section class="mb-8">
+                        <h2 class="font-semibold mb-4" style="font-size: var(--font-lg);">上传图片</h2>
+
+                        <div class="input__wrapper">
+                            <label class="input__label">
+                                专利图片
+                            </label>
+                            <div style="border: 2px dashed var(--border); border-radius: var(--radius-md); padding: var(--space-8); text-align: center; cursor: pointer;">
+                                <div style="font-size: 32px; margin-bottom: var(--space-2);">📤</div>
+                                <p class="text-secondary mb-2">点击或拖拽文件到此区域上传</p>
+                                <p class="text-light" style="font-size: var(--font-xs);">支持 JPG、PNG 格式，单个文件不超过 5MB</p>
+                                <input
+                                    type="file"
+                                    name="images"
+                                    accept="image/*"
+                                    multiple
+                                    style="display: none;"
+                                >
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 联系方式 -->
+                    <section class="mb-8">
+                        <h2 class="font-semibold mb-4" style="font-size: var(--font-lg);">联系方式</h2>
+
+                        <div class="form__row">
+                            <div class="input__wrapper">
+                                <label for="contact_name" class="input__label">
+                                    联系人姓名
+                                </label>
+                                <input
+                                    type="text"
+                                    id="contact_name"
+                                    name="contact_name"
+                                    class="input"
+                                    placeholder="请输入联系人姓名"
+                                >
+                            </div>
+
+                            <div class="input__wrapper">
+                                <label for="contact_phone" class="input__label">
+                                    联系电话
+                                </label>
+                                <input
+                                    type="tel"
+                                    id="contact_phone"
+                                    name="contact_phone"
+                                    class="input"
+                                    placeholder="请输入联系电话"
+                                >
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 提交按钮 -->
+                    <div class="form__actions">
+                        <button type="button" class="btn btn--outline btn--lg" onclick="window.history.back()">
+                            取消
+                        </button>
+                        <button type="submit" class="btn btn--primary btn--lg">
+                            提交发布
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h3 class="footer__title">关于我们</h3>
+                    <p class="footer__text">
+                        ScholarMate 是一个专业的企业端专利交易平台，致力于连接创新资源，助力企业发展。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="footer__title">快速链接</h3>
+                    <div class="footer__links">
+                        <a href="patent-list.html" class="footer__link">专利列表</a>
+                        <a href="patent-publish.html" class="footer__link">发布专利</a>
+                        <a href="user-center.html" class="footer__link">用户中心</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="footer__title">联系方式</h3>
+                    <p class="footer__text">
+                        邮箱: contact@scholarmate.com<br>
+                        电话: 400-123-4567
+                    </p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                © 2024 ScholarMate. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/business-core.js"></script>
+    <script src="scripts/semantic-search.js"></script>
+    <script src="scripts/main.js"></script>
+    <script>
+        // 图片上传区域交互
+        document.querySelector('input[name="images"]').addEventListener('change', function(e) {
+            const files = e.target.files;
+            if (files.length > 0) {
+                const uploadArea = this.parentElement;
+                uploadArea.innerHTML = `
+                    <div style="font-size: 32px; margin-bottom: var(--space-2);">✅</div>
+                    <p class="text-secondary mb-2">已选择 ${files.length} 个文件</p>
+                    <p class="text-light" style="font-size: var(--font-xs);">点击重新选择</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

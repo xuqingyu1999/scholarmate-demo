@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>与张明远对话 - ScholarMate</title>
+    <link rel="icon" href="figures/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="navbar">
+        <div class="container navbar__container">
+            <a href="index.html" class="navbar__logo">
+                <span class="navbar__logo-icon">📋</span>
+                <span class="navbar__logo-text">ScholarMate</span>
+            </a>
+            <nav class="navbar__menu">
+                <a href="index.html" class="navbar__link">首页</a>
+                <a href="patent-list.html" class="navbar__link">专利列表</a>
+                <a href="patent-publish.html" class="navbar__link">发布专利</a>
+                <a href="user-center.html" class="navbar__link">用户中心</a>
+            </nav>
+            <div class="navbar__actions">
+                <a href="user-center.html" class="btn btn--outline">登录</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main>
+        <div class="container" style="padding-top: var(--space-4);">
+            <div class="chat-layout">
+                <!-- 左侧：发明人信息 -->
+                <aside class="chat-sidebar">
+                    <a href="patent-detail.html" id="chatBackLink" class="chat-header__back" style="display: inline-flex; align-items: center; gap: var(--space-2); color: var(--text-secondary); margin-bottom: var(--space-4);">
+                        ← 返回专利详情
+                    </a>
+
+                    <div class="chat-inventor-info">
+                        <div class="chat-inventor-info__avatar">
+                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=ZhangMingyuan" alt="张明远">
+                        </div>
+                        <div class="chat-inventor-info__name">张明远</div>
+                        <div class="chat-inventor-info__badge">数字顾问</div>
+                        <div class="chat-inventor-info__expertise">
+                            <span class="tag">人工智能</span>
+                            <span class="tag">医疗影像</span>
+                        </div>
+                        <p class="chat-inventor-info__bio">
+                            AI医疗领域专家，10年+深度学习研发经验，擅长将复杂技术问题转化为易懂方案。
+                        </p>
+                    </div>
+
+                    <div class="chat-token-info">
+                        <div class="chat-token-info__label">今日剩余 Token</div>
+                        <div class="chat-token-info__value" id="tokenDisplay">100</div>
+                        <div class="chat-token-info__hint">本次对话约消耗 30 Token</div>
+                    </div>
+
+                    <div class="chat-membership-cta" id="chatMembershipCta">
+                        <div class="chat-membership-cta__title">升级会员获取更多顾问席位</div>
+                        <div class="chat-membership-cta__desc" id="chatMembershipDesc">专业版/企业版支持长期顾问席位、更多需求项目、Token 和真人跟进。</div>
+                        <a href="membership.html" class="btn btn--primary btn--sm">查看会员方案</a>
+                    </div>
+
+                    <div class="chat-seat-panel" id="seatActionPanel"></div>
+
+                    <div class="chat-session-panel">
+                        <div class="chat-session-panel__header">
+                            <span>对话会话</span>
+                            <button class="btn btn--outline btn--sm" onclick="createNewSession()">新建</button>
+                        </div>
+                        <div class="chat-session-list" id="sessionList"></div>
+                    </div>
+
+                    <div class="chat-quick-questions">
+                        <div class="chat-quick-questions__title">快捷问题</div>
+                        <div class="chat-quick-questions__list">
+                            <button class="chat-quick-question" onclick="sendQuickQuestion('这项技术的核心优势是什么？')">
+                                这项技术的核心优势是什么？
+                            </button>
+                            <button class="chat-quick-question" onclick="sendQuickQuestion('研发过程中遇到的最大挑战是什么？')">
+                                研发过程中遇到的最大挑战是什么？
+                            </button>
+                            <button class="chat-quick-question" onclick="sendQuickQuestion('这项技术未来的迭代方向？')">
+                                这项技术未来的迭代方向？
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- 右侧：对话区域 -->
+                    <div class="chat-main">
+                        <div class="chat-header">
+                        <span class="chat-header__back">💬</span>
+                        <div>
+                            <div class="chat-header__title">与张明远对话</div>
+                            <div class="chat-header__patent">专利：一种基于人工智能的医疗诊断系统及方法</div>
+                        </div>
+                        </div>
+
+                        <div class="llm-config-panel" id="llmConfigPanel"></div>
+
+                        <div class="chat-messages" id="chatMessages">
+                        <!-- AI 欢迎消息 -->
+                        <div class="chat-message chat-message--ai">
+                            <div class="chat-message__avatar">
+                                <img src="https://api.dicebear.com/7.x/personas/svg?seed=ZhangMingyuan" alt="张明远">
+                            </div>
+                            <div>
+                                <div class="chat-message__content">
+                                    您好！我是张明远，这款AI医疗诊断系统的发明人。很高兴您对我的专利感兴趣！您有什么想了解的吗？无论是技术细节、研发历程还是商业应用，我都很乐意为您解答。
+                                </div>
+                                <div class="chat-message__time">刚刚</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <div class="chat-input-wrapper">
+                            <textarea
+                                class="chat-input"
+                                id="chatInput"
+                                placeholder="输入您的问题..."
+                                rows="1"
+                                onkeydown="handleKeyDown(event)"
+                                oninput="autoResize(this)"
+                            ></textarea>
+                            <button class="chat-send-btn" id="sendBtn" onclick="sendMessage()">
+                                发送
+                            </button>
+                        </div>
+                        <div class="chat-input__token">
+                            <span id="tokenCost">消耗约 30 Token</span>
+                            <button class="btn btn--outline btn--sm" style="margin-left: var(--space-3);" onclick="submitTradeIntentFromChat()">提交交易意向</button>
+                            <button class="btn btn--ghost btn--sm" id="localFallbackBtn" style="display: none; margin-left: var(--space-2);" onclick="sendLocalFallbackForLastQuestion()">本地模拟回复</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts/business-core.js"></script>
+    <script src="scripts/semantic-search.js"></script>
+    <script src="scripts/chat-sessions.js"></script>
+    <script src="scripts/llm-client.js"></script>
+    <script src="scripts/main.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const inventorId = urlParams.get('inventor') || 'inv_001';
+        const patentId = urlParams.get('patent') || 'ZL202410001234.5';
+        const projectId = urlParams.get('project') || '';
+        const inventor = inventors.find(i => i.id === inventorId) || inventors[0];
+        const patent = getPatentById(patentId);
+        const project = projectId ? UserManager.getDemandProject(projectId) : null;
+        const requestedSessionId = urlParams.get('session') || '';
+        const chatContext = { projectId, patentId };
+        let currentSession = null;
+        let lastUserQuestion = '';
+
+        function initChat() {
+            if (!UserManager.getUser()) {
+                UserManager.registerEnterprise();
+            }
+            ChatSessions.migrateLegacy();
+            const chatGate = UserManager.canChatAboutPatent(patent.id);
+            if (!chatGate.allowed) {
+                document.querySelector('.chat-input').disabled = true;
+                document.getElementById('sendBtn').disabled = true;
+                renderWelcomeMessage();
+                appendMessage('ai', `${chatGate.reason}。这一步解锁的是资料摘要、深度问答和匹配分析，不是法律意义上的专利使用授权。请先前往专利详情页处理。`, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
+                setTimeout(() => {
+                    window.location.href = `patent-detail.html?id=${encodeURIComponent(patent.id)}${projectId ? `&project=${encodeURIComponent(projectId)}` : ''}`;
+                }, 1200);
+                return;
+            }
+            document.title = `与${inventor.name}对话 - ScholarMate`;
+            document.querySelector('.chat-header__title').textContent = `与${inventor.name}对话`;
+            document.querySelector('.chat-header__patent').textContent = `专利：${patent.title}`;
+            document.querySelector('.chat-inventor-info__avatar img').src = inventor.avatar;
+            document.querySelector('.chat-inventor-info__avatar img').alt = inventor.name;
+            document.querySelector('.chat-inventor-info__name').textContent = inventor.name;
+            document.querySelector('.chat-inventor-info__expertise').innerHTML = inventor.expertise.map(item => `<span class="tag tag--sm">${item}</span>`).join('');
+            document.querySelector('.chat-inventor-info__bio').textContent = `${inventor.name}会结合企业需求项目，用业务语言解释专利价值、落地门槛和下一步交易路径。`;
+            document.getElementById('chatBackLink').href = `patent-detail.html?id=${encodeURIComponent(patent.id)}${projectId ? `&project=${encodeURIComponent(projectId)}` : ''}`;
+            ensureCurrentSession();
+            renderChatMembershipCta();
+            renderSeatAction();
+            renderLlmConfigPanel();
+            renderSessionList();
+            renderWelcomeMessage();
+            updateTokenDisplay();
+            loadConversationHistory();
+        }
+
+        function ensureCurrentSession(forceNew = false) {
+            if (!forceNew && requestedSessionId) {
+                const existing = ChatSessions.getSession(requestedSessionId);
+                if (
+                    existing &&
+                    existing.inventorId === inventor.id &&
+                    (existing.patentId || '') === (patent.id || '') &&
+                    (existing.projectId || '') === (projectId || '')
+                ) {
+                    currentSession = existing;
+                    return currentSession;
+                }
+            }
+            if (!forceNew) {
+                currentSession = ChatSessions.listByInventor(inventor.id)
+                    .find(session => session.patentId === patent.id && (session.projectId || '') === (projectId || '')) || null;
+            }
+            if (!currentSession) {
+                currentSession = ChatSessions.createSession({
+                    inventorId: inventor.id,
+                    patentId: patent.id,
+                    projectId,
+                    provider: LlmClient.isConfigured() ? 'openai-compatible' : 'local-demo',
+                    model: (LlmClient.getConfig() && LlmClient.getConfig().model) || ''
+                });
+            }
+            return currentSession;
+        }
+
+        function renderChatMembershipCta() {
+            const user = UserManager.getUser();
+            const plan = ScholarMateBusinessCore.getMembershipPlan(user && user.membership ? user.membership : 'free');
+            const seatUsage = UserManager.getAdvisorSeatUsage();
+            const projectName = project ? `当前需求：${project.title}` : '当前未绑定技术需求项目';
+            document.getElementById('chatMembershipDesc').textContent = `${plan.name || '免费认证版'} · 顾问席位 ${seatUsage.label} · ${projectName} · 剩余 Token ${UserManager.getRemainingToken()}`;
+        }
+
+        function renderSeatAction() {
+            const panel = document.getElementById('seatActionPanel');
+            const user = UserManager.getUser();
+            const assets = UserManager.getDigitalHumanAssets();
+            const alreadyAsset = assets.some(asset => asset.inventorId === inventor.id && (!asset.patentId || asset.patentId === patent.id));
+            if (alreadyAsset) {
+                panel.innerHTML = '<div class="chat-seat-panel__status">已加入我的数字顾问</div>';
+                return;
+            }
+            if (ScholarMateBusinessCore.hasPaidMembership(user)) {
+                const seatUsage = UserManager.getAdvisorSeatUsage();
+                panel.innerHTML = `<button class="btn btn--outline btn--full btn--sm" onclick="joinCurrentDigitalHuman()">加入顾问席位（${seatUsage.label}）</button>`;
+                return;
+            }
+            panel.innerHTML = '<div class="chat-seat-panel__status">专业版/企业版可加入长期顾问席位</div>';
+        }
+
+        function joinCurrentDigitalHuman() {
+            const result = UserManager.joinDigitalHumanSeat({ inventorId: inventor.id, patentId: patent.id, projectId });
+            if (!result.allowed) {
+                alert(result.reason);
+                return;
+            }
+            renderSeatAction();
+            ScholarMate.showToast('已加入我的数字顾问');
+        }
+
+        function renderSessionList() {
+            const list = document.getElementById('sessionList');
+            const sessions = ChatSessions.listByInventor(inventor.id)
+                .slice(0, 10);
+            if (!sessions.length) {
+                list.innerHTML = '<div class="chat-session-empty">暂无会话</div>';
+                return;
+            }
+            list.innerHTML = sessions.map(session => `
+                <button class="chat-session-item ${currentSession && currentSession.sessionId === session.sessionId ? 'chat-session-item--active' : ''}" onclick="switchSession('${session.sessionId}')">
+                    <span>${ScholarMate.escapeHtml(session.title)}</span>
+                    <small>${new Date(session.updatedAt).toLocaleDateString('zh-CN')}</small>
+                </button>
+            `).join('');
+        }
+
+        function switchSession(sessionId) {
+            const session = ChatSessions.getSession(sessionId);
+            if (!session) return;
+            const params = new URLSearchParams({ inventor: session.inventorId, patent: session.patentId || patent.id, session: session.sessionId });
+            if (session.projectId) params.set('project', session.projectId);
+            window.location.href = `chat.html?${params.toString()}`;
+        }
+
+        function createNewSession() {
+            currentSession = ChatSessions.createSession({
+                inventorId: inventor.id,
+                patentId: patent.id,
+                projectId,
+                provider: LlmClient.isConfigured() ? 'openai-compatible' : 'local-demo',
+                model: (LlmClient.getConfig() && LlmClient.getConfig().model) || ''
+            });
+            renderSessionList();
+            renderWelcomeMessage();
+            history.replaceState(null, '', `chat.html?inventor=${encodeURIComponent(inventor.id)}&patent=${encodeURIComponent(patent.id)}${projectId ? `&project=${encodeURIComponent(projectId)}` : ''}&session=${encodeURIComponent(currentSession.sessionId)}`);
+        }
+
+        function renderLlmConfigPanel(message = '') {
+            const panel = document.getElementById('llmConfigPanel');
+            const config = LlmClient.getConfig();
+            if (LlmClient.isConfigured(config)) {
+                panel.innerHTML = `
+                    <div class="llm-config-panel__row">
+                        <div>
+                            <strong>真实大模型演示模式</strong>
+                            <span class="text-secondary" style="font-size: var(--font-sm);">当前模型：${ScholarMate.escapeHtml(config.model)} · API key 仅保存在本次浏览器会话</span>
+                            ${message ? `<p class="text-secondary" style="font-size: var(--font-sm);">${ScholarMate.escapeHtml(message)}</p>` : ''}
+                        </div>
+                        <button class="btn btn--outline btn--sm" onclick="clearLlmConfig()">清除配置</button>
+                    </div>
+                `;
+                return;
+            }
+            panel.innerHTML = `
+                <div class="llm-config-panel__form">
+                    <div>
+                        <strong>配置真实大模型（演示模式）</strong>
+                        <p class="text-secondary" style="font-size: var(--font-sm);">纯前端 Key 只适合本机演示，关闭标签页后失效，生产环境应改为后端代理。</p>
+                    </div>
+                    <input class="input" id="llmBaseURL" placeholder="baseURL，例如 https://api.openai.com/v1">
+                    <input class="input" id="llmModel" placeholder="model，例如 gpt-4o-mini 或供应商模型名">
+                    <input class="input" id="llmApiKey" type="password" placeholder="API key（仅保存到 sessionStorage）">
+                    <button class="btn btn--primary btn--sm" onclick="saveLlmConfig()">保存本次会话配置</button>
+                    ${message ? `<p class="text-secondary" style="font-size: var(--font-sm);">${ScholarMate.escapeHtml(message)}</p>` : ''}
+                </div>
+            `;
+        }
+
+        function saveLlmConfig() {
+            const config = LlmClient.saveSessionConfig({
+                baseURL: document.getElementById('llmBaseURL').value,
+                model: document.getElementById('llmModel').value,
+                apiKey: document.getElementById('llmApiKey').value
+            });
+            document.getElementById('llmApiKey').value = '';
+            renderLlmConfigPanel(`已保存 ${config.model}，下一轮对话将调用真实模型。`);
+            renderSessionList();
+        }
+
+        function clearLlmConfig() {
+            LlmClient.clearConfig();
+            renderLlmConfigPanel('已清除本次会话的大模型配置。');
+        }
+
+        function renderWelcomeMessage() {
+            const container = document.getElementById('chatMessages');
+            const projectLine = project ? `我已看到你的需求项目“${project.title}”，会围绕${project.industry}、${project.stage}和${project.budget}预算来判断。` : '如果你先创建技术需求项目，我可以给出更贴近企业场景的匹配判断。';
+            container.innerHTML = `
+                <div class="chat-message chat-message--ai">
+                    <div class="chat-message__avatar">
+                        <img src="${ScholarMate.escapeHtml(inventor.avatar)}" alt="${ScholarMate.escapeHtml(inventor.name)}">
+                    </div>
+                    <div>
+                        <div class="chat-message__content">
+                            您好，我是${ScholarMate.escapeHtml(inventor.name)}。${ScholarMate.escapeHtml(projectLine)}<br><br>
+                            当前专利是“${ScholarMate.escapeHtml(patent.title)}”。你可以直接问它适不适合你们、怎么落地、风险在哪里，或者让我帮你准备交易意向。
+                        </div>
+                        <div class="chat-message__time">刚刚</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateTokenDisplay() {
+            const remaining = UserManager.getRemainingToken();
+            document.getElementById('tokenDisplay').textContent = remaining;
+        }
+
+        function loadConversationHistory() {
+            if (!currentSession) ensureCurrentSession();
+            (currentSession.messages || []).forEach(msg => {
+                appendMessage(msg.role, msg.content, new Date(msg.time).toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
+            });
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            const chatGate = UserManager.canChatAboutPatent(patent.id);
+            if (!chatGate.allowed) {
+                alert(chatGate.reason);
+                window.location.href = `patent-detail.html?id=${encodeURIComponent(patent.id)}${projectId ? `&project=${encodeURIComponent(projectId)}` : ''}`;
+                return;
+            }
+
+            if (!UserManager.consumeToken(30)) {
+                alert('Token不足，请明日再来或升级会员');
+                return;
+            }
+
+            lastUserQuestion = message;
+            appendMessage('user', message, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }));
+
+            input.value = '';
+            input.style.height = 'auto';
+            updateTokenDisplay();
+
+            const config = LlmClient.getConfig();
+            if (!LlmClient.isConfigured(config)) {
+                renderLlmConfigPanel('尚未配置真实模型，本轮已使用本地顾问回复。配置 baseURL、model 和 API key 后，后续对话会自动调用真实模型。');
+                sendLocalFallbackForLastQuestion();
+                return;
+            }
+
+            appendMessage('ai', '正在调用真实大模型生成技术顾问回复...', new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
+            try {
+                const reply = await LlmClient.sendAdvisorChat({
+                    config,
+                    inventor,
+                    patent,
+                    project,
+                    user: UserManager.getUser(),
+                    history: (currentSession && currentSession.messages) || [],
+                    question: ''
+                });
+                removeTransientThinkingMessage();
+                appendMessage('ai', reply, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), true, { provider: 'openai-compatible', model: config.model });
+                document.getElementById('localFallbackBtn').style.display = 'none';
+            } catch (error) {
+                removeTransientThinkingMessage();
+                document.getElementById('localFallbackBtn').style.display = '';
+                appendMessage('ai', `真实模型暂时不可用：${LlmClient.safeErrorMessage(error)}。你可以检查 baseURL、model、API key 或网络/CORS，也可以点击“本地模拟回复”继续演示。`, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
+            }
+        }
+
+        function removeTransientThinkingMessage() {
+            const messages = Array.from(document.querySelectorAll('.chat-message--ai .chat-message__content'));
+            const thinking = messages.reverse().find(node => node.textContent.includes('正在调用真实大模型'));
+            if (thinking) thinking.closest('.chat-message').remove();
+        }
+
+        function sendLocalFallbackForLastQuestion() {
+            if (!lastUserQuestion) return;
+            const response = ScholarMateBusinessCore.composeAdvisorReply({
+                inventorName: inventor.name,
+                patent,
+                project,
+                question: lastUserQuestion
+            });
+            appendMessage('ai', response, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), true, { provider: 'local-demo', model: 'composeAdvisorReply' });
+            document.getElementById('localFallbackBtn').style.display = 'none';
+        }
+
+        function sendQuickQuestion(question) {
+            if (UserManager.getRemainingToken() < 30) {
+                alert('Token不足，请明日再来或升级会员');
+                return;
+            }
+
+            document.getElementById('chatInput').value = question;
+            sendMessage();
+        }
+
+        function appendMessage(role, content, time, save = true, meta = {}) {
+            const container = document.getElementById('chatMessages');
+            const normalizedRole = role === 'assistant' ? 'ai' : role;
+            const isAI = normalizedRole === 'ai';
+
+            const messageEl = document.createElement('div');
+            messageEl.className = `chat-message chat-message--${normalizedRole}`;
+
+            messageEl.innerHTML = `
+                <div class="chat-message__avatar ${isAI ? '' : 'chat-message__user-avatar'}">
+                    ${isAI
+                        ? `<img src="${ScholarMate.escapeHtml(inventor.avatar)}" alt="${ScholarMate.escapeHtml(inventor.name)}">`
+                        : '<span style="display:flex;align-items:center;justify-content:center;height:100%;font-size:16px;">👤</span>'
+                    }
+                </div>
+                <div>
+                    <div class="chat-message__content">${ScholarMate.formatMessage(content)}</div>
+                    <div class="chat-message__time">${ScholarMate.escapeHtml(time)}</div>
+                </div>
+            `;
+
+            container.appendChild(messageEl);
+            container.scrollTop = container.scrollHeight;
+
+            if (save) {
+                if (!currentSession) ensureCurrentSession();
+                currentSession = ChatSessions.addMessage(currentSession.sessionId, {
+                    role: isAI ? 'assistant' : normalizedRole,
+                    content,
+                    provider: meta.provider,
+                    model: meta.model
+                });
+                renderSessionList();
+            }
+        }
+
+        function submitTradeIntentFromChat() {
+            const gate = UserManager.canPerformCommercialAction();
+            if (!gate.allowed) {
+                UserManager.promptVerification('提交交易意向');
+                return;
+            }
+            if (!projectId) {
+                alert('建议先在用户中心创建技术需求项目，再提交交易意向。');
+                window.location.href = 'user-center.html#demand-projects';
+                return;
+            }
+            UserManager.createTradeIntent({
+                projectId,
+                patentId,
+                contactName: UserManager.getUser().name || '张明',
+                contactPhone: '13812345678',
+                message: `基于与${inventor.name}的数字人沟通，希望进一步评估“${patent.title}”的交易合作。`,
+                needAdvisor: true
+            });
+            ScholarMate.showToast('交易意向已提交');
+            window.location.href = 'user-center.html#trade-intents';
+        }
+
+        function handleKeyDown(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        }
+
+        document.addEventListener('DOMContentLoaded', initChat);
+    </script>
+</body>
+</html>

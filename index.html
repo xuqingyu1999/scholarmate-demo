@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首页 - ScholarMate 专利交易平台</title>
+    <link rel="icon" href="figures/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="navbar">
+        <div class="container navbar__container">
+            <a href="index.html" class="navbar__logo">
+                <span class="navbar__logo-icon">📋</span>
+                <span class="navbar__logo-text">ScholarMate</span>
+            </a>
+            <nav class="navbar__menu">
+                <a href="index.html" class="navbar__link navbar__link--active">首页</a>
+                <a href="patent-list.html" class="navbar__link">专利列表</a>
+                <a href="patent-publish.html" class="navbar__link">发布专利</a>
+                <a href="user-center.html" class="navbar__link">用户中心</a>
+            </nav>
+            <div class="navbar__actions">
+                <a href="user-center.html" class="btn btn--outline">登录</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容 -->
+    <main>
+        <!-- 搜索区域 -->
+        <section class="search-section">
+            <div class="container">
+                <h1 class="text-center font-bold" style="font-size: var(--font-4xl); margin-bottom: var(--space-2);">
+                    发现优质专利
+                </h1>
+                <p class="text-center" style="margin-bottom: var(--space-8);">
+                    连接全球创新资源，助您快速获取所需专利
+                </p>
+                <form class="search-box" action="patent-list.html" method="GET">
+                    <input
+                        type="text"
+                        name="search"
+                        class="input"
+                        placeholder="搜索专利名称、关键词..."
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="btn btn--primary">搜索</button>
+                </form>
+                <div class="search-tags">
+                    <span class="search-tag">人工智能</span>
+                    <span class="search-tag">新能源</span>
+                    <span class="search-tag">医疗健康</span>
+                    <span class="search-tag">物联网</span>
+                    <span class="search-tag">智能制造</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 精选专利 -->
+        <section class="section section--white">
+            <div class="container">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="font-semibold" style="font-size: var(--font-2xl);">精选专利</h2>
+                    <a href="patent-list.html" class="btn btn--ghost">查看更多 →</a>
+                </div>
+                <div class="patent-list">
+                    <!-- 专利卡片 1 -->
+                    <article class="patent-card" data-patent-id="ZL202410001234.5">
+                        <div class="patent-card__image-wrapper">
+                            <img src="https://picsum.photos/seed/patent1/400/300" alt="专利图片" class="patent-card__image">
+                            <span class="patent-card__tag">发明专利</span>
+                        </div>
+                        <div class="patent-card__body">
+                            <div class="patent-card__header">
+                                <h3 class="patent-card__title">
+                                    <a href="patent-detail.html">一种基于人工智能的医疗诊断系统及方法</a>
+                                </h3>
+                                <span class="patent-card__favorite" data-patent-id="ZL202410001234.5" role="button" aria-label="收藏" tabindex="0">♡</span>
+                            </div>
+                            <p class="patent-card__desc">利用深度学习算法对医学影像进行自动分析，辅助医生进行疾病诊断，提高诊断效率和准确性。</p>
+                            <div class="patent-card__meta">
+                                <div class="patent-card__info">
+                                    <span class="patent-card__info-item">📂 人工智能</span>
+                                    <span class="patent-card__info-item">🔢 ZL202410001234.5</span>
+                                    <span class="patent-card__info-item">📍 上海</span>
+                                    <span class="patent-card__info-item">👁️ 1,234</span>
+                                </div>
+                                <div class="patent-card__price">免费共享 / 可先沟通</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 专利卡片 2 -->
+                    <article class="patent-card" data-patent-id="ZL202410005678.9">
+                        <div class="patent-card__image-wrapper">
+                            <img src="https://picsum.photos/seed/patent2/400/300" alt="专利图片" class="patent-card__image">
+                            <span class="patent-card__tag">实用新型</span>
+                        </div>
+                        <div class="patent-card__body">
+                            <div class="patent-card__header">
+                                <h3 class="patent-card__title">
+                                    <a href="patent-detail.html">一种智能家居控制系统及其控制方法</a>
+                                </h3>
+                                <span class="patent-card__favorite" data-patent-id="ZL202410005678.9" role="button" aria-label="收藏" tabindex="0">♡</span>
+                            </div>
+                            <p class="patent-card__desc">通过物联网技术实现家居设备的互联互通，支持语音控制和远程管理。</p>
+                            <div class="patent-card__meta">
+                                <div class="patent-card__info">
+                                    <span class="patent-card__info-item">📂 物联网</span>
+                                    <span class="patent-card__info-item">🔢 ZL202410005678.9</span>
+                                    <span class="patent-card__info-item">📍 北京</span>
+                                    <span class="patent-card__info-item">👁️ 856</span>
+                                </div>
+                                <div class="patent-card__price">免费共享 / 可先沟通</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 专利卡片 3 -->
+                    <article class="patent-card" data-patent-id="ZL202410009012.3">
+                        <div class="patent-card__image-wrapper">
+                            <img src="https://picsum.photos/seed/patent3/400/300" alt="专利图片" class="patent-card__image">
+                            <span class="patent-card__tag">发明专利</span>
+                        </div>
+                        <div class="patent-card__body">
+                            <div class="patent-card__header">
+                                <h3 class="patent-card__title">
+                                    <a href="patent-detail.html">一种新能源汽车电池热管理系统</a>
+                                </h3>
+                                <span class="patent-card__favorite" data-patent-id="ZL202410009012.3" role="button" aria-label="收藏" tabindex="0">♡</span>
+                            </div>
+                            <p class="patent-card__desc">有效控制电池温度，提高电池使用寿命和安全性，适用于各种新能源汽车。</p>
+                            <div class="patent-card__meta">
+                                <div class="patent-card__info">
+                                    <span class="patent-card__info-item">📂 新能源</span>
+                                    <span class="patent-card__info-item">🔢 ZL202410009012.3</span>
+                                    <span class="patent-card__info-item">📍 深圳</span>
+                                    <span class="patent-card__info-item">👁️ 2,156</span>
+                                </div>
+                                <div class="patent-card__price">¥2,999/年 资料/对话许可</div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- 热门分类 -->
+        <section class="section">
+            <div class="container">
+                <h2 class="font-semibold text-center mb-8" style="font-size: var(--font-2xl);">热门技术领域</h2>
+                <div class="grid grid--4">
+                    <a href="patent-list.html?category=ai" class="card" style="text-align: center; padding: var(--space-6);">
+                        <div style="font-size: 32px; margin-bottom: var(--space-3);">🤖</div>
+                        <h3 class="font-semibold mb-2">人工智能</h3>
+                        <p class="text-secondary" style="font-size: var(--font-sm);">1,234 件专利</p>
+                    </a>
+                    <a href="patent-list.html?category=energy" class="card" style="text-align: center; padding: var(--space-6);">
+                        <div style="font-size: 32px; margin-bottom: var(--space-3);">⚡</div>
+                        <h3 class="font-semibold mb-2">新能源</h3>
+                        <p class="text-secondary" style="font-size: var(--font-sm);">987 件专利</p>
+                    </a>
+                    <a href="patent-list.html?category=medical" class="card" style="text-align: center; padding: var(--space-6);">
+                        <div style="font-size: 32px; margin-bottom: var(--space-3);">🏥</div>
+                        <h3 class="font-semibold mb-2">医疗健康</h3>
+                        <p class="text-secondary" style="font-size: var(--font-sm);">756 件专利</p>
+                    </a>
+                    <a href="patent-list.html?category=iot" class="card" style="text-align: center; padding: var(--space-6);">
+                        <div style="font-size: 32px; margin-bottom: var(--space-3);">📡</div>
+                        <h3 class="font-semibold mb-2">物联网</h3>
+                        <p class="text-secondary" style="font-size: var(--font-sm);">1,567 件专利</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 平台优势 -->
+        <section class="section section--white">
+            <div class="container">
+                <h2 class="font-semibold text-center mb-8" style="font-size: var(--font-2xl);">为什么选择 ScholarMate</h2>
+                <div class="grid grid--3">
+                    <div class="text-center">
+                        <div style="font-size: 40px; margin-bottom: var(--space-4);">🔒</div>
+                        <h3 class="font-semibold mb-2">安全交易</h3>
+                        <p class="text-secondary" style="font-size: var(--font-sm);">专业的交易保障机制，确保买卖双方权益</p>
+                    </div>
+                    <div class="text-center">
+                        <div style="font-size: 40px; margin-bottom: var(--space-4);">⚡</div>
+                        <h3 class="font-semibold mb-2">高效匹配</h3>
+                        <p class="text-secondary" style="font-size: var(--font-sm);">智能推荐系统，快速匹配供需双方</p>
+                    </div>
+                    <div class="text-center">
+                        <div style="font-size: 40px; margin-bottom: var(--space-4);">💼</div>
+                        <h3 class="font-semibold mb-2">专业服务</h3>
+                        <p class="text-secondary" style="font-size: var(--font-sm);">资深的专利顾问团队，提供全程支持</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <h3 class="footer__title">关于我们</h3>
+                    <p class="footer__text">
+                        ScholarMate 是一个专业的企业端专利交易平台，致力于连接创新资源，助力企业发展。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="footer__title">快速链接</h3>
+                    <div class="footer__links">
+                        <a href="patent-list.html" class="footer__link">专利列表</a>
+                        <a href="patent-publish.html" class="footer__link">发布专利</a>
+                        <a href="user-center.html" class="footer__link">用户中心</a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="footer__title">联系方式</h3>
+                    <p class="footer__text">
+                        邮箱: contact@scholarmate.com<br>
+                        电话: 400-123-4567
+                    </p>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                © 2024 ScholarMate. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="scripts/business-core.js"></script>
+    <script src="scripts/semantic-search.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
