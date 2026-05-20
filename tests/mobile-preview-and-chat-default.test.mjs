@@ -37,11 +37,49 @@ assert.strictEqual(sandbox.ScholarMate.isMobilePreviewMode({ search: '?mobile=1'
 assert.strictEqual(sandbox.ScholarMate.isMobilePreviewMode({ search: '?foo=1' }), false);
 assert.ok(sandbox.patents.length >= 24, `expected at least 24 patents, got ${sandbox.patents.length}`);
 
-const unconfiguredBlock = chatHtml.match(/if \(!LlmClient\.isConfigured\(config\)\) \{([\s\S]*?)\n            \}/);
-assert.ok(unconfiguredBlock, 'chat sendMessage should branch on missing LLM config');
+assert.ok(!/llmConfigPanel/.test(chatHtml), 'chat page should remove LLM credential config panel');
+assert.ok(!/sessionStorage/i.test(chatHtml), 'chat page should not mention sessionStorage secret flow');
+assert.ok(!/llmApiKey|llmBaseURL|llmModel/.test(chatHtml), 'chat page should not include API key/baseURL/model inputs');
 assert.ok(
-  unconfiguredBlock[1].includes('sendLocalFallbackForLastQuestion();'),
-  'missing LLM config should automatically generate a local advisor reply'
+  chatHtml.includes('LlmClient.sendAdvisorChat({') && !chatHtml.includes('config,'),
+  'chat page should call sendAdvisorChat without user-configured secret payload'
+);
+assert.ok(
+  chatHtml.includes('inventorId: inventor.id') && chatHtml.includes('patentId: patent.id'),
+  'chat page should send only inventorId/patentId identifiers to serverless proxy'
+);
+assert.ok(
+  !chatHtml.includes('LlmClient.sendAdvisorChat({\n                    persona: currentPersona')
+    && !chatHtml.includes('LlmClient.sendAdvisorChat({\n                    knowledgePatents: currentScholarPatents'),
+  'chat page should not send full persona/evidence objects in serverless payload'
+);
+assert.ok(
+  chatHtml.includes("provider: 'serverless-openai-compatible'") && chatHtml.includes("provider: 'local-demo'"),
+  'chat sessions should use serverless/local-demo provider tags'
+);
+assert.ok(
+  chatHtml.includes('id="chatWorkbenchLink"') && chatHtml.includes('id="chatWorkbenchHeaderLink"'),
+  'chat page should expose return-to-homepage links'
+);
+assert.ok(
+  chatHtml.includes('function buildWorkbenchReturnHref') && chatHtml.includes('mode: \'advisor\'') && chatHtml.includes('params.set(\'q\', restoredQuestion)'),
+  'chat page should build a homepage advisor return URL with the current question'
+);
+assert.ok(
+  chatHtml.includes('id="chatBackLink"') && chatHtml.includes('id="chatDetailHeaderLink"'),
+  'chat page should keep patent-detail actions visible'
+);
+assert.ok(
+  chatHtml.includes('assets/scholars/personas.json') && chatHtml.includes('loadPersonas'),
+  'chat page should load static personas with runtime fallback handling'
+);
+assert.ok(
+  chatHtml.includes('renderEvidenceCard') && chatHtml.includes('evidenceItems.length') && chatHtml.includes('chat-evidence'),
+  'chat page should render evidence card collapsed label'
+);
+assert.ok(
+  chatHtml.includes('resolveEvidencePatents({') && chatHtml.includes('patents: currentScholarPatents'),
+  'chat evidence resolution should use scholar-scoped patents instead of full catalog'
 );
 
 assert.ok(
@@ -54,3 +92,4 @@ assert.ok(
 );
 
 console.log('mobile preview and chat default tests passed');
+

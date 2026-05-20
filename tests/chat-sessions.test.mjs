@@ -73,4 +73,14 @@ assert.strictEqual(migrated, 1);
 assert.ok(storage.has('chat_history_inv_002_general_p2'));
 assert.strictEqual(ChatSessions.listByInventor('inv_002')[0].messages[0].content, '旧对话');
 
+ChatSessions.clearSession(created.sessionId);
+assert.strictEqual(ChatSessions.getSession(created.sessionId), null, 'clearSession should delete only the selected session');
+assert.strictEqual(ChatSessions.listByInventor('inv_002').length, 1, 'clearSession should not delete unrelated sessions');
+
+const migratedSession = ChatSessions.listByInventor('inv_002')[0];
+ChatSessions.clearSession(migratedSession.sessionId);
+assert.strictEqual(ChatSessions.listByInventor('inv_002').length, 0, 'clearSession should delete migrated legacy sessions');
+assert.strictEqual(storage.has('chat_history_inv_002_general_p2'), false, 'clearSession should remove the legacy source key for deleted migrated sessions');
+assert.strictEqual(ChatSessions.migrateLegacy(), 0, 'deleted migrated sessions should not reappear on the next migration');
+
 console.log('chat-sessions tests passed');

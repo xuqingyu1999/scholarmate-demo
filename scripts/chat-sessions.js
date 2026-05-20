@@ -150,7 +150,12 @@
     }
 
     function clearSession(sessionId) {
-        writeAll(readAll().filter(session => session.sessionId !== sessionId));
+        const sessions = readAll();
+        const target = sessions.find(session => session.sessionId === sessionId);
+        if (target && target.legacyKey) {
+            global.localStorage.removeItem(target.legacyKey);
+        }
+        writeAll(sessions.filter(session => session.sessionId !== sessionId));
     }
 
     global.ChatSessions = {

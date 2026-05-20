@@ -15,14 +15,13 @@
     <header class="navbar">
         <div class="container navbar__container">
             <a href="index.html" class="navbar__logo">
-                <span class="navbar__logo-icon">📋</span>
-                <span class="navbar__logo-text">ScholarMate</span>
+                <span class="navbar__logo-icon">⌕</span>
+                <span class="navbar__logo-text">科研之友</span>
             </a>
             <nav class="navbar__menu">
                 <a href="index.html" class="navbar__link">首页</a>
-                <a href="patent-list.html" class="navbar__link navbar__link--active">专利列表</a>
-                <a href="patent-publish.html" class="navbar__link">发布专利</a>
-                <a href="user-center.html" class="navbar__link">用户中心</a>
+                <a href="patent-list.html" class="navbar__link navbar__link--active">寻找专利</a>
+                <a href="user-center.html#my-licenses" class="navbar__link">我的许可</a>
             </nav>
             <div class="navbar__actions">
                 <a href="user-center.html" class="btn btn--outline">登录</a>
@@ -41,7 +40,7 @@
                         <span>🏷️</span> 发明专利
                     </span>
                     <span class="detail-header__meta-item">
-                        <span>📅</span> 2024-01-15
+                        <span>📅</span> 2022-09-16
                     </span>
                     <span class="detail-header__meta-item">
                         <span>👁️</span> 1,234 次浏览
@@ -50,7 +49,7 @@
                         <span>📂</span> 人工智能 / 医疗健康
                     </span>
                     <span class="detail-header__meta-item">
-                        <span>🔢</span> ZL202410001234.5
+                        <span>🔢</span> CN115062165A
                     </span>
                 </div>
             </div>
@@ -64,9 +63,7 @@
                     <div>
                         <!-- 专利图片 -->
                         <div class="detail-section">
-                            <div style="background-color: var(--bg-gray); border-radius: var(--radius-md); overflow: hidden;">
-                                <img src="https://picsum.photos/seed/patent1/800/400" alt="专利展示图片" style="width: 100%;">
-                            </div>
+                            <div id="detailPatentMedia" class="detail-patent-media"></div>
                         </div>
 
                         <!-- 专利摘要 -->
@@ -106,10 +103,7 @@
                             <h2 class="detail-section__title">附图说明</h2>
                             <p class="text-secondary mb-4">图1为本发明的系统架构图</p>
                             <p class="text-secondary mb-4">图2为本发明的方法流程图</p>
-                            <div class="grid grid--2" style="gap: var(--space-3);">
-                                <img src="https://picsum.photos/seed/diag1/400/300" alt="系统架构图" style="border-radius: var(--radius-md);">
-                                <img src="https://picsum.photos/seed/diag2/400/300" alt="方法流程图" style="border-radius: var(--radius-md);">
-                            </div>
+                            <div id="detailFigureGrid" class="grid grid--2" style="gap: var(--space-3);"></div>
                         </div>
                     </div>
 
@@ -127,18 +121,14 @@
                                 <button class="btn btn--outline btn--lg btn--full" onclick="handleDetailFavoriteClick()">收藏专利</button>
                                 <button class="btn btn--outline btn--lg btn--full" onclick="openAppointmentModal()">📅 预约真人</button>
                             </div>
-                            <div class="mt-4 text-center">
-                                <span class="text-light" style="font-size: var(--font-sm);">
-                                    138-1234-5678（点击复制）
-                                </span>
-                            </div>
+                            <div class="mt-4 text-center"><span class="text-light" id="detailContactHint" style="font-size: var(--font-sm);">通过平台提交交易意向后对接</span></div>
                         </div>
 
                         <!-- 数字顾问卡片 -->
                         <div class="inventor-chat-card" id="inventorCard">
                             <div class="inventor-chat-card__header">
                                 <div class="inventor-chat-card__avatar">
-                                    <img src="https://api.dicebear.com/7.x/personas/svg?seed=ZhangMingyuan" alt="张明远" width="64" height="64">
+                                    <img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%232563eb%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2257%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E6%9D%8E%3C%2Ftext%3E%3C%2Fsvg%3E" alt="张明远" width="64" height="64">
                                 </div>
                                 <div class="inventor-chat-card__info">
                                     <div class="inventor-chat-card__name">
@@ -151,9 +141,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="inventor-chat-card__bio">
-                                AI医疗领域专家，10年+深度学习研发经验，擅长将复杂技术问题转化为易懂方案。
-                            </p>
+                            <p class="inventor-chat-card__bio">数字顾问基于公开专利文本、首席发明人和权利人元数据生成，仅用于技术沟通原型。</p>
                             <div class="inventor-chat-card__status" id="chatStatus">
                                 <span class="status-dot status-dot--authorized"></span>
                                 <span class="inventor-chat-card__status-text">可免费对话</span>
@@ -164,58 +152,29 @@
                             </button>
                         </div>
 
-                        <!-- 卖家信息 -->
-                        <div class="card mt-4">
+                        <!-- 权利人/来源信息 -->
+                        <div class="card mt-4" id="assigneeCard">
                             <div class="card__body">
-                                <h3 class="font-semibold mb-4">卖家信息</h3>
+                                <h3 class="font-semibold mb-4">权利人/来源信息</h3>
                                 <div class="flex items-center gap-3 mb-4">
-                                    <div style="width: 48px; height: 48px; background: var(--primary-light); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: var(--primary); font-weight: var(--font-semibold);">
-                                        华创
+                                    <div id="assigneeInitials" style="width: 48px; height: 48px; background: var(--primary-light); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: var(--primary); font-weight: var(--font-semibold);">
+                                        公开
                                     </div>
                                     <div>
-                                        <div class="font-medium">华创科技有限公司</div>
-                                        <div class="text-light" style="font-size: var(--font-sm);">已认证企业</div>
+                                        <div class="font-medium" id="assigneeName">科研之友专利库 公开记录</div>
+                                        <div class="text-light" id="assigneeRole" style="font-size: var(--font-sm);">公开来源元数据</div>
                                     </div>
                                 </div>
-                                <div class="text-secondary" style="font-size: var(--font-sm);">
-                                    <p class="mb-2">📍 上海市浦东新区</p>
-                                    <p class="mb-2">⏰ 平均响应时间: 2小时内</p>
-                                    <p>⭐ 好评率: 98.5%</p>
-                                </div>
-                                <button class="btn btn--outline btn--full mt-4" onclick="submitDetailTradeIntent()">联系卖家</button>
+                                <div class="text-secondary" id="assigneeMeta" style="font-size: var(--font-sm);"></div>
+                                <button class="btn btn--outline btn--full mt-4" onclick="submitDetailTradeIntent()">提交交易意向</button>
                             </div>
                         </div>
 
                         <!-- 专利信息 -->
-                        <div class="card mt-4">
+                        <div class="card mt-4" id="patentInfoCard">
                             <div class="card__body">
                                 <h3 class="font-semibold mb-4">专利信息</h3>
-                                <div class="text-secondary" style="font-size: var(--font-sm);">
-                                    <div class="flex justify-between mb-2">
-                                        <span>专利号</span>
-                                        <span class="font-medium">ZL202410001234.5</span>
-                                    </div>
-                                    <div class="flex justify-between mb-2">
-                                        <span>申请日</span>
-                                        <span class="font-medium">2024-01-15</span>
-                                    </div>
-                                    <div class="flex justify-between mb-2">
-                                        <span>授权日</span>
-                                        <span class="font-medium">2024-06-20</span>
-                                    </div>
-                                    <div class="flex justify-between mb-2">
-                                        <span>专利类型</span>
-                                        <span class="tag">发明专利</span>
-                                    </div>
-                                    <div class="flex justify-between mb-2">
-                                        <span>有效期</span>
-                                        <span class="font-medium">至2044-01-15</span>
-                                    </div>
-                                    <div class="flex justify-between">
-                                        <span>专利状态</span>
-                                        <span class="tag tag--success">有效</span>
-                                    </div>
-                                </div>
+                                <div class="text-secondary" id="patentInfoBody" style="font-size: var(--font-sm);"></div>
                             </div>
                         </div>
                     </aside>
@@ -224,64 +183,7 @@
                 <!-- 相关推荐 -->
                 <div class="section">
                     <h2 class="font-semibold mb-6" style="font-size: var(--font-xl);">相关专利推荐</h2>
-                    <div class="grid grid--4">
-                        <article class="patent-card">
-                            <div class="patent-card__image-wrapper">
-                                <img src="https://picsum.photos/seed/rel1/400/300" alt="专利图片" class="patent-card__image">
-                                <span class="patent-card__tag">发明专利</span>
-                            </div>
-                            <div class="patent-card__body">
-                                <h3 class="patent-card__title">
-                                    <a href="patent-detail.html">一种医学影像增强方法及系统</a>
-                                </h3>
-                                <div class="patent-card__meta">
-                                    <span class="patent-card__price">免费共享 / 可先沟通</span>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="patent-card">
-                            <div class="patent-card__image-wrapper">
-                                <img src="https://picsum.photos/seed/rel2/400/300" alt="专利图片" class="patent-card__image">
-                                <span class="patent-card__tag">实用新型</span>
-                            </div>
-                            <div class="patent-card__body">
-                                <h3 class="patent-card__title">
-                                    <a href="patent-detail.html">一种智能问诊系统</a>
-                                </h3>
-                                <div class="patent-card__meta">
-                                    <span class="patent-card__price">免费共享 / 可先沟通</span>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="patent-card">
-                            <div class="patent-card__image-wrapper">
-                                <img src="https://picsum.photos/seed/rel3/400/300" alt="专利图片" class="patent-card__image">
-                                <span class="patent-card__tag">发明专利</span>
-                            </div>
-                            <div class="patent-card__body">
-                                <h3 class="patent-card__title">
-                                    <a href="patent-detail.html">一种疾病预测方法及装置</a>
-                                </h3>
-                                <div class="patent-card__meta">
-                                    <span class="patent-card__price">¥2,999/年 资料/对话许可</span>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="patent-card">
-                            <div class="patent-card__image-wrapper">
-                                <img src="https://picsum.photos/seed/rel4/400/300" alt="专利图片" class="patent-card__image">
-                                <span class="patent-card__tag">外观设计</span>
-                            </div>
-                            <div class="patent-card__body">
-                                <h3 class="patent-card__title">
-                                    <a href="patent-detail.html">一种医疗机器人外观设计</a>
-                                </h3>
-                                <div class="patent-card__meta">
-                                    <span class="patent-card__price">免费共享 / 可先沟通</span>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
+                    <div class="grid grid--4" id="relatedPatentGrid"></div>
                 </div>
             </div>
         </section>
@@ -353,10 +255,10 @@
 
             <div class="license-info">
                 <div class="license-info__patent">
-                    <img src="https://picsum.photos/seed/patent1/80/80" alt="专利图片" class="license-info__img">
+                    <img src="assets/patents/CN115062165A.png" alt="专利图片" class="license-info__img">
                     <div>
                         <div class="font-medium">一种基于人工智能的医疗诊断系统及方法</div>
-                        <div class="text-secondary" style="font-size: var(--font-sm);">专利号：ZL202410001234.5</div>
+                        <div class="text-secondary" style="font-size: var(--font-sm);">专利号：CN115062165A</div>
                     </div>
                 </div>
                 <div class="license-info__price">
@@ -512,9 +414,9 @@
                 <div>
                     <h3 class="footer__title">快速链接</h3>
                     <div class="footer__links">
-                        <a href="patent-list.html" class="footer__link">专利列表</a>
-                        <a href="patent-publish.html" class="footer__link">发布专利</a>
-                        <a href="user-center.html" class="footer__link">用户中心</a>
+                        <a href="index.html" class="footer__link">首页</a>
+                        <a href="patent-list.html" class="footer__link">寻找专利</a>
+                        <a href="user-center.html#my-licenses" class="footer__link">我的许可</a>
                     </div>
                 </div>
                 <div>
@@ -538,7 +440,7 @@
         const detailParams = new URLSearchParams(window.location.search);
         const currentProjectId = detailParams.get('project') || '';
         const currentPatent = (() => {
-            const patentId = detailParams.get('id') || 'ZL202410001234.5';
+            const patentId = detailParams.get('id') || 'CN115062165A';
             const patent = getPatentById(patentId);
             const inventor = inventors.find(item => item.id === patent.inventorId) || inventors[0];
             return Object.assign({}, patent, {
@@ -561,6 +463,20 @@
 
         function renderDetailContext() {
             document.querySelector('.detail-header__title').textContent = currentPatent.title;
+            const headerMeta = document.querySelector('.detail-header__meta');
+            if (headerMeta) {
+                headerMeta.innerHTML = `
+                    <span class="detail-header__meta-item"><span>🏷️</span> ${ScholarMateBusinessCore.isFreeSharedPatent(currentPatent) ? '免费共享' : '资料/对话许可'}</span>
+                    <span class="detail-header__meta-item"><span>📂</span> ${ScholarMate.escapeHtml(currentPatent.field)} / ${ScholarMate.escapeHtml(currentPatent.industry)}</span>
+                    <span class="detail-header__meta-item"><span>🔢</span> ${ScholarMate.escapeHtml(currentPatent.id)}</span>
+                    ${currentPatent.sourceName ? `<span class="detail-header__meta-item"><span>↗</span> ${ScholarMate.escapeHtml(currentPatent.sourceName)}</span>` : ''}
+                `;
+            }
+            const detailSections = document.querySelectorAll('.detail-section');
+            const summaryText = detailSections[1]?.querySelector('p.text-secondary');
+            if (summaryText) summaryText.textContent = currentPatent.summary;
+            const fieldText = detailSections[2]?.querySelector('p.text-secondary');
+            if (fieldText) fieldText.textContent = `${currentPatent.field} / ${currentPatent.industry}`;
             const priceCard = document.querySelector('.detail-price-card');
             if (priceCard) {
                 const label = ScholarMateBusinessCore.getPatentLicenseLabel(currentPatent);
@@ -575,6 +491,94 @@
             document.querySelector('.license-info__patent .font-medium').textContent = currentPatent.title;
             document.querySelector('.license-info__patent .text-secondary').textContent = `专利号：${currentPatent.id}`;
             document.querySelector('.license-info__price-value').textContent = ScholarMateBusinessCore.getPatentLicenseLabel(currentPatent);
+            const assigneeName = document.getElementById('assigneeName');
+            if (assigneeName) assigneeName.textContent = currentPatent.assignee || '科研之友专利库 公开记录';
+            const assigneeRole = document.getElementById('assigneeRole');
+            if (assigneeRole) assigneeRole.textContent = `首席发明人：${currentPatent.leadInventor || currentPatent.inventor.name}`;
+            const assigneeInitials = document.getElementById('assigneeInitials');
+            if (assigneeInitials) assigneeInitials.textContent = (currentPatent.leadInventor || currentPatent.inventor.name || '\u516c\u5f00').slice(0, 2);
+            const assigneeMeta = document.getElementById('assigneeMeta');
+            if (assigneeMeta) {
+                assigneeMeta.innerHTML = [
+                    `<p class="mb-2">来源：${ScholarMate.escapeHtml(currentPatent.sourceName || '科研之友专利库')}</p>`,
+                    `<p class="mb-2">公开日：${ScholarMate.escapeHtml(currentPatent.publicationDate || '--')}</p>`,
+                    `<p>法律状态需二次核验，本页面不构成许可结论。</p>`
+                ].join('');
+            }
+            const patentInfoBody = document.getElementById('patentInfoBody');
+            if (patentInfoBody) {
+                patentInfoBody.innerHTML = [
+                    ['公开/公告号', currentPatent.publicationNumber || currentPatent.id],
+                    ['申请号', currentPatent.applicationNumber || '--'],
+                    ['优先权日', currentPatent.priorityDate || '--'],
+                    ['申请日', currentPatent.filingDate || '--'],
+                    ['公开日', currentPatent.publicationDate || '--'],
+                    ['专利类型', currentPatent.type || '发明专利'],
+                    ['法律状态', currentPatent.legalStatus || '--']
+                ].map(([label, value]) => `<div class="flex justify-between mb-2"><span>${ScholarMate.escapeHtml(label)}</span><span class="font-medium">${ScholarMate.escapeHtml(value)}</span></div>`).join('');
+            }
+            renderPatentMedia();
+            renderRelatedPatents();
+            renderPatentSourceCard();
+        }
+        function renderPatentMedia() {
+            const media = document.getElementById('detailPatentMedia');
+            if (media) media.innerHTML = ScholarMate.createPatentMediaHtml(currentPatent, 'detail');
+            const figures = document.getElementById('detailFigureGrid');
+            if (figures) {
+                const nodes = [];
+                if (currentPatent.imageUrl && ScholarMate.shouldRenderPatentImage(currentPatent)) {
+                    nodes.push(`<img src="${ScholarMate.escapeHtml(currentPatent.imageUrl)}" alt="${ScholarMate.escapeHtml(currentPatent.publicationNumber)} \u9644\u56fe" style="border-radius: var(--radius-md); width: 100%; object-fit: contain; background: var(--bg-gray);">`);
+                }
+                if (currentPatent.pdfUrl) {
+                    nodes.push(`<a class="patent-document-preview" href="${ScholarMate.escapeHtml(ScholarMate.getSafePublicDocHref(currentPatent.pdfUrl, currentPatent.id))}" target="_blank" rel="noopener noreferrer"><span class="patent-document-preview__source">\u516c\u5f00\u6587\u672c</span><strong>${ScholarMate.escapeHtml(currentPatent.publicationNumber)}</strong><small>\u79d1\u7814\u4e4b\u53cb\u4e13\u5229\u5e93</small></a>`);
+                } else if (!nodes.length && currentPatent.sourceName) {
+                    nodes.push(`<div class="patent-document-preview"><span class="patent-document-preview__source">\u516c\u5f00\u6587\u672c</span><strong>${ScholarMate.escapeHtml(currentPatent.publicationNumber)}</strong><small>${ScholarMate.escapeHtml(currentPatent.sourceName)}</small></div>`);
+                }
+                figures.innerHTML = nodes.slice(0, 2).join('');
+            }
+        }
+
+        function renderRelatedPatents() {
+            const grid = document.getElementById('relatedPatentGrid');
+            if (!grid) return;
+            const related = patents
+                .filter(item => item.id !== currentPatent.id)
+                .map(item => {
+                    let score = 0;
+                    if (item.inventorId === currentPatent.inventor.id) score += 3;
+                    if (item.industry === currentPatent.industry) score += 2;
+                    if (item.field === currentPatent.field) score += 1;
+                    return { item, score };
+                })
+                .filter(entry => entry.score > 0)
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 4)
+                .map(entry => entry.item);
+            grid.innerHTML = related.map((patent, index) => ScholarMate.createPatentCardHtml(patent, index)).join('');
+            ScholarMate.initFavoriteButtons();
+            ScholarMate.hydratePatentCards();
+        }
+
+        function renderPatentSourceCard() {
+            const sidebar = document.querySelector('.detail-sidebar');
+            if (!sidebar || document.getElementById('patentSourceCard')) return;
+            if (!currentPatent.sourceName) return;
+            const card = document.createElement('div');
+            card.id = 'patentSourceCard';
+            card.className = 'card mt-4 detail-source-card';
+            card.innerHTML = `
+                <div class="card__body">
+                    <h3 class="font-semibold mb-4">公开来源</h3>
+                    <div class="detail-source-card__body">
+                        <div><span>来源</span><strong>${ScholarMate.escapeHtml(currentPatent.sourceName || '公开资料')}</strong></div>
+                        ${currentPatent.assignee ? `<div><span>权利人</span><strong>${ScholarMate.escapeHtml(currentPatent.assignee)}</strong></div>` : ''}
+                        ${currentPatent.statusNote ? `<p>${ScholarMate.escapeHtml(currentPatent.statusNote)}</p>` : ''}
+                    </div>
+                </div>
+            `;
+            const firstCard = sidebar.querySelector('.card.mt-4');
+            sidebar.insertBefore(card, firstCard || null);
         }
 
         // 更新收藏按钮状态
@@ -658,8 +662,8 @@
             UserManager.createTradeIntent({
                 projectId,
                 patentId: currentPatent.id,
-                contactName: UserManager.getUser().name || '张明',
-                contactPhone: '13812345678',
+                contactName: UserManager.getUser().name || '企业联系人',
+                contactPhone: UserManager.getUser().phone || '通过平台对接',
                 message: `希望进一步评估“${currentPatent.title}”与我方技术需求的交易合作。`,
                 needAdvisor: true
             });

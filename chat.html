@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>与张明远对话 - ScholarMate</title>
+    <title>与李传富对话 - ScholarMate</title>
     <link rel="icon" href="figures/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,14 +15,13 @@
     <header class="navbar">
         <div class="container navbar__container">
             <a href="index.html" class="navbar__logo">
-                <span class="navbar__logo-icon">📋</span>
-                <span class="navbar__logo-text">ScholarMate</span>
+                <span class="navbar__logo-icon">◉</span>
+                <span class="navbar__logo-text">科研之友</span>
             </a>
             <nav class="navbar__menu">
-                <a href="index.html" class="navbar__link">首页</a>
-                <a href="patent-list.html" class="navbar__link">专利列表</a>
-                <a href="patent-publish.html" class="navbar__link">发布专利</a>
-                <a href="user-center.html" class="navbar__link">用户中心</a>
+                <a href="index.html#advisor" class="navbar__link">首页</a>
+                <a href="patent-list.html" class="navbar__link">寻找专利</a>
+                <a href="user-center.html#my-licenses" class="navbar__link">我的许可</a>
             </nav>
             <div class="navbar__actions">
                 <a href="user-center.html" class="btn btn--outline">登录</a>
@@ -36,23 +35,22 @@
             <div class="chat-layout">
                 <!-- 左侧：发明人信息 -->
                 <aside class="chat-sidebar">
-                    <a href="patent-detail.html" id="chatBackLink" class="chat-header__back" style="display: inline-flex; align-items: center; gap: var(--space-2); color: var(--text-secondary); margin-bottom: var(--space-4);">
-                        ← 返回专利详情
-                    </a>
+                    <div class="chat-nav-actions">
+                        <a href="index.html#advisor" id="chatWorkbenchLink" class="chat-header__back">← 返回首页</a>
+                        <a href="patent-detail.html" id="chatBackLink" class="chat-header__back">查看专利详情</a>
+                    </div>
 
                     <div class="chat-inventor-info">
                         <div class="chat-inventor-info__avatar">
-                            <img src="https://api.dicebear.com/7.x/personas/svg?seed=ZhangMingyuan" alt="张明远">
+                            <img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%232563eb%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2257%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E6%9D%8E%3C%2Ftext%3E%3C%2Fsvg%3E" alt="李传富">
                         </div>
-                        <div class="chat-inventor-info__name">张明远</div>
+                        <div class="chat-inventor-info__name">李传富</div>
                         <div class="chat-inventor-info__badge">数字顾问</div>
                         <div class="chat-inventor-info__expertise">
                             <span class="tag">人工智能</span>
                             <span class="tag">医疗影像</span>
                         </div>
-                        <p class="chat-inventor-info__bio">
-                            AI医疗领域专家，10年+深度学习研发经验，擅长将复杂技术问题转化为易懂方案。
-                        </p>
+                        <p class="chat-inventor-info__bio">数字顾问基于公开专利文本、首席发明人和权利人元数据生成，仅用于技术沟通原型。</p>
                     </div>
 
                     <div class="chat-token-info">
@@ -98,22 +96,25 @@
                         <div class="chat-header">
                         <span class="chat-header__back">💬</span>
                         <div>
-                            <div class="chat-header__title">与张明远对话</div>
+                            <div class="chat-header__title">与李传富对话</div>
                             <div class="chat-header__patent">专利：一种基于人工智能的医疗诊断系统及方法</div>
                         </div>
+                        <div class="chat-header__actions">
+                            <a href="index.html#advisor" id="chatWorkbenchHeaderLink" class="btn btn--outline btn--sm">返回首页</a>
+                            <a href="patent-detail.html" id="chatDetailHeaderLink" class="btn btn--ghost btn--sm">查看专利详情</a>
                         </div>
-
-                        <div class="llm-config-panel" id="llmConfigPanel"></div>
+                        <button class="btn btn--outline btn--sm chat-history-toggle" type="button" onclick="toggleChatSidebar()">会话</button>
+                        </div>
 
                         <div class="chat-messages" id="chatMessages">
                         <!-- AI 欢迎消息 -->
                         <div class="chat-message chat-message--ai">
                             <div class="chat-message__avatar">
-                                <img src="https://api.dicebear.com/7.x/personas/svg?seed=ZhangMingyuan" alt="张明远">
+                                <img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%232563eb%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2257%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E6%9D%8E%3C%2Ftext%3E%3C%2Fsvg%3E" alt="李传富">
                             </div>
                             <div>
                                 <div class="chat-message__content">
-                                    您好！我是张明远，这款AI医疗诊断系统的发明人。很高兴您对我的专利感兴趣！您有什么想了解的吗？无论是技术细节、研发历程还是商业应用，我都很乐意为您解答。
+                                    您好！我是李传富，这款AI医疗诊断系统的发明人。很高兴您对我的专利感兴趣！您有什么想了解的吗？无论是技术细节、研发历程还是商业应用，我都很乐意为您解答。
                                 </div>
                                 <div class="chat-message__time">刚刚</div>
                             </div>
@@ -148,22 +149,79 @@
     <script src="scripts/business-core.js"></script>
     <script src="scripts/semantic-search.js"></script>
     <script src="scripts/chat-sessions.js"></script>
+    <script src="scripts/chat-evidence.js"></script>
     <script src="scripts/llm-client.js"></script>
     <script src="scripts/main.js"></script>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const inventorId = urlParams.get('inventor') || 'inv_001';
-        const patentId = urlParams.get('patent') || 'ZL202410001234.5';
+        const patentId = urlParams.get('patent') || 'CN115062165A';
         const projectId = urlParams.get('project') || '';
         const inventor = inventors.find(i => i.id === inventorId) || inventors[0];
         const patent = getPatentById(patentId);
         const project = projectId ? UserManager.getDemandProject(projectId) : null;
         const requestedSessionId = urlParams.get('session') || '';
+        const draftQuestion = urlParams.get('draft') || '';
         const chatContext = { projectId, patentId };
         let currentSession = null;
         let lastUserQuestion = '';
+        const builtInPersonas = {
+            inv_001: {
+                scholarId: 'inv_001',
+                name: inventor && inventor.name ? inventor.name : '数字学者',
+                title: '医学影像 AI 数字学者',
+                researchStyle: 'engineering',
+                coreTopics: ['医学影像诊断', '知识图谱读片', '医学数据治理'],
+                adjacentTopics: ['医院数据治理', '模型评估', '场景落地'],
+                outOfScope: ['个人投资建议', '法律授权结论', '个体临床诊断'],
+                tone: '产业务实',
+                verbosity: 'medium',
+                metaphorStyle: 'occasional',
+                signaturePhrases: ['先给结论', '再说条件和风险'],
+                avoidPhrases: ['保证收益', '100%无风险', '绝对准确'],
+                avoidTopics: ['股票投资建议', '政治立场争论'],
+                rejectionTemplates: {
+                    outOfField: '这个问题超出当前学者的技术领域范围。',
+                    inFieldButUntouched: '这个问题属于本领域，但现有公开材料未覆盖。',
+                    beyondPublic: '这个问题需要非公开信息，超出公开回答边界。'
+                },
+                corePatentIds: ['CN115062165A', 'CN115512810A', 'CN114240935B']
+            }
+        };
+        let personas = {};
+        let currentPersona = null;
+        let currentScholarPatents = [];
 
-        function initChat() {
+        function buildFallbackPersona() {
+            const fallback = builtInPersonas[inventor.id] || builtInPersonas.inv_001;
+            return Object.assign({}, fallback, {
+                scholarId: inventor.id,
+                name: inventor.name || fallback.name,
+                title: fallback.title || `${(inventor.expertise && inventor.expertise[0]) || '技术'}数字学者`,
+                coreTopics: (inventor.expertise && inventor.expertise.length) ? inventor.expertise.slice(0, 3) : fallback.coreTopics
+            });
+        }
+
+        function deriveScholarPatents() {
+            return patents.filter(item => item.inventorId === inventor.id);
+        }
+
+        async function loadPersonas() {
+            try {
+                const response = await fetch('assets/scholars/personas.json', { cache: 'no-store' });
+                if (!response.ok) throw new Error(`load failed: ${response.status}`);
+                const payload = await response.json();
+                personas = payload && typeof payload === 'object' ? payload : {};
+            } catch (error) {
+                console.warn('persona asset load failed, using fallback persona', error);
+                personas = {};
+            }
+            currentPersona = personas[inventor.id] || buildFallbackPersona();
+            currentScholarPatents = deriveScholarPatents();
+        }
+
+        async function initChat() {
+            await loadPersonas();
             if (!UserManager.getUser()) {
                 UserManager.registerEnterprise();
             }
@@ -187,15 +245,45 @@
             document.querySelector('.chat-inventor-info__name').textContent = inventor.name;
             document.querySelector('.chat-inventor-info__expertise').innerHTML = inventor.expertise.map(item => `<span class="tag tag--sm">${item}</span>`).join('');
             document.querySelector('.chat-inventor-info__bio').textContent = `${inventor.name}会结合企业需求项目，用业务语言解释专利价值、落地门槛和下一步交易路径。`;
-            document.getElementById('chatBackLink').href = `patent-detail.html?id=${encodeURIComponent(patent.id)}${projectId ? `&project=${encodeURIComponent(projectId)}` : ''}`;
             ensureCurrentSession();
             renderChatMembershipCta();
             renderSeatAction();
-            renderLlmConfigPanel();
             renderSessionList();
             renderWelcomeMessage();
             updateTokenDisplay();
             loadConversationHistory();
+            applyDraftQuestion();
+            updateChatNavigationLinks();
+        }
+
+        function getPatentDetailHref() {
+            return `patent-detail.html?id=${encodeURIComponent(patent.id)}${projectId ? `&project=${encodeURIComponent(projectId)}` : ''}`;
+        }
+
+        function getLastSessionQuestion() {
+            if (!currentSession || !Array.isArray(currentSession.messages)) return '';
+            const lastUserMessage = [...currentSession.messages].reverse().find(message => message.role === 'user' || message.role === 'human');
+            return lastUserMessage ? lastUserMessage.content || '' : '';
+        }
+
+        function buildWorkbenchReturnHref(question = '') {
+            const restoredQuestion = (question || lastUserQuestion || draftQuestion || getLastSessionQuestion() || '').trim();
+            const params = new URLSearchParams({ mode: 'advisor' });
+            if (restoredQuestion) params.set('q', restoredQuestion);
+            return `index.html?${params.toString()}#advisor`;
+        }
+
+        function updateChatNavigationLinks(question = '') {
+            const workbenchHref = buildWorkbenchReturnHref(question);
+            const detailHref = getPatentDetailHref();
+            ['chatWorkbenchLink', 'chatWorkbenchHeaderLink'].forEach(id => {
+                const link = document.getElementById(id);
+                if (link) link.href = workbenchHref;
+            });
+            ['chatBackLink', 'chatDetailHeaderLink'].forEach(id => {
+                const link = document.getElementById(id);
+                if (link) link.href = detailHref;
+            });
         }
 
         function ensureCurrentSession(forceNew = false) {
@@ -220,8 +308,8 @@
                     inventorId: inventor.id,
                     patentId: patent.id,
                     projectId,
-                    provider: LlmClient.isConfigured() ? 'openai-compatible' : 'local-demo',
-                    model: (LlmClient.getConfig() && LlmClient.getConfig().model) || ''
+                    provider: 'serverless-openai-compatible',
+                    model: 'serverless'
                 });
             }
             return currentSession;
@@ -271,14 +359,18 @@
                 return;
             }
             list.innerHTML = sessions.map(session => `
-                <button class="chat-session-item ${currentSession && currentSession.sessionId === session.sessionId ? 'chat-session-item--active' : ''}" onclick="switchSession('${session.sessionId}')">
-                    <span>${ScholarMate.escapeHtml(session.title)}</span>
-                    <small>${new Date(session.updatedAt).toLocaleDateString('zh-CN')}</small>
-                </button>
+                <div class="chat-session-row">
+                    <button class="chat-session-item ${currentSession && currentSession.sessionId === session.sessionId ? 'chat-session-item--active' : ''}" onclick="switchSession('${encodeURIComponent(session.sessionId)}')">
+                        <span>${ScholarMate.escapeHtml(session.title)}</span>
+                        <small>${new Date(session.updatedAt).toLocaleDateString('zh-CN')}</small>
+                    </button>
+                    <button class="chat-session-delete" type="button" onclick="deleteChatSession('${encodeURIComponent(session.sessionId)}', event)" aria-label="删除会话 ${ScholarMate.escapeHtml(session.title)}">删除</button>
+                </div>
             `).join('');
         }
 
         function switchSession(sessionId) {
+            sessionId = decodeURIComponent(sessionId);
             const session = ChatSessions.getSession(sessionId);
             if (!session) return;
             const params = new URLSearchParams({ inventor: session.inventorId, patent: session.patentId || patent.id, session: session.sessionId });
@@ -286,64 +378,55 @@
             window.location.href = `chat.html?${params.toString()}`;
         }
 
+        function replaceChatSessionUrl(session) {
+            history.replaceState(null, '', `chat.html?inventor=${encodeURIComponent(session.inventorId)}&patent=${encodeURIComponent(session.patentId || patent.id)}${session.projectId ? `&project=${encodeURIComponent(session.projectId)}` : ''}&session=${encodeURIComponent(session.sessionId)}`);
+        }
+
+        function deleteChatSession(sessionId, event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            sessionId = decodeURIComponent(sessionId);
+            if (!sessionId) return;
+            if (!confirm('确定删除这条对话历史吗？')) return;
+            const deletingCurrent = currentSession && currentSession.sessionId === sessionId;
+            ChatSessions.clearSession(sessionId);
+            if (!deletingCurrent) {
+                renderSessionList();
+                return;
+            }
+            const nextSession = ChatSessions.listByInventor(inventor.id)
+                .find(session => (session.patentId || '') === (patent.id || '') && (session.projectId || '') === (projectId || ''));
+            if (nextSession) {
+                currentSession = nextSession;
+                renderWelcomeMessage();
+                loadConversationHistory();
+                renderSessionList();
+                updateChatNavigationLinks();
+                replaceChatSessionUrl(nextSession);
+                return;
+            }
+            createNewSession();
+        }
+
         function createNewSession() {
             currentSession = ChatSessions.createSession({
                 inventorId: inventor.id,
                 patentId: patent.id,
                 projectId,
-                provider: LlmClient.isConfigured() ? 'openai-compatible' : 'local-demo',
-                model: (LlmClient.getConfig() && LlmClient.getConfig().model) || ''
+                provider: 'serverless-openai-compatible',
+                model: 'serverless'
             });
             renderSessionList();
             renderWelcomeMessage();
+            lastUserQuestion = '';
+            updateChatNavigationLinks('');
             history.replaceState(null, '', `chat.html?inventor=${encodeURIComponent(inventor.id)}&patent=${encodeURIComponent(patent.id)}${projectId ? `&project=${encodeURIComponent(projectId)}` : ''}&session=${encodeURIComponent(currentSession.sessionId)}`);
         }
 
-        function renderLlmConfigPanel(message = '') {
-            const panel = document.getElementById('llmConfigPanel');
-            const config = LlmClient.getConfig();
-            if (LlmClient.isConfigured(config)) {
-                panel.innerHTML = `
-                    <div class="llm-config-panel__row">
-                        <div>
-                            <strong>真实大模型演示模式</strong>
-                            <span class="text-secondary" style="font-size: var(--font-sm);">当前模型：${ScholarMate.escapeHtml(config.model)} · API key 仅保存在本次浏览器会话</span>
-                            ${message ? `<p class="text-secondary" style="font-size: var(--font-sm);">${ScholarMate.escapeHtml(message)}</p>` : ''}
-                        </div>
-                        <button class="btn btn--outline btn--sm" onclick="clearLlmConfig()">清除配置</button>
-                    </div>
-                `;
-                return;
-            }
-            panel.innerHTML = `
-                <div class="llm-config-panel__form">
-                    <div>
-                        <strong>配置真实大模型（演示模式）</strong>
-                        <p class="text-secondary" style="font-size: var(--font-sm);">纯前端 Key 只适合本机演示，关闭标签页后失效，生产环境应改为后端代理。</p>
-                    </div>
-                    <input class="input" id="llmBaseURL" placeholder="baseURL，例如 https://api.openai.com/v1">
-                    <input class="input" id="llmModel" placeholder="model，例如 gpt-4o-mini 或供应商模型名">
-                    <input class="input" id="llmApiKey" type="password" placeholder="API key（仅保存到 sessionStorage）">
-                    <button class="btn btn--primary btn--sm" onclick="saveLlmConfig()">保存本次会话配置</button>
-                    ${message ? `<p class="text-secondary" style="font-size: var(--font-sm);">${ScholarMate.escapeHtml(message)}</p>` : ''}
-                </div>
-            `;
-        }
-
-        function saveLlmConfig() {
-            const config = LlmClient.saveSessionConfig({
-                baseURL: document.getElementById('llmBaseURL').value,
-                model: document.getElementById('llmModel').value,
-                apiKey: document.getElementById('llmApiKey').value
-            });
-            document.getElementById('llmApiKey').value = '';
-            renderLlmConfigPanel(`已保存 ${config.model}，下一轮对话将调用真实模型。`);
-            renderSessionList();
-        }
-
-        function clearLlmConfig() {
-            LlmClient.clearConfig();
-            renderLlmConfigPanel('已清除本次会话的大模型配置。');
+        function toggleChatSidebar() {
+            document.body.classList.toggle('chat-sidebar-collapsed');
         }
 
         function renderWelcomeMessage() {
@@ -377,6 +460,16 @@
             });
         }
 
+        function applyDraftQuestion() {
+            if (!draftQuestion) return;
+            const input = document.getElementById('chatInput');
+            if (!input || input.disabled) return;
+            input.value = draftQuestion;
+            autoResize(input);
+            input.focus();
+            updateChatNavigationLinks(draftQuestion);
+        }
+
         async function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
@@ -396,43 +489,37 @@
             }
 
             lastUserQuestion = message;
+            updateChatNavigationLinks(message);
             appendMessage('user', message, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }));
 
             input.value = '';
             input.style.height = 'auto';
             updateTokenDisplay();
-
-            const config = LlmClient.getConfig();
-            if (!LlmClient.isConfigured(config)) {
-                renderLlmConfigPanel('尚未配置真实模型，本轮已使用本地顾问回复。配置 baseURL、model 和 API key 后，后续对话会自动调用真实模型。');
-                sendLocalFallbackForLastQuestion();
-                return;
-            }
-
-            appendMessage('ai', '正在调用真实大模型生成技术顾问回复...', new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
+            appendMessage('ai', '\u6b63\u5728\u8c03\u7528\u670d\u52a1\u7aef\u987e\u95ee\u56de\u590d...', new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
             try {
                 const reply = await LlmClient.sendAdvisorChat({
-                    config,
-                    inventor,
-                    patent,
+                    inventorId: inventor.id,
+                    patentId: patent.id,
                     project,
                     user: UserManager.getUser(),
-                    history: (currentSession && currentSession.messages) || [],
-                    question: ''
+                    history: ((currentSession && currentSession.messages) || []).slice(0, -1),
+                    question: message,
+                    endpoint: '/api/chat'
                 });
                 removeTransientThinkingMessage();
-                appendMessage('ai', reply, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), true, { provider: 'openai-compatible', model: config.model });
+                appendMessage('ai', reply, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), true, { provider: 'serverless-openai-compatible', model: 'serverless' });
                 document.getElementById('localFallbackBtn').style.display = 'none';
             } catch (error) {
                 removeTransientThinkingMessage();
                 document.getElementById('localFallbackBtn').style.display = '';
-                appendMessage('ai', `真实模型暂时不可用：${LlmClient.safeErrorMessage(error)}。你可以检查 baseURL、model、API key 或网络/CORS，也可以点击“本地模拟回复”继续演示。`, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
+                appendMessage('ai', `\u670d\u52a1\u7aef\u987e\u95ee\u6682\u65f6\u4e0d\u53ef\u7528\uff1a${LlmClient.safeErrorMessage(error)}\u3002\u53ef\u5148\u4f7f\u7528\u201c\u672c\u5730\u6a21\u62df\u56de\u590d\u201d\u7ee7\u7eed\u6f14\u793a\u3002`, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
+                sendLocalFallbackForLastQuestion();
             }
         }
 
         function removeTransientThinkingMessage() {
             const messages = Array.from(document.querySelectorAll('.chat-message--ai .chat-message__content'));
-            const thinking = messages.reverse().find(node => node.textContent.includes('正在调用真实大模型'));
+            const thinking = messages.reverse().find(node => node.textContent.includes('\u6b63\u5728\u8c03\u7528\u670d\u52a1\u7aef\u987e\u95ee\u56de\u590d'));
             if (thinking) thinking.closest('.chat-message').remove();
         }
 
@@ -462,6 +549,17 @@
             const container = document.getElementById('chatMessages');
             const normalizedRole = role === 'assistant' ? 'ai' : role;
             const isAI = normalizedRole === 'ai';
+            const evidence = isAI && window.ChatEvidence
+                ? window.ChatEvidence.extractAssistantEvidence(content)
+                : { visibleContent: content, patentIds: [] };
+            const visibleContent = evidence.visibleContent || content;
+            const evidenceItems = isAI && evidence.patentIds.length && window.ChatEvidence
+                ? window.ChatEvidence.resolveEvidencePatents({
+                    patentIds: evidence.patentIds,
+                    patents: currentScholarPatents,
+                    inventors
+                })
+                : [];
 
             const messageEl = document.createElement('div');
             messageEl.className = `chat-message chat-message--${normalizedRole}`;
@@ -474,13 +572,22 @@
                     }
                 </div>
                 <div>
-                    <div class="chat-message__content">${ScholarMate.formatMessage(content)}</div>
+                    <div class="chat-message__content">${ScholarMate.formatMessage(visibleContent)}</div>
                     <div class="chat-message__time">${ScholarMate.escapeHtml(time)}</div>
+                    ${isAI && evidenceItems.length ? renderEvidenceCard(evidenceItems) : ''}
                 </div>
             `;
 
             container.appendChild(messageEl);
             container.scrollTop = container.scrollHeight;
+
+            if (isAI && window.ChatEvidence) {
+                window.ChatEvidence.warnPersonaBoundaryHints({
+                    reply: visibleContent,
+                    persona: currentPersona,
+                    logger: console
+                });
+            }
 
             if (save) {
                 if (!currentSession) ensureCurrentSession();
@@ -492,6 +599,25 @@
                 });
                 renderSessionList();
             }
+        }
+
+        function renderEvidenceCard(evidenceItems) {
+            const rows = evidenceItems.map(item => `
+                <li class="chat-evidence__item">
+                    <a class="chat-evidence__link" href="${ScholarMate.escapeHtml(item.href)}">
+                        ${ScholarMate.escapeHtml(item.title)}
+                    </a>
+                    <div class="chat-evidence__meta">
+                        ${ScholarMate.escapeHtml(item.publicationNumber)} · ${ScholarMate.escapeHtml(item.scholarName)}
+                    </div>
+                </li>
+            `).join('');
+            return `
+                <details class="chat-evidence">
+                    <summary>基于 ${evidenceItems.length} 条专利</summary>
+                    <ul class="chat-evidence__list">${rows}</ul>
+                </details>
+            `;
         }
 
         function submitTradeIntentFromChat() {
@@ -508,8 +634,8 @@
             UserManager.createTradeIntent({
                 projectId,
                 patentId,
-                contactName: UserManager.getUser().name || '张明',
-                contactPhone: '13812345678',
+                contactName: UserManager.getUser().name || '企业联系人',
+                contactPhone: UserManager.getUser().phone || '通过平台对接',
                 message: `基于与${inventor.name}的数字人沟通，希望进一步评估“${patent.title}”的交易合作。`,
                 needAdvisor: true
             });

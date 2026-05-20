@@ -34,6 +34,12 @@ Deployment steps are in:
 docs/github-pages-deployment.md
 ```
 
+## Product Docs
+
+- Product and business model: `docs/scholarmate-product-business-model.md`
+- Word version: `docs/ScholarMate-product-business-model.docx`
+- User guide and business flow: `docs/scholarmate-user-guide-business-flow.md`
+
 ## Prototype Notes
 
 - No backend, database, real payment, real enterprise verification, or legal patent authorization is connected.

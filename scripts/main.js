@@ -395,6 +395,44 @@ const ScholarMate = {
             countElement.textContent = `共找到 ${patents.length} 件专利`;
         }
     },
+    shouldRenderPatentImage(patent) {
+        if (!patent || patent.imageQuality === 'low') return false;
+        const mediaUrl = String(patent.imageUrl || '');
+        if (!/\.(png|jpg|jpeg|webp)(\?.*)?$/i.test(mediaUrl)) return false;
+        const width = Number(patent.imageWidth || 0);
+        const height = Number(patent.imageHeight || 0);
+        if (width > 0 && height > 0) return width >= 240 && height >= 240;
+        return true;
+    },
+
+    getSafePublicDocHref(url, patentId) {
+        const value = String(url || '').trim();
+        if (!value) return `patent-detail.html?id=${encodeURIComponent(patentId || '')}`;
+        const isBlockedGooglePatentLink =
+            /patents\.google\.com/i.test(value) ||
+            /patentimages\.storage\.googleapis\.com/i.test(value) ||
+            /googleapis\.com\/.*patent/i.test(value) ||
+            /googleusercontent\.com\/.*patent/i.test(value);
+        if (isBlockedGooglePatentLink) return `patent-detail.html?id=${encodeURIComponent(patentId || '')}`;
+        return value;
+    },
+
+    createPatentMediaHtml(patent, variant = 'card') {
+        const mediaUrl = patent.imageUrl || '';
+        const alt = `${patent.publicationNumber || patent.id} \u4e13\u5229\u9644\u56fe`;
+        if (this.shouldRenderPatentImage(patent)) {
+            return `<img src="${this.escapeHtml(mediaUrl)}" alt="${this.escapeHtml(alt)}" class="patent-card__image patent-card__image--contain">`;
+        }
+        const href = this.getSafePublicDocHref(patent.pdfUrl || patent.sourceUrl, patent.id);
+        const label = variant === 'detail' ? '\u4e13\u5229\u516c\u5f00\u6587\u672c / PDF' : '\u4e13\u5229\u516c\u5f00\u6587\u672c';
+        return `
+            <a class="patent-document-preview patent-document-preview--${this.escapeHtml(variant)}" href="${this.escapeHtml(href)}" target="_blank" rel="noopener noreferrer" aria-label="\u6253\u5f00${this.escapeHtml(patent.publicationNumber || patent.id)}\u516c\u5f00\u6587\u672c">
+                <span class="patent-document-preview__source">${label}</span>
+                <strong>${this.escapeHtml(patent.publicationNumber || patent.id)}</strong>
+                <small>${this.escapeHtml(patent.legalStatus || '\u6cd5\u5f8b\u72b6\u6001\u9700\u4e8c\u6b21\u6838\u9a8c')}</small>
+            </a>
+        `;
+    },
 
     createPatentCardHtml(patent, index) {
         const inventor = inventors.find(item => item.id === patent.inventorId) || inventors[0];
@@ -402,11 +440,17 @@ const ScholarMate = {
         const priceHtml = ScholarMateBusinessCore.isFreeSharedPatent(patent)
             ? ''
             : `<div class="patent-card__price">${this.escapeHtml(licenseLabel)}</div>`;
-        const tag = patent.requireLicense ? '发明专利' : '免费共享';
+        const sourceHtml = `
+            <div class="patent-card__source">
+                <span>${this.escapeHtml(patent.sourceName || '\u79d1\u7814\u4e4b\u53cb\u4e13\u5229\u5e93')}</span>
+                <span>${this.escapeHtml(patent.leadInventor || inventor.name)}</span>
+                <span>${this.escapeHtml(patent.assignee || inventor.affiliation || '')}</span>
+            </div>`;
+        const tag = ScholarMateBusinessCore.isFreeSharedPatent(patent) ? '试用共享' : '资料/对话许可';
         return `
             <article class="patent-card" data-patent-id="${this.escapeHtml(patent.id)}">
                 <div class="patent-card__image-wrapper">
-                    <img src="https://picsum.photos/seed/patent${index + 10}/400/300" alt="专利图片" class="patent-card__image">
+                    ${this.createPatentMediaHtml(patent, 'card')}
                     <span class="patent-card__tag">${tag}</span>
                 </div>
                 <div class="patent-card__body">
@@ -419,17 +463,18 @@ const ScholarMate = {
                     <p class="patent-card__desc">${this.escapeHtml(patent.summary)}</p>
                     <div class="patent-card__meta">
                         <div class="patent-card__info">
-                            <span class="patent-card__info-item">📂 ${this.escapeHtml(patent.field)}</span>
-                            <span class="patent-card__info-item">🔢 ${this.escapeHtml(patent.id)}</span>
-                            <span class="patent-card__info-item">🏷️ ${this.escapeHtml(patent.industry)}</span>
+                            <span class="patent-card__info-item">${this.escapeHtml(patent.field)}</span>
+                            <span class="patent-card__info-item">${this.escapeHtml(patent.publicationNumber || patent.id)}</span>
+                            <span class="patent-card__info-item">${this.escapeHtml(patent.industry)}</span>
                         </div>
                         ${priceHtml}
                     </div>
+                    ${sourceHtml}
                 </div>
                 <div class="patent-card__chat">
                     <button class="patent-card__chat-btn" onclick="ScholarMate.handleListChatClick('${this.escapeHtml(inventor.id)}', '${this.escapeHtml(patent.id)}', '${this.escapeHtml(inventor.name)}')" title="与${this.escapeHtml(inventor.name)}对话">
                         <img src="${this.escapeHtml(inventor.avatar)}" alt="${this.escapeHtml(inventor.name)}" class="patent-card__chat-avatar">
-                        <span class="patent-card__chat-label">💬 问顾问</span>
+                        <span class="patent-card__chat-label">问顾问</span>
                     </button>
                 </div>
             </article>
@@ -740,6 +785,8 @@ const ScholarMate = {
 
     // 显示会员提示条
     showMembershipBanner() {
+        const pathname = window.location.pathname.split('/').pop() || 'index.html';
+        if (pathname === 'index.html' || document.body.classList.contains('workbench-page')) return;
         const user = UserManager.getUser();
         if (!user || !user.membership) {
             // 检查是否已存在
@@ -787,6 +834,12 @@ const ScholarMate = {
 
     renderMobileBottomNav() {
         if (!document.body) return;
+        const pathname = window.location.pathname.split('/').pop() || 'index.html';
+        if (pathname === 'index.html' || document.body.classList.contains('workbench-page')) {
+            document.body.classList.remove('has-mobile-bottom-nav');
+            document.getElementById('mobile-bottom-nav')?.remove();
+            return;
+        }
         const items = [
             { id: 'home', label: '首页', icon: '⌂', href: 'index.html' },
             { id: 'discover', label: '发现', icon: '⌕', href: 'patent-list.html' },
@@ -1014,6 +1067,78 @@ const UserManager = {
         return user.purchasedLicenses && user.purchasedLicenses.includes(patentId);
     },
 
+    getPurchasedLicensePatents(options = {}) {
+        const paidOnly = options.paidOnly !== false;
+        const user = this.getUser();
+        const ids = user && Array.isArray(user.purchasedLicenses) ? user.purchasedLicenses : [];
+        return ids
+            .map(patentId => patents.find(patent => patent.id === patentId))
+            .filter(patent => patent && patent.id)
+            .filter(patent => !paidOnly || !ScholarMateBusinessCore.isFreeSharedPatent(patent));
+    },
+
+    getAvailableAdvisorAssets() {
+        const user = this.getUser();
+        if (!user) return [];
+        const byPatent = new Map();
+        const labelMap = {
+            license: '已购许可',
+            seat: '顾问席位'
+        };
+        const resolvePatent = (patentId, inventorId) => {
+            if (patentId) {
+                return patents.find(patent => patent.id === patentId) || null;
+            }
+            if (inventorId) {
+                return patents.find(patent => patent.inventorId === inventorId) || null;
+            }
+            return null;
+        };
+        const addAsset = ({ patent, inventorId, source, joinedAt = '' }) => {
+            if (!patent || !patent.id || !source) return;
+            const inventor = inventors.find(item => item.id === (inventorId || patent.inventorId));
+            if (!inventor) return;
+            const existing = byPatent.get(patent.id) || {
+                patentId: patent.id,
+                inventorId: inventor.id,
+                patent,
+                inventor,
+                sources: [],
+                joinedAt: ''
+            };
+            if (!existing.sources.includes(source)) {
+                existing.sources.push(source);
+            }
+            existing.joinedAt = existing.joinedAt || joinedAt;
+            existing.source = existing.sources.join('+');
+            existing.sourceLabel = existing.sources.map(item => labelMap[item] || item).join(' + ');
+            byPatent.set(patent.id, existing);
+        };
+
+        (user.purchasedLicenses || []).forEach(patentId => {
+            const patent = patents.find(item => item.id === patentId);
+            if (!patent || ScholarMateBusinessCore.isFreeSharedPatent(patent)) return;
+            addAsset({
+                patent,
+                inventorId: patent.inventorId,
+                source: 'license',
+                joinedAt: user.licensePurchasedAt && user.licensePurchasedAt[patentId] || ''
+            });
+        });
+
+        (user.digitalHumanSeats || []).forEach(seat => {
+            const patent = resolvePatent(seat.patentId, seat.inventorId);
+            addAsset({
+                patent,
+                inventorId: seat.inventorId || (patent && patent.inventorId),
+                source: 'seat',
+                joinedAt: seat.joinedAt || ''
+            });
+        });
+
+        return Array.from(byPatent.values());
+    },
+
     // 购买专利许可
     purchasePatentLicense(patentId) {
         const gate = this.canPerformCommercialAction();
@@ -1160,10 +1285,19 @@ const UserManager = {
     },
 
     canChatAboutPatent(patentId) {
+        const user = this.getUser();
+        const patent = getPatentById(patentId);
+        const hasAdvisorAsset = user && this.getAvailableAdvisorAssets().some(asset => (
+            asset.patentId === patentId ||
+            (asset.inventorId && patent && asset.inventorId === patent.inventorId)
+        ));
+        if (hasAdvisorAsset) {
+            return { allowed: true, reason: '' };
+        }
         return ScholarMateBusinessCore.canChatAboutPatent(
-            this.getUser(),
-            getPatentById(patentId),
-            (this.getUser() && this.getUser().purchasedLicenses) || []
+            user,
+            patent,
+            (user && user.purchasedLicenses) || []
         );
     },
 
@@ -1234,520 +1368,1456 @@ const UserManager = {
 // 发明人数据
 const inventors = [
     {
-        id: 'inv_001',
-        name: '张明远',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=ZhangMingyuan',
-        persona: '你是张明远，AI医疗领域专家，热情、专业，喜欢用生动的案例解释技术问题。',
-        expertise: ['人工智能', '医疗影像', '深度学习']
+        "id": "inv_001",
+        "name": "李传富",
+        "affiliation": "合肥综合性国家科学中心人工智能研究院",
+        "affiliationTier": "national_institute",
+        "expertise": [
+            "医学影像AI",
+            "读片知识图谱",
+            "影像数据治理"
+        ],
+        "patentIds": [
+            "CN115062165A",
+            "CN115512810A",
+            "CN114240935B"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E6%9D%8E%E4%BC%A0%E5%AF%8C%20%2F%20%E5%90%88%E8%82%A5%E7%BB%BC%E5%90%88%E6%80%A7%E5%9B%BD%E5%AE%B6%E7%A7%91%E5%AD%A6%E4%B8%AD%E5%BF%83%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%A0%94%E7%A9%B6%E9%99%A2%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%232563eb%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E6%9D%8E%3C%2Ftext%3E%3C%2Fsvg%3E"
     },
     {
-        id: 'inv_002',
-        name: '李智能',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=LiZhineng',
-        persona: '你是李智能，新能源电池专家，性格严谨，说话简洁有力。',
-        expertise: ['新能源', '电池技术', '热管理系统']
+        "id": "inv_002",
+        "name": "汤进",
+        "affiliation": "合肥综合性国家科学中心人工智能研究院",
+        "affiliationTier": "national_institute",
+        "expertise": [
+            "医学报告生成",
+            "影像报告标注",
+            "医学NLP"
+        ],
+        "patentIds": [
+            "CN115132314A",
+            "CN114582470B"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E6%B1%A4%E8%BF%9B%20%2F%20%E5%90%88%E8%82%A5%E7%BB%BC%E5%90%88%E6%80%A7%E5%9B%BD%E5%AE%B6%E7%A7%91%E5%AD%A6%E4%B8%AD%E5%BF%83%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%A0%94%E7%A9%B6%E9%99%A2%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%230f766e%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E6%B1%A4%3C%2Ftext%3E%3C%2Fsvg%3E"
     },
     {
-        id: 'inv_003',
-        name: '王物联',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=WangWulian',
-        persona: '你是王物联，物联网技术专家，善于用生活案例解释技术原理。',
-        expertise: ['物联网', '智能家居', '传感器网络']
+        "id": "inv_003",
+        "name": "程勇",
+        "affiliation": "深圳前海微众银行股份有限公司（微众银行）",
+        "affiliationTier": "strong_company",
+        "expertise": [
+            "联邦学习",
+            "隐私计算",
+            "可信金融科技"
+        ],
+        "patentIds": [
+            "CN110503207A",
+            "CN110610242A",
+            "CN110632554A"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E7%A8%8B%E5%8B%87%20%2F%20%E6%B7%B1%E5%9C%B3%E5%89%8D%E6%B5%B7%E5%BE%AE%E4%BC%97%E9%93%B6%E8%A1%8C%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8%EF%BC%88%E5%BE%AE%E4%BC%97%E9%93%B6%E8%A1%8C%EF%BC%89%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%237c3aed%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E7%A8%8B%3C%2Ftext%3E%3C%2Fsvg%3E"
     },
     {
-        id: 'inv_004',
-        name: '赵区块链',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=ZhaoQukuailian',
-        persona: '你是赵区块链，区块链安全专家，说话专业且谨慎。',
-        expertise: ['区块链', '密码学', '隐私计算']
+        "id": "inv_004",
+        "name": "冯旭宁",
+        "affiliation": "清华大学",
+        "affiliationTier": "top_university",
+        "expertise": [
+            "电池热失控",
+            "锂离子电池安全",
+            "电池材料"
+        ],
+        "patentIds": [
+            "CN104346524A",
+            "CN112029343A"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E5%86%AF%E6%97%AD%E5%AE%81%20%2F%20%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%23dc2626%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E5%86%AF%3C%2Ftext%3E%3C%2Fsvg%3E"
     },
     {
-        id: 'inv_005',
-        name: '钱机器人',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=QianJiqiren',
-        persona: '你是钱机器人，工业自动化专家，性格开朗，喜欢分享技术趣事。',
-        expertise: ['智能制造', '工业机器人', '自动化控制']
+        "id": "inv_005",
+        "name": "王昱",
+        "affiliation": "清华大学",
+        "affiliationTier": "top_university",
+        "expertise": [
+            "动力电池安全评价",
+            "热失控抑制",
+            "电池数据库"
+        ],
+        "patentIds": [
+            "CN110109020A",
+            "CN110045287A",
+            "CN115051051A"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E7%8E%8B%E6%98%B1%20%2F%20%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%23ea580c%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E7%8E%8B%3C%2Ftext%3E%3C%2Fsvg%3E"
     },
     {
-        id: 'inv_006',
-        name: '孙隐私',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=SunYinsi',
-        persona: '你是孙隐私，隐私计算与医疗数据协同专家，表达谨慎，重视合规边界。',
-        expertise: ['隐私计算', '医疗数据', '联邦学习']
+        "id": "inv_006",
+        "name": "刘妹琴",
+        "affiliation": "浙江大学",
+        "affiliationTier": "top_university",
+        "expertise": [
+            "工业视觉",
+            "缺陷检测",
+            "小样本学习"
+        ],
+        "patentIds": [
+            "CN119090851A",
+            "CN114092389A",
+            "CN113888477B"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E5%88%98%E5%A6%B9%E7%90%B4%20%2F%20%E6%B5%99%E6%B1%9F%E5%A4%A7%E5%AD%A6%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%230891b2%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E5%88%98%3C%2Ftext%3E%3C%2Fsvg%3E"
     },
     {
-        id: 'inv_007',
-        name: '陈推荐',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=ChenTuijian',
-        persona: '你是陈推荐，推荐系统与企业知识库专家，擅长用业务语言解释算法价值。',
-        expertise: ['推荐系统', 'RAG', '知识图谱']
+        "id": "inv_007",
+        "name": "康重庆",
+        "affiliation": "清华大学",
+        "affiliationTier": "top_university",
+        "expertise": [
+            "电力系统低碳化",
+            "碳排放计量",
+            "能源调度"
+        ],
+        "patentIds": [
+            "CN105046353A",
+            "CN106251095B"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E5%BA%B7%E9%87%8D%E5%BA%86%20%2F%20%E6%B8%85%E5%8D%8E%E5%A4%A7%E5%AD%A6%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%2316a34a%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E5%BA%B7%3C%2Ftext%3E%3C%2Fsvg%3E"
     },
     {
-        id: 'inv_008',
-        name: '周冷链',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=ZhouLenglian',
-        persona: '你是周冷链，供应链和物联网预测专家，回答务实，关注落地成本。',
-        expertise: ['冷链物流', '物联网', '预测控制']
+        "id": "inv_008",
+        "name": "常虹",
+        "affiliation": "广东省农业科学院植物保护研究所",
+        "affiliationTier": "research_institute",
+        "expertise": [
+            "农业虫害识别",
+            "草地贪夜蛾预警",
+            "虫情监测"
+        ],
+        "patentIds": [
+            "CN114550108B",
+            "CN114170513B"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E5%B8%B8%E8%99%B9%20%2F%20%E5%B9%BF%E4%B8%9C%E7%9C%81%E5%86%9C%E4%B8%9A%E7%A7%91%E5%AD%A6%E9%99%A2%E6%A4%8D%E7%89%A9%E4%BF%9D%E6%8A%A4%E7%A0%94%E7%A9%B6%E6%89%80%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%2365a30d%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E5%B8%B8%3C%2Ftext%3E%3C%2Fsvg%3E"
     },
     {
-        id: 'inv_009',
-        name: '吴农研',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=WuNongyan',
-        persona: '你是吴农研，智慧农业和作物感知专家，善于把模型能力转化成田间管理建议。',
-        expertise: ['智慧农业', '作物识别', '遥感监测']
+        "id": "inv_009",
+        "name": "吕华",
+        "affiliation": "北京大学",
+        "affiliationTier": "top_university",
+        "expertise": [
+            "蛋白质偶联",
+            "聚氨基酸材料",
+            "生物医药材料"
+        ],
+        "patentIds": [
+            "CN106924753A",
+            "CN111388679A",
+            "CN106924752B"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E5%90%95%E5%8D%8E%20%2F%20%E5%8C%97%E4%BA%AC%E5%A4%A7%E5%AD%A6%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%23be123c%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E5%90%95%3C%2Ftext%3E%3C%2Fsvg%3E"
     },
     {
-        id: 'inv_010',
-        name: '郑双碳',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=ZhengShuangtan',
-        persona: '你是郑双碳，节能环保和碳核算专家，回答关注合规、数据口径和改造成本。',
-        expertise: ['碳核算', '节能环保', '工业减排']
-    },
-    {
-        id: 'inv_011',
-        name: '冯安防',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=FengAnfang',
-        persona: '你是冯安防，工业安全和视频感知专家，表达谨慎，重视误报漏报和现场责任边界。',
-        expertise: ['工业安全', '视频感知', '风险预警']
-    },
-    {
-        id: 'inv_012',
-        name: '高药研',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=GaoYaoyan',
-        persona: '你是高药研，生物医药 AI 专家，擅长解释药物筛选、蛋白设计和研发验证路径。',
-        expertise: ['生物医药', '药物筛选', '蛋白设计']
-    },
-    {
-        id: 'inv_013',
-        name: '罗康复',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=LuoKangfu',
-        persona: '你是罗康复，康复机器人和养老照护专家，关注用户体验、临床验证和服务运营。',
-        expertise: ['康复机器人', '养老照护', '人机交互']
-    },
-    {
-        id: 'inv_014',
-        name: '许教育',
-        avatar: 'https://api.dicebear.com/7.x/personas/svg?seed=XuJiaoyu',
-        persona: '你是许教育，教育测评和学习分析专家，擅长用学校和企业培训能理解的语言解释模型价值。',
-        expertise: ['教育测评', '学习分析', '个性化推荐']
+        "id": "inv_010",
+        "name": "王潇楠",
+        "affiliation": "广东省农业科学院植物保护研究所",
+        "affiliationTier": "research_institute",
+        "expertise": [
+            "植保无人机",
+            "纳米农药施药",
+            "精准喷雾"
+        ],
+        "patentIds": [
+            "CN115316172A",
+            "CN116171962B"
+        ],
+        "avatar": "data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%20role%3D%22img%22%20aria-label%3D%22%E7%8E%8B%E6%BD%87%E6%A5%A0%20%2F%20%E5%B9%BF%E4%B8%9C%E7%9C%81%E5%86%9C%E4%B8%9A%E7%A7%91%E5%AD%A6%E9%99%A2%E6%A4%8D%E7%89%A9%E4%BF%9D%E6%8A%A4%E7%A0%94%E7%A9%B6%E6%89%80%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%23047857%22%2F%3E%3Ccircle%20cx%3D%2270%22%20cy%3D%2224%22%20r%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.24)%22%2F%3E%3Cpath%20d%3D%22M18%2068h60%22%20stroke%3D%22rgba(255%2C255%2C255%2C0.42)%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2256%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2228%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3E%E7%8E%8B%3C%2Ftext%3E%3C%2Fsvg%3E"
     }
 ];
 
-// 专利数据
 const patents = [
     {
-        id: 'ZL202410001234.5',
-        title: '一种基于人工智能的医疗诊断系统及方法',
-        inventorId: 'inv_001',
-        field: '人工智能',
-        industry: '医疗健康',
-        summary: '利用深度学习算法对医学影像进行自动分析，辅助基层医生提升诊断效率。',
-        keywords: ['人工智能', '医学影像', '医疗诊断', '基层医院', '辅助诊断', '深度学习'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要接入医院影像数据并做本地化验证', '需要明确辅助诊断责任边界']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN115062165A",
+        "sourceUrl": "https://patents.google.com/patent/CN115062165A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": false,
+        "licenseTier": "free",
+        "licensePrice": 0,
+        "id": "CN115062165A",
+        "title": "基于读片知识图谱的医学影像诊断方法及装置",
+        "inventorId": "inv_001",
+        "imageUrl": "assets/patents/CN115062165A.png",
+        "pdfUrl": "https://patentimages.storage.googleapis.com/f9/00/69/8b7371d67497cb/CN115062165A.pdf",
+        "inventors": [
+            "李传富",
+            "谷宗运",
+            "黄莉莉",
+            "赵海峰",
+            "汤进"
+        ],
+        "leadInventor": "李传富",
+        "assignee": "合肥综合性国家科学中心人工智能研究院",
+        "applicationNumber": "CN202210995624.6A",
+        "priorityDate": "2022-08-18",
+        "filingDate": "2022-08-18",
+        "publicationDate": "2022-09-16",
+        "legalStatus": "Granted / Active",
+        "field": "医学影像AI",
+        "industry": "医疗健康",
+        "commercialFit": "trial",
+        "trialAccess": true,
+        "price": 0,
+        "summary": "围绕医学影像读片知识图谱，将影像特征、诊断规则和报告线索组织成可检索的推理路径，适合基层影像辅助诊断和质控场景。",
+        "keywords": [
+            "医学影像",
+            "读片知识图谱",
+            "诊断",
+            "辅助诊断",
+            "医疗AI",
+            "基层医院"
+        ],
+        "tags": [
+            "medical-ai",
+            "knowledge-graph"
+        ],
+        "risks": [
+            "需要本地病种和影像设备数据二次验证",
+            "临床使用前需要合规和伦理审查"
+        ]
     },
     {
-        id: 'ZL202410005678.9',
-        title: '一种智能家居控制系统及其控制方法',
-        inventorId: 'inv_003',
-        field: '物联网',
-        industry: '智能家居',
-        summary: '通过物联网技术实现家居设备互联互通，支持语音控制和远程管理。',
-        keywords: ['物联网', '智能家居', '语音控制', '设备互联', '远程管理'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要适配不同品牌设备协议', '家庭隐私数据需要单独评估']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN115512810A",
+        "sourceUrl": "https://patents.google.com/patent/CN115512810A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN115512810A",
+        "title": "一种医学影像数据的数据治理方法及系统",
+        "inventorId": "inv_001",
+        "imageUrl": "assets/patents/CN115512810A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN115512810A/zh",
+        "inventors": [
+            "李传富",
+            "谷宗运",
+            "汤进"
+        ],
+        "leadInventor": "李传富",
+        "assignee": "合肥综合性国家科学中心人工智能研究院",
+        "applicationNumber": "CN202211463754.1A",
+        "priorityDate": "2022-11-17",
+        "filingDate": "2022-11-17",
+        "publicationDate": "2022-12-23",
+        "legalStatus": "Pending",
+        "field": "医学数据治理",
+        "industry": "医疗健康",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "面向医学影像数据接入、清洗、标注和质量管理，建立可追踪的数据治理流程，为影像AI训练和医院数据资产化提供底座。",
+        "keywords": [
+            "医学影像",
+            "数据治理",
+            "标注",
+            "质量控制",
+            "医疗AI",
+            "数据资产"
+        ],
+        "tags": [
+            "medical-data",
+            "data-governance"
+        ],
+        "risks": [
+            "落地依赖医院数据标准化程度",
+            "需要处理隐私和数据授权边界"
+        ]
     },
     {
-        id: 'ZL202410009012.3',
-        title: '一种新能源汽车电池热管理系统',
-        inventorId: 'inv_002',
-        field: '新能源',
-        industry: '新能源汽车',
-        summary: '提升电池温度控制能力，提高寿命、安全性和极端环境稳定性。',
-        keywords: ['新能源汽车', '电池热管理', '热失控', '高温安全', '电芯寿命'],
-        requireLicense: true,
-        price: 2999,
-        licensePrice: 2999,
-        licenseTier: 'standard',
-        risks: ['量产前需要热仿真和实车验证', '需要结合具体电芯平台评估改造成本']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN114240935B",
+        "sourceUrl": "https://patents.google.com/patent/CN114240935B/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN114240935B",
+        "title": "一种空频域特征融合的医学影像特征识别方法及装置",
+        "inventorId": "inv_001",
+        "imageUrl": "assets/patents/CN114240935B.png",
+        "pdfUrl": "https://patents.google.com/patent/CN114240935B/zh",
+        "inventors": [
+            "李传富",
+            "谷宗运",
+            "汤进"
+        ],
+        "leadInventor": "李传富",
+        "assignee": "合肥综合性国家科学中心人工智能研究院",
+        "applicationNumber": "CN202210166385.3A",
+        "priorityDate": "2022-02-24",
+        "filingDate": "2022-02-24",
+        "publicationDate": "2022-05-20",
+        "legalStatus": "Active",
+        "field": "医学影像识别",
+        "industry": "医疗健康",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "融合空间域与频域特征进行医学影像识别，适合提升病灶特征表达、跨设备鲁棒性和模型可解释性的影像AI产品。",
+        "keywords": [
+            "医学影像",
+            "空频域融合",
+            "特征识别",
+            "病灶识别",
+            "模型鲁棒性"
+        ],
+        "tags": [
+            "medical-ai",
+            "feature-fusion"
+        ],
+        "risks": [
+            "需要在目标设备和目标病种上复测",
+            "频域特征解释需要临床专家参与"
+        ]
     },
     {
-        id: 'ZL202410003456.7',
-        title: '一种折叠式智能穿戴设备外观设计',
-        inventorId: 'inv_005',
-        field: '智能制造',
-        industry: '消费电子',
-        summary: '折叠式穿戴设备结构设计，兼顾便携性和产品识别度。',
-        keywords: ['消费电子', '穿戴设备', '外观设计', '结构设计'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['外观设计保护范围需要与产品形态逐项比对']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN115132314A",
+        "sourceUrl": "https://patents.google.com/patent/CN115132314A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN115132314A",
+        "title": "检查印象生成模型训练方法、装置及生成方法",
+        "inventorId": "inv_002",
+        "imageUrl": "assets/patents/CN115132314A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN115132314A/zh",
+        "inventors": [
+            "汤进",
+            "李传富",
+            "谷宗运"
+        ],
+        "leadInventor": "汤进",
+        "assignee": "合肥综合性国家科学中心人工智能研究院",
+        "applicationNumber": "CN202211059675.4A",
+        "priorityDate": "2022-09-01",
+        "filingDate": "2022-09-01",
+        "publicationDate": "2022-09-30",
+        "legalStatus": "Active",
+        "field": "医学报告生成",
+        "industry": "医疗健康",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "训练检查印象生成模型，把检查所见转化为结构化印象描述，适合影像报告自动草拟、质控和医生工作流提效。",
+        "keywords": [
+            "医学报告",
+            "检查印象",
+            "自然语言生成",
+            "影像报告",
+            "医疗NLP"
+        ],
+        "tags": [
+            "medical-nlp",
+            "report-generation"
+        ],
+        "risks": [
+            "生成内容需医生复核",
+            "不同医院报告模板需要适配"
+        ]
     },
     {
-        id: 'ZL202410007890.1',
-        title: '一种区块链隐私保护方法及系统',
-        inventorId: 'inv_004',
-        field: '区块链',
-        industry: '金融科技',
-        summary: '在保证链上可追溯的同时降低敏感业务数据暴露风险。',
-        keywords: ['区块链', '隐私保护', '数据上链', '加密', '合规', '可信追溯'],
-        requireLicense: true,
-        price: 3999,
-        licensePrice: 3999,
-        licenseTier: 'premium',
-        risks: ['需要审查合规要求和性能开销', '隐私计算方案需与现有系统架构匹配']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN114582470B",
+        "sourceUrl": "https://patents.google.com/patent/CN114582470B/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN114582470B",
+        "title": "一种模型的训练方法、训练装置及医学影像报告标注方法",
+        "inventorId": "inv_002",
+        "imageUrl": "assets/patents/CN114582470B.png",
+        "pdfUrl": "https://patentimages.storage.googleapis.com/15/2b/89/960e7445f77dfb/CN114582470B.pdf",
+        "inventors": [
+            "汤进",
+            "李传富",
+            "谷宗运"
+        ],
+        "leadInventor": "汤进",
+        "assignee": "合肥综合性国家科学中心人工智能研究院",
+        "applicationNumber": "CN202210463888.7A",
+        "priorityDate": "2022-04-29",
+        "filingDate": "2022-04-29",
+        "publicationDate": "2022-09-09",
+        "legalStatus": "Active",
+        "field": "医学影像报告标注",
+        "industry": "医疗健康",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "面向医学影像报告标注和模型训练，提取报告文本中的诊断线索，降低人工标注成本并提高训练样本一致性。",
+        "keywords": [
+            "医学影像报告",
+            "标注",
+            "模型训练",
+            "医疗NLP",
+            "影像AI"
+        ],
+        "tags": [
+            "medical-nlp",
+            "annotation"
+        ],
+        "risks": [
+            "标注规则需与医院质控标准对齐",
+            "需要持续抽检样本质量"
+        ]
     },
     {
-        id: 'ZL202410002345.8',
-        title: '一种工业机器人协作控制系统',
-        inventorId: 'inv_005',
-        field: '智能制造',
-        industry: '先进制造',
-        summary: '实现多台工业机器人协同作业，提高产线效率和柔性调度能力。',
-        keywords: ['工业机器人', '先进制造', '协作控制', '柔性产线', '产线调度'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要现场节拍数据和安全边界验证']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN110503207A",
+        "sourceUrl": "https://patents.google.com/patent/CN110503207A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "standard",
+        "licensePrice": 2999,
+        "id": "CN110503207A",
+        "title": "联邦学习信用管理方法、装置、设备及可读存储介质",
+        "inventorId": "inv_003",
+        "imageUrl": "assets/patents/CN110503207A.png",
+        "pdfUrl": "https://patentimages.storage.googleapis.com/4d/89/90/e7b6d750075549/CN110503207A.pdf",
+        "inventors": [
+            "程勇",
+            "范力欣",
+            "李斌"
+        ],
+        "leadInventor": "程勇",
+        "assignee": "深圳前海微众银行股份有限公司（微众银行）",
+        "applicationNumber": "CN201910802526.4A",
+        "priorityDate": "2019-08-28",
+        "filingDate": "2019-08-28",
+        "publicationDate": "2019-11-26",
+        "legalStatus": "Pending",
+        "field": "联邦学习信用管理",
+        "industry": "金融科技",
+        "commercialFit": "standard",
+        "price": 2999,
+        "summary": "在多方数据不出域的前提下构建信用管理与模型协同机制，适合金融风控、联合建模和隐私保护数据合作。",
+        "keywords": [
+            "联邦学习",
+            "信用管理",
+            "隐私计算",
+            "金融风控",
+            "多方建模"
+        ],
+        "tags": [
+            "federated-learning",
+            "privacy-computing"
+        ],
+        "risks": [
+            "需要参与方数据口径统一",
+            "合规审计和模型安全成本较高"
+        ]
     },
     {
-        id: 'ZL202410006666.2',
-        title: '一种少样本工业视觉缺陷检测方法',
-        inventorId: 'inv_005',
-        field: '人工智能',
-        industry: '先进制造',
-        summary: '通过少样本学习降低缺陷检测标注成本，适合新产线快速上线质检模型。',
-        keywords: ['人工智能', '工业视觉', '缺陷检测', '少样本学习', '质量检测', '先进制造'],
-        requireLicense: true,
-        price: 1999,
-        licensePrice: 1999,
-        licenseTier: 'basic',
-        risks: ['需要少量现场样本校准', '不同光照和相机条件会影响泛化效果']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN110610242A",
+        "sourceUrl": "https://patents.google.com/patent/CN110610242A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "standard",
+        "licensePrice": 2999,
+        "id": "CN110610242A",
+        "title": "一种联邦学习中参与者权重的设置方法及装置",
+        "inventorId": "inv_003",
+        "imageUrl": "assets/patents/CN110610242A.png",
+        "pdfUrl": "https://patentimages.storage.googleapis.com/5a/e6/07/bf2f446997e74b/CN110610242A.pdf",
+        "inventors": [
+            "程勇",
+            "刘晓勇"
+        ],
+        "leadInventor": "程勇",
+        "assignee": "深圳前海微众银行股份有限公司（微众银行）",
+        "applicationNumber": "CN201910823635.4A",
+        "priorityDate": "2019-09-02",
+        "filingDate": "2019-09-02",
+        "publicationDate": "2019-12-24",
+        "legalStatus": "Active",
+        "field": "联邦学习权重设置",
+        "industry": "隐私计算",
+        "commercialFit": "standard",
+        "price": 2999,
+        "summary": "根据参与者贡献和数据表现调整联邦学习权重，改善多机构协同训练中的公平性、稳定性和模型效果。",
+        "keywords": [
+            "联邦学习",
+            "参与者权重",
+            "贡献评估",
+            "隐私计算",
+            "模型训练"
+        ],
+        "tags": [
+            "federated-learning",
+            "model-training"
+        ],
+        "risks": [
+            "权重机制需要防止策略操纵",
+            "跨机构评估指标需提前约定"
+        ]
     },
     {
-        id: 'ZL202410008888.6',
-        title: '一种医疗数据隐私保护联邦建模方法',
-        inventorId: 'inv_006',
-        field: '隐私计算',
-        industry: '医疗健康',
-        summary: '支持多机构医疗数据不出域协同建模，兼顾模型效果和隐私合规。',
-        keywords: ['医疗数据', '隐私保护', '联邦学习', '联邦建模', '合规', '多机构协同'],
-        requireLicense: true,
-        price: 2999,
-        licensePrice: 2999,
-        licenseTier: 'standard',
-        risks: ['需要评估各院数据标准一致性', '联邦训练通信成本需单独测算']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN110632554A",
+        "sourceUrl": "https://patents.google.com/patent/CN110632554A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "basic",
+        "licensePrice": 1999,
+        "id": "CN110632554A",
+        "title": "基于联邦学习的室内定位方法、装置、终端设备及介质",
+        "inventorId": "inv_003",
+        "imageUrl": "assets/patents/CN110632554A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN110632554A/zh",
+        "inventors": [
+            "程勇",
+            "张伟"
+        ],
+        "leadInventor": "程勇",
+        "assignee": "深圳前海微众银行股份有限公司（微众银行）",
+        "applicationNumber": "CN201910898051.3A",
+        "priorityDate": "2019-09-20",
+        "filingDate": "2019-09-20",
+        "publicationDate": "2019-12-31",
+        "legalStatus": "Pending",
+        "field": "联邦学习定位",
+        "industry": "金融科技",
+        "commercialFit": "narrow",
+        "price": 1999,
+        "summary": "把联邦学习用于室内定位模型训练，使终端或场地数据保持本地化，适合金融网点、园区和隐私敏感定位场景。",
+        "keywords": [
+            "联邦学习",
+            "室内定位",
+            "终端设备",
+            "隐私保护",
+            "园区定位"
+        ],
+        "tags": [
+            "federated-learning",
+            "indoor-positioning"
+        ],
+        "risks": [
+            "商业场景较窄",
+            "终端采样一致性会影响定位质量"
+        ]
     },
     {
-        id: 'ZL202410004321.0',
-        title: '一种企业知识库RAG推荐问答系统',
-        inventorId: 'inv_007',
-        field: '人工智能',
-        industry: '企业服务',
-        summary: '将企业知识库检索、证据过滤和推荐解释结合，生成可追溯的顾问式回答。',
-        keywords: ['RAG', '知识库', '推荐系统', '企业问答', '可追溯回答'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要整理企业知识库权限', '回答质量依赖文档结构和检索召回']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN104346524A",
+        "sourceUrl": "https://patents.google.com/patent/CN104346524A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "basic",
+        "licensePrice": 1999,
+        "id": "CN104346524A",
+        "title": "一种锂离子电池热失控的建模方法",
+        "inventorId": "inv_004",
+        "imageUrl": "assets/patents/CN104346524A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN104346524A/zh",
+        "inventors": [
+            "冯旭宁",
+            "欧阳明高",
+            "何向明"
+        ],
+        "leadInventor": "冯旭宁",
+        "assignee": "清华大学; 宝马（中国）服务有限公司",
+        "applicationNumber": "CN201410470610.8A",
+        "priorityDate": "2014-09-16",
+        "filingDate": "2014-09-16",
+        "publicationDate": "2015-02-11",
+        "legalStatus": "Active",
+        "field": "电池热失控建模",
+        "industry": "新能源车",
+        "commercialFit": "narrow",
+        "price": 1999,
+        "summary": "构建锂离子电池热失控模型，用于评估失效触发、热传播和安全边界，适合动力电池安全仿真与测试方案设计。",
+        "keywords": [
+            "锂离子电池",
+            "热失控",
+            "建模",
+            "电池安全",
+            "新能源汽车"
+        ],
+        "tags": [
+            "battery-safety",
+            "thermal-runaway"
+        ],
+        "risks": [
+            "较早期专利需要结合新电芯体系更新参数",
+            "工程落地依赖测试数据校准"
+        ]
     },
     {
-        id: 'ZL202410010234.4',
-        title: '一种冷链物流温控预测与预警系统',
-        inventorId: 'inv_008',
-        field: '物联网',
-        industry: '供应链物流',
-        summary: '结合传感器时序数据预测冷链温度异常，提前预警运输和仓储风险。',
-        keywords: ['冷链物流', '物联网', '温控预测', '传感器', '供应链预警'],
-        requireLicense: true,
-        price: 1999,
-        licensePrice: 1999,
-        licenseTier: 'basic',
-        risks: ['需要稳定传感器采集链路', '不同货品温控阈值需业务配置']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN112029343A",
+        "sourceUrl": "https://patents.google.com/patent/CN112029343A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "basic",
+        "licensePrice": 1999,
+        "id": "CN112029343A",
+        "title": "用于抑制锂离子电池热失控的涂料、涂层、正极片、负极片、隔膜和锂离子电池",
+        "inventorId": "inv_004",
+        "imageUrl": "assets/patents/CN112029343A.png",
+        "pdfUrl": "https://patentimages.storage.googleapis.com/38/42/df/8b076c003cf811/CN112029343A.pdf",
+        "inventors": [
+            "冯旭宁",
+            "王莉",
+            "何向明",
+            "欧阳明高",
+            "任东生"
+        ],
+        "leadInventor": "冯旭宁",
+        "assignee": "清华大学",
+        "applicationNumber": "CN202010690608.7A",
+        "priorityDate": "2020-07-17",
+        "filingDate": "2020-07-17",
+        "publicationDate": "2020-12-04",
+        "legalStatus": "Withdrawn",
+        "field": "电池热失控抑制材料",
+        "industry": "新能源车",
+        "commercialFit": "narrow",
+        "price": 1999,
+        "summary": "通过壳核结构抑制剂颗粒和涂层材料，在热失控触发前释放抑制组分，面向电芯材料层面的安全提升。",
+        "keywords": [
+            "锂离子电池",
+            "热失控",
+            "涂层",
+            "隔膜",
+            "电池安全"
+        ],
+        "tags": [
+            "battery-safety",
+            "materials"
+        ],
+        "risks": [
+            "科研之友专利库 显示为撤回状态",
+            "材料体系需要重新验证产业化可行性"
+        ]
     },
     {
-        id: 'ZL202410011678.2',
-        title: '一种制造车间能耗优化调度方法',
-        inventorId: 'inv_005',
-        field: '智能制造',
-        industry: '工业节能',
-        summary: '根据订单节拍、设备负荷和电价波动生成车间能耗优化调度建议。',
-        keywords: ['制造车间', '能耗优化', '调度', '工业节能', '设备负荷'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要对接设备能耗数据', '调度策略需避免影响交付节拍']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN110109020A",
+        "sourceUrl": "https://patents.google.com/patent/CN110109020A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN110109020A",
+        "title": "数据库驱动的动力电池热失控安全性正向评价方法及装置",
+        "inventorId": "inv_005",
+        "imageUrl": "assets/patents/CN110109020A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN110109020A/zh",
+        "inventors": [
+            "王昱",
+            "冯旭宁",
+            "欧阳明高"
+        ],
+        "leadInventor": "王昱",
+        "assignee": "清华大学",
+        "applicationNumber": "CN201910260025.8A",
+        "priorityDate": "2019-04-02",
+        "filingDate": "2019-04-02",
+        "publicationDate": "2019-08-09",
+        "legalStatus": "Active",
+        "field": "动力电池安全评价",
+        "industry": "新能源车",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "以数据库驱动的方式对动力电池热失控安全性进行正向评价，适合电池包设计、测试筛选和安全认证前评估。",
+        "keywords": [
+            "动力电池",
+            "热失控",
+            "安全评价",
+            "数据库",
+            "新能源汽车"
+        ],
+        "tags": [
+            "battery-safety",
+            "evaluation"
+        ],
+        "risks": [
+            "数据库覆盖度决定评价可信度",
+            "需要结合企业自有测试标准"
+        ]
     },
     {
-        id: 'ZL202410012345.6',
-        title: '一种多模态内容冷启动推荐方法',
-        inventorId: 'inv_007',
-        field: '推荐系统',
-        industry: '内容平台',
-        summary: '融合文本、图像和首轮反馈信号，提升新用户和新内容的推荐冷启动效果。',
-        keywords: ['推荐系统', '冷启动', '多模态', '内容平台', '用户反馈'],
-        requireLicense: true,
-        price: 2999,
-        licensePrice: 2999,
-        licenseTier: 'standard',
-        risks: ['需要多模态特征工程支持', '线上效果需结合AB实验验证']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN110045287A",
+        "sourceUrl": "https://patents.google.com/patent/CN110045287A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "standard",
+        "licensePrice": 2999,
+        "id": "CN110045287A",
+        "title": "动力电池热失控安全性的定量评价方法及系统",
+        "inventorId": "inv_005",
+        "imageUrl": "assets/patents/CN110045287A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN110045287A/zh",
+        "inventors": [
+            "王昱",
+            "冯旭宁",
+            "欧阳明高"
+        ],
+        "leadInventor": "王昱",
+        "assignee": "清华大学",
+        "applicationNumber": "CN201910259977.8A",
+        "priorityDate": "2019-04-02",
+        "filingDate": "2019-04-02",
+        "publicationDate": "2019-07-23",
+        "legalStatus": "Pending",
+        "field": "电池热失控量化评价",
+        "industry": "新能源车",
+        "commercialFit": "standard",
+        "price": 2999,
+        "summary": "提供动力电池热失控安全性的量化评价框架，帮助企业把测试指标转为可比较的安全等级和改进方向。",
+        "keywords": [
+            "动力电池",
+            "热失控",
+            "定量评价",
+            "安全等级",
+            "电池测试"
+        ],
+        "tags": [
+            "battery-safety",
+            "quantitative-evaluation"
+        ],
+        "risks": [
+            "量化模型需结合目标电芯体系校准",
+            "评价结果不等同监管认证"
+        ]
     },
     {
-        id: 'ZL202410013210.9',
-        title: '一种农作物病虫害智能识别与预警系统',
-        inventorId: 'inv_009',
-        field: '人工智能',
-        industry: '智慧农业',
-        summary: '利用田间图像和气象数据识别作物病虫害风险，为农业合作社提供预警和处置建议。',
-        keywords: ['智慧农业', '农作物', '病虫害', '图像识别', '气象数据', '预警'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要本地作物和病虫害样本校准', '田间拍摄光照会影响识别稳定性']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN115051051A",
+        "sourceUrl": "https://patents.google.com/patent/CN115051051A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN115051051A",
+        "title": "电池热失控的抑制方法、系统、装置和计算机设备",
+        "inventorId": "inv_005",
+        "imageUrl": "assets/patents/CN115051051A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN115051051A/zh",
+        "inventors": [
+            "王昱",
+            "冯旭宁",
+            "欧阳明高"
+        ],
+        "leadInventor": "王昱",
+        "assignee": "清华大学",
+        "applicationNumber": "CN202210465821.7A",
+        "priorityDate": "2022-04-29",
+        "filingDate": "2022-04-29",
+        "publicationDate": "2022-09-13",
+        "legalStatus": "Active",
+        "field": "电池热失控抑制系统",
+        "industry": "新能源车",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "围绕电池热失控检测、判别和抑制动作建立方法与系统，适合电池管理系统安全策略和预警处置方案。",
+        "keywords": [
+            "电池热失控",
+            "抑制方法",
+            "电池管理系统",
+            "安全预警",
+            "新能源汽车"
+        ],
+        "tags": [
+            "battery-safety",
+            "bms"
+        ],
+        "risks": [
+            "需要与BMS硬件和传感器能力适配",
+            "车规落地需长周期验证"
+        ]
     },
     {
-        id: 'ZL202410014567.1',
-        title: '一种温室精准灌溉与土壤水分调控方法',
-        inventorId: 'inv_009',
-        field: '物联网',
-        industry: '智慧农业',
-        summary: '通过土壤传感器和作物需水模型自动生成温室灌溉策略，降低用水量并稳定产量。',
-        keywords: ['智慧农业', '精准灌溉', '土壤水分', '温室', '传感器', '节水'],
-        requireLicense: true,
-        price: 1999,
-        licensePrice: 1999,
-        licenseTier: 'basic',
-        risks: ['需要部署传感器网络', '不同作物需水模型需要单独配置']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN119090851A",
+        "sourceUrl": "https://patents.google.com/patent/CN119090851A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN119090851A",
+        "title": "一种MiniLED缺陷检测方法、电子设备、介质",
+        "inventorId": "inv_006",
+        "imageUrl": "assets/patents/CN119090851A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN119090851A/zh",
+        "inventors": [
+            "刘妹琴",
+            "李晓明"
+        ],
+        "leadInventor": "刘妹琴",
+        "assignee": "浙江大学",
+        "applicationNumber": "CN202411220178.7A",
+        "priorityDate": "2024-09-02",
+        "filingDate": "2024-09-02",
+        "publicationDate": "2024-12-06",
+        "legalStatus": "Active",
+        "field": "工业视觉缺陷检测",
+        "industry": "先进制造",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "面向 MiniLED 生产环节的缺陷检测，通过视觉模型识别微小缺陷，适合显示面板、精密电子和产线质检。",
+        "keywords": [
+            "MiniLED",
+            "缺陷检测",
+            "工业视觉",
+            "电子设备",
+            "产线质检"
+        ],
+        "tags": [
+            "industrial-vision",
+            "defect-detection"
+        ],
+        "risks": [
+            "需采集目标产线样本微调",
+            "光照和拍摄条件会影响检测效果"
+        ]
     },
     {
-        id: 'ZL202410015678.4',
-        title: '一种工业园区碳排放核算与节能诊断系统',
-        inventorId: 'inv_010',
-        field: '节能环保',
-        industry: '节能环保',
-        summary: '整合电力、燃气和生产数据，形成园区碳排放核算、异常能耗识别和节能改造建议。',
-        keywords: ['碳排放', '碳核算', '工业园区', '节能诊断', '能耗异常', '双碳'],
-        requireLicense: true,
-        price: 2999,
-        licensePrice: 2999,
-        licenseTier: 'standard',
-        risks: ['需要统一企业能耗数据口径', '节能建议需结合现场工艺验证']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN114092389A",
+        "sourceUrl": "https://patents.google.com/patent/CN114092389A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "standard",
+        "licensePrice": 2999,
+        "id": "CN114092389A",
+        "title": "一种基于小样本学习的玻璃面板表面缺陷检测方法",
+        "inventorId": "inv_006",
+        "imageUrl": "assets/patents/CN114092389A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN114092389A/zh",
+        "inventors": [
+            "刘妹琴",
+            "李晓明"
+        ],
+        "leadInventor": "刘妹琴",
+        "assignee": "浙江大学",
+        "applicationNumber": "CN202111068447.9A",
+        "priorityDate": "2021-09-13",
+        "filingDate": "2021-09-13",
+        "publicationDate": "2022-02-25",
+        "legalStatus": "Active",
+        "field": "玻璃面板缺陷检测",
+        "industry": "先进制造",
+        "commercialFit": "standard",
+        "price": 2999,
+        "summary": "利用小样本学习降低玻璃面板缺陷数据采集成本，适合缺陷样本稀缺、型号频繁切换的制造质检场景。",
+        "keywords": [
+            "小样本学习",
+            "玻璃面板",
+            "表面缺陷",
+            "缺陷检测",
+            "工业视觉"
+        ],
+        "tags": [
+            "industrial-vision",
+            "few-shot-learning"
+        ],
+        "risks": [
+            "小样本能力需要对新缺陷类型持续验证",
+            "上线前需打通相机和MES数据链路"
+        ]
     },
     {
-        id: 'ZL202410016789.5',
-        title: '一种污水处理过程智能曝气控制方法',
-        inventorId: 'inv_010',
-        field: '节能环保',
-        industry: '节能环保',
-        summary: '根据水质指标和负荷变化动态调节曝气强度，降低污水处理能耗并稳定出水质量。',
-        keywords: ['水处理', '污水处理', '曝气控制', '节能', '水质监测', '环保'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要接入水质在线监测数据', '控制策略需与现有工艺参数联动']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN113888477B",
+        "sourceUrl": "https://patents.google.com/patent/CN113888477B/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN113888477B",
+        "title": "网络模型的训练方法、金属表面缺陷检测方法及电子设备",
+        "inventorId": "inv_006",
+        "imageUrl": "assets/patents/CN113888477B.png",
+        "pdfUrl": "https://patents.google.com/patent/CN113888477B/zh",
+        "inventors": [
+            "刘妹琴",
+            "李晓明"
+        ],
+        "leadInventor": "刘妹琴",
+        "assignee": "浙江大学",
+        "applicationNumber": "CN202111068474.6A",
+        "priorityDate": "2021-09-13",
+        "filingDate": "2021-09-13",
+        "publicationDate": "2024-12-31",
+        "legalStatus": "Active",
+        "field": "金属表面缺陷检测",
+        "industry": "先进制造",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "训练网络模型识别金属表面缺陷，覆盖材料加工、装备制造和自动化检测线，强调模型训练与电子设备部署。",
+        "keywords": [
+            "金属表面",
+            "缺陷检测",
+            "网络模型",
+            "工业视觉",
+            "电子设备"
+        ],
+        "tags": [
+            "industrial-vision",
+            "metal-defect"
+        ],
+        "risks": [
+            "不同材料纹理差异较大",
+            "需要对误检漏检成本做产线评估"
+        ]
     },
     {
-        id: 'ZL202410017890.2',
-        title: '一种工地危险作业视频识别与风险预警系统',
-        inventorId: 'inv_011',
-        field: '计算机视觉',
-        industry: '工业安全',
-        summary: '识别未佩戴安全帽、高空作业越界和危险区域闯入，向项目管理人员推送实时风险预警。',
-        keywords: ['工业安全', '视频识别', '工地安全', '风险预警', '安全帽', '高空作业'],
-        requireLicense: true,
-        price: 1999,
-        licensePrice: 1999,
-        licenseTier: 'basic',
-        risks: ['需要评估摄像头覆盖盲区', '误报漏报责任边界需提前约定']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN105046353A",
+        "sourceUrl": "https://patents.google.com/patent/CN105046353A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "basic",
+        "licensePrice": 1999,
+        "id": "CN105046353A",
+        "title": "一种电力系统低碳化水平的评价方法",
+        "inventorId": "inv_007",
+        "imageUrl": "assets/patents/CN105046353A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN105046353A/zh",
+        "inventors": [
+            "康重庆",
+            "周天睿",
+            "夏清"
+        ],
+        "leadInventor": "康重庆",
+        "assignee": "清华大学; 国家电网有限公司",
+        "applicationNumber": "CN201510390459.1A",
+        "priorityDate": "2015-07-06",
+        "filingDate": "2015-07-06",
+        "publicationDate": "2015-11-11",
+        "legalStatus": "Expired - Fee Related",
+        "field": "电力系统低碳评价",
+        "industry": "能源环保",
+        "commercialFit": "narrow",
+        "price": 1999,
+        "summary": "从发电、输配和用电侧指标评价电力系统低碳化水平，适合园区能源诊断、低碳改造和指标体系建设。",
+        "keywords": [
+            "电力系统",
+            "低碳化",
+            "评价方法",
+            "碳排放",
+            "能源环保"
+        ],
+        "tags": [
+            "carbon-accounting",
+            "power-system"
+        ],
+        "risks": [
+            "法律状态显示费用相关失效",
+            "指标体系需要对接最新碳核算规则"
+        ]
     },
     {
-        id: 'ZL202410018901.8',
-        title: '一种矿山设备异常振动监测与预测维护方法',
-        inventorId: 'inv_011',
-        field: '物联网',
-        industry: '工业安全',
-        summary: '采集矿山关键设备振动和温度数据，识别潜在故障并生成预测维护计划。',
-        keywords: ['矿山安全', '设备监测', '振动分析', '预测维护', '物联网', '风险预警'],
-        requireLicense: true,
-        price: 2999,
-        licensePrice: 2999,
-        licenseTier: 'standard',
-        risks: ['需要传感器长期稳定采集', '故障标签不足会影响模型校准']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN106251095B",
+        "sourceUrl": "https://patents.google.com/patent/CN106251095B/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN106251095B",
+        "title": "一种电力系统碳排放实时计量的方法及碳表系统",
+        "inventorId": "inv_007",
+        "imageUrl": "assets/patents/CN106251095B.png",
+        "pdfUrl": "https://patents.google.com/patent/CN106251095B/zh",
+        "inventors": [
+            "康重庆",
+            "周天睿",
+            "夏清"
+        ],
+        "leadInventor": "康重庆",
+        "assignee": "清华大学",
+        "applicationNumber": "CN201610805076.0A",
+        "priorityDate": "2016-09-06",
+        "filingDate": "2016-09-06",
+        "publicationDate": "2018-08-17",
+        "legalStatus": "Active",
+        "field": "电力碳排放实时计量",
+        "industry": "能源环保",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "建立电力系统碳排放实时计量和碳表系统，为园区、企业和电网侧提供动态碳核算与低碳调度依据。",
+        "keywords": [
+            "电力系统",
+            "碳排放",
+            "实时计量",
+            "碳表",
+            "低碳调度"
+        ],
+        "tags": [
+            "carbon-accounting",
+            "energy-management"
+        ],
+        "risks": [
+            "需要接入实时电力数据",
+            "碳因子更新和地方规则需维护"
+        ]
     },
     {
-        id: 'ZL202410019012.0',
-        title: '一种面向药物筛选的分子活性预测方法',
-        inventorId: 'inv_012',
-        field: '人工智能',
-        industry: '生物医药',
-        summary: '基于分子结构和靶点特征预测候选化合物活性，缩短早期药物筛选周期。',
-        keywords: ['生物医药', '药物筛选', '分子活性', '靶点', '人工智能', '临床前研发'],
-        requireLicense: true,
-        price: 3999,
-        licensePrice: 3999,
-        licenseTier: 'premium',
-        risks: ['预测结果需要实验验证', '数据来源和模型适用域需单独评估']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN114550108B",
+        "sourceUrl": "https://patents.google.com/patent/CN114550108B/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": false,
+        "licenseTier": "free",
+        "licensePrice": 0,
+        "id": "CN114550108B",
+        "title": "一种草地贪夜蛾的识别预警方法及系统",
+        "inventorId": "inv_008",
+        "imageUrl": "assets/patents/CN114550108B.png",
+        "pdfUrl": "https://patents.google.com/patent/CN114550108B/zh",
+        "inventors": [
+            "常虹",
+            "王潇楠",
+            "李振宇"
+        ],
+        "leadInventor": "常虹",
+        "assignee": "广东省农业科学院植物保护研究所",
+        "applicationNumber": "CN202210443122.2A",
+        "priorityDate": "2022-04-26",
+        "filingDate": "2022-04-26",
+        "publicationDate": "2022-07-08",
+        "legalStatus": "Active",
+        "field": "农业虫害识别预警",
+        "industry": "农业科技",
+        "commercialFit": "trial",
+        "trialAccess": true,
+        "price": 0,
+        "summary": "针对草地贪夜蛾建立识别和预警流程，适合农业物联网监测、县域植保服务和病虫害早期响应。",
+        "keywords": [
+            "草地贪夜蛾",
+            "识别预警",
+            "虫害监测",
+            "农业AI",
+            "植保"
+        ],
+        "tags": [
+            "agriculture-ai",
+            "pest-warning"
+        ],
+        "risks": [
+            "虫害样本地域差异需要复核",
+            "预警闭环依赖基层植保响应能力"
+        ]
     },
     {
-        id: 'ZL202410020123.7',
-        title: '一种蛋白质结构设计与稳定性评估系统',
-        inventorId: 'inv_012',
-        field: '生物计算',
-        industry: '生物医药',
-        summary: '结合序列特征和结构预测结果评估蛋白稳定性，为酶改造和抗体设计提供候选方案。',
-        keywords: ['蛋白设计', '结构预测', '稳定性评估', '酶改造', '抗体设计', '生物医药'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要结合湿实验验证', '候选序列知识产权边界需单独确认']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN114170513B",
+        "sourceUrl": "https://patents.google.com/patent/CN114170513B/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "standard",
+        "licensePrice": 2999,
+        "id": "CN114170513B",
+        "title": "一种草地贪夜蛾的虫情监测方法、系统及存储介质",
+        "inventorId": "inv_008",
+        "imageUrl": "assets/patents/CN114170513B.png",
+        "pdfUrl": "https://patents.google.com/patent/CN114170513B/zh",
+        "inventors": [
+            "常虹",
+            "王潇楠",
+            "李振宇"
+        ],
+        "leadInventor": "常虹",
+        "assignee": "广东省农业科学院植物保护研究所",
+        "applicationNumber": "CN202111489231.XA",
+        "priorityDate": "2021-12-08",
+        "filingDate": "2021-12-08",
+        "publicationDate": "2022-03-11",
+        "legalStatus": "Active",
+        "field": "虫情监测系统",
+        "industry": "农业科技",
+        "commercialFit": "standard",
+        "price": 2999,
+        "summary": "通过虫情监测方法和系统采集、识别、统计草地贪夜蛾发生态势，为区域化防控和精准施药提供依据。",
+        "keywords": [
+            "草地贪夜蛾",
+            "虫情监测",
+            "农业物联网",
+            "病虫害",
+            "精准防控"
+        ],
+        "tags": [
+            "agriculture-ai",
+            "monitoring"
+        ],
+        "risks": [
+            "设备布点和维护成本需要测算",
+            "模型需要覆盖不同生长期和光照环境"
+        ]
     },
     {
-        id: 'ZL202410021234.8',
-        title: '一种脑卒中康复训练动作评估系统',
-        inventorId: 'inv_013',
-        field: '康复机器人',
-        industry: '医疗健康',
-        summary: '通过视觉和穿戴传感器评估康复训练动作质量，生成个性化训练反馈。',
-        keywords: ['康复训练', '脑卒中', '动作评估', '穿戴传感器', '康复机器人', '医疗健康'],
-        requireLicense: true,
-        price: 2999,
-        licensePrice: 2999,
-        licenseTier: 'standard',
-        risks: ['需要临床康复师参与标注', '医疗器械合规路径需提前评估']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN106924753A",
+        "sourceUrl": "https://patents.google.com/patent/CN106924753A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN106924753A",
+        "title": "制备蛋白质-聚氨基酸环状偶联物的方法",
+        "inventorId": "inv_009",
+        "imageUrl": "assets/patents/CN106924753A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN106924753A/zh",
+        "inventors": [
+            "吕华",
+            "王成"
+        ],
+        "leadInventor": "吕华",
+        "assignee": "北京大学",
+        "applicationNumber": "CN201611247250.0A",
+        "priorityDate": "2015-12-30",
+        "filingDate": "2016-12-29",
+        "publicationDate": "2017-07-07",
+        "legalStatus": "Active",
+        "field": "蛋白质偶联材料",
+        "industry": "生物医药",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "提供蛋白质-聚氨基酸环状偶联物制备方法，用于改善蛋白质药物稳定性、递送性能和生物材料功能化。",
+        "keywords": [
+            "蛋白质",
+            "聚氨基酸",
+            "偶联物",
+            "生物医药",
+            "蛋白质药物"
+        ],
+        "tags": [
+            "biomedicine",
+            "protein-conjugate"
+        ],
+        "risks": [
+            "从材料制备到药物开发仍需长周期验证",
+            "适应症和产业路线需进一步筛选"
+        ]
     },
     {
-        id: 'ZL202410022345.9',
-        title: '一种养老照护跌倒检测与主动呼叫系统',
-        inventorId: 'inv_013',
-        field: '物联网',
-        industry: '养老照护',
-        summary: '融合毫米波雷达和环境传感器检测老人跌倒风险，并联动护理人员主动呼叫。',
-        keywords: ['养老照护', '跌倒检测', '毫米波雷达', '主动呼叫', '物联网', '风险预警'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要评估居家隐私接受度', '误报会影响护理人员工作流']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN111388679A",
+        "sourceUrl": "https://patents.google.com/patent/CN111388679A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN111388679A",
+        "title": "蛋白质-螺旋聚氨基酸偶联物、其制备方法及用途",
+        "inventorId": "inv_009",
+        "imageUrl": "assets/patents/CN111388679A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN111388679A/zh",
+        "inventors": [
+            "吕华",
+            "王成"
+        ],
+        "leadInventor": "吕华",
+        "assignee": "北京大学",
+        "applicationNumber": "CN201911391425.9A",
+        "priorityDate": "2019-01-03",
+        "filingDate": "2019-12-30",
+        "publicationDate": "2020-07-10",
+        "legalStatus": "Pending",
+        "field": "蛋白质药物修饰",
+        "industry": "生物医药",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "利用螺旋聚氨基酸与蛋白质构建偶联物，面向蛋白质药物修饰、功能材料和药物递送体系开发。",
+        "keywords": [
+            "蛋白质",
+            "螺旋聚氨基酸",
+            "偶联",
+            "药物递送",
+            "生物材料"
+        ],
+        "tags": [
+            "biomedicine",
+            "drug-delivery"
+        ],
+        "risks": [
+            "实验室制备向规模化转化需验证",
+            "药物用途需要单独临床和注册路径"
+        ]
     },
     {
-        id: 'ZL202410023456.0',
-        title: '一种企业培训学习效果智能评测方法',
-        inventorId: 'inv_014',
-        field: '教育科技',
-        industry: '企业服务',
-        summary: '结合测验、学习行为和岗位任务表现，评估企业培训效果并推荐后续学习路径。',
-        keywords: ['教育评测', '企业培训', '学习分析', '个性化推荐', '岗位能力', '企业服务'],
-        requireLicense: true,
-        price: 1999,
-        licensePrice: 1999,
-        licenseTier: 'basic',
-        risks: ['需要定义岗位能力模型', '员工行为数据使用需获得授权']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN106924752B",
+        "sourceUrl": "https://patents.google.com/patent/CN106924752B/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "premium",
+        "licensePrice": 3999,
+        "id": "CN106924752B",
+        "title": "制备蛋白质-聚氨基酸偶联物的方法",
+        "inventorId": "inv_009",
+        "imageUrl": "assets/patents/CN106924752B.png",
+        "pdfUrl": "https://patents.google.com/patent/CN106924752B/zh",
+        "inventors": [
+            "吕华",
+            "王成"
+        ],
+        "leadInventor": "吕华",
+        "assignee": "北京大学",
+        "applicationNumber": "CN201611244996.6A",
+        "priorityDate": "2015-12-30",
+        "filingDate": "2016-12-29",
+        "publicationDate": "2019-07-19",
+        "legalStatus": "Active",
+        "field": "蛋白质偶联制备",
+        "industry": "生物医药",
+        "commercialFit": "high",
+        "price": 3999,
+        "summary": "围绕蛋白质-聚氨基酸偶联物的可控制备，支持蛋白质稳定化、半衰期改善和新型生物材料构建。",
+        "keywords": [
+            "蛋白质",
+            "聚氨基酸",
+            "偶联物",
+            "制备方法",
+            "生物医药"
+        ],
+        "tags": [
+            "biomedicine",
+            "protein-engineering"
+        ],
+        "risks": [
+            "需要补充具体蛋白对象的实验数据",
+            "转化价值取决于下游适应症选择"
+        ]
     },
     {
-        id: 'ZL202410024567.3',
-        title: '一种课堂专注度分析与个性化教学反馈系统',
-        inventorId: 'inv_014',
-        field: '人工智能',
-        industry: '教育科技',
-        summary: '分析课堂互动、答题和学习轨迹，为教师提供班级专注度和个性化教学反馈。',
-        keywords: ['教育科技', '学习分析', '课堂互动', '个性化教学', '专注度', '人工智能'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['学生数据隐私需严格保护', '不应把专注度作为单一评价指标']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN115316172A",
+        "sourceUrl": "https://patents.google.com/patent/CN115316172A/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "standard",
+        "licensePrice": 2999,
+        "id": "CN115316172A",
+        "title": "一种基于植保无人机的纳米农药施药方法及系统",
+        "inventorId": "inv_010",
+        "imageUrl": "assets/patents/CN115316172A.png",
+        "pdfUrl": "https://patents.google.com/patent/CN115316172A/zh",
+        "inventors": [
+            "王潇楠",
+            "常虹",
+            "陈炳旭"
+        ],
+        "leadInventor": "王潇楠",
+        "assignee": "广东省农业科学院植物保护研究所",
+        "applicationNumber": "CN202210981520.3A",
+        "priorityDate": "2022-08-16",
+        "filingDate": "2022-08-16",
+        "publicationDate": "2022-11-11",
+        "legalStatus": "Pending",
+        "field": "植保无人机施药",
+        "industry": "农业科技",
+        "commercialFit": "standard",
+        "price": 2999,
+        "summary": "把植保无人机与纳米农药施药流程结合，服务精准喷施、药剂减量和大田病虫害防治场景。",
+        "keywords": [
+            "植保无人机",
+            "纳米农药",
+            "施药方法",
+            "精准农业",
+            "病虫害防治"
+        ],
+        "tags": [
+            "agriculture-ai",
+            "uav-spraying"
+        ],
+        "risks": [
+            "需根据作物和药剂登记要求核验",
+            "飞防作业受天气和地形影响"
+        ]
     },
     {
-        id: 'ZL202410025678.6',
-        title: '一种跨境电商商品需求预测与库存优化系统',
-        inventorId: 'inv_007',
-        field: '推荐系统',
-        industry: '供应链物流',
-        summary: '结合搜索趋势、历史订单和物流时效预测商品需求，辅助跨境仓库存和补货决策。',
-        keywords: ['需求预测', '库存优化', '跨境电商', '供应链', '推荐系统', '补货决策'],
-        requireLicense: true,
-        price: 2999,
-        licensePrice: 2999,
-        licenseTier: 'standard',
-        risks: ['需要稳定订单和库存数据', '促销活动会带来预测偏差']
-    },
-    {
-        id: 'ZL202410026789.7',
-        title: '一种多源数据驱动的城市内涝预警方法',
-        inventorId: 'inv_008',
-        field: '物联网',
-        industry: '城市治理',
-        summary: '融合雨量、管网水位和道路积水数据，对城市内涝风险进行分级预警。',
-        keywords: ['城市治理', '内涝预警', '雨量监测', '管网水位', '物联网', '风险预警'],
-        requireLicense: true,
-        price: 3999,
-        licensePrice: 3999,
-        licenseTier: 'premium',
-        risks: ['需要城市传感器覆盖', '预警结果需与应急处置流程联动']
-    },
-    {
-        id: 'ZL202410027890.4',
-        title: '一种新能源汽车充电站负荷预测与调度系统',
-        inventorId: 'inv_002',
-        field: '新能源',
-        industry: '新能源汽车',
-        summary: '预测充电站高峰负荷并优化充电调度，降低配电压力并提升车主排队体验。',
-        keywords: ['新能源汽车', '充电站', '负荷预测', '调度优化', '电力负荷', '排队体验'],
-        requireLicense: false,
-        price: 0,
-        licensePrice: 0,
-        risks: ['需要接入充电订单和配电容量数据', '调度策略需避免影响用户体验']
-    },
-    {
-        id: 'ZL202410028901.5',
-        title: '一种电子病历结构化抽取与质控方法',
-        inventorId: 'inv_001',
-        field: '自然语言处理',
-        industry: '医疗健康',
-        summary: '从电子病历文本中抽取诊断、用药和检验指标，并进行病历质控和科研检索。',
-        keywords: ['医疗健康', '电子病历', '自然语言处理', '结构化抽取', '病历质控', '科研检索'],
-        requireLicense: true,
-        price: 2999,
-        licensePrice: 2999,
-        licenseTier: 'standard',
-        risks: ['需要医院数据脱敏', '不同科室病历模板差异较大']
+        "sourceName": "科研之友专利库",
+        "publicationNumber": "CN116171962B",
+        "sourceUrl": "https://patents.google.com/patent/CN116171962B/zh",
+        "statusNote": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "sourceCaveat": "科研之友专利库 公开页面参考；法律状态、权利边界、权属信息和可实施性均需二次核验，本原型不构成法律许可结论。",
+        "type": "发明专利",
+        "requireLicense": true,
+        "licenseTier": "standard",
+        "licensePrice": 2999,
+        "id": "CN116171962B",
+        "title": "一种植保无人机的高效对靶喷雾调控方法及系统",
+        "inventorId": "inv_010",
+        "imageUrl": "assets/patents/CN116171962B.png",
+        "pdfUrl": "https://patents.google.com/patent/CN116171962B/zh",
+        "inventors": [
+            "王潇楠",
+            "常虹",
+            "陈炳旭"
+        ],
+        "leadInventor": "王潇楠",
+        "assignee": "广东省农业科学院植物保护研究所",
+        "applicationNumber": "CN202310134653.6A",
+        "priorityDate": "2023-02-20",
+        "filingDate": "2023-02-20",
+        "publicationDate": "2024-03-01",
+        "legalStatus": "Active",
+        "field": "无人机对靶喷雾",
+        "industry": "农业科技",
+        "commercialFit": "standard",
+        "price": 2999,
+        "summary": "通过对靶喷雾调控提高植保无人机施药效率和命中率，适合精准农业、农药减量和规模化飞防服务。",
+        "keywords": [
+            "植保无人机",
+            "对靶喷雾",
+            "喷雾调控",
+            "精准施药",
+            "农业科技"
+        ],
+        "tags": [
+            "agriculture-ai",
+            "precision-spraying"
+        ],
+        "risks": [
+            "需要与无人机硬件和喷头型号适配",
+            "规模化作业需评估维护和培训成本"
+        ]
     }
 ];
 
-// 专利详情数据（包含价格和许可需求）
-const patentDetails = {
-    'ZL202410001234.5': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410005678.9': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410009012.3': { requireLicense: true, price: 2999, licensePrice: 2999, licenseTier: 'standard' },
-    'ZL202410003456.7': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410007890.1': { requireLicense: true, price: 3999, licensePrice: 3999, licenseTier: 'premium' },
-    'ZL202410002345.8': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410006666.2': { requireLicense: true, price: 1999, licensePrice: 1999, licenseTier: 'basic' },
-    'ZL202410008888.6': { requireLicense: true, price: 2999, licensePrice: 2999, licenseTier: 'standard' },
-    'ZL202410004321.0': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410010234.4': { requireLicense: true, price: 1999, licensePrice: 1999, licenseTier: 'basic' },
-    'ZL202410011678.2': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410012345.6': { requireLicense: true, price: 2999, licensePrice: 2999, licenseTier: 'standard' },
-    'ZL202410013210.9': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410014567.1': { requireLicense: true, price: 1999, licensePrice: 1999, licenseTier: 'basic' },
-    'ZL202410015678.4': { requireLicense: true, price: 2999, licensePrice: 2999, licenseTier: 'standard' },
-    'ZL202410016789.5': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410017890.2': { requireLicense: true, price: 1999, licensePrice: 1999, licenseTier: 'basic' },
-    'ZL202410018901.8': { requireLicense: true, price: 2999, licensePrice: 2999, licenseTier: 'standard' },
-    'ZL202410019012.0': { requireLicense: true, price: 3999, licensePrice: 3999, licenseTier: 'premium' },
-    'ZL202410020123.7': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410021234.8': { requireLicense: true, price: 2999, licensePrice: 2999, licenseTier: 'standard' },
-    'ZL202410022345.9': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410023456.0': { requireLicense: true, price: 1999, licensePrice: 1999, licenseTier: 'basic' },
-    'ZL202410024567.3': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410025678.6': { requireLicense: true, price: 2999, licensePrice: 2999, licenseTier: 'standard' },
-    'ZL202410026789.7': { requireLicense: true, price: 3999, licensePrice: 3999, licenseTier: 'premium' },
-    'ZL202410027890.4': { requireLicense: false, price: 0, licensePrice: 0 },
-    'ZL202410028901.5': { requireLicense: true, price: 2999, licensePrice: 2999, licenseTier: 'standard' }
+function derivePatentPricing(patent) {
+    const scholar = inventors.find(item => item.id === patent.inventorId) || {};
+    const fit = patent.commercialFit || 'standard';
+    const status = String(patent.legalStatus || '');
+    let price = 2999;
+    let basis = 'university / research institute / strong company patent';
+
+    if (patent.trialAccess || fit === 'trial') {
+        price = 0;
+        basis = 'selected trial/open discovery record';
+    } else if (fit === 'narrow' || /Expired|Withdrawn/i.test(status)) {
+        price = 1999;
+        basis = 'older, narrower, or lower-confidence commercial fit';
+    } else if ((scholar.affiliationTier === 'top_university' || scholar.affiliationTier === 'national_institute') && (fit === 'high' || /Active|Granted/i.test(status))) {
+        price = 3999;
+        basis = 'top university / national institute plus active or highly relevant patent';
+    }
+
+    return {
+        price,
+        licensePrice: price,
+        requireLicense: price > 0,
+        licenseTier: price >= 3999 ? 'premium' : price >= 2999 ? 'standard' : price > 0 ? 'basic' : 'free',
+        pricingBasis: basis
+    };
+}
+
+const patentImageMetaById = {
+    CN115062165A: { imageWidth: 124, imageHeight: 120, imageQuality: 'low' },
+    CN115512810A: { imageWidth: 155, imageHeight: 120, imageQuality: 'low' },
+    CN114240935B: { imageWidth: 73, imageHeight: 120, imageQuality: 'low' },
+    CN115132314A: { imageWidth: 155, imageHeight: 120, imageQuality: 'low' },
+    CN114582470B: { imageWidth: 548, imageHeight: 120, imageQuality: 'low' },
+    CN110632554A: { imageWidth: 248, imageHeight: 120, imageQuality: 'low' },
+    CN112029343A: { imageWidth: 137, imageHeight: 120, imageQuality: 'low' },
+    CN115051051A: { imageWidth: 252, imageHeight: 120, imageQuality: 'low' },
+    CN114092389A: { imageWidth: 95, imageHeight: 120, imageQuality: 'low' },
+    CN106251095B: { imageWidth: 237, imageHeight: 120, imageQuality: 'low' },
+    CN114550108B: { imageWidth: 193, imageHeight: 120, imageQuality: 'low' },
+    CN111388679A: { imageWidth: 164, imageHeight: 120, imageQuality: 'low' },
+    CN106924752B: { imageWidth: 240, imageHeight: 120, imageQuality: 'low' },
+    CN115316172A: { imageWidth: 108, imageHeight: 120, imageQuality: 'low' },
+    CN110503207A: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN110610242A: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN104346524A: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN110109020A: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN110045287A: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN119090851A: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN113888477B: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN105046353A: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN114170513B: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN106924753A: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' },
+    CN116171962B: { imageWidth: 952, imageHeight: 1348, imageQuality: 'high' }
 };
+const localizedSourceName = '\u79d1\u7814\u4e4b\u53cb\u4e13\u5229\u5e93';
+const localizedSourceCaveat = '\u4e13\u5229\u516c\u5f00\u6587\u672c\uff1b\u6cd5\u5f8b\u72b6\u6001\u9700\u4e8c\u6b21\u6838\u9a8c\uff0c\u672c\u9875\u9762\u4e0d\u6784\u6210\u8bb8\u53ef\u7ed3\u8bba\u3002';
+
+patents.forEach(patent => {
+    const meta = patentImageMetaById[patent.id];
+    if (meta) Object.assign(patent, meta);
+    if (!patent.imageQuality) {
+        const width = Number(patent.imageWidth || 0);
+        const height = Number(patent.imageHeight || 0);
+        patent.imageQuality = width >= 240 && height >= 240 ? 'high' : 'low';
+    }
+    patent.sourceName = localizedSourceName;
+    patent.statusNote = localizedSourceCaveat;
+    patent.sourceCaveat = localizedSourceCaveat;
+    Object.assign(patent, derivePatentPricing(patent));
+});
+
+const patentDetails = patents.reduce((details, patent) => {
+    details[patent.id] = {
+        requireLicense: patent.requireLicense,
+        price: patent.price,
+        licensePrice: patent.licensePrice,
+        licenseTier: patent.licenseTier,
+        pricingBasis: patent.pricingBasis
+    };
+    return details;
+}, {});
 
 function getPatentById(patentId) {
     const base = patents.find(patent => patent.id === patentId) || patents[0];
