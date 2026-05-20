@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
 </head>
-<body>
+<body class="chat-page">
     <!-- 导航栏 -->
     <header class="navbar">
         <div class="container navbar__container">
@@ -33,7 +33,7 @@
     <main>
         <div class="container" style="padding-top: var(--space-4);">
             <div class="chat-layout">
-                <!-- 左侧：发明人信息 -->
+                <!-- 左侧：学者与会话 -->
                 <aside class="chat-sidebar">
                     <div class="chat-nav-actions">
                         <a href="index.html#advisor" id="chatWorkbenchLink" class="chat-header__back">← 返回首页</a>
@@ -46,26 +46,13 @@
                         </div>
                         <div class="chat-inventor-info__name">李传富</div>
                         <div class="chat-inventor-info__badge">数字顾问</div>
+                        <div class="chat-inventor-info__affiliation">合肥综合性国家科学中心人工智能研究院</div>
                         <div class="chat-inventor-info__expertise">
                             <span class="tag">人工智能</span>
                             <span class="tag">医疗影像</span>
                         </div>
                         <p class="chat-inventor-info__bio">数字顾问基于公开专利文本、首席发明人和权利人元数据生成，仅用于技术沟通原型。</p>
                     </div>
-
-                    <div class="chat-token-info">
-                        <div class="chat-token-info__label">今日剩余 Token</div>
-                        <div class="chat-token-info__value" id="tokenDisplay">100</div>
-                        <div class="chat-token-info__hint">本次对话约消耗 30 Token</div>
-                    </div>
-
-                    <div class="chat-membership-cta" id="chatMembershipCta">
-                        <div class="chat-membership-cta__title">升级会员获取更多顾问席位</div>
-                        <div class="chat-membership-cta__desc" id="chatMembershipDesc">专业版/企业版支持长期顾问席位、更多需求项目、Token 和真人跟进。</div>
-                        <a href="membership.html" class="btn btn--primary btn--sm">查看会员方案</a>
-                    </div>
-
-                    <div class="chat-seat-panel" id="seatActionPanel"></div>
 
                     <div class="chat-session-panel">
                         <div class="chat-session-panel__header">
@@ -74,27 +61,12 @@
                         </div>
                         <div class="chat-session-list" id="sessionList"></div>
                     </div>
-
-                    <div class="chat-quick-questions">
-                        <div class="chat-quick-questions__title">快捷问题</div>
-                        <div class="chat-quick-questions__list">
-                            <button class="chat-quick-question" onclick="sendQuickQuestion('这项技术的核心优势是什么？')">
-                                这项技术的核心优势是什么？
-                            </button>
-                            <button class="chat-quick-question" onclick="sendQuickQuestion('研发过程中遇到的最大挑战是什么？')">
-                                研发过程中遇到的最大挑战是什么？
-                            </button>
-                            <button class="chat-quick-question" onclick="sendQuickQuestion('这项技术未来的迭代方向？')">
-                                这项技术未来的迭代方向？
-                            </button>
-                        </div>
-                    </div>
                 </aside>
 
-                <!-- 右侧：对话区域 -->
-                    <div class="chat-main">
-                        <div class="chat-header">
-                        <span class="chat-header__back">💬</span>
+                <!-- 中间：对话区域 -->
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <span class="chat-header__back">◌</span>
                         <div>
                             <div class="chat-header__title">与李传富对话</div>
                             <div class="chat-header__patent">专利：一种基于人工智能的医疗诊断系统及方法</div>
@@ -104,9 +76,9 @@
                             <a href="patent-detail.html" id="chatDetailHeaderLink" class="btn btn--ghost btn--sm">查看专利详情</a>
                         </div>
                         <button class="btn btn--outline btn--sm chat-history-toggle" type="button" onclick="toggleChatSidebar()">会话</button>
-                        </div>
+                    </div>
 
-                        <div class="chat-messages" id="chatMessages">
+                    <div class="chat-messages" id="chatMessages">
                         <!-- AI 欢迎消息 -->
                         <div class="chat-message chat-message--ai">
                             <div class="chat-message__avatar">
@@ -135,13 +107,44 @@
                                 发送
                             </button>
                         </div>
-                        <div class="chat-input__token">
-                            <span id="tokenCost">消耗约 30 Token</span>
-                            <button class="btn btn--outline btn--sm" style="margin-left: var(--space-3);" onclick="submitTradeIntentFromChat()">提交交易意向</button>
+                        <div class="chat-input__meta">
                             <button class="btn btn--ghost btn--sm" id="localFallbackBtn" style="display: none; margin-left: var(--space-2);" onclick="sendLocalFallbackForLastQuestion()">本地模拟回复</button>
                         </div>
                     </div>
                 </div>
+
+                <!-- 右侧：资料源与可信边界 -->
+                <aside class="chat-right-panel" aria-label="数字学者资料源与知识边界">
+                    <section class="chat-trust-card chat-sources-panel">
+                        <div class="chat-trust-card__header">
+                            <span>资料源</span>
+                            <a href="patent-detail.html" id="chatSourceDetailLink">当前专利</a>
+                        </div>
+                        <div class="chat-source-list" id="chatSourceList"></div>
+                    </section>
+
+                    <section class="chat-trust-card chat-boundary-panel">
+                        <div class="chat-trust-card__header">
+                            <span>可信边界</span>
+                        </div>
+                        <div class="chat-boundary-grid" id="chatBoundaryPanel"></div>
+                    </section>
+
+                    <section class="chat-trust-card chat-quick-questions">
+                        <div class="chat-quick-questions__title">建议提问</div>
+                        <div class="chat-quick-questions__list">
+                            <button class="chat-quick-question" onclick="sendQuickQuestion('请基于专利证据说明这项技术的核心优势。')">
+                                基于专利证据说明核心优势
+                            </button>
+                            <button class="chat-quick-question" onclick="sendQuickQuestion('这项技术落地时最需要验证哪些条件？')">
+                                落地时最需要验证哪些条件？
+                            </button>
+                            <button class="chat-quick-question" onclick="sendQuickQuestion('哪些问题属于公开材料无法回答的范围？')">
+                                哪些问题超出公开材料？
+                            </button>
+                        </div>
+                    </section>
+                </aside>
             </div>
         </div>
     </main>
@@ -243,12 +246,12 @@
             document.querySelector('.chat-inventor-info__avatar img').src = inventor.avatar;
             document.querySelector('.chat-inventor-info__avatar img').alt = inventor.name;
             document.querySelector('.chat-inventor-info__name').textContent = inventor.name;
+            document.querySelector('.chat-inventor-info__affiliation').textContent = inventor.affiliation || patent.assignee || '科研之友专利库';
             document.querySelector('.chat-inventor-info__expertise').innerHTML = inventor.expertise.map(item => `<span class="tag tag--sm">${item}</span>`).join('');
-            document.querySelector('.chat-inventor-info__bio').textContent = `${inventor.name}会结合企业需求项目，用业务语言解释专利价值、落地门槛和下一步交易路径。`;
+            document.querySelector('.chat-inventor-info__bio').textContent = `${inventor.name}会基于公开专利文本和研究方向回答，超出公开边界的问题会直接说明。`;
             ensureCurrentSession();
-            renderChatMembershipCta();
-            renderSeatAction();
             renderSessionList();
+            renderTrustPanel();
             renderWelcomeMessage();
             updateTokenDisplay();
             loadConversationHistory();
@@ -284,6 +287,8 @@
                 const link = document.getElementById(id);
                 if (link) link.href = detailHref;
             });
+            const sourceDetailLink = document.getElementById('chatSourceDetailLink');
+            if (sourceDetailLink) sourceDetailLink.href = detailHref;
         }
 
         function ensureCurrentSession(forceNew = false) {
@@ -315,39 +320,46 @@
             return currentSession;
         }
 
-        function renderChatMembershipCta() {
-            const user = UserManager.getUser();
-            const plan = ScholarMateBusinessCore.getMembershipPlan(user && user.membership ? user.membership : 'free');
-            const seatUsage = UserManager.getAdvisorSeatUsage();
-            const projectName = project ? `当前需求：${project.title}` : '当前未绑定技术需求项目';
-            document.getElementById('chatMembershipDesc').textContent = `${plan.name || '免费认证版'} · 顾问席位 ${seatUsage.label} · ${projectName} · 剩余 Token ${UserManager.getRemainingToken()}`;
+        function renderTrustPanel() {
+            renderSourceList();
+            renderBoundaryPanel();
         }
 
-        function renderSeatAction() {
-            const panel = document.getElementById('seatActionPanel');
-            const user = UserManager.getUser();
-            const assets = UserManager.getDigitalHumanAssets();
-            const alreadyAsset = assets.some(asset => asset.inventorId === inventor.id && (!asset.patentId || asset.patentId === patent.id));
-            if (alreadyAsset) {
-                panel.innerHTML = '<div class="chat-seat-panel__status">已加入我的数字顾问</div>';
-                return;
-            }
-            if (ScholarMateBusinessCore.hasPaidMembership(user)) {
-                const seatUsage = UserManager.getAdvisorSeatUsage();
-                panel.innerHTML = `<button class="btn btn--outline btn--full btn--sm" onclick="joinCurrentDigitalHuman()">加入顾问席位（${seatUsage.label}）</button>`;
-                return;
-            }
-            panel.innerHTML = '<div class="chat-seat-panel__status">专业版/企业版可加入长期顾问席位</div>';
+        function renderSourceList() {
+            const list = document.getElementById('chatSourceList');
+            if (!list) return;
+            const sourcePatents = (currentScholarPatents.length ? currentScholarPatents : [patent]).slice(0, 6);
+            list.innerHTML = sourcePatents.map(item => `
+                <a class="chat-source-item ${item.id === patent.id ? 'chat-source-item--active' : ''}" href="patent-detail.html?id=${encodeURIComponent(item.id)}">
+                    <span>${ScholarMate.escapeHtml(item.publicationNumber || item.id)}</span>
+                    <strong>${ScholarMate.escapeHtml(item.title || '专利公开文本')}</strong>
+                </a>
+            `).join('');
         }
 
-        function joinCurrentDigitalHuman() {
-            const result = UserManager.joinDigitalHumanSeat({ inventorId: inventor.id, patentId: patent.id, projectId });
-            if (!result.allowed) {
-                alert(result.reason);
-                return;
-            }
-            renderSeatAction();
-            ScholarMate.showToast('已加入我的数字顾问');
+        function renderBoundaryPanel() {
+            const panel = document.getElementById('chatBoundaryPanel');
+            if (!panel) return;
+            const coreTopics = (currentPersona && currentPersona.coreTopics && currentPersona.coreTopics.length)
+                ? currentPersona.coreTopics.slice(0, 4)
+                : (inventor.expertise || []).slice(0, 4);
+            const outOfScope = (currentPersona && currentPersona.outOfScope && currentPersona.outOfScope.length)
+                ? currentPersona.outOfScope.slice(0, 3)
+                : ['法律授权结论', '个体诊疗建议', '未公开实验细节'];
+            panel.innerHTML = `
+                <div class="chat-boundary-block">
+                    <span>能回答</span>
+                    <p>${ScholarMate.escapeHtml(coreTopics.join('、') || patent.field || patent.industry || '当前专利技术方向')}</p>
+                </div>
+                <div class="chat-boundary-block">
+                    <span>不能回答</span>
+                    <p>${ScholarMate.escapeHtml(outOfScope.join('、'))}</p>
+                </div>
+                <div class="chat-boundary-block">
+                    <span>依据来自</span>
+                    <p>专利公开文本、学者公开研究方向与领域通识；涉及第一层证据时会显示依据卡片。</p>
+                </div>
+            `;
         }
 
         function renderSessionList() {
@@ -431,7 +443,7 @@
 
         function renderWelcomeMessage() {
             const container = document.getElementById('chatMessages');
-            const projectLine = project ? `我已看到你的需求项目“${project.title}”，会围绕${project.industry}、${project.stage}和${project.budget}预算来判断。` : '如果你先创建技术需求项目，我可以给出更贴近企业场景的匹配判断。';
+            const projectLine = project ? `我已看到你的需求项目“${project.title}”，会围绕${project.industry}、${project.stage}和${project.budget}预算来判断。` : '你可以直接围绕专利证据、技术路线和落地条件提问。';
             container.innerHTML = `
                 <div class="chat-message chat-message--ai">
                     <div class="chat-message__avatar">
@@ -440,7 +452,7 @@
                     <div>
                         <div class="chat-message__content">
                             您好，我是${ScholarMate.escapeHtml(inventor.name)}。${ScholarMate.escapeHtml(projectLine)}<br><br>
-                            当前专利是“${ScholarMate.escapeHtml(patent.title)}”。你可以直接问它适不适合你们、怎么落地、风险在哪里，或者让我帮你准备交易意向。
+                            当前专利是“${ScholarMate.escapeHtml(patent.title)}”。我会优先基于专利公开文本回答；如果问题超出公开材料，我会直接说明边界。
                         </div>
                         <div class="chat-message__time">刚刚</div>
                     </div>
@@ -450,7 +462,8 @@
 
         function updateTokenDisplay() {
             const remaining = UserManager.getRemainingToken();
-            document.getElementById('tokenDisplay').textContent = remaining;
+            const tokenDisplay = document.getElementById('tokenDisplay');
+            if (tokenDisplay) tokenDisplay.textContent = remaining;
         }
 
         function loadConversationHistory() {
@@ -484,7 +497,7 @@
             }
 
             if (!UserManager.consumeToken(30)) {
-                alert('Token不足，请明日再来或升级会员');
+                alert('今日演示额度不足，请明日再试。');
                 return;
             }
 
@@ -537,7 +550,7 @@
 
         function sendQuickQuestion(question) {
             if (UserManager.getRemainingToken() < 30) {
-                alert('Token不足，请明日再来或升级会员');
+                alert('今日演示额度不足，请明日再试。');
                 return;
             }
 
@@ -618,29 +631,6 @@
                     <ul class="chat-evidence__list">${rows}</ul>
                 </details>
             `;
-        }
-
-        function submitTradeIntentFromChat() {
-            const gate = UserManager.canPerformCommercialAction();
-            if (!gate.allowed) {
-                UserManager.promptVerification('提交交易意向');
-                return;
-            }
-            if (!projectId) {
-                alert('建议先在用户中心创建技术需求项目，再提交交易意向。');
-                window.location.href = 'user-center.html#demand-projects';
-                return;
-            }
-            UserManager.createTradeIntent({
-                projectId,
-                patentId,
-                contactName: UserManager.getUser().name || '企业联系人',
-                contactPhone: UserManager.getUser().phone || '通过平台对接',
-                message: `基于与${inventor.name}的数字人沟通，希望进一步评估“${patent.title}”的交易合作。`,
-                needAdvisor: true
-            });
-            ScholarMate.showToast('交易意向已提交');
-            window.location.href = 'user-center.html#trade-intents';
         }
 
         function handleKeyDown(event) {

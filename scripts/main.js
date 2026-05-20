@@ -53,7 +53,6 @@ const ScholarMate = {
         this.applyMobilePreviewMode();
         this.renderMobilePreviewEntry();
         this.renderPatentCatalogCards();
-        this.initDemandUpload();
         this.initFavoriteButtons();
         this.hydratePatentCards();
         this.updateNavbarAuth();

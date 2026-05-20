@@ -52,33 +52,6 @@
                 </form>
             </div>
 
-            <section class="demand-upload-card" aria-labelledby="demandUploadTitle">
-                <div class="demand-upload-card__header">
-                    <div>
-                        <h2 id="demandUploadTitle" class="demand-upload-card__title">上传需求文本，生成需求推荐</h2>
-                        <p class="demand-upload-card__desc">适合企业已有技术需求说明、采购调研文档或试点方案。上传后会创建技术需求项目，再按需求上下文推荐专利。</p>
-                    </div>
-                    <span class="tag">需求推荐</span>
-                </div>
-                <div class="demand-upload-card__grid">
-                    <label class="demand-upload-dropzone" for="demandTextFile">
-                        <input id="demandTextFile" class="demand-upload-dropzone__input" type="file" accept=".txt,.md,text/plain,text/markdown">
-                        <span class="demand-upload-dropzone__icon">⇧</span>
-                        <span class="demand-upload-dropzone__title">选择或拖拽 .txt / .md</span>
-                        <span class="demand-upload-dropzone__hint">Word/PDF 请先复制正文粘贴</span>
-                    </label>
-                    <div class="demand-upload-card__paste">
-                        <label class="input__label" for="demandTextInput">也可以直接粘贴需求文本</label>
-                        <textarea id="demandTextInput" class="input demand-upload-card__textarea" rows="5" placeholder="例如：基层医院影像诊断效率提升&#10;希望用AI医学影像能力提升基层医生诊断效率，优先考虑能快速试点、可解释性较强的方案。"></textarea>
-                    </div>
-                </div>
-                <div id="demandUploadPreview" class="demand-upload-preview" hidden></div>
-                <div id="demandUploadActions" class="demand-upload-actions" hidden>
-                    <button id="createDemandRecommendationBtn" class="btn btn--primary" type="button">生成需求推荐</button>
-                    <button id="clearDemandTextBtn" class="btn btn--ghost" type="button">清空</button>
-                </div>
-            </section>
-
             <!-- 横向筛选栏 -->
             <div class="patent-list-filters">
                 <div class="patent-list-filter">
