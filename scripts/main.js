@@ -5,12 +5,110 @@
 const ScholarMate = {
     // 初始化
     init() {
+        this.migrateClientStorageForCatalog();
         this.bindEvents();
         this.initComponents();
         this.handleURLParams();
     },
 
     // 事件绑定
+    catalogVersionKey: 'scholarmate_catalog_version',
+
+    getCatalogStorageVersion() {
+        const patentIds = (typeof patents !== 'undefined' ? patents : []).map(patent => patent.id).join(',');
+        const inventorIds = (typeof inventors !== 'undefined' ? inventors : []).map(inventor => inventor.id).join(',');
+        return `cityu:${patentIds}::${inventorIds}`;
+    },
+
+    readStorageJson(key, fallback) {
+        try {
+            const raw = localStorage.getItem(key);
+            return raw ? JSON.parse(raw) : fallback;
+        } catch (error) {
+            console.warn(`Failed to read ${key}:`, error);
+            return fallback;
+        }
+    },
+
+    writeStorageJson(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+    },
+
+    migrateClientStorageForCatalog() {
+        if (typeof localStorage === 'undefined') return false;
+        const nextVersion = this.getCatalogStorageVersion();
+        if (localStorage.getItem(this.catalogVersionKey) === nextVersion) return false;
+
+        const validPatentIds = new Set((typeof patents !== 'undefined' ? patents : []).map(patent => patent.id));
+        const validInventorIds = new Set((typeof inventors !== 'undefined' ? inventors : []).map(inventor => inventor.id));
+        const hasValidPatent = patentId => !patentId || validPatentIds.has(patentId);
+        const hasValidInventor = inventorId => !inventorId || validInventorIds.has(inventorId);
+
+        const user = this.readStorageJson('scholarmate_user', null);
+        if (user && typeof user === 'object') {
+            if (Array.isArray(user.purchasedLicenses)) {
+                user.purchasedLicenses = user.purchasedLicenses.filter(id => validPatentIds.has(id));
+            }
+            if (user.licensePurchasedAt && typeof user.licensePurchasedAt === 'object') {
+                user.licensePurchasedAt = Object.fromEntries(
+                    Object.entries(user.licensePurchasedAt).filter(([id]) => validPatentIds.has(id))
+                );
+            }
+            if (Array.isArray(user.digitalHumanSeats)) {
+                user.digitalHumanSeats = user.digitalHumanSeats.filter(seat => (
+                    seat &&
+                    hasValidInventor(seat.inventorId) &&
+                    hasValidPatent(seat.patentId)
+                ));
+            }
+            this.writeStorageJson('scholarmate_user', user);
+        }
+
+        const sessions = this.readStorageJson('scholarmate_chat_sessions_v2', null);
+        if (Array.isArray(sessions)) {
+            this.writeStorageJson('scholarmate_chat_sessions_v2', sessions.filter(session => (
+                session &&
+                hasValidInventor(session.inventorId) &&
+                hasValidPatent(session.patentId)
+            )));
+        }
+
+        for (let index = localStorage.length - 1; index >= 0; index -= 1) {
+            const key = localStorage.key(index);
+            if (key && key.startsWith('chat_history_')) {
+                localStorage.removeItem(key);
+            }
+        }
+
+        const projects = this.readStorageJson('scholarmate_demand_projects', null);
+        if (Array.isArray(projects)) {
+            const cleanedProjects = projects.map(project => {
+                if (!project || typeof project !== 'object') return project;
+                const nextProject = Object.assign({}, project);
+                if (nextProject.matchedPatentId && !validPatentIds.has(nextProject.matchedPatentId)) {
+                    nextProject.matchedPatentId = '';
+                }
+                if (Array.isArray(nextProject.recommendations)) {
+                    nextProject.recommendations = nextProject.recommendations.filter(item => (
+                        item && validPatentIds.has(item.patentId)
+                    ));
+                }
+                return nextProject;
+            });
+            this.writeStorageJson('scholarmate_demand_projects', cleanedProjects);
+        }
+
+        const intents = this.readStorageJson('scholarmate_trade_intents', null);
+        if (Array.isArray(intents)) {
+            this.writeStorageJson('scholarmate_trade_intents', intents.filter(intent => (
+                intent && hasValidPatent(intent.patentId)
+            )));
+        }
+
+        localStorage.setItem(this.catalogVersionKey, nextVersion);
+        return true;
+    },
+
     bindEvents() {
         // 移动端菜单切换
         const menuToggle = document.querySelector('.menu-toggle');
