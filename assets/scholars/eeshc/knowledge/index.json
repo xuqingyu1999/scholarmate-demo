@@ -1,0 +1,100 @@
+{
+  "scholarId": "eeshc",
+  "scholarName": "Shu Hung Henry CHUNG",
+  "generatedAt": "2026-05-21T15:27:23Z",
+  "sourceTypes": [
+    "patent",
+    "paper_pdf",
+    "paper_metadata",
+    "profile",
+    "user_input"
+  ],
+  "paperCount": 5,
+  "downloadedPdfCount": 0,
+  "metadataOnlyCount": 5,
+  "chunkCount": 0,
+  "topics": [
+    "visibility estimation",
+    "sensors",
+    "attention model",
+    "power electronics",
+    "inverter",
+    "energy conversion",
+    "reactive power"
+  ],
+  "chunks": [],
+  "metadataRecords": [
+    {
+      "paperId": "f311e721ff2b",
+      "scholarId": "eeshc",
+      "title": "A Range-Aware Attention Framework for Meteorological Visibility Estimation",
+      "year": "2026",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "visibility estimation",
+        "sensors",
+        "attention model"
+      ],
+      "description": "Visibility-estimation dataset and adaptive attention method for fog and haze conditions.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-range-aware-attention-framework-for-meteorological-visibility-e/"
+    },
+    {
+      "paperId": "b86c57f64001",
+      "scholarId": "eeshc",
+      "title": "A Buck and Boost Inverter with Dual Buck Circuits Sharing a Freewheeling Diode",
+      "year": "2026",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "power electronics",
+        "inverter",
+        "energy conversion"
+      ],
+      "description": "Transformer-less buck/boost inverter design with a 500 W prototype and 97.98% peak efficiency.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-buck-and-boost-inverter-with-dual-buck-circuits-sharing-a-freew/"
+    },
+    {
+      "paperId": "242ba50ad054",
+      "scholarId": "eeshc",
+      "title": "Dual-Mode Time-Sharing-Based Buck and Boost Inverter With Reactive Power Injection Capability",
+      "year": "2026",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "power electronics",
+        "reactive power",
+        "inverter"
+      ],
+      "description": "Nonisolated single-stage buck/boost inverter with reactive power and bidirectional energy support.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/dual-mode-time-sharing-based-buck-and-boost-inverter-with-reactiv/"
+    },
+    {
+      "paperId": "47c3bca9d68a",
+      "scholarId": "eeshc",
+      "title": "A Multi-Load-Compatible DC-DC Converter with Permeability-Controlled Variable Inductor and Load-Aware Frequency Control for CPL Stability",
+      "year": "2026",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "DC-DC converter with resistive load (RL) or constant power load (CPL) requires different inductance to satisfy current ripple, efficiency, and stability. To achieve all the targets, a new perspective of using a permeability-controlled variable inductor (PCVI) and load-aware frequency control (LAFC) technique is proposed and employed in the buck converter for multi-load conditions. The key of this design is to achieve continuous conduction mode operation with high inductance for RL and maintain stability with low inductance for CPL via minor frequency variation. The magnetic core of PCVI consists of a ring-shaped ferrite wrapped with a passive LC resonator. The PCVI incorporates two sets of windings: one serving as the inductor terminal integrated into the circuit, and the other connected to a compensation capacitor. This design provides the PCVI with a frequency-variation inductance by modifying the equivalent magnetic reluctance via LC resonator. Besides, PCVI allows a voltage leap and sharp impedance variation within a minor frequency variation. The proposed converter features two decoupled control loops: a conventional output voltage loop and LAFC. The LAFC leverages output volt",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-multi-load-compatible-dc-dc-converter-with-permeability-control/"
+    },
+    {
+      "paperId": "8aa0c8fe334f",
+      "scholarId": "eeshc",
+      "title": "An Ultra-Wide Input and Power Range Resonant Converter for Renewable-Fed DC Microgrids with Larger Bus Voltage Fluctuations",
+      "year": "2026",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "DC microgrids integrating multiple renewable energies such as solar photovoltaic, wind and hydropower typically exhibit bus voltage fluctuations within a wide but coordinated range. Consequently, DC-link applications with dynamic load in DC microgrid require converters with wide input and power operation range. However, the operational range of conventional resonant converters is limited by their fixed resonant LC parameters and restricted switching frequency variation. In this article, a single-stage narrow frequency variation resonant converter featuring a low-cost permeability-controlled variable inductor (PCVI) is proposed to address this issue. The permeability of PCVI is adjusted passively by the operating frequency of the system without the need for external controllers. This alignment allows the frequency changes necessary for gain adjustment in the resonant converter to correspond with the changes of the inductance of PCVI. As the frequency increases, the gain of the resonant converter decreases while the inductance of the PCVI increases, which further reduces the gain. This design minimizes the frequency variation needed for gain regulation and extends the input and power",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/an-ultra-wide-input-and-power-range-resonant-converter-for-renewa/"
+    }
+  ]
+}

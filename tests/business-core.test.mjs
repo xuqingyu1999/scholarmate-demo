@@ -166,4 +166,83 @@ assert.ok(answer.includes('基层医院影像诊断效率提升'));
 assert.ok(answer.includes('企业能理解'));
 assert.ok(answer.includes('提交交易意向'));
 
+const zhaoLikeScholar = {
+  id: 'zhao_jianliang_leon',
+  name: 'Jianliang Leon ZHAO',
+  expertise: ['blockchain', 'digital finance', 'smart contract security'],
+  skills: [
+    { id: 'patent_fact_extractor', name: 'Patent Fact Extractor', priority: 100 },
+    { id: 'paper_evidence_retriever', name: 'Paper Evidence Retriever', priority: 80 },
+    { id: 'commercialization_assessor', name: 'Commercialization Assessor', priority: 70 },
+    { id: 'technical_due_diligence', name: 'Technical Due Diligence', priority: 65 },
+    { id: 'risk_guard', name: 'Risk Guard', priority: 100 },
+    { id: 'citation_answer_builder', name: 'Citation Answer Builder', priority: 75 }
+  ],
+  rules: {
+    identityRules: [{ id: 'identity_controlled_proxy', priority: 100, text: 'controlled proxy' }],
+    evidenceRules: [{ id: 'evidence_metadata_limit', priority: 90, text: 'metadata-only is not full text' }],
+    scholarRules: [{ id: 'scholar_field_scope', priority: 80, text: 'stay in scholar field scope' }]
+  },
+  knowledgeIndex: {
+    chunks: [{
+      paperId: 'paper_blockchain_pdf',
+      sourceType: 'paper_pdf',
+      title: 'Blockchain and Digital Finance',
+      year: '2022',
+      text: 'Blockchain digital finance systems depend on secure key management, smart contract security and trustworthy financial infrastructure.',
+      topicTags: ['blockchain', 'digital finance', 'smart contract'],
+      confidence: 'high',
+      sourceUrl: 'https://example.test/blockchain',
+      page: 2
+    }],
+    metadataRecords: [{
+      paperId: 'paper_security_metadata',
+      sourceType: 'paper_metadata',
+      title: 'Blockchain Security: A Survey',
+      year: '2021',
+      description: 'Metadata-only record about blockchain security techniques and research directions.',
+      topicTags: ['blockchain security'],
+      confidence: 'high',
+      sourceUrl: 'https://example.test/metadata'
+    }]
+  }
+};
+
+const blockchainPatent = {
+  id: 'CN114117510B',
+  title: 'Random private key storage method and device',
+  field: 'blockchain-trust',
+  industry: '区块链可信内容',
+  summary: 'A private-key storage and invocation method for blockchain systems.',
+  sourceUrl: 'https://scholars.cityu.edu.hk/en/publications/private-key/',
+  patentRules: [{ id: 'patent_first', priority: 100, text: 'patent first' }]
+};
+
+const advisorContext = BusinessCore.buildAdvisorContext({
+  inventor: zhaoLikeScholar,
+  patent: blockchainPatent,
+  question: '这个私钥专利有什么区块链安全研究基础？'
+});
+
+assert.strictEqual(advisorContext.intent.id, 'research_basis');
+assert.ok(advisorContext.triggeredSkills.some(skill => skill.id === 'paper_evidence_retriever'), 'research questions should trigger paper evidence retrieval');
+assert.ok(advisorContext.triggeredSkills.some(skill => skill.id === 'risk_guard'), 'all advisor answers should trigger risk guard');
+assert.strictEqual(advisorContext.paperEvidence[0].title, 'Blockchain and Digital Finance');
+assert.strictEqual(advisorContext.paperEvidence[0].sourceType, 'paper_pdf');
+
+const groundedAnswer = BusinessCore.composeAdvisorReply({
+  inventor: zhaoLikeScholar,
+  patent: blockchainPatent,
+  question: '这个私钥专利有什么区块链安全研究基础？'
+});
+assert.ok(groundedAnswer.includes('已下载公开PDF'), 'local advisor reply should identify downloaded PDF evidence');
+assert.ok(groundedAnswer.includes('metadata-only'), 'local advisor reply should explain metadata-only limitations');
+
+const riskAnswer = BusinessCore.composeAdvisorReply({
+  inventor: zhaoLikeScholar,
+  patent: blockchainPatent,
+  question: '这是不是侵权？'
+});
+assert.ok(riskAnswer.includes('不能直接判断是否侵权'), 'legal-risk questions should avoid legal conclusions');
+
 console.log('business-core tests passed');

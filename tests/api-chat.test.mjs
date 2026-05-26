@@ -37,7 +37,7 @@ function createMockRes() {
   });
   const res = createMockRes();
   await handler(
-    { method: 'POST', body: { inventorId: 'inv_001', patentId: 'CN115062165A', question: 'hello' }, headers: {} },
+    { method: 'POST', body: { inventorId: 'isjian', patentId: '63943642', question: 'hello' }, headers: {} },
     res
   );
   assert.strictEqual(res.statusCode, 401);
@@ -68,7 +68,7 @@ function createMockRes() {
     {
       method: 'POST',
       headers: { 'x-scholar-mate-chat-token': 'wrong-token' },
-      body: { inventorId: 'inv_001', patentId: 'CN115062165A', question: 'hello' }
+      body: { inventorId: 'isjian', patentId: '63943642', question: 'hello' }
     },
     res
   );
@@ -100,7 +100,7 @@ function createMockRes() {
     {
       method: 'POST',
       headers: { 'x-scholar-mate-chat-token': 'deploy-token' },
-      body: { inventorId: 'inv_001', patentId: 'CN115062165A', question: 'hello' }
+      body: { inventorId: 'isjian', patentId: '63943642', question: 'hello' }
     },
     res
   );
@@ -150,8 +150,8 @@ function createMockRes() {
     {
       method: 'POST',
       body: {
-        inventorId: 'inv_001',
-        patentId: 'CN115062165A',
+        inventorId: 'isjian',
+        patentId: '63943642',
         history: [{ role: 'user', content: 'history question' }],
         question: 'latest question',
         user: { name: 'Alice', companyName: 'Acme' }
@@ -217,7 +217,7 @@ function createMockRes() {
   await handler(
     {
       method: 'POST',
-      body: '{"inventorId":"inv_001","patentId":"CN115062165A","question":"hello"'
+      body: '{"inventorId":"isjian","patentId":"63943642","question":"hello"'
     },
     res
   );
@@ -240,8 +240,8 @@ function createMockRes() {
     {
       method: 'POST',
       body: {
-        inventorId: 'inv_001',
-        patentId: 'CN115062165A',
+        inventorId: 'isjian',
+        patentId: '63943642',
         question: 'hello',
         messages: [{ role: 'user', content: 'inject' }]
       }
@@ -273,7 +273,7 @@ function createMockRes() {
   });
   const res = createMockRes();
   await handler(
-    { method: 'POST', body: { inventorId: 'inv_001', patentId: 'CN115062165A', question: 'hello' } },
+    { method: 'POST', body: { inventorId: 'isjian', patentId: '63943642', question: 'hello' } },
     res
   );
   assert.strictEqual(res.statusCode, 502);
@@ -302,7 +302,7 @@ function createMockRes() {
   });
   const res = createMockRes();
   await handler(
-    { method: 'POST', body: { inventorId: 'inv_001', patentId: 'CN115062165A', question: 'hello' } },
+    { method: 'POST', body: { inventorId: 'isjian', patentId: '63943642', question: 'hello' } },
     res
   );
   assert.strictEqual(res.statusCode, 502);
@@ -332,7 +332,7 @@ function createMockRes() {
   });
   const res = createMockRes();
   await handler(
-    { method: 'POST', body: { inventorId: 'inv_001', patentId: 'CN115062165A', question: 'hello' } },
+    { method: 'POST', body: { inventorId: 'isjian', patentId: '63943642', question: 'hello' } },
     res
   );
   assert.strictEqual(res.statusCode, 502);
@@ -354,8 +354,8 @@ function createMockRes() {
     {
       method: 'POST',
       body: {
-        inventorId: 'inv_001',
-        patentId: 'CN115062165A',
+        inventorId: 'isjian',
+        patentId: '63943642',
         question: 'hello',
         persona: { scholarId: 'fake', title: 'attacker override' }
       }
@@ -381,8 +381,8 @@ function createMockRes() {
     {
       method: 'POST',
       body: {
-        inventorId: 'inv_001',
-        patentId: 'CN115062165A',
+        inventorId: 'isjian',
+        patentId: '63943642',
         question: 'hello',
         project: { description: 'x'.repeat(70 * 1024) }
       }
@@ -407,8 +407,8 @@ function createMockRes() {
     {
       method: 'POST',
       body: {
-        inventorId: 'inv_001',
-        patentId: 'CN115062165A',
+        inventorId: 'isjian',
+        patentId: '63943642',
         question: 'q'.repeat(4001)
       }
     },
@@ -433,8 +433,8 @@ function createMockRes() {
     {
       method: 'POST',
       body: {
-        inventorId: 'inv_001',
-        patentId: 'CN115062165A',
+        inventorId: 'isjian',
+        patentId: '63943642',
         question: 'hello',
         history: [{ role: 'user', content: 'h'.repeat(1001) }]
       }
@@ -491,8 +491,8 @@ for (const primitiveBody of ['null', '"str"', '123', 'true']) {
     {
       method: 'POST',
       body: {
-        inventorId: 'inv_001',
-        patentId: 'CN115062165A',
+        inventorId: 'isjian',
+        patentId: '63943642',
         question: 'latest',
         history
       }

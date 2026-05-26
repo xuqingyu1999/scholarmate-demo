@@ -1,6 +1,8 @@
 .playwright-cli/
 output/
 node_modules/
+scratch/
+*-xuqingyu.*
 .DS_Store
 Thumbs.db
 *.log

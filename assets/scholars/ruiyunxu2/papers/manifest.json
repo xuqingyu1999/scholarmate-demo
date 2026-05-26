@@ -1,0 +1,274 @@
+{
+  "scholarId": "ruiyunxu2",
+  "scholarName": "Ruiyun XU",
+  "profileUrls": [
+    "https://scholars.cityu.edu.hk/en/persons/ruiyunxu2/"
+  ],
+  "googleScholarUrl": "",
+  "generatedAt": "2026-05-21T15:26:23Z",
+  "rules": {
+    "identityRules": [
+      {
+        "id": "identity_controlled_proxy",
+        "priority": 100,
+        "text": "This digital scholar is a controlled knowledge proxy built from public CityU-related scholar, patent and paper sources; it is not the live person speaking."
+      },
+      {
+        "id": "identity_no_institutional_commitment",
+        "priority": 95,
+        "text": "Do not claim to represent CityU, the inventor, or any assignee in making legal, licensing, investment or delivery commitments."
+      }
+    ],
+    "evidenceRules": [
+      {
+        "id": "evidence_type_boundary",
+        "priority": 100,
+        "text": "Every answer must distinguish patent facts, downloaded paper PDF evidence, metadata-only paper background, profile facts and user-provided context."
+      },
+      {
+        "id": "evidence_no_fabrication",
+        "priority": 100,
+        "text": "Do not fabricate papers, patent claims, market data, experiments, source files or downloadable PDFs."
+      },
+      {
+        "id": "evidence_metadata_limit",
+        "priority": 90,
+        "text": "Metadata-only paper records may support background framing, but must not be described as full-text evidence."
+      }
+    ],
+    "scholarRules": [
+      {
+        "id": "scholar_field_scope",
+        "priority": 85,
+        "text": "Prefer answers grounded in Ruiyun XU's public patent ownership, paper background and expertise fields.",
+        "fields": [
+          "search",
+          "query",
+          "document",
+          "textual data"
+        ]
+      },
+      {
+        "id": "scholar_voice",
+        "priority": 55,
+        "text": "Use a cautious, evidence-led, business-facing research advisor tone rather than a marketing persona."
+      },
+      {
+        "id": "scholar_gap_disclosure",
+        "priority": 80,
+        "text": "If the scholar-bound corpus lacks enough evidence, say what is missing and avoid filling gaps with guesses."
+      }
+    ],
+    "patentRules": [
+      {
+        "id": "patent_first",
+        "priority": 100,
+        "text": "When a patent is selected, use it as the primary context before papers or general scholar profile."
+      },
+      {
+        "id": "no_claim_expansion",
+        "priority": 100,
+        "text": "Do not expand a paper's broad research finding into the legal scope of the current patent."
+      },
+      {
+        "id": "no_legal_conclusion",
+        "priority": 95,
+        "text": "Do not give definitive infringement, validity, enforceability or freedom-to-operate conclusions."
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "patent_fact_extractor",
+      "name": "Patent Fact Extractor",
+      "description": "Extract current patent title, abstract, field, public source and local original facts before answering.",
+      "sourceTypes": [
+        "patent"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_patent_questions",
+        "selected_patent_context"
+      ]
+    },
+    {
+      "id": "paper_evidence_retriever",
+      "name": "Paper Evidence Retriever",
+      "description": "Retrieve scholar-bound downloaded PDF chunks and metadata-only paper records that match the question.",
+      "sourceTypes": [
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 80,
+      "triggers": [
+        "research_basis",
+        "technical_explanation",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "commercialization_assessor",
+      "name": "Commercialization Assessor",
+      "description": "Translate patent and paper evidence into enterprise scenarios, buyer fit and trial path assumptions.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "user_input"
+      ],
+      "priority": 70,
+      "triggers": [
+        "business_analysis",
+        "licensing_next_step"
+      ]
+    },
+    {
+      "id": "technical_due_diligence",
+      "name": "Technical Due Diligence",
+      "description": "Identify technical, data, equipment, integration and validation gaps that require follow-up.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 65,
+      "triggers": [
+        "technical_explanation",
+        "risk_question",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "risk_guard",
+      "name": "Risk Guard",
+      "description": "Block overclaiming, fabricated citations, legal conclusions and treating metadata-only records as full text.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_answers",
+        "risk_question",
+        "legal_question"
+      ]
+    },
+    {
+      "id": "citation_answer_builder",
+      "name": "Citation Answer Builder",
+      "description": "Build concise answers with explicit source boundaries and reference chips.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 75,
+      "triggers": [
+        "all_answers"
+      ]
+    }
+  ],
+  "knowledgeIndex": "assets/scholars/ruiyunxu2/knowledge/index.json",
+  "papers": [
+    {
+      "scholarId": "ruiyunxu2",
+      "title": "SocioLink: Leveraging Relational Information in Knowledge Graphs for Startup Recommendations",
+      "year": "2023",
+      "description": "Startup recommendation using relational information in knowledge graphs.",
+      "doi": "10.1080/07421222.2023.2196771",
+      "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/07421222.2023.2196771",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "startup recommendation",
+        "knowledge graph",
+        "venture capital"
+      ],
+      "authors": [
+        "Ruiyun XU"
+      ],
+      "paperId": "cc376ceb8d71"
+    },
+    {
+      "scholarId": "ruiyunxu2",
+      "title": "smartCVC: A Novel Startup Selection Method for Corporate Venture Capital",
+      "year": "2018",
+      "description": "Topic modeling and network features for recommending promising startups to corporate venture capital investors.",
+      "sourceUrl": "https://dblp.org/rec/conf/icis/XuCZ18",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "corporate venture capital",
+        "startup selection",
+        "recommendation"
+      ],
+      "authors": [
+        "Ruiyun XU"
+      ],
+      "paperId": "502a66fdfaaf"
+    },
+    {
+      "scholarId": "ruiyunxu2",
+      "title": "smartCVC: Data Science Meets Corporate Venture Capital",
+      "year": "2018",
+      "description": "AMCIS version of a data-science approach to corporate venture capital startup selection.",
+      "sourceUrl": "https://dblp.org/rec/conf/amcis/XuCZ18",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "corporate venture capital",
+        "data science",
+        "startup selection"
+      ],
+      "authors": [
+        "Ruiyun XU"
+      ],
+      "paperId": "6077ded8da20"
+    },
+    {
+      "title": "Searching Electronic Documents Based on Example-based Search Query",
+      "authors": [
+        "Ruiyun XU"
+      ],
+      "year": "2022",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/searching-electronic-documents-based-on-example-based-search-quer/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "Public scholarly background metadata for the digital advisor.",
+      "paperId": "1f51ecda1d47"
+    },
+    {
+      "title": "A System and Method for Conducting a Textual Data Search",
+      "authors": [
+        "Ruiyun XU"
+      ],
+      "year": "2020",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-system-and-method-for-conducting-a-textual-data-search/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "Public scholarly background metadata for the digital advisor.",
+      "paperId": "0368d155ae43"
+    },
+    {
+      "title": "A Fast and Comprehensive Literature Search Tool for Information Systems Researchers",
+      "authors": [
+        "Ruiyun XU"
+      ],
+      "year": "2017",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-fast-and-comprehensive-literature-search-tool-for-information-s-2/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "abstract": "For individual researchers, literature search has always been a tedious and time-consuming work, and it is often difficult to find a complete list of relevant articles using existing literature search engines. To address this problem, we propose a novel citation recommendation method using content and citation graph-based information, which produces a list of relevant references given the input of an abstract. In our method, we introduce a new feature of similar peers’ citation choices, which captures the wisdom of crowds in the reference lists of academic articles. The proposed method has achieved better performance in the experiments on a standard dataset compared with existing method. To develop the literature search tool, we plan to first construct a dataset of the paper citation network within the three top IS journals (i.e., ISR, JMIS, MISQ). Then, we plan to implement the proposed method on ISTopic.org, an online platform for the exploration of research topics.",
+      "description": "For individual researchers, literature search has always been a tedious and time-consuming work, and it is often difficult to find a complete list of relevant articles using existing literature search engines. To address this problem, we propose a novel citation recommendation method using content and citation graph-based information, which produces a list of relevant references given the input of an abstract. In our method, we introduce a new feature of similar peers’ citation choices, which captures the wisdom of crowds in the reference lists of academic articles. The proposed method has achieved better performance in the experiments on a standard dataset compared with existing method. To develop the literature search tool, we plan to first construct a dataset of the paper citation network within the three top IS journals (i.e., ISR, JMIS, MISQ). Then, we plan to implement the proposed method on ISTopic.org, an online platform for the exploration of research topics.",
+      "paperId": "584e72a06ce2"
+    }
+  ]
+}

@@ -34,130 +34,116 @@ vm.createContext(sandbox);
 vm.runInContext(coreSource, sandbox);
 vm.runInContext(`${mainSource}\nthis.ScholarMate = ScholarMate; this.patents = patents; this.inventors = inventors; this.patentDetails = patentDetails;`, sandbox);
 
-const { ScholarMateBusinessCore: BusinessCore, ScholarMate, patents, inventors, patentDetails } = sandbox;
+const { ScholarMateBusinessCore: BusinessCore, patents, inventors, patentDetails } = sandbox;
 
-assert.ok(patents.length >= 24 && patents.length <= 30, `expected 24-30 patents, got ${patents.length}`);
-assert.ok(inventors.length >= 10 && inventors.length <= 12, `expected 10-12 scholars, got ${inventors.length}`);
+assert.strictEqual(patents.length, 16, `expected 16 CityU patents, got ${patents.length}`);
+assert.strictEqual(inventors.length, 9, `expected 9 first-CityU-scholar advisors, got ${inventors.length}`);
 assert.strictEqual(new Set(patents.map(patent => patent.id)).size, patents.length, 'patent ids should be unique');
 
 const scholarById = new Map(inventors.map(inventor => [inventor.id, inventor]));
 const inventorIds = new Set(inventors.map(inventor => inventor.id));
 
-assert.ok(inventors.every(inventor => Array.isArray(inventor.patentIds) && inventor.patentIds.length >= 2 && inventor.patentIds.length <= 3), 'each scholar should own 2-3 patent ids');
-assert.ok(!inventors.some(inventor => /picsum|dicebear/i.test(JSON.stringify(inventor))), 'scholar core data should not include picsum/dicebear assets');
+for (const inventor of inventors) {
+  assert.ok(Array.isArray(inventor.patentIds) && inventor.patentIds.length >= 1, `${inventor.id} should own at least one patent`);
+  assert.ok(Array.isArray(inventor.expertise) && inventor.expertise.length >= 1, `${inventor.id} should include expertise`);
+  assert.ok(Array.isArray(inventor.paperBackground) && inventor.paperBackground.length >= 1, `${inventor.id} should include paper background`);
+  assert.ok(inventor.rules && typeof inventor.rules === 'object', `${inventor.id} should include digital scholar rules`);
+  assert.ok(Array.isArray(inventor.identityRules) && inventor.identityRules.length >= 1, `${inventor.id} should include identity rules`);
+  assert.ok(Array.isArray(inventor.evidenceRules) && inventor.evidenceRules.length >= 1, `${inventor.id} should include evidence rules`);
+  assert.ok(Array.isArray(inventor.scholarRules) && inventor.scholarRules.length >= 1, `${inventor.id} should include scholar rules`);
+  assert.ok(Array.isArray(inventor.patentRules) && inventor.patentRules.some(rule => rule.id === 'patent_first'), `${inventor.id} should include patent-first rule`);
+  assert.strictEqual(
+    Array.from(inventor.skills.map(skill => skill.id)).join(','),
+    ['patent_fact_extractor', 'paper_evidence_retriever', 'commercialization_assessor', 'technical_due_diligence', 'risk_guard', 'citation_answer_builder'].join(','),
+    `${inventor.id} should expose the fixed digital scholar skills`
+  );
+  assert.ok(inventor.sessionContext && inventor.sessionContext.selectedPatentPolicy === 'active_patent_first', `${inventor.id} should include session context policy`);
+  assert.ok(Array.isArray(inventor.paperMemory) && inventor.paperMemory.length === inventor.paperBackground.length, `${inventor.id} should expose normalized paper memory`);
+  assert.ok(Array.isArray(inventor.patentMemory) && inventor.patentMemory.length === inventor.patentIds.length, `${inventor.id} should expose patent memory`);
+  assert.ok(inventor.knowledgeIndex && inventor.knowledgeIndex.path, `${inventor.id} should expose a knowledge index path`);
+  assert.ok(/^data:image\/svg\+xml/.test(inventor.avatar), `${inventor.id} should keep generated initials avatar style`);
+
+  const manifestUrl = new URL(`../assets/scholars/${inventor.id}/papers/manifest.json`, import.meta.url);
+  assert.ok(fs.existsSync(manifestUrl), `${inventor.id} paper manifest should exist`);
+  const manifest = JSON.parse(fs.readFileSync(manifestUrl, 'utf8'));
+  const knowledgeUrl = new URL(`../${inventor.knowledgeIndex.path}`, import.meta.url);
+  assert.ok(fs.existsSync(knowledgeUrl), `${inventor.id} knowledge index should exist`);
+  const knowledgeIndex = JSON.parse(fs.readFileSync(knowledgeUrl, 'utf8'));
+  assert.strictEqual(knowledgeIndex.scholarId, inventor.id, `${inventor.id} knowledge index should identify scholar`);
+  assert.strictEqual(knowledgeIndex.paperCount, manifest.papers.length, `${inventor.id} knowledge index should count papers`);
+  assert.ok(Array.isArray(knowledgeIndex.chunks), `${inventor.id} knowledge index should expose chunks`);
+  assert.ok(Array.isArray(knowledgeIndex.metadataRecords), `${inventor.id} knowledge index should expose metadata-only records`);
+  assert.ok(Array.isArray(manifest.papers) && manifest.papers.length >= 3, `${inventor.id} paper manifest should list at least 3 background records`);
+  for (const paper of manifest.papers) {
+    assert.ok(paper.paperId, `${inventor.id} paper should have stable paperId`);
+    assert.ok(['downloaded_pdf', 'metadata_only'].includes(paper.downloadStatus), `${inventor.id} paper status should be explicit`);
+    assert.ok(typeof paper.sourceUrl === 'string', `${inventor.id} paper should retain sourceUrl`);
+    assert.ok(typeof paper.description === 'string' && paper.description.length >= 10, `${inventor.id} paper should include description`);
+    assert.ok(typeof paper.confidence === 'string' && paper.confidence.length >= 3, `${inventor.id} paper should include confidence`);
+    if (paper.downloadStatus === 'downloaded_pdf') {
+      assert.ok(paper.file, `${inventor.id} downloaded paper should expose local file`);
+      const paperPath = new URL(`../${paper.file}`, import.meta.url);
+      assert.ok(fs.existsSync(paperPath), `${paper.file} should exist`);
+      const paperBytes = fs.readFileSync(paperPath);
+      assert.ok(paperBytes.length > 1000, `${paper.file} should not be empty`);
+      assert.strictEqual(paperBytes.subarray(0, 4).toString(), '%PDF', `${paper.file} should be a PDF`);
+      const chunks = knowledgeIndex.chunks.filter(chunk => chunk.paperId === paper.paperId);
+      assert.ok(chunks.length >= 1, `${paper.file} should produce at least one knowledge chunk`);
+      assert.ok(chunks.every(chunk => chunk.sourceType === 'paper_pdf' && typeof chunk.text === 'string' && chunk.text.length >= 80), `${paper.file} chunks should be non-empty PDF evidence`);
+    } else {
+      assert.ok(!knowledgeIndex.chunks.some(chunk => chunk.paperId === paper.paperId), `${inventor.id} metadata-only paper should not produce full-text chunks`);
+      assert.ok(knowledgeIndex.metadataRecords.some(record => record.paperId === paper.paperId), `${inventor.id} metadata-only paper should be retained as metadata evidence`);
+    }
+  }
+}
+
+const zhaoManifest = JSON.parse(fs.readFileSync(new URL('../assets/scholars/zhao_jianliang_leon/papers/manifest.json', import.meta.url), 'utf8'));
+assert.ok(zhaoManifest.profileUrls.some(url => /jlzhao|leonzhao|JLeonZhao/i.test(url)), 'Zhao manifest should include curated profile URLs');
+assert.strictEqual(zhaoManifest.googleScholarUrl, 'https://scholar.google.com/citations?user=qCyjuogAAAAJ', 'Zhao manifest should include Google Scholar profile');
+assert.ok(zhaoManifest.papers.length >= 5, 'Zhao should have at least 5 curated background records');
+assert.ok(zhaoManifest.papers.filter(paper => paper.downloadStatus === 'downloaded_pdf').length >= 3, 'Zhao should have at least 3 downloaded public PDFs');
+const zhaoKnowledge = JSON.parse(fs.readFileSync(new URL('../assets/scholars/zhao_jianliang_leon/knowledge/index.json', import.meta.url), 'utf8'));
+assert.ok(zhaoKnowledge.chunkCount >= 3, 'Zhao should have downloaded PDF knowledge chunks');
+assert.ok(zhaoKnowledge.chunks.some(chunk => /blockchain|digital finance|smart contract/i.test(`${chunk.title} ${chunk.text}`)), 'Zhao knowledge chunks should include blockchain-related evidence');
+
+const maPatents = patents.filter(patent => patent.inventorId === 'isjian').map(patent => patent.id).sort();
+assert.strictEqual(maPatents.join(','), '63943642,63943652', 'the first two provisional patent records should belong to MA, Jian');
 
 for (const patent of patents) {
-  assert.ok(inventorIds.has(patent.inventorId), `${patent.id} should reference an inventor`);
-
+  assert.ok(inventorIds.has(patent.inventorId), `${patent.id} should reference a valid digital advisor`);
   const scholar = scholarById.get(patent.inventorId);
-  assert.ok(scholar, `${patent.id} should resolve scholar by inventorId`);
-  assert.strictEqual(patent.leadInventor, scholar.name, `${patent.id} leadInventor should match scholar name`);
-  assert.ok(scholar.patentIds.includes(patent.id), `${patent.id} should be listed in scholar patentIds`);
+  assert.strictEqual(patent.leadInventor, scholar.name, `${patent.id} leadInventor should match selected CityU scholar`);
+  assert.ok(scholar.patentIds.includes(patent.id), `${patent.id} should be listed on scholar patentIds`);
 
-  assert.ok(patent.sourceName === '科研之友专利库', `${patent.id} should use localized source label`);
-  assert.ok(/^https:\/\/patents\.google\.com\/patent\//.test(String(patent.sourceUrl || '')), `${patent.id} should keep internal traceability URL`);
+  assert.strictEqual(patent.sourceName, 'CityUHK Scholars', `${patent.id} should use CityUHK Scholars source`);
+  assert.ok(/^https:\/\/scholars\.cityu\.edu\.hk\/en\/publications\//.test(String(patent.sourceUrl || '')), `${patent.id} should expose CityUHK Scholars publication URL`);
   assert.ok(!/^ZL2024/.test(patent.id), `${patent.id} should not use fake legacy IDs`);
 
   assert.ok(Array.isArray(patent.inventors) && patent.inventors.length >= 1, `${patent.id} should expose inventor array`);
   assert.ok(typeof patent.assignee === 'string' && patent.assignee.length >= 3, `${patent.id} should expose assignee`);
   assert.ok(typeof patent.applicationNumber === 'string' && patent.applicationNumber.length >= 5, `${patent.id} should expose application number`);
   assert.ok(Boolean(patent.filingDate || patent.priorityDate), `${patent.id} should expose filingDate or priorityDate`);
-  assert.ok(typeof patent.publicationDate === 'string' && patent.publicationDate.length >= 8, `${patent.id} should expose publication date`);
+  assert.ok(typeof patent.publicationDate === 'string' && patent.publicationDate.length >= 4, `${patent.id} should expose publication date`);
   assert.ok(typeof patent.legalStatus === 'string' && patent.legalStatus.length >= 3, `${patent.id} should expose legal status`);
-  assert.ok(/法律状态需二次核验/.test(String(patent.statusNote || '')), `${patent.id} should expose localized legal caveat`);
-  assert.ok(/本页面不构成许可结论/.test(String(patent.statusNote || '')), `${patent.id} should expose localized license caveat`);
-  assert.ok(!/Google Patents/i.test(String(patent.statusNote || '')), `${patent.id} caveat should hide Google branding`);
-  assert.ok(/^assets\/patents\/[A-Z0-9]+\.png$/.test(String(patent.imageUrl || '')), `${patent.id} should use a local downloaded patent image asset`);
-  assert.ok(Number.isFinite(Number(patent.imageWidth)) && Number(patent.imageWidth) > 0, `${patent.id} should expose imageWidth`);
-  assert.ok(Number.isFinite(Number(patent.imageHeight)) && Number(patent.imageHeight) > 0, `${patent.id} should expose imageHeight`);
-  assert.ok(['high', 'low'].includes(String(patent.imageQuality || '')), `${patent.id} should expose imageQuality`);
-  const localImageUrl = new URL(`../${patent.imageUrl}`, import.meta.url);
-  assert.ok(fs.existsSync(localImageUrl), `${patent.id} local patent image should exist`);
-  assert.ok(fs.statSync(localImageUrl).size > 0, `${patent.id} local patent image should not be empty`);
-  assert.ok(patent.pdfUrl && /^https?:\/\//.test(patent.pdfUrl), `${patent.id} should keep internal PDF/source trace URL`);
-
+  assert.ok(/CityUHK Scholars/i.test(String(patent.statusNote || '')), `${patent.id} should keep CityU source caveat`);
   assert.ok(Array.isArray(patent.keywords) && patent.keywords.length >= 4, `${patent.id} should include search keywords`);
+
+  if (patent.localOriginal) {
+    assert.ok(fs.existsSync(new URL(`../${patent.localOriginal}`, import.meta.url)), `${patent.id} local original should exist`);
+    assert.ok(/^assets\/patents\/[A-Z0-9]+\.png$/.test(String(patent.imageUrl || '')), `${patent.id} should use generated local patent image asset`);
+    const localImageUrl = new URL(`../${patent.imageUrl}`, import.meta.url);
+    assert.ok(fs.existsSync(localImageUrl), `${patent.id} local patent image should exist`);
+    assert.ok(fs.statSync(localImageUrl).size > 0, `${patent.id} local patent image should not be empty`);
+  } else {
+    assert.strictEqual(patent.imageUrl, '', `${patent.id} without public patent original should use document-preview fallback`);
+    assert.ok(/^https:\/\/hdl\.handle\.net\//.test(String(patent.pdfUrl || '')), `${patent.id} fallback should point to CityU handle/fulltext URL`);
+  }
 
   assert.ok(patentDetails[patent.id], `${patent.id} should have detail pricing metadata`);
   assert.strictEqual(typeof patentDetails[patent.id].requireLicense, 'boolean', `${patent.id} should define requireLicense in detail metadata`);
   assert.ok(Number.isFinite(Number(patentDetails[patent.id].price)), `${patent.id} should define numeric price in detail metadata`);
-  assert.ok(Number.isFinite(Number(patentDetails[patent.id].licensePrice)), `${patent.id} should define numeric licensePrice in detail metadata`);
+  assert.ok(Number.isFinite(Number(patentDetails[patent.id].licensePrice)), `${patent.id} should define numeric licensePrice`);
 }
-
-for (const patent of patents) {
-  const mediaHtml = ScholarMate.createPatentMediaHtml(patent, 'card');
-  assert.ok(!/patents\.google\.com/i.test(mediaHtml), `${patent.id} rendered media link should not expose patents.google.com`);
-  assert.ok(!/patentimages\.storage\.googleapis\.com/i.test(mediaHtml), `${patent.id} rendered media link should not expose patentimages.storage.googleapis.com`);
-  if (patent.imageQuality === 'low') {
-    assert.ok(!/patent-card__image/.test(mediaHtml), `${patent.id} low quality images should not be rendered as card image`);
-    assert.ok(/patent-document-preview/.test(mediaHtml), `${patent.id} low quality images should fall back to document preview`);
-  } else {
-    assert.ok(/patent-card__image/.test(mediaHtml), `${patent.id} high quality images should render image`);
-    assert.ok(/patent-card__image--contain/.test(mediaHtml), `${patent.id} high quality images should render contain-fit class`);
-  }
-}
-
-for (const patent of patents.slice(0, 5)) {
-  const cardHtml = ScholarMate.createPatentCardHtml(patent, 1);
-  assert.ok(!/patents\.google\.com/i.test(cardHtml), `${patent.id} rendered card should not expose patents.google.com`);
-  assert.ok(!/patentimages\.storage\.googleapis\.com/i.test(cardHtml), `${patent.id} rendered card should not expose patentimages.storage.googleapis.com`);
-}
-
-assert.ok(
-  /patent-detail\.html\?id=CN115062165A/.test(ScholarMate.getSafePublicDocHref('https://patentimages.storage.googleapis.com/demo/path.pdf', 'CN115062165A')),
-  'safe href helper should fallback to local detail for patentimages.storage.googleapis.com'
-);
-assert.ok(
-  /patent-detail\.html\?id=CN115062165A/.test(ScholarMate.getSafePublicDocHref('https://patents.google.com/patent/CN115062165A/zh', 'CN115062165A')),
-  'safe href helper should fallback to local detail for patents.google.com'
-);
-
-const ENGLISH_INSTITUTION = /University|Institute of|Co Ltd|Corporation/i;
-for (const inventor of inventors) {
-  assert.ok(!ENGLISH_INSTITUTION.test(String(inventor.affiliation || '')), `${inventor.id} affiliation should be Chinese`);
-  const svg = decodeURIComponent(String(inventor.avatar || '').split(',')[1] || '');
-  assert.ok(!ENGLISH_INSTITUTION.test(svg), `${inventor.id} avatar aria-label should not include English institutions`);
-}
-for (const patent of patents) {
-  assert.ok(!ENGLISH_INSTITUTION.test(String(patent.assignee || '')), `${patent.id} assignee should be Chinese`);
-}
-
-function expectedDerivedPrice(patent) {
-  const scholar = scholarById.get(patent.inventorId) || {};
-  const status = String(patent.legalStatus || '');
-  if (patent.trialAccess || patent.commercialFit === 'trial') return 0;
-  if (patent.commercialFit === 'narrow' || /Expired|Withdrawn/i.test(status)) return 1999;
-  if ((scholar.affiliationTier === 'top_university' || scholar.affiliationTier === 'national_institute') && (patent.commercialFit === 'high' || /Active|Granted/i.test(status))) return 3999;
-  return 2999;
-}
-
-for (const patent of patents) {
-  assert.strictEqual(patent.price, expectedDerivedPrice(patent), `${patent.id} price should follow the rule-derived pricing matrix`);
-  assert.strictEqual(patent.requireLicense, patent.price > 0, `${patent.id} requireLicense should follow derived price`);
-  assert.ok(typeof patent.pricingBasis === 'string' && patent.pricingBasis.length > 10, `${patent.id} should expose pricing basis`);
-  assert.strictEqual(patentDetails[patent.id].price, patent.price, `${patent.id} detail price should be derived from catalog rules`);
-  assert.strictEqual(patentDetails[patent.id].licensePrice, patent.licensePrice, `${patent.id} detail licensePrice should match derived catalog price`);
-}
-
-const verifiedCn115062165 = patents.find(patent => patent.id === 'CN115062165A');
-assert.ok(verifiedCn115062165, 'CN115062165A should be present');
-assert.strictEqual(verifiedCn115062165.applicationNumber, 'CN202210995624.6A');
-assert.match(verifiedCn115062165.legalStatus, /Granted|Active/);
-assert.strictEqual(verifiedCn115062165.leadInventor, '李传富');
-
-const corePages = ['../patent-list.html', '../patent-detail.html', '../chat.html', '../user-center.html', '../patent-publish.html'];
-for (const page of corePages) {
-  const source = fs.readFileSync(new URL(page, import.meta.url), 'utf8');
-  assert.ok(!/Google Patents/.test(source), `${page} should not expose Google Patents branding in user-visible copy`);
-  assert.ok(!/patentimages\.storage\.googleapis\.com/.test(source), `${page} should not hardcode patentimages storage URLs in user-visible markup`);
-  assert.ok(!/ZL2024|picsum|dicebear|138-1234-5678|13812345678/.test(source), `${page} should not contain fake patent IDs, placeholder images, fabricated portraits, or fake phone numbers`);
-}
-
-const detailPageSource = fs.readFileSync(new URL('../patent-detail.html', import.meta.url), 'utf8');
-assert.ok(detailPageSource.includes('ScholarMate.shouldRenderPatentImage(currentPatent)'), 'detail page should branch local figure rendering on image quality helper');
-assert.ok(detailPageSource.includes('ScholarMate.getSafePublicDocHref(currentPatent.pdfUrl, currentPatent.id)'), 'detail page should sanitize public document links');
-assert.ok(!/currentPatent\.sourceUrl\)\}" target="_blank"/.test(detailPageSource), 'detail page should not render sourceUrl as direct external button');
-assert.ok(!/picsum|dicebear/i.test(JSON.stringify(patents)), 'patent core data should not include picsum/dicebear assets');
 
 function topIdsForQuery(query, minScore = 20, limit = 8) {
   return BusinessCore.rankPatentsHybrid({ query, patents })
@@ -171,16 +157,22 @@ function assertTopContains(query, expectedIds) {
   assert.ok(ids.length > 0, `query "${query}" should return ranked candidates`);
   assert.ok(
     ids.some(id => expectedIds.includes(id)),
-    `query "${query}" should surface one of ${expectedIds.join(', ')} near top, got ${ids.join(', ')}`
+    `query "${query}" should surface one of ${expectedIds.join(', ')}, got ${ids.join(', ')}`
   );
 }
 
-assertTopContains('医学影像 诊断 报告 标注 知识图谱', ['CN115062165A', 'CN115512810A', 'CN114240935B', 'CN115132314A']);
-assertTopContains('动力电池 热失控 安全 评价 抑制', ['CN115051051A', 'CN110109020A', 'CN110045287A', 'CN104346524A', 'CN112029343A']);
-assertTopContains('联邦学习 隐私 参与者 权重 室内定位', ['CN110503207A', 'CN110610242A', 'CN110632554A']);
-assertTopContains('工业 缺陷 检测 小样本 金属 MiniLED 玻璃', ['CN119090851A', 'CN114092389A', 'CN113888477B']);
-assertTopContains('草地贪夜蛾 虫情 监测 预警 植保 无人机', ['CN114550108B', 'CN114170513B', 'CN115316172A', 'CN116171962B']);
-assertTopContains('电力系统 低碳 碳排放 计量 调度', ['CN105046353A', 'CN106251095B']);
-assertTopContains('蛋白质 聚氨基酸 偶联 生成 生物材料', ['CN106924753A', 'CN111388679A', 'CN106924752B']);
+assertTopContains('large language model patent recommendation quality heterogeneous data', ['63943642', '63943652']);
+assertTopContains('blockchain private key anti ddos middleware trust', ['CN117950627A', 'CN114117510B', 'CN114513317B', 'CN114077631A']);
+assertTopContains('bionic thermal regulating fabric textile sensor', ['CN119563958A', 'US12571139B2']);
+assertTopContains('radar weak respiratory signal medical sensing', ['CN112137620B']);
+assertTopContains('visual tracking image electronic system', ['CN111104831B', 'US10432907B2']);
+assertTopContains('textual data search electronic documents query', ['US11386164B2', 'US10747759B2']);
+
+const corePages = ['../patent-list.html', '../patent-detail.html', '../chat.html', '../user-center.html', '../patent-publish.html'];
+for (const page of corePages) {
+  const source = fs.readFileSync(new URL(page, import.meta.url), 'utf8');
+  assert.ok(!/ZL2024|picsum|dicebear|138-1234-5678|13812345678/.test(source), `${page} should not contain fake patent IDs, placeholder images, fabricated portraits, or fake phone numbers`);
+}
+assert.ok(!/picsum|dicebear/i.test(JSON.stringify(patents)), 'patent core data should not include picsum/dicebear assets');
 
 console.log('patent catalog tests passed');

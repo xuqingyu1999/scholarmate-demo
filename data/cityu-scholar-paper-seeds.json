@@ -1,0 +1,402 @@
+{
+  "profiles": {
+    "zhao_jianliang_leon": {
+      "profileUrls": [
+        "https://www.cb.cityu.edu.hk/staff/jlzhao/",
+        "https://myweb.cuhk.edu.cn/leonzhao/Home/AcademicPublications",
+        "https://sfi.cuhk.edu.cn/en/node/6189",
+        "https://dblp.org/pid/z/JLeonZhao"
+      ],
+      "googleScholarUrl": "https://scholar.google.com/citations?user=qCyjuogAAAAJ"
+    },
+    "xingeyu": {
+      "profileUrls": [
+        "https://www.cityu.edu.hk/stfprofile/xingeyu.htm"
+      ]
+    },
+    "acmleung": {
+      "profileUrls": [
+        "https://www.cb.cityu.edu.hk/People-and-Research/People/People-Details?PageSpeed=noscript&eid=acmleung"
+      ]
+    },
+    "eeshc": {
+      "profileUrls": [
+        "https://dblp.org/pid/27/2843"
+      ]
+    },
+    "tsang_sze_chun": {
+      "profileUrls": [
+        "https://dblp.org/pid/182/7155"
+      ]
+    }
+  },
+  "records": [
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "description": "Editorial overview of blockchain business innovations, trust, cryptocurrencies, and research opportunities.",
+      "doi": "10.1186/s40854-016-0049-2",
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "pdfUrl": "https://link.springer.com/content/pdf/10.1186/s40854-016-0049-2.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": ["blockchain", "digital finance", "business innovation"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "description": "Open-access review/editorial on blockchain's role in digital finance and financial innovation.",
+      "doi": "10.1186/s40854-022-00420-y",
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "pdfUrl": "https://link.springer.com/content/pdf/10.1186/s40854-022-00420-y.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": ["blockchain", "digital finance", "financial innovation"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "description": "Open-access Springer book co-edited by J. Leon Zhao, covering blockchain, crypto assets, and digital financial innovation.",
+      "doi": "10.1007/978-981-96-6839-7",
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "pdfUrl": "https://link.springer.com/content/pdf/10.1007/978-981-96-6839-7.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": ["blockchain", "crypto assets", "financial innovation"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Smart Contract Security: A Software Lifecycle Perspective",
+      "year": "2019",
+      "description": "Review of smart-contract vulnerabilities and defenses across design, implementation, testing, deployment, monitoring, and analysis.",
+      "doi": "10.1109/ACCESS.2019.2946988",
+      "sourceUrl": "https://doi.org/10.1109/ACCESS.2019.2946988",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["smart contract", "blockchain security", "software lifecycle"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain Security: A Survey of Techniques and Research Directions",
+      "year": "2022",
+      "description": "Survey of blockchain security at process, data, and infrastructure levels, relevant to cryptographic protection, storage, access, and infrastructure threats.",
+      "doi": "10.1109/TSC.2020.3038641",
+      "sourceUrl": "https://dblp.org/rec/journals/tsc/LengZZHB22",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["blockchain security", "cryptography", "survey"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain-Secured Smart Manufacturing in Industry 4.0: A Survey",
+      "year": "2021",
+      "description": "Survey of blockchain-secured manufacturing, including scalability, flexibility, and cybersecurity challenges.",
+      "doi": "10.1109/TSMC.2020.3040789",
+      "sourceUrl": "https://dblp.org/rec/journals/tsmc/LengYZZLGCF21",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["blockchain", "smart manufacturing", "cybersecurity"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "ManuChain: Combining Permissioned Blockchain With a Holistic Optimization Model as Bi-Level Intelligence for Smart Manufacturing",
+      "year": "2020",
+      "description": "Permissioned-blockchain architecture for smart manufacturing and decentralized coordination.",
+      "doi": "10.1109/TSMC.2019.2930418",
+      "sourceUrl": "https://doi.org/10.1109/TSMC.2019.2930418",
+      "downloadStatus": "metadata_only",
+      "confidence": "medium-high",
+      "topicTags": ["permissioned blockchain", "smart manufacturing", "optimization"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Makerchain: A Blockchain With Chemical Signature for Self-Organizing Process in Social Manufacturing",
+      "year": "2019",
+      "description": "Blockchain-driven decentralized model for product authenticity, anti-counterfeiting, smart contracts, and lifecycle traceability in social manufacturing.",
+      "doi": "10.1016/j.jclepro.2019.06.265",
+      "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0959652619322309",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["blockchain", "anti-counterfeiting", "traceability"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Prediction of Initial Coin Offering Success Based on Team Knowledge and Expert Evaluation",
+      "year": "2021",
+      "description": "Uses team knowledge and expert evaluation to predict ICO success; relevant to blockchain finance and commercialization.",
+      "doi": "10.1016/j.dss.2021.113574",
+      "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0167923621000841",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["ICO", "blockchain finance", "commercialization"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "SocioLink: Leveraging Relational Information in Knowledge Graphs for Startup Recommendations",
+      "year": "2023",
+      "description": "Knowledge-graph and machine-learning framework for venture-capital startup recommendation; directly relevant to technology commercialization.",
+      "doi": "10.1080/07421222.2023.2196771",
+      "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/07421222.2023.2196771",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["knowledge graph", "startup recommendation", "technology commercialization"]
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Services Computing as the Foundation of Enterprise Agility: Overview of Recent Advances and Introduction to the Special Issue",
+      "year": "2007",
+      "description": "Overview of service-oriented architecture, web services, services computing, and enterprise agility; relevant to middleware and information systems.",
+      "doi": "10.1007/s10796-007-9023-x",
+      "sourceUrl": "https://ideas.repec.org/a/spr/infosf/v9y2007i1d10.1007_s10796-007-9023-x.html",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["services computing", "middleware", "enterprise agility"]
+    },
+    {
+      "scholarId": "isjian",
+      "title": "Bridging Information Asymmetry in University-Industry Collaboration: MMKG SNR",
+      "year": "2025",
+      "description": "Multimodal knowledge graph and social-network ranking for matching firms to academics in university-industry collaboration.",
+      "doi": "10.1145/3766918.3766942",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/bridging-information-asymmetry-in-university-industry-collaborati/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["university-industry collaboration", "knowledge graph", "recommendation"]
+    },
+    {
+      "scholarId": "xingeyu",
+      "title": "A three-dimensional stretchable core-shell cable for soft and hybrid electronics",
+      "year": "2026",
+      "description": "Recyclable, patternable, noise-resistant stretchable cable for soft and hybrid wearable electronics.",
+      "doi": "10.1038/s41928-026-01596-2",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-three-dimensional-stretchable-coreshell-cable-for-soft-and-hybr/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["soft electronics", "wearable electronics", "stretchable cable"]
+    },
+    {
+      "scholarId": "xingeyu",
+      "title": "An organ-conformal, kirigami-structured bioelectronic patch for precise intracellular delivery",
+      "year": "2026",
+      "description": "Customizable organ-conformal electro-transfection patch for spatially controlled intracellular delivery.",
+      "doi": "10.1016/j.cell.2025.12.021",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/an-organ-conformal-kirigami-structured-bioelectronic-patch-for-pr/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["bioelectronics", "kirigami", "intracellular delivery"]
+    },
+    {
+      "scholarId": "xingeyu",
+      "title": "An All-in-One-Integrated Self-Powered Wearable Sensing System",
+      "year": "2026",
+      "description": "Integrated bioenergy harvesting, storage, and sensing system for multimodal health monitoring.",
+      "doi": "10.1021/acsnano.5c17767",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/an-all-in-one-integrated-self-powered-wearable-sensing-system-for/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["wearable sensing", "self-powered system", "health monitoring"]
+    },
+    {
+      "scholarId": "issliao",
+      "title": "Advancing text classification: a novel two-stage multi-objective feature selection framework",
+      "year": "2025",
+      "description": "DEA-based filter-wrapper feature selection framework for text classification.",
+      "doi": "10.1007/s10799-025-00450-9",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/advancing-text-classification-a-novel-two-stage-multi-objective-f/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["text classification", "feature selection", "information systems"]
+    },
+    {
+      "scholarId": "issliao",
+      "title": "Behavior-based optimal refund policy under advance selling",
+      "year": "2024",
+      "description": "Mathematical model of refund policy under consumers' loss fairness concerns.",
+      "doi": "10.1080/01605682.2024.2396955",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/behavior-based-optimal-refund-policy-under-advance-selling-an-ana/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["analytics", "operations research", "consumer behavior"]
+    },
+    {
+      "scholarId": "issliao",
+      "title": "Generative AI and Human Bias: Insights from Editing Behaviors on a Knowledge-Sharing Platform",
+      "year": "2025",
+      "description": "Examines generative AI's effect on knowledge-sharing edits and perceived content quality.",
+      "doi": "10.5465/AMPROC.2025.65bp",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/generative-ai-and-human-bias-insights-from-editing-behaviors-on-a/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["generative AI", "knowledge sharing", "human bias"]
+    },
+    {
+      "scholarId": "ruiyunxu2",
+      "title": "SocioLink: Leveraging Relational Information in Knowledge Graphs for Startup Recommendations",
+      "year": "2023",
+      "description": "Startup recommendation using relational information in knowledge graphs.",
+      "doi": "10.1080/07421222.2023.2196771",
+      "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/07421222.2023.2196771",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["startup recommendation", "knowledge graph", "venture capital"]
+    },
+    {
+      "scholarId": "ruiyunxu2",
+      "title": "smartCVC: A Novel Startup Selection Method for Corporate Venture Capital",
+      "year": "2018",
+      "description": "Topic modeling and network features for recommending promising startups to corporate venture capital investors.",
+      "sourceUrl": "https://dblp.org/rec/conf/icis/XuCZ18",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["corporate venture capital", "startup selection", "recommendation"]
+    },
+    {
+      "scholarId": "ruiyunxu2",
+      "title": "smartCVC: Data Science Meets Corporate Venture Capital",
+      "year": "2018",
+      "description": "AMCIS version of a data-science approach to corporate venture capital startup selection.",
+      "sourceUrl": "https://dblp.org/rec/conf/amcis/XuCZ18",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["corporate venture capital", "data science", "startup selection"]
+    },
+    {
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational Light Painting and Kinetic Photography",
+      "year": "2018",
+      "description": "Robotic display/camera paths and real-time slicing for volumetric long-exposure imagery.",
+      "doi": "10.1145/3229147.3229167",
+      "sourceUrl": "https://dblp.org/rec/conf/npar/HuangTWL18",
+      "pdfUrl": "https://diglib.eg.org/bitstream/handle/10.1145/3229147-3229167/14-036-huang.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": ["computational photography", "light painting", "robotic imaging"]
+    },
+    {
+      "scholarId": "tsang_sze_chun",
+      "title": "Real-time model slicing in arbitrary direction using octree",
+      "year": "2017",
+      "description": "SIGGRAPH poster on octree-based arbitrary-direction model slicing for real-time rendering.",
+      "doi": "10.1145/3102163.3102185",
+      "sourceUrl": "https://doi.org/10.1145/3102163.3102185",
+      "downloadStatus": "metadata_only",
+      "confidence": "medium-high",
+      "topicTags": ["model slicing", "octree", "real-time rendering"]
+    },
+    {
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational swept volume light painting via robotic non-linear motion",
+      "year": "2016",
+      "description": "SIGGRAPH poster on robotic non-linear motion for swept-volume light painting.",
+      "doi": "10.1145/2945078.2945105",
+      "sourceUrl": "https://doi.org/10.1145/2945078.2945105",
+      "downloadStatus": "metadata_only",
+      "confidence": "medium-high",
+      "topicTags": ["computational photography", "robotics", "swept volume"]
+    },
+    {
+      "scholarId": "eeshc",
+      "title": "A Range-Aware Attention Framework for Meteorological Visibility Estimation",
+      "year": "2026",
+      "description": "Visibility-estimation dataset and adaptive attention method for fog and haze conditions.",
+      "doi": "10.3390/s26061893",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-range-aware-attention-framework-for-meteorological-visibility-e/",
+      "pdfUrl": "https://www.mdpi.com/1424-8220/26/6/1893/pdf?version=1773757569",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": ["visibility estimation", "sensors", "attention model"]
+    },
+    {
+      "scholarId": "eeshc",
+      "title": "A Buck and Boost Inverter with Dual Buck Circuits Sharing a Freewheeling Diode",
+      "year": "2026",
+      "description": "Transformer-less buck/boost inverter design with a 500 W prototype and 97.98% peak efficiency.",
+      "doi": "10.1109/JESTPE.2026.3659155",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-buck-and-boost-inverter-with-dual-buck-circuits-sharing-a-freew/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["power electronics", "inverter", "energy conversion"]
+    },
+    {
+      "scholarId": "eeshc",
+      "title": "Dual-Mode Time-Sharing-Based Buck and Boost Inverter With Reactive Power Injection Capability",
+      "year": "2026",
+      "description": "Nonisolated single-stage buck/boost inverter with reactive power and bidirectional energy support.",
+      "doi": "10.1109/TIE.2026.3672858",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/dual-mode-time-sharing-based-buck-and-boost-inverter-with-reactiv/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["power electronics", "reactive power", "inverter"]
+    },
+    {
+      "scholarId": "hanlinli",
+      "title": "Unifying colors by primes",
+      "year": "2023",
+      "description": "Prime-number-based universal color coding system for encoding and manipulating colors.",
+      "doi": "10.1038/s41377-023-01073-x",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/unifying-colors-by-primes/",
+      "pdfUrl": "https://www.nature.com/articles/s41377-023-01073-x.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": ["prime numbers", "color coding", "optimization"]
+    },
+    {
+      "scholarId": "hanlinli",
+      "title": "Forming a therapeutic sphere to treat ailments using optimization techniques",
+      "year": "2023",
+      "description": "Converts a therapeutic table into a spherical visualization using optimization techniques.",
+      "doi": "10.1111/itor.13173",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/forming-a-therapeutic-sphere-to-treat-ailments-using-optimization/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["optimization", "therapeutic visualization", "operations research"]
+    },
+    {
+      "scholarId": "hanlinli",
+      "title": "Prime-Number-Based Parallel Solver for Engineering Design Optimization Problems",
+      "year": "2022",
+      "description": "Patent/publication record for partitioning polynomial integer optimization problems using prime-number-based parallelization.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/prime-number-based-parallel-solver-for-engineering-design-optimiz/",
+      "downloadStatus": "metadata_only",
+      "confidence": "medium",
+      "topicTags": ["prime numbers", "parallel solver", "engineering optimization"]
+    },
+    {
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "description": "Discusses AI and Bright Internet approaches for transforming internet trust and safety.",
+      "doi": "10.1007/s10796-025-10632-z",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "pdfUrl": "https://link.springer.com/content/pdf/10.1007/s10796-025-10632-z.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": ["artificial intelligence", "bright internet", "trust"]
+    },
+    {
+      "scholarId": "acmleung",
+      "title": "At your fingertips: Do augmented reality gestures reveal product-related emotion?",
+      "year": "2025",
+      "description": "Uses mobile AR touch gestures and explainable AI to infer product-related emotions.",
+      "doi": "10.1016/j.dss.2025.114595",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/at-your-fingertips-do-augmented-reality-gestures-reveal-product-r/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["augmented reality", "emotion detection", "explainable AI"]
+    },
+    {
+      "scholarId": "acmleung",
+      "title": "Enhanced digital embeddedness and bubble mitigation in NFT marketplaces",
+      "year": "2025",
+      "description": "Difference-in-differences study of rarity-rank labels and NFT trading behavior.",
+      "doi": "10.1016/j.dss.2025.114407",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/enhanced-digital-embeddedness-and-bubble-mitigation-in-nft-market/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": ["NFT marketplace", "digital embeddedness", "trading behavior"]
+    }
+  ]
+}

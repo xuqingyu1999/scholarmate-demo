@@ -671,21 +671,329 @@
         };
     }
 
-    function composeAdvisorReply(context) {
+    const DEFAULT_ADVISOR_SKILLS = [
+        { id: 'patent_fact_extractor', name: 'Patent Fact Extractor', priority: 100 },
+        { id: 'paper_evidence_retriever', name: 'Paper Evidence Retriever', priority: 80 },
+        { id: 'commercialization_assessor', name: 'Commercialization Assessor', priority: 70 },
+        { id: 'technical_due_diligence', name: 'Technical Due Diligence', priority: 65 },
+        { id: 'risk_guard', name: 'Risk Guard', priority: 100 },
+        { id: 'citation_answer_builder', name: 'Citation Answer Builder', priority: 75 }
+    ];
+
+    function asArray(value) {
+        return Array.isArray(value) ? value : [];
+    }
+
+    function latestQuestionFromContext(context) {
+        if (context && context.question) return context.question;
+        const history = asArray(context && context.history);
+        const latest = history.slice().reverse().find(message => message && message.role === 'user' && message.content);
+        return latest ? latest.content : '这项专利适合我们吗？';
+    }
+
+    function classifyAdvisorIntent(question) {
+        const text = String(question || '').toLowerCase();
+        if (/侵权|权利要求|claim|claims|freedom|fto|有效性|无效|授权稳定|法律|legal|lawsuit|诉讼/.test(text)) {
+            return {
+                id: 'legal_risk',
+                label: '法律/IP风险边界',
+                requiredSkills: ['patent_fact_extractor', 'technical_due_diligence', 'risk_guard', 'citation_answer_builder']
+            };
+        }
+        if (/论文|paper|publication|研究|学术|证据|依据|基础|background|为什么可信/.test(text)) {
+            return {
+                id: 'research_basis',
+                label: '论文/研究基础',
+                requiredSkills: ['patent_fact_extractor', 'paper_evidence_retriever', 'risk_guard', 'citation_answer_builder']
+            };
+        }
+        if (/原理|机制|技术|实现|怎么|如何|方案|算法|结构|流程|technical|method|architecture/.test(text)) {
+            return {
+                id: 'technical_explanation',
+                label: '技术解释',
+                requiredSkills: ['patent_fact_extractor', 'paper_evidence_retriever', 'technical_due_diligence', 'risk_guard', 'citation_answer_builder']
+            };
+        }
+        if (/交易|许可|授权|购买|报价|下一步|对接|licen[cs]e|deal|contact/.test(text)) {
+            return {
+                id: 'licensing_next_step',
+                label: '交易/许可下一步',
+                requiredSkills: ['patent_fact_extractor', 'commercialization_assessor', 'risk_guard', 'citation_answer_builder']
+            };
+        }
+        if (/教授|学者|是谁|背景|profile|简历|擅长/.test(text)) {
+            return {
+                id: 'scholar_intro',
+                label: '学者背景',
+                requiredSkills: ['paper_evidence_retriever', 'risk_guard', 'citation_answer_builder']
+            };
+        }
+        return {
+            id: 'business_analysis',
+            label: '商业化分析',
+            requiredSkills: ['patent_fact_extractor', 'paper_evidence_retriever', 'commercialization_assessor', 'technical_due_diligence', 'risk_guard', 'citation_answer_builder']
+        };
+    }
+
+    function sourceTypeLabel(type) {
+        const labels = {
+            patent: '当前专利',
+            paper_pdf: '公开PDF论文',
+            paper_metadata: '论文元数据',
+            profile: '公开学者资料',
+            user_input: '用户提供信息'
+        };
+        return labels[type] || type || '公开来源';
+    }
+
+    function collectAdvisorRules(inventor, patent) {
+        const rules = [];
+        const grouped = inventor && inventor.rules ? inventor.rules : {};
+        ['identityRules', 'evidenceRules', 'scholarRules'].forEach(key => {
+            asArray(inventor && inventor[key]).forEach(rule => rules.push(rule));
+            asArray(grouped[key]).forEach(rule => rules.push(rule));
+        });
+        asArray(patent && patent.patentRules).forEach(rule => rules.push(rule));
+        if (!rules.some(rule => rule && rule.id === 'patent_first')) {
+            rules.push({ id: 'patent_first', priority: 100, text: '当前选中专利优先于论文和学者泛背景。' });
+        }
+        if (!rules.some(rule => rule && rule.id === 'no_legal_conclusion')) {
+            rules.push({ id: 'no_legal_conclusion', priority: 95, text: '不直接给出侵权、有效性或自由实施法律结论。' });
+        }
+        const seen = new Set();
+        return rules
+            .filter(rule => {
+                const key = rule && (rule.id || rule.text);
+                if (!key || seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            })
+            .sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0))
+            .slice(0, 12);
+    }
+
+    function selectAdvisorSkills(inventor, intent) {
+        const allSkills = asArray(inventor && inventor.skills).length ? inventor.skills : DEFAULT_ADVISOR_SKILLS;
+        const required = new Set(intent.requiredSkills || []);
+        return allSkills
+            .filter(skill => required.has(skill.id) || skill.id === 'risk_guard' || skill.id === 'citation_answer_builder')
+            .sort((a, b) => Number(b.priority || 0) - Number(a.priority || 0));
+    }
+
+    function advisorEvidenceText(item) {
+        return [
+            item && item.title,
+            item && item.text,
+            item && item.description,
+            item && item.abstract,
+            asArray(item && item.topicTags).join(' ')
+        ].filter(Boolean).join(' ');
+    }
+
+    function scoreAdvisorEvidence(item, terms, intent) {
+        const text = advisorEvidenceText(item).toLowerCase();
+        let score = item && item.sourceType === 'paper_pdf' ? 0.18 : 0.08;
+        if (item && item.confidence === 'high') score += 0.12;
+        if (intent && intent.id === 'research_basis' && item && /^paper_/.test(item.sourceType || '')) score += 0.16;
+        if (intent && intent.id === 'technical_explanation' && item && item.sourceType === 'paper_pdf') score += 0.12;
+        terms.forEach(({ term, weight }) => {
+            if (text.includes(String(term).toLowerCase())) {
+                score += Math.min(Number(weight || 1) * 0.09, 0.24);
+            }
+        });
+        return score;
+    }
+
+    function collectPaperCandidates(inventor) {
+        const candidates = [];
+        const knowledge = inventor && inventor.knowledgeIndex ? inventor.knowledgeIndex : {};
+        asArray(knowledge.chunks).forEach(item => candidates.push(Object.assign({ sourceType: 'paper_pdf' }, item)));
+        asArray(knowledge.metadataRecords).forEach(item => candidates.push(Object.assign({ sourceType: 'paper_metadata' }, item)));
+        asArray(inventor && inventor.paperMemory).forEach(item => candidates.push(item));
+        asArray(inventor && inventor.paperBackground).forEach(item => {
+            candidates.push(Object.assign({
+                paperId: item.paperId || item.doi || item.title,
+                sourceType: item.downloadStatus === 'downloaded_pdf' ? 'paper_pdf' : 'paper_metadata',
+                text: item.description || item.abstract || item.note || ''
+            }, item));
+        });
+        return candidates;
+    }
+
+    function selectPaperEvidence(options) {
+        const inventor = options.inventor || {};
+        const patent = options.patent || {};
+        const project = options.project || {};
+        const question = options.question || '';
+        const intent = options.intent || {};
+        const candidates = collectPaperCandidates(inventor);
+        const terms = extractSearchTerms([
+            question,
+            patent.title,
+            patent.summary,
+            asArray(patent.keywords).join(' '),
+            project.title,
+            project.description
+        ].filter(Boolean).join(' ')).slice(0, 32);
+        const seen = new Set();
+        return candidates
+            .map(item => Object.assign({}, item, { score: scoreAdvisorEvidence(item, terms, intent) }))
+            .sort((a, b) => b.score - a.score)
+            .filter(item => {
+                const key = `${item.sourceType || ''}:${item.paperId || item.title || item.sourceUrl || ''}`;
+                if (!key.replace(/[:\s]/g, '') || seen.has(key)) return false;
+                seen.add(key);
+                return true;
+            })
+            .slice(0, 5)
+            .map(item => ({
+                paperId: item.paperId || item.doi || item.title || '',
+                title: item.title || 'Untitled paper',
+                year: item.year || '',
+                sourceType: item.sourceType || (item.downloadStatus === 'downloaded_pdf' ? 'paper_pdf' : 'paper_metadata'),
+                sourceLabel: sourceTypeLabel(item.sourceType || (item.downloadStatus === 'downloaded_pdf' ? 'paper_pdf' : 'paper_metadata')),
+                downloadStatus: item.downloadStatus || (item.sourceType === 'paper_pdf' ? 'downloaded_pdf' : 'metadata_only'),
+                confidence: item.confidence || 'auto',
+                topicTags: asArray(item.topicTags),
+                sourceUrl: item.sourceUrl || '',
+                file: item.file || '',
+                page: item.page || null,
+                text: String(item.text || item.description || item.abstract || item.note || '').slice(0, 700),
+                score: Math.round((item.score || 0) * 100) / 100
+            }));
+    }
+
+    function buildAdvisorContext(context = {}) {
+        const inventor = context.inventor || {};
+        const patent = context.patent || {};
+        const project = context.project || null;
+        const question = latestQuestionFromContext(context);
+        const intent = classifyAdvisorIntent(question);
+        const triggeredSkills = selectAdvisorSkills(inventor, intent);
+        const activeRules = collectAdvisorRules(inventor, patent);
+        const patentFacts = [{
+            sourceType: 'patent',
+            sourceLabel: sourceTypeLabel('patent'),
+            id: patent.id || patent.publicationNumber || '',
+            title: patent.title || '当前专利',
+            field: patent.field || patent.industry || '',
+            legalStatus: patent.legalStatus || '',
+            sourceUrl: patent.sourceUrl || patent.pdfUrl || '',
+            text: patent.summary || patent.statusNote || ''
+        }];
+        const paperEvidence = selectPaperEvidence({ inventor, patent, project, question, intent });
+        const references = patentFacts
+            .filter(item => item.sourceUrl || item.title)
+            .map(item => ({
+                type: item.sourceType,
+                label: item.sourceLabel,
+                title: item.title,
+                sourceUrl: item.sourceUrl
+            }))
+            .concat(paperEvidence.map(item => ({
+                type: item.sourceType,
+                label: item.sourceLabel,
+                title: item.title,
+                sourceUrl: item.sourceUrl,
+                file: item.file || '',
+                page: item.page || null
+            })));
+        return {
+            scholarId: inventor.id || '',
+            scholarName: inventor.name || context.inventorName || '数字学者',
+            question,
+            intent,
+            activeRules,
+            triggeredSkills,
+            patentFacts,
+            paperEvidence,
+            references,
+            sourceBoundaries: {
+                patent: '当前专利公开资料是本轮专利问题的主上下文。',
+                paper_pdf: '公开PDF论文可作为全文证据或研究背景。',
+                paper_metadata: 'metadata-only 论文只作为公开记录背景，不能当作全文证据。',
+                profile: '公开学者资料只用于身份和研究方向背景。',
+                user_input: '用户提供信息只代表需求假设，需要继续核验。'
+            }
+        };
+    }
+
+    function composeLegacyAdvisorReply(context) {
         const project = context.project || {};
         const patent = context.patent || {};
+        const inventor = context.inventor || {};
         const question = context.question || '这项专利适合我们吗？';
-        const inventorName = context.inventorName || '数字发明人';
+        const inventorName = context.inventorName || inventor.name || '数字发明人';
         const projectTitle = project.title || '当前技术需求';
         const industry = project.industry || patent.industry || '目标行业';
         const stage = project.stage || '评估阶段';
         const patentTitle = patent.title || '这项专利';
+        const expertise = Array.isArray(inventor.expertise) && inventor.expertise.length
+            ? `我的背景覆盖${inventor.expertise.slice(0, 4).join('、')}。`
+            : '';
+        const papers = Array.isArray(inventor.paperBackground) ? inventor.paperBackground : [];
+        const paperHint = papers.length
+            ? `我会参考公开研究背景，例如《${papers.slice(0, 2).map(item => item.title).filter(Boolean).join('》、《')}》，但不会把论文结论直接等同于专利许可或产品承诺。`
+            : '目前公开论文背景有限，我会主要基于专利文本和企业需求做保守判断。';
 
         return [
             `我是${inventorName}。结合“${projectTitle}”这个需求，我会用企业能理解的方式来回答：${question}`,
+            `${expertise}${paperHint}`,
             `这项“${patentTitle}”更适合先放在${industry}场景里做${stage}验证。它的价值不是单纯“技术先进”，而是能否缩短你们现有方案从试点到落地的路径。`,
             `建议你们重点看三件事：第一，现有数据或设备接口能不能接入；第二，预算是否覆盖二次适配；第三，内部是否有业务部门愿意参与试点。`,
             `如果这三点基本成立，下一步不建议只继续聊天，可以提交交易意向，让平台把需求、专利和后续顾问沟通串起来。`
+        ].join('\n\n');
+    }
+
+    function summarizePaperEvidence(evidence) {
+        if (!evidence.length) {
+            return '从该学者公开论文背景看，目前可用证据有限，因此我会把判断主要锚定在当前专利和企业需求上。';
+        }
+        const selected = evidence.slice(0, 3).map(item => {
+            const prefix = item.sourceType === 'paper_pdf' ? '已下载公开PDF' : '公开记录';
+            const year = item.year ? ` (${item.year})` : '';
+            const text = item.text ? `：${item.text.slice(0, 120)}` : '';
+            return `${prefix}《${item.title}》${year}${text}`;
+        });
+        return `从该学者公开论文/研究背景看，可以参考${selected.join('；')}。metadata-only 记录只作为背景，不当作全文证据。`;
+    }
+
+    function summarizeReferences(references) {
+        const items = references.slice(0, 6).map(item => `${sourceTypeLabel(item.type)}：《${item.title || 'Untitled'}》`);
+        return items.length ? `参考来源：${items.join('；')}。` : '参考来源：当前公开专利与学者资料。';
+    }
+
+    function composeAdvisorReply(context = {}) {
+        const project = context.project || {};
+        const patent = context.patent || {};
+        const inventor = context.inventor || {};
+        const advisorContext = context.advisorContext || buildAdvisorContext(context);
+        const question = advisorContext.question || context.question || '这项专利适合我们吗？';
+        const inventorName = context.inventorName || inventor.name || advisorContext.scholarName || '数字学者';
+        const projectTitle = project.title || '当前技术需求';
+        const industry = project.industry || patent.industry || '目标行业';
+        const stage = project.stage || '评估阶段';
+        const patentTitle = patent.title || '这项专利';
+        const expertise = Array.isArray(inventor.expertise) && inventor.expertise.length
+            ? `我的公开研究/专利背景覆盖${inventor.expertise.slice(0, 4).join('、')}。`
+            : '';
+        const skillHint = advisorContext.triggeredSkills.length
+            ? `本轮我会按${advisorContext.triggeredSkills.slice(0, 4).map(skill => skill.name || skill.id).join('、')}来处理，并让风险护栏先挡住过度承诺。`
+            : '本轮我会先核对当前专利事实，再给出保守建议。';
+        const paperHint = summarizePaperEvidence(advisorContext.paperEvidence || []);
+        const references = summarizeReferences(advisorContext.references || []);
+        const isLegalRisk = advisorContext.intent && advisorContext.intent.id === 'legal_risk';
+        const summary = patent.summary ? `当前公开摘要显示：${String(patent.summary).slice(0, 180)}。` : '';
+
+        return [
+            `我是${inventorName}的数字学者代理。结合“${projectTitle}”这个需求，我会用企业能理解的方式回答：${question}`,
+            `${expertise}${skillHint}`,
+            `从当前专利看，“${patentTitle}”应先放在${industry}场景里做${stage}验证。它的价值不是单纯说“技术先进”，而是看能否缩短你们从评估、试点到落地的路径。${summary}`,
+            paperHint,
+            isLegalRisk
+                ? '风险边界上，我不能直接判断是否侵权、是否一定有效或是否可以自由实施；这需要结合权利要求、地域、期限、现有技术和律师检索意见做正式 FTO/法律评估。'
+                : '建议重点核验三件事：第一，现有数据、设备或业务系统能否接入；第二，预算是否覆盖二次适配和试点；第三，内部是否有业务部门愿意参与验证。论文背景可以增强技术理解，但不能等同于专利许可、产品承诺或商业结果。',
+            `${references} 如果这些条件基本成立，下一步可以提交交易意向，让平台把需求、专利资料和后续顾问沟通串起来。`
         ].join('\n\n');
     }
 
@@ -713,6 +1021,8 @@
         parseDemandText,
         createDemandProject,
         createTradeIntent,
+        classifyAdvisorIntent,
+        buildAdvisorContext,
         composeAdvisorReply
     };
 })(typeof globalThis !== 'undefined' ? globalThis : window);

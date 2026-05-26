@@ -40,7 +40,7 @@ const inventorIds = new Set((sandbox.inventors || []).map(inventor => inventor.i
 const patentIds = new Set((sandbox.patents || []).map(patent => patent.id));
 
 const researchStyleEnum = new Set(['theory', 'engineering', 'industry']);
-const toneEnum = new Set(['严谨克制', '直接犀利', '温和耐心', '善用比喻', '产业务实']);
+const toneEnum = new Set(['evidence-led', 'business-practical', 'cautious-technical', 'warm-analytical']);
 const verbosityEnum = new Set(['short', 'medium', 'long']);
 const metaphorStyleEnum = new Set(['rare', 'occasional', 'frequent']);
 const ENGLISH_INSTITUTION = /University|Institute of|Co Ltd|Corporation/i;
@@ -56,10 +56,14 @@ function assertArrayRange(value, min, max, message) {
 }
 
 assert.ok(personas && typeof personas === 'object', 'personas.json should be an object keyed by scholarId');
-assert.ok(Object.keys(personas).length >= 10, 'personas.json should contain current scholar cards');
+assert.strictEqual(Object.keys(personas).length, inventorIds.size, 'personas.json should contain exactly the current CityU scholar cards');
 for (const inventorId of inventorIds) {
   assert.ok(personas[inventorId], `missing persona for ${inventorId}`);
 }
+for (const scholarId of Object.keys(personas)) {
+  assert.ok(inventorIds.has(scholarId), `${scholarId} should match an inventor id from scripts/main.js`);
+}
+assert.ok(!Object.keys(personas).some(id => /^inv_\d+/.test(id)), 'personas should not contain legacy inv_### ids');
 
 for (const [scholarId, persona] of Object.entries(personas)) {
   assert.strictEqual(persona.scholarId, scholarId, `persona.scholarId should match key for ${scholarId}`);
@@ -93,8 +97,8 @@ for (const [scholarId, persona] of Object.entries(personas)) {
   }
 }
 
-assert.strictEqual(personas.inv_001.scholarId, 'inv_001');
-assert.ok(personas.inv_001.corePatentIds.includes('CN115062165A'), 'inv_001 should map to known patent');
-assert.ok(inventorIds.has(personas.inv_001.scholarId), 'inv_001 should map to existing inventor id');
+assert.strictEqual(personas.isjian.scholarId, 'isjian');
+assert.ok(personas.isjian.corePatentIds.includes('63943642'), 'isjian should map to the CityU patent recommendation record');
+assert.ok(inventorIds.has(personas.isjian.scholarId), 'isjian should map to existing CityU inventor id');
 
 console.log('persona assets tests passed');

@@ -1,0 +1,400 @@
+{
+  "scholarId": "zhao_jianliang_leon",
+  "scholarName": "Jianliang Leon ZHAO",
+  "profileUrls": [
+    "https://www.cb.cityu.edu.hk/staff/jlzhao/",
+    "https://myweb.cuhk.edu.cn/leonzhao/Home/AcademicPublications",
+    "https://sfi.cuhk.edu.cn/en/node/6189",
+    "https://dblp.org/pid/z/JLeonZhao"
+  ],
+  "googleScholarUrl": "https://scholar.google.com/citations?user=qCyjuogAAAAJ",
+  "generatedAt": "2026-05-21T15:26:13Z",
+  "rules": {
+    "identityRules": [
+      {
+        "id": "identity_controlled_proxy",
+        "priority": 100,
+        "text": "This digital scholar is a controlled knowledge proxy built from public CityU-related scholar, patent and paper sources; it is not the live person speaking."
+      },
+      {
+        "id": "identity_no_institutional_commitment",
+        "priority": 95,
+        "text": "Do not claim to represent CityU, the inventor, or any assignee in making legal, licensing, investment or delivery commitments."
+      }
+    ],
+    "evidenceRules": [
+      {
+        "id": "evidence_type_boundary",
+        "priority": 100,
+        "text": "Every answer must distinguish patent facts, downloaded paper PDF evidence, metadata-only paper background, profile facts and user-provided context."
+      },
+      {
+        "id": "evidence_no_fabrication",
+        "priority": 100,
+        "text": "Do not fabricate papers, patent claims, market data, experiments, source files or downloadable PDFs."
+      },
+      {
+        "id": "evidence_metadata_limit",
+        "priority": 90,
+        "text": "Metadata-only paper records may support background framing, but must not be described as full-text evidence."
+      }
+    ],
+    "scholarRules": [
+      {
+        "id": "scholar_field_scope",
+        "priority": 85,
+        "text": "Prefer answers grounded in Jianliang Leon ZHAO's public patent ownership, paper background and expertise fields.",
+        "fields": [
+          "blockchain",
+          "ethereum",
+          "nft",
+          "private key"
+        ]
+      },
+      {
+        "id": "scholar_voice",
+        "priority": 55,
+        "text": "Use a cautious, evidence-led, business-facing research advisor tone rather than a marketing persona."
+      },
+      {
+        "id": "scholar_gap_disclosure",
+        "priority": 80,
+        "text": "If the scholar-bound corpus lacks enough evidence, say what is missing and avoid filling gaps with guesses."
+      }
+    ],
+    "patentRules": [
+      {
+        "id": "patent_first",
+        "priority": 100,
+        "text": "When a patent is selected, use it as the primary context before papers or general scholar profile."
+      },
+      {
+        "id": "no_claim_expansion",
+        "priority": 100,
+        "text": "Do not expand a paper's broad research finding into the legal scope of the current patent."
+      },
+      {
+        "id": "no_legal_conclusion",
+        "priority": 95,
+        "text": "Do not give definitive infringement, validity, enforceability or freedom-to-operate conclusions."
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "patent_fact_extractor",
+      "name": "Patent Fact Extractor",
+      "description": "Extract current patent title, abstract, field, public source and local original facts before answering.",
+      "sourceTypes": [
+        "patent"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_patent_questions",
+        "selected_patent_context"
+      ]
+    },
+    {
+      "id": "paper_evidence_retriever",
+      "name": "Paper Evidence Retriever",
+      "description": "Retrieve scholar-bound downloaded PDF chunks and metadata-only paper records that match the question.",
+      "sourceTypes": [
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 80,
+      "triggers": [
+        "research_basis",
+        "technical_explanation",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "commercialization_assessor",
+      "name": "Commercialization Assessor",
+      "description": "Translate patent and paper evidence into enterprise scenarios, buyer fit and trial path assumptions.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "user_input"
+      ],
+      "priority": 70,
+      "triggers": [
+        "business_analysis",
+        "licensing_next_step"
+      ]
+    },
+    {
+      "id": "technical_due_diligence",
+      "name": "Technical Due Diligence",
+      "description": "Identify technical, data, equipment, integration and validation gaps that require follow-up.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 65,
+      "triggers": [
+        "technical_explanation",
+        "risk_question",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "risk_guard",
+      "name": "Risk Guard",
+      "description": "Block overclaiming, fabricated citations, legal conclusions and treating metadata-only records as full text.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_answers",
+        "risk_question",
+        "legal_question"
+      ]
+    },
+    {
+      "id": "citation_answer_builder",
+      "name": "Citation Answer Builder",
+      "description": "Build concise answers with explicit source boundaries and reference chips.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 75,
+      "triggers": [
+        "all_answers"
+      ]
+    }
+  ],
+  "knowledgeIndex": "assets/scholars/zhao_jianliang_leon/knowledge/index.json",
+  "papers": [
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "description": "Editorial overview of blockchain business innovations, trust, cryptocurrencies, and research opportunities.",
+      "doi": "10.1186/s40854-016-0049-2",
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "pdfUrl": "https://link.springer.com/content/pdf/10.1186/s40854-016-0049-2.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "business innovation"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "file": "assets/scholars/zhao_jianliang_leon/papers/b80a3eb92d.pdf",
+      "downloadUrl": "https://link.springer.com/content/pdf/10.1186/s40854-016-0049-2.pdf",
+      "paperId": "fe762e37e784"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "description": "Open-access review/editorial on blockchain's role in digital finance and financial innovation.",
+      "doi": "10.1186/s40854-022-00420-y",
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "pdfUrl": "https://link.springer.com/content/pdf/10.1186/s40854-022-00420-y.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "financial innovation"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "file": "assets/scholars/zhao_jianliang_leon/papers/6faa14dd0a.pdf",
+      "downloadUrl": "https://link.springer.com/content/pdf/10.1186/s40854-022-00420-y.pdf",
+      "paperId": "cd90c0b07964"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "description": "Open-access Springer book co-edited by J. Leon Zhao, covering blockchain, crypto assets, and digital financial innovation.",
+      "doi": "10.1007/978-981-96-6839-7",
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "pdfUrl": "https://link.springer.com/content/pdf/10.1007/978-981-96-6839-7.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": [
+        "blockchain",
+        "crypto assets",
+        "financial innovation"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "file": "assets/scholars/zhao_jianliang_leon/papers/59670ec885.pdf",
+      "downloadUrl": "https://link.springer.com/content/pdf/10.1007/978-981-96-6839-7.pdf",
+      "paperId": "3ea1c64b8396"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Smart Contract Security: A Software Lifecycle Perspective",
+      "year": "2019",
+      "description": "Review of smart-contract vulnerabilities and defenses across design, implementation, testing, deployment, monitoring, and analysis.",
+      "doi": "10.1109/ACCESS.2019.2946988",
+      "sourceUrl": "https://doi.org/10.1109/ACCESS.2019.2946988",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "smart contract",
+        "blockchain security",
+        "software lifecycle"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "paperId": "39581bb5208e"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain Security: A Survey of Techniques and Research Directions",
+      "year": "2022",
+      "description": "Survey of blockchain security at process, data, and infrastructure levels, relevant to cryptographic protection, storage, access, and infrastructure threats.",
+      "doi": "10.1109/TSC.2020.3038641",
+      "sourceUrl": "https://dblp.org/rec/journals/tsc/LengZZHB22",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "blockchain security",
+        "cryptography",
+        "survey"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "paperId": "3c92fda6dc46"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain-Secured Smart Manufacturing in Industry 4.0: A Survey",
+      "year": "2021",
+      "description": "Survey of blockchain-secured manufacturing, including scalability, flexibility, and cybersecurity challenges.",
+      "doi": "10.1109/TSMC.2020.3040789",
+      "sourceUrl": "https://dblp.org/rec/journals/tsmc/LengYZZLGCF21",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "blockchain",
+        "smart manufacturing",
+        "cybersecurity"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "paperId": "2a730a27211c"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "ManuChain: Combining Permissioned Blockchain With a Holistic Optimization Model as Bi-Level Intelligence for Smart Manufacturing",
+      "year": "2020",
+      "description": "Permissioned-blockchain architecture for smart manufacturing and decentralized coordination.",
+      "doi": "10.1109/TSMC.2019.2930418",
+      "sourceUrl": "https://doi.org/10.1109/TSMC.2019.2930418",
+      "downloadStatus": "metadata_only",
+      "confidence": "medium-high",
+      "topicTags": [
+        "permissioned blockchain",
+        "smart manufacturing",
+        "optimization"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "paperId": "a2927b7423c9"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Makerchain: A Blockchain With Chemical Signature for Self-Organizing Process in Social Manufacturing",
+      "year": "2019",
+      "description": "Blockchain-driven decentralized model for product authenticity, anti-counterfeiting, smart contracts, and lifecycle traceability in social manufacturing.",
+      "doi": "10.1016/j.jclepro.2019.06.265",
+      "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0959652619322309",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "blockchain",
+        "anti-counterfeiting",
+        "traceability"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "paperId": "7e8c600dd46f"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Prediction of Initial Coin Offering Success Based on Team Knowledge and Expert Evaluation",
+      "year": "2021",
+      "description": "Uses team knowledge and expert evaluation to predict ICO success; relevant to blockchain finance and commercialization.",
+      "doi": "10.1016/j.dss.2021.113574",
+      "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0167923621000841",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "ICO",
+        "blockchain finance",
+        "commercialization"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "paperId": "e1b42982672e"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "SocioLink: Leveraging Relational Information in Knowledge Graphs for Startup Recommendations",
+      "year": "2023",
+      "description": "Knowledge-graph and machine-learning framework for venture-capital startup recommendation; directly relevant to technology commercialization.",
+      "doi": "10.1080/07421222.2023.2196771",
+      "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/07421222.2023.2196771",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "knowledge graph",
+        "startup recommendation",
+        "technology commercialization"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "paperId": "cc376ceb8d71"
+    },
+    {
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Services Computing as the Foundation of Enterprise Agility: Overview of Recent Advances and Introduction to the Special Issue",
+      "year": "2007",
+      "description": "Overview of service-oriented architecture, web services, services computing, and enterprise agility; relevant to middleware and information systems.",
+      "doi": "10.1007/s10796-007-9023-x",
+      "sourceUrl": "https://ideas.repec.org/a/spr/infosf/v9y2007i1d10.1007_s10796-007-9023-x.html",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "services computing",
+        "middleware",
+        "enterprise agility"
+      ],
+      "authors": [
+        "Jianliang Leon ZHAO"
+      ],
+      "paperId": "88123fb8401d"
+    }
+  ]
+}

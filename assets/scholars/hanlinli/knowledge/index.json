@@ -1,0 +1,257 @@
+{
+  "scholarId": "hanlinli",
+  "scholarName": "Han Lin LI",
+  "generatedAt": "2026-05-21T15:25:54Z",
+  "sourceTypes": [
+    "patent",
+    "paper_pdf",
+    "paper_metadata",
+    "profile",
+    "user_input"
+  ],
+  "paperCount": 6,
+  "downloadedPdfCount": 1,
+  "metadataOnlyCount": 5,
+  "chunkCount": 8,
+  "topics": [
+    "prime numbers",
+    "color coding",
+    "optimization",
+    "therapeutic visualization",
+    "operations research",
+    "parallel solver",
+    "engineering optimization"
+  ],
+  "chunks": [
+    {
+      "id": "1bd5c978c2b5_p1_1",
+      "paperId": "1bd5c978c2b5",
+      "scholarId": "hanlinli",
+      "title": "Unifying colors by primes",
+      "year": "2023",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "Li et al. Light: Science & Applications (2023) 12:32 Ofﬁcial journal of the CIOMP 2047-7538 https://doi.org/10.1038/s41377-023-01073-x www.nature.com/lsa A R T I C L E O p e n A c c e s s Unifying colors by primes Han-Lin Li1, Shu-Cherng Fang2, Bertrand M. T. Lin 3 and Way Kuo4✉ Abstract RGB and CYMK are two major coloring schemes currently available for light colors and pigment colors, respectively. Both systems use letter-based color codes that require a large range of values to represent different colors. The problem is that these two systems are hard to use for manipulating any operations involving combinations of colors, and they lack the capacity for inter-changeability or uniﬁcation. Based on prime number theory and Goldbach’s conjecture, this study presents a universal color system (C235) using a number-based structure to encode,",
+      "topicTags": [
+        "prime numbers",
+        "color coding",
+        "optimization"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/unifying-colors-by-primes/",
+      "file": "assets/scholars/hanlinli/papers/8f1b923633.pdf"
+    },
+    {
+      "id": "1bd5c978c2b5_p1_2",
+      "paperId": "1bd5c978c2b5",
+      "scholarId": "hanlinli",
+      "title": "Unifying colors by primes",
+      "year": "2023",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "rime number theory and Goldbach’s conjecture, this study presents a universal color system (C235) using a number-based structure to encode, compute and unify all colors on a color wheel. The proposed C235 system offers a uniﬁed representation for the efﬁcient encoding and effective manipulation of color. It can be applied to designing a high-rate LCD system and colorizing objects with multiple attributes and DNA codons, opening the door to manipulating colors and lights for even broader applications. Introduction Numbers and colors are powerful tools for expressing objects such as people, goods, and DNA. The former can quantify objects and the latter can represent them visually. Isaac Newton’s theory of light claims that all colors can be generated from three basic colors: red, green, and blue1. Originating from Newton’s theory1, RGB (Red",
+      "topicTags": [
+        "prime numbers",
+        "color coding",
+        "optimization"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/unifying-colors-by-primes/",
+      "file": "assets/scholars/hanlinli/papers/8f1b923633.pdf"
+    },
+    {
+      "id": "1bd5c978c2b5_p1_3",
+      "paperId": "1bd5c978c2b5",
+      "scholarId": "hanlinli",
+      "title": "Unifying colors by primes",
+      "year": "2023",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "of light claims that all colors can be generated from three basic colors: red, green, and blue1. Originating from Newton’s theory1, RGB (Red, Green, Blue), a light-color structure that contains 3 × 256 values of letter symbols, and CMYK (Cyan, Magenta, Yellow, Key black), a pigment-color structure that contains 4 × 100 values of letter symbols2,3, have become the most popular color frames used today. Most of the other color frames, such as HSV (Hue, Saturation, Value) are derived from RGB and CMYK3. In the RGB frame, each of R, G, and B colors has 256 values expressed as [0, 1, 2,…, 255], and is coded as (r, g, b). In the CMYK frame, each of C, M, Y, and K has 100 values, expressed as [0, 1, 2,…, 99], and is coded as (c, m, y, k). The weakness of the current CMYK and RGB frames are given below. (i) Expression problems: R, G, B and C, M, Y",
+      "topicTags": [
+        "prime numbers",
+        "color coding",
+        "optimization"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/unifying-colors-by-primes/",
+      "file": "assets/scholars/hanlinli/papers/8f1b923633.pdf"
+    },
+    {
+      "id": "1bd5c978c2b5_p1_4",
+      "paperId": "1bd5c978c2b5",
+      "scholarId": "hanlinli",
+      "title": "Unifying colors by primes",
+      "year": "2023",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "and is coded as (c, m, y, k). The weakness of the current CMYK and RGB frames are given below. (i) Expression problems: R, G, B and C, M, Y, K are letter symbols; it is hard to use them to explicitly express the relationship between colors. Take the RGB framework as an example. Based on key colors R, G, and B, another nine colors {RY, Y, YG, GC, C, CB, BM, M, MR} can be deduced, where Y stands for yellow, C for cyan, and M for magenta. However, it is not easy for a user to directly realize the components of color from these letter symbols. Difﬁculties arise in various application contexts without a speciﬁc mechanism for mathematical operations. For instance, what is the complement color of R? What are the triad-complementary pairs within these 12 colors? (ii) Computing problems: Letter symbols in the current color frames are hard to use",
+      "topicTags": [
+        "prime numbers",
+        "color coding",
+        "optimization"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/unifying-colors-by-primes/",
+      "file": "assets/scholars/hanlinli/papers/8f1b923633.pdf"
+    },
+    {
+      "id": "1bd5c978c2b5_p1_5",
+      "paperId": "1bd5c978c2b5",
+      "scholarId": "hanlinli",
+      "title": "Unifying colors by primes",
+      "year": "2023",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "e the triad-complementary pairs within these 12 colors? (ii) Computing problems: Letter symbols in the current color frames are hard to use for color computation. For instance, what is the resulting color after blending four colors of RY, GC, CB, and MR? Moreover, what is the reﬂecting color of an apple if we use a blue light to irradiate a green apple? (iii) Uniﬁcation problems: Letter symbols are hard to use for unifying pigment colors and light colors, same for unifying RGB, CMYK, and HSV frames together. Such issues may cause ineffective conversions among different colors4. (iv) Size problems: In a CMYK frame, each of c, m, y, and k may assume 100 values, while in an RGB frame, each of r, g, and b may assume 256 values. Take RGB as an example. Each of the R, G, and B colors has 256 values, thus resulting in 3 × 2562 hues, which makes",
+      "topicTags": [
+        "prime numbers",
+        "color coding",
+        "optimization"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/unifying-colors-by-primes/",
+      "file": "assets/scholars/hanlinli/papers/8f1b923633.pdf"
+    },
+    {
+      "id": "1bd5c978c2b5_p1_6",
+      "paperId": "1bd5c978c2b5",
+      "scholarId": "hanlinli",
+      "title": "Unifying colors by primes",
+      "year": "2023",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "may assume 256 values. Take RGB as an example. Each of the R, G, and B colors has 256 values, thus resulting in 3 × 2562 hues, which makes it challenging to distribute and allocate © The Author(s) 2023 OpenAccessThisarticleislicensedunderaCreativeCommonsAttribution4.0InternationalLicense,whichpermitsuse,sharing,adaptation,distributionandreproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons license, and indicate if changes were made. The images or other third party material in this article are included in the article’s Creative Commons license, unless indicated otherwise in a credit line to the material. If material is not included in the article’s Creative Commons license and your intended use is not permitted by statutory regulation o",
+      "topicTags": [
+        "prime numbers",
+        "color coding",
+        "optimization"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/unifying-colors-by-primes/",
+      "file": "assets/scholars/hanlinli/papers/8f1b923633.pdf"
+    },
+    {
+      "id": "1bd5c978c2b5_p1_7",
+      "paperId": "1bd5c978c2b5",
+      "scholarId": "hanlinli",
+      "title": "Unifying colors by primes",
+      "year": "2023",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "rial. If material is not included in the article’s Creative Commons license and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/. Correspondence: Way Kuo (way@cityu.edu.hk) 1Department of Management Science, City University of Hong Kong, Hong Kong, China 2Department of Industrial and Systems Engineering, North Carolina State University, Raleigh, NC 27695, USA Full list of author information is available at the end of the article 1234567890():,; 1234567890():,; 1234567890():,; 1234567890():,;",
+      "topicTags": [
+        "prime numbers",
+        "color coding",
+        "optimization"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/unifying-colors-by-primes/",
+      "file": "assets/scholars/hanlinli/papers/8f1b923633.pdf"
+    },
+    {
+      "id": "1bd5c978c2b5_p2_1",
+      "paperId": "1bd5c978c2b5",
+      "scholarId": "hanlinli",
+      "title": "Unifying colors by primes",
+      "year": "2023",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "these many colors and hues on a color wheel4,5. In addition, the large number of color values may cause a huge computational burden for combining some of them to generate preferred colors6. The weakness of RGB and CMYK is further reﬂected in emerging applications, such as cell phones, PCs, and TVs, in which RGB and CMYK are widely applied. For current technologies, each pixel on an LCD5 screen requires 3 × 8 = 24 pulses to generate R, G, and B lights7, which is both time- and energy-consuming. Moreover, the trans- formation between lights and colors is so complicated that no usable smart system is currently available8,9. In this study, we present a new color framework based on the prime number theory10,11 and Goldbach’s con- jecture10,12, referred to as C235, to encode colors and colorize objects. The aim is to solve bottlenecks inherent",
+      "topicTags": [
+        "prime numbers",
+        "color coding",
+        "optimization"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/unifying-colors-by-primes/",
+      "file": "assets/scholars/hanlinli/papers/8f1b923633.pdf"
+    }
+  ],
+  "metadataRecords": [
+    {
+      "paperId": "477f9546531c",
+      "scholarId": "hanlinli",
+      "title": "Forming a therapeutic sphere to treat ailments using optimization techniques",
+      "year": "2023",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "optimization",
+        "therapeutic visualization",
+        "operations research"
+      ],
+      "description": "Converts a therapeutic table into a spherical visualization using optimization techniques.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/forming-a-therapeutic-sphere-to-treat-ailments-using-optimization/"
+    },
+    {
+      "paperId": "27c1e36a15a9",
+      "scholarId": "hanlinli",
+      "title": "Prime-Number-Based Parallel Solver for Engineering Design Optimization Problems",
+      "year": "2022",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "medium",
+      "topicTags": [
+        "prime numbers",
+        "parallel solver",
+        "engineering optimization"
+      ],
+      "description": "Patent/publication record for partitioning polynomial integer optimization problems using prime-number-based parallelization.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/prime-number-based-parallel-solver-for-engineering-design-optimiz/"
+    },
+    {
+      "paperId": "60534b12c302",
+      "scholarId": "hanlinli",
+      "title": "System And Method For Performing Operation Using Linear-Integer-Programing For Rsa Factorization",
+      "year": "2026",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "Public scholarly background metadata for the digital advisor.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/system-and-method-for-performing-operation-using-linear-integer-p/"
+    },
+    {
+      "paperId": "27c1e36a15a9",
+      "scholarId": "hanlinli",
+      "title": "Prime-Number-Based Parallel Solver For Engineering Design Optimization Problems Of Polynomial Forms With Integer Variables",
+      "year": "2022",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "Public scholarly background metadata for the digital advisor.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/prime-number-based-parallel-solver-for-engineering-design-optimiz/"
+    },
+    {
+      "paperId": "67615de383f1",
+      "scholarId": "hanlinli",
+      "title": "Universal Color Coding System, And Method of Analyzing Objects with Multiple Attributes Using The Color Coding System",
+      "year": "2022",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "Public scholarly background metadata for the digital advisor.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/universal-color-coding-system-and-method-of-analyzing-objects-wit/"
+    }
+  ]
+}

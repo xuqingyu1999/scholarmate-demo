@@ -1,0 +1,279 @@
+{
+  "scholarId": "xingeyu",
+  "scholarName": "Xinge YU",
+  "profileUrls": [
+    "https://scholars.cityu.edu.hk/en/persons/xingeyu/",
+    "https://www.cityu.edu.hk/stfprofile/xingeyu.htm"
+  ],
+  "googleScholarUrl": "",
+  "generatedAt": "2026-05-21T15:25:42Z",
+  "rules": {
+    "identityRules": [
+      {
+        "id": "identity_controlled_proxy",
+        "priority": 100,
+        "text": "This digital scholar is a controlled knowledge proxy built from public CityU-related scholar, patent and paper sources; it is not the live person speaking."
+      },
+      {
+        "id": "identity_no_institutional_commitment",
+        "priority": 95,
+        "text": "Do not claim to represent CityU, the inventor, or any assignee in making legal, licensing, investment or delivery commitments."
+      }
+    ],
+    "evidenceRules": [
+      {
+        "id": "evidence_type_boundary",
+        "priority": 100,
+        "text": "Every answer must distinguish patent facts, downloaded paper PDF evidence, metadata-only paper background, profile facts and user-provided context."
+      },
+      {
+        "id": "evidence_no_fabrication",
+        "priority": 100,
+        "text": "Do not fabricate papers, patent claims, market data, experiments, source files or downloadable PDFs."
+      },
+      {
+        "id": "evidence_metadata_limit",
+        "priority": 90,
+        "text": "Metadata-only paper records may support background framing, but must not be described as full-text evidence."
+      }
+    ],
+    "scholarRules": [
+      {
+        "id": "scholar_field_scope",
+        "priority": 85,
+        "text": "Prefer answers grounded in Xinge YU's public patent ownership, paper background and expertise fields.",
+        "fields": [
+          "medical",
+          "breathing",
+          "respiratory",
+          "radar"
+        ]
+      },
+      {
+        "id": "scholar_voice",
+        "priority": 55,
+        "text": "Use a cautious, evidence-led, business-facing research advisor tone rather than a marketing persona."
+      },
+      {
+        "id": "scholar_gap_disclosure",
+        "priority": 80,
+        "text": "If the scholar-bound corpus lacks enough evidence, say what is missing and avoid filling gaps with guesses."
+      }
+    ],
+    "patentRules": [
+      {
+        "id": "patent_first",
+        "priority": 100,
+        "text": "When a patent is selected, use it as the primary context before papers or general scholar profile."
+      },
+      {
+        "id": "no_claim_expansion",
+        "priority": 100,
+        "text": "Do not expand a paper's broad research finding into the legal scope of the current patent."
+      },
+      {
+        "id": "no_legal_conclusion",
+        "priority": 95,
+        "text": "Do not give definitive infringement, validity, enforceability or freedom-to-operate conclusions."
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "patent_fact_extractor",
+      "name": "Patent Fact Extractor",
+      "description": "Extract current patent title, abstract, field, public source and local original facts before answering.",
+      "sourceTypes": [
+        "patent"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_patent_questions",
+        "selected_patent_context"
+      ]
+    },
+    {
+      "id": "paper_evidence_retriever",
+      "name": "Paper Evidence Retriever",
+      "description": "Retrieve scholar-bound downloaded PDF chunks and metadata-only paper records that match the question.",
+      "sourceTypes": [
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 80,
+      "triggers": [
+        "research_basis",
+        "technical_explanation",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "commercialization_assessor",
+      "name": "Commercialization Assessor",
+      "description": "Translate patent and paper evidence into enterprise scenarios, buyer fit and trial path assumptions.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "user_input"
+      ],
+      "priority": 70,
+      "triggers": [
+        "business_analysis",
+        "licensing_next_step"
+      ]
+    },
+    {
+      "id": "technical_due_diligence",
+      "name": "Technical Due Diligence",
+      "description": "Identify technical, data, equipment, integration and validation gaps that require follow-up.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 65,
+      "triggers": [
+        "technical_explanation",
+        "risk_question",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "risk_guard",
+      "name": "Risk Guard",
+      "description": "Block overclaiming, fabricated citations, legal conclusions and treating metadata-only records as full text.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_answers",
+        "risk_question",
+        "legal_question"
+      ]
+    },
+    {
+      "id": "citation_answer_builder",
+      "name": "Citation Answer Builder",
+      "description": "Build concise answers with explicit source boundaries and reference chips.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 75,
+      "triggers": [
+        "all_answers"
+      ]
+    }
+  ],
+  "knowledgeIndex": "assets/scholars/xingeyu/knowledge/index.json",
+  "papers": [
+    {
+      "scholarId": "xingeyu",
+      "title": "A three-dimensional stretchable core-shell cable for soft and hybrid electronics",
+      "year": "2026",
+      "description": "Recyclable, patternable, noise-resistant stretchable cable for soft and hybrid wearable electronics.",
+      "doi": "10.1038/s41928-026-01596-2",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-three-dimensional-stretchable-coreshell-cable-for-soft-and-hybr/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "soft electronics",
+        "wearable electronics",
+        "stretchable cable"
+      ],
+      "authors": [
+        "Xinge YU"
+      ],
+      "paperId": "d0d812d7c4c7"
+    },
+    {
+      "scholarId": "xingeyu",
+      "title": "An organ-conformal, kirigami-structured bioelectronic patch for precise intracellular delivery",
+      "year": "2026",
+      "description": "Customizable organ-conformal electro-transfection patch for spatially controlled intracellular delivery.",
+      "doi": "10.1016/j.cell.2025.12.021",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/an-organ-conformal-kirigami-structured-bioelectronic-patch-for-pr/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "bioelectronics",
+        "kirigami",
+        "intracellular delivery"
+      ],
+      "authors": [
+        "Xinge YU"
+      ],
+      "paperId": "dbc3bfb00f96"
+    },
+    {
+      "scholarId": "xingeyu",
+      "title": "An All-in-One-Integrated Self-Powered Wearable Sensing System",
+      "year": "2026",
+      "description": "Integrated bioenergy harvesting, storage, and sensing system for multimodal health monitoring.",
+      "doi": "10.1021/acsnano.5c17767",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/an-all-in-one-integrated-self-powered-wearable-sensing-system-for/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "wearable sensing",
+        "self-powered system",
+        "health monitoring"
+      ],
+      "authors": [
+        "Xinge YU"
+      ],
+      "paperId": "2222eb36497c"
+    },
+    {
+      "title": "A Perspective on Non-Invasive Blood Pressure Monitoring: Bridging Emerging Principles, Enabling Technologies and Extended Applications",
+      "authors": [
+        "Xinge YU"
+      ],
+      "year": "2026",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-perspective-on-non-invasive-blood-pressure-monitoring-bridging-/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "doi": "10.1109/RBME.2025.3646327",
+      "abstract": "Cardiovascular disease (CVD), the leading global cause of death, highlights the critical need for effective blood pressure management. Non-invasive blood pressure (NIBP) monitoring, compared with invasive methods, enables home-based and long-term use, supporting early detection and continuous care. Despite significant progress, challenges remain, including accuracy issues, insufficient validation in real-world settings, limited application-specific sensor designs, and inadequate calibration standards and validation platforms. These gaps call for a systematic review to clarify the unmet needs and future research directions. This article reviews current advances in four key areas: (1) novel NIBP estimation principles designed to minimize user intervention; (2) flexible and wearable electronics that improve accuracy and comfort; (3) integration with theranostic applications and broader healthcare scenarios enabled by NIBP technologies; (4) calibration and validation strategies that enhance reliability and accuracy. With the rapid growth of home healthcare and AI-enabled wearable systems, addressing these challenges is essential to advance personalized, precise and stable cardiovascula",
+      "description": "Cardiovascular disease (CVD), the leading global cause of death, highlights the critical need for effective blood pressure management. Non-invasive blood pressure (NIBP) monitoring, compared with invasive methods, enables home-based and long-term use, supporting early detection and continuous care. Despite significant progress, challenges remain, including accuracy issues, insufficient validation in real-world settings, limited application-specific sensor designs, and inadequate calibration standards and validation platforms. These gaps call for a systematic review to clarify the unmet needs and future research directions. This article reviews current advances in four key areas: (1) novel NIBP estimation principles designed to minimize user intervention; (2) flexible and wearable electronics that improve accuracy and comfort; (3) integration with theranostic applications and broader healthcare scenarios enabled by NIBP technologies; (4) calibration and validation strategies that enhance reliability and accuracy. With the rapid growth of home healthcare and AI-enabled wearable systems, addressing these challenges is essential to advance personalized, precise and stable cardiovascula",
+      "openAccess": {
+        "isOpenAccess": false,
+        "status": "closed",
+        "url": "",
+        "repositoryHasFullText": false
+      },
+      "paperId": "0823569c308f"
+    },
+    {
+      "title": "A review of microfluidic technologies for thermal management in flexible electronics",
+      "authors": [
+        "Xinge YU"
+      ],
+      "year": "2026",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/a-review-of-microfluidic-technologies-for-thermal-management-in-f/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "doi": "10.1039/d5lc00906e",
+      "abstract": "Flexible electronics with the features of soft, ultrathin, and shape adaptable properties, are believed as next-generation devices for physiological monitoring, digital diagnostics, and human–computer interaction. With the development of devices towards miniaturization and integration, thermal management has emerged as an essential challenge, which not only influences device performance and long-term stability but also affects user comfort. Various thermal management strategies, including passive and active approaches, have been employed to regulate the operating temperature. Nevertheless, it is still challenging to develop thermal regulation systems with a large temperature regulation range, good temperature uniformity, and high mechanical flexibility. Recently, the microfluidics-based thermal regulation method has emerged as a promising method that integrates active and passive thermoregulation methods. This review explores the thermal management mechanisms enabled by microfluidic devices, emphasizing an integrated strategy that combines material selection, structural geometry, and system optimization to enhance thermal performance. We analyze heat transfer principles in microcha",
+      "description": "Flexible electronics with the features of soft, ultrathin, and shape adaptable properties, are believed as next-generation devices for physiological monitoring, digital diagnostics, and human–computer interaction. With the development of devices towards miniaturization and integration, thermal management has emerged as an essential challenge, which not only influences device performance and long-term stability but also affects user comfort. Various thermal management strategies, including passive and active approaches, have been employed to regulate the operating temperature. Nevertheless, it is still challenging to develop thermal regulation systems with a large temperature regulation range, good temperature uniformity, and high mechanical flexibility. Recently, the microfluidics-based thermal regulation method has emerged as a promising method that integrates active and passive thermoregulation methods. This review explores the thermal management mechanisms enabled by microfluidic devices, emphasizing an integrated strategy that combines material selection, structural geometry, and system optimization to enhance thermal performance. We analyze heat transfer principles in microcha",
+      "openAccess": {
+        "isOpenAccess": false,
+        "status": "closed",
+        "url": "",
+        "repositoryHasFullText": false
+      },
+      "paperId": "41eb34b8045b"
+    }
+  ]
+}

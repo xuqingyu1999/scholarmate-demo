@@ -35,7 +35,7 @@ vm.runInContext(`${mainSource}\nthis.ScholarMate = ScholarMate; this.patents = p
 
 assert.strictEqual(sandbox.ScholarMate.isMobilePreviewMode({ search: '?mobile=1' }), true);
 assert.strictEqual(sandbox.ScholarMate.isMobilePreviewMode({ search: '?foo=1' }), false);
-assert.ok(sandbox.patents.length >= 24, `expected at least 24 patents, got ${sandbox.patents.length}`);
+assert.strictEqual(sandbox.patents.length, 16, `expected the 16 CityU demand-set patents, got ${sandbox.patents.length}`);
 
 assert.ok(!/llmConfigPanel/.test(chatHtml), 'chat page should remove LLM credential config panel');
 assert.ok(!/sessionStorage/i.test(chatHtml), 'chat page should not mention sessionStorage secret flow');

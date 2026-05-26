@@ -1,0 +1,88 @@
+{
+  "scholarId": "isjian",
+  "scholarName": "Jian MA",
+  "generatedAt": "2026-05-21T15:25:08Z",
+  "sourceTypes": [
+    "patent",
+    "paper_pdf",
+    "paper_metadata",
+    "profile",
+    "user_input"
+  ],
+  "paperCount": 5,
+  "downloadedPdfCount": 0,
+  "metadataOnlyCount": 5,
+  "chunkCount": 0,
+  "topics": [
+    "university-industry collaboration",
+    "knowledge graph",
+    "recommendation"
+  ],
+  "chunks": [],
+  "metadataRecords": [
+    {
+      "paperId": "d9b1b3b9026d",
+      "scholarId": "isjian",
+      "title": "Bridging Information Asymmetry in University-Industry Collaboration: MMKG SNR",
+      "year": "2025",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "university-industry collaboration",
+        "knowledge graph",
+        "recommendation"
+      ],
+      "description": "Multimodal knowledge graph and social-network ranking for matching firms to academics in university-industry collaboration.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/bridging-information-asymmetry-in-university-industry-collaborati/"
+    },
+    {
+      "paperId": "d097a85c38ae",
+      "scholarId": "isjian",
+      "title": "Enhancing patent recommendations for product innovation: integrating industry relevance and technology trends with multi-view learning",
+      "year": "2026",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "The rapid changes in the technological composition of industries drive companies to seek external patents to foster production innovation. Existing patent recommendation methods primarily analyze the textual and bibliographic features of a company’s historical patents but often overlook industry relevance of patents and the technology development trends. To address this, this paper proposes a multi-view learning-based patent recommendation (MVLPR) approach that integrates industry relevance and technology trends. A multi-label classification model is employed to identify the industrial sectors applicable to a patent, while a Long Short-Term Memory (LSTM) network layer is designed to capture technology development trends. Offline experiments demonstrate that MVLPR achieves a better balance between accuracy and diversity than baseline methods. Crucially, the industry sector view alleviates the cold-start problem for new companies by leveraging inter-company similarities within the same industry sector to provide prior signals of technological interest independent of individual historical patents. Furthermore, the technology trend analysis within the International Patent Classificatio",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/enhancing-patent-recommendations-for-product-innovation-integrati/"
+    },
+    {
+      "paperId": "ba43a3d65ef9",
+      "scholarId": "isjian",
+      "title": "Meeting companies’ innovative requirements on online technology trading platforms: A novel large language model-based framework",
+      "year": "2025",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "Online technology trading platforms (OTTPs) are critical for companies to publish technology requirements and identify solutions like patents. However, semantic gaps persist between market-driven needs and technical supply texts, which traditional methods fail to bridge. While large language models (LLMs) show promise, their effectiveness in OTTPs is limited by hallucination and temporal unawareness. We propose an LLM framework integrating the Hypothetical Document Embedding (HyDE) framework, where we generate pseudo-supply texts based on technical requirements. These texts are then matched with candidate patents using similarity calculations. To reduce hallucination, we use industry-specific knowledge graphs to guide the text generation process and introduce a self-reflective mechanism to refine the generated texts. To address the lack of time awareness, we enhance the knowledge graph with timestamps, turning it into a temporal knowledge graph. Additionally, we introduce the TPPR (Temporal Personalized PageRank) algorithm to improve the relevance of generated texts. Experiments show that our framework performs better than existing methods in Recall, Precision, and Mean Reciprocal",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/meeting-companies-innovative-requirements-on-online-technology-tr/"
+    },
+    {
+      "paperId": "8a20a5461f00",
+      "scholarId": "isjian",
+      "title": "An Interpretable Patent Quality Evaluation Method and System Based on Large Language Model",
+      "year": "2025",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "Public scholarly background metadata for the digital advisor.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/an-interpretable-patent-quality-evaluation-method-and-system-base/"
+    },
+    {
+      "paperId": "8ae990d2129e",
+      "scholarId": "isjian",
+      "title": "An LLMs-based Multi-Agent Collaborative Framework for Intelligent Public Fund Allocation",
+      "year": "2025",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "With the continuous improvement of e-government platforms and the rapid development of artificial intelligence technology, an innovative public fund allocation model has emerged, which achieves precise allocation of public funds through automatic filling of application forms and intelligent verification of enterprise qualifications. However, existing studies still lacks systematic modeling of the implementation mechanism of this public fund allocation model. In response to the inherent complexity of the operating logic of this model and the unstructured characteristics of policy texts and enterprise data, this paper innovatively proposes a large language models-based multi-agent collaborative intelligent allocation method for public funds. This method consists of three core intelligent agents: policy agent, enterprise agent, and match agent. Among them, the policy agent is responsible for parsing policy texts and simulating government decision-making processes. The enterprise agent constructs the enterprise profile by integrating structured and unstructured data, and automatically generate funding application forms. The match agent is responsible for outputting the matching results",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/an-llms-based-multi-agent-collaborative-framework-for-intelligent/"
+    }
+  ]
+}

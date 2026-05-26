@@ -40,9 +40,9 @@ assert.ok(ChatEvidence && typeof ChatEvidence.extractAssistantEvidence === 'func
 assert.ok(typeof ChatEvidence.resolveEvidencePatents === 'function');
 assert.ok(typeof ChatEvidence.warnPersonaBoundaryHints === 'function');
 
-const parsed = ChatEvidence.extractAssistantEvidence('Answer body.\n【依据】CN115062165A, CN115512810A');
+const parsed = ChatEvidence.extractAssistantEvidence('Answer body.\n【依据】63943642, 63943652');
 assert.strictEqual(parsed.visibleContent, 'Answer body.');
-assert.deepStrictEqual(JSON.parse(JSON.stringify(parsed.patentIds)), ['CN115062165A', 'CN115512810A']);
+assert.deepStrictEqual(JSON.parse(JSON.stringify(parsed.patentIds)), ['63943642', '63943652']);
 
 const noMarker = ChatEvidence.extractAssistantEvidence('No marker here');
 assert.strictEqual(noMarker.visibleContent, 'No marker here');
@@ -54,18 +54,18 @@ const resolved = ChatEvidence.resolveEvidencePatents({
   inventors: sandbox.inventors
 });
 assert.strictEqual(resolved.length, 2);
-assert.strictEqual(resolved[0].id, 'CN115062165A');
-assert.ok(resolved[0].href.endsWith('patent-detail.html?id=CN115062165A'));
+assert.strictEqual(resolved[0].id, '63943642');
+assert.ok(resolved[0].href.endsWith('patent-detail.html?id=63943642'));
 assert.ok(resolved[0].title && resolved[0].publicationNumber && resolved[0].scholarName);
 
-const scopedPatents = sandbox.patents.filter(patent => patent.inventorId === 'inv_001');
+const scopedPatents = sandbox.patents.filter(patent => patent.inventorId === 'isjian');
 const scopedResolved = ChatEvidence.resolveEvidencePatents({
-  patentIds: ['CN115062165A', 'CN115132314A'],
+  patentIds: ['63943642', 'CN117950627A'],
   patents: scopedPatents,
   inventors: sandbox.inventors
 });
 assert.strictEqual(scopedResolved.length, 1, 'off-scope patent IDs should not resolve from scoped patents');
-assert.strictEqual(scopedResolved[0].id, 'CN115062165A');
+assert.strictEqual(scopedResolved[0].id, '63943642');
 
 console.log('chat evidence tests passed');
 

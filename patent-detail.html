@@ -158,10 +158,10 @@
                                 <h3 class="font-semibold mb-4">权利人/来源信息</h3>
                                 <div class="flex items-center gap-3 mb-4">
                                     <div id="assigneeInitials" style="width: 48px; height: 48px; background: var(--primary-light); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: var(--primary); font-weight: var(--font-semibold);">
-                                        公开
+                                        GP
                                     </div>
                                     <div>
-                                        <div class="font-medium" id="assigneeName">科研之友专利库 公开记录</div>
+                                        <div class="font-medium" id="assigneeName">Google Patents 公开记录</div>
                                         <div class="text-light" id="assigneeRole" style="font-size: var(--font-sm);">公开来源元数据</div>
                                     </div>
                                 </div>
@@ -255,7 +255,7 @@
 
             <div class="license-info">
                 <div class="license-info__patent">
-                    <img src="assets/patents/CN115062165A.png" alt="专利图片" class="license-info__img">
+                    <img src="https://patentimages.storage.googleapis.com/4a/78/c5/283d0ee82d6d3b/220814202250.png" alt="专利图片" class="license-info__img">
                     <div>
                         <div class="font-medium">一种基于人工智能的医疗诊断系统及方法</div>
                         <div class="text-secondary" style="font-size: var(--font-sm);">专利号：CN115062165A</div>
@@ -440,7 +440,7 @@
         const detailParams = new URLSearchParams(window.location.search);
         const currentProjectId = detailParams.get('project') || '';
         const currentPatent = (() => {
-            const patentId = detailParams.get('id') || 'CN115062165A';
+            const patentId = detailParams.get('id') || '63943642';
             const patent = getPatentById(patentId);
             const inventor = inventors.find(item => item.id === patent.inventorId) || inventors[0];
             return Object.assign({}, patent, {
@@ -492,17 +492,17 @@
             document.querySelector('.license-info__patent .text-secondary').textContent = `专利号：${currentPatent.id}`;
             document.querySelector('.license-info__price-value').textContent = ScholarMateBusinessCore.getPatentLicenseLabel(currentPatent);
             const assigneeName = document.getElementById('assigneeName');
-            if (assigneeName) assigneeName.textContent = currentPatent.assignee || '科研之友专利库 公开记录';
+            if (assigneeName) assigneeName.textContent = currentPatent.assignee || 'Google Patents 公开记录';
             const assigneeRole = document.getElementById('assigneeRole');
             if (assigneeRole) assigneeRole.textContent = `首席发明人：${currentPatent.leadInventor || currentPatent.inventor.name}`;
             const assigneeInitials = document.getElementById('assigneeInitials');
-            if (assigneeInitials) assigneeInitials.textContent = (currentPatent.leadInventor || currentPatent.inventor.name || '\u516c\u5f00').slice(0, 2);
+            if (assigneeInitials) assigneeInitials.textContent = (currentPatent.leadInventor || currentPatent.inventor.name || 'GP').slice(0, 2);
             const assigneeMeta = document.getElementById('assigneeMeta');
             if (assigneeMeta) {
                 assigneeMeta.innerHTML = [
-                    `<p class="mb-2">来源：${ScholarMate.escapeHtml(currentPatent.sourceName || '科研之友专利库')}</p>`,
+                    `<p class="mb-2">来源：${ScholarMate.escapeHtml(currentPatent.sourceName || '公开来源')}</p>`,
                     `<p class="mb-2">公开日：${ScholarMate.escapeHtml(currentPatent.publicationDate || '--')}</p>`,
-                    `<p>法律状态需二次核验，本页面不构成许可结论。</p>`
+                    `<p>法律状态以公开来源页面为参考，需二次核验。</p>`
                 ].join('');
             }
             const patentInfoBody = document.getElementById('patentInfoBody');
@@ -514,28 +514,26 @@
                     ['申请日', currentPatent.filingDate || '--'],
                     ['公开日', currentPatent.publicationDate || '--'],
                     ['专利类型', currentPatent.type || '发明专利'],
-                    ['法律状态', currentPatent.legalStatus || '--']
+                    ['公开状态', currentPatent.legalStatus || '--']
                 ].map(([label, value]) => `<div class="flex justify-between mb-2"><span>${ScholarMate.escapeHtml(label)}</span><span class="font-medium">${ScholarMate.escapeHtml(value)}</span></div>`).join('');
             }
             renderPatentMedia();
             renderRelatedPatents();
             renderPatentSourceCard();
         }
+
         function renderPatentMedia() {
             const media = document.getElementById('detailPatentMedia');
             if (media) media.innerHTML = ScholarMate.createPatentMediaHtml(currentPatent, 'detail');
             const figures = document.getElementById('detailFigureGrid');
             if (figures) {
-                const nodes = [];
-                if (currentPatent.imageUrl && ScholarMate.shouldRenderPatentImage(currentPatent)) {
-                    nodes.push(`<img src="${ScholarMate.escapeHtml(currentPatent.imageUrl)}" alt="${ScholarMate.escapeHtml(currentPatent.publicationNumber)} \u9644\u56fe" style="border-radius: var(--radius-md); width: 100%; object-fit: contain; background: var(--bg-gray);">`);
-                }
-                if (currentPatent.pdfUrl) {
-                    nodes.push(`<a class="patent-document-preview" href="${ScholarMate.escapeHtml(ScholarMate.getSafePublicDocHref(currentPatent.pdfUrl, currentPatent.id))}" target="_blank" rel="noopener noreferrer"><span class="patent-document-preview__source">\u516c\u5f00\u6587\u672c</span><strong>${ScholarMate.escapeHtml(currentPatent.publicationNumber)}</strong><small>\u79d1\u7814\u4e4b\u53cb\u4e13\u5229\u5e93</small></a>`);
-                } else if (!nodes.length && currentPatent.sourceName) {
-                    nodes.push(`<div class="patent-document-preview"><span class="patent-document-preview__source">\u516c\u5f00\u6587\u672c</span><strong>${ScholarMate.escapeHtml(currentPatent.publicationNumber)}</strong><small>${ScholarMate.escapeHtml(currentPatent.sourceName)}</small></div>`);
-                }
-                figures.innerHTML = nodes.slice(0, 2).join('');
+                const links = [currentPatent.imageUrl, currentPatent.pdfUrl].filter(Boolean);
+                figures.innerHTML = links.slice(0, 2).map((url, index) => {
+                    const isImage = /\.(png|jpg|jpeg|webp)(\?.*)?$/i.test(url);
+                    return isImage
+                        ? `<img src="${ScholarMate.escapeHtml(url)}" alt="${ScholarMate.escapeHtml(currentPatent.publicationNumber)} 附图 ${index + 1}" style="border-radius: var(--radius-md); width: 100%;">`
+                        : `<a class="patent-document-preview" href="${ScholarMate.escapeHtml(url)}" target="_blank" rel="noopener noreferrer"><span class="patent-document-preview__source">公开文本</span><strong>${ScholarMate.escapeHtml(currentPatent.publicationNumber)}</strong><small>${ScholarMate.escapeHtml(currentPatent.sourceName || '公开来源')}</small></a>`;
+                }).join('');
             }
         }
 
@@ -563,7 +561,7 @@
         function renderPatentSourceCard() {
             const sidebar = document.querySelector('.detail-sidebar');
             if (!sidebar || document.getElementById('patentSourceCard')) return;
-            if (!currentPatent.sourceName) return;
+            if (!currentPatent.sourceName && !currentPatent.sourceUrl) return;
             const card = document.createElement('div');
             card.id = 'patentSourceCard';
             card.className = 'card mt-4 detail-source-card';
@@ -574,6 +572,7 @@
                         <div><span>来源</span><strong>${ScholarMate.escapeHtml(currentPatent.sourceName || '公开资料')}</strong></div>
                         ${currentPatent.assignee ? `<div><span>权利人</span><strong>${ScholarMate.escapeHtml(currentPatent.assignee)}</strong></div>` : ''}
                         ${currentPatent.statusNote ? `<p>${ScholarMate.escapeHtml(currentPatent.statusNote)}</p>` : ''}
+                        ${currentPatent.sourceUrl ? `<a class="btn btn--outline btn--full btn--sm" href="${ScholarMate.escapeHtml(currentPatent.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看公开来源</a>` : ''}
                     </div>
                 </div>
             `;

@@ -124,52 +124,52 @@ setUser({
   name: '演示企业',
   verification: { status: 'verified' },
   purchasedLicenses: [
-    'CN115062165A',
-    'CN115051051A',
-    'CN110503207A',
-    'CN119090851A',
-    'CN106924753A'
+    '63943642',
+    'CN114117510B',
+    'CN114513317B',
+    'CN119563958A',
+    'US11386164B2'
   ],
   digitalHumanSeats: [
-    { inventorId: 'inv_001', patentId: 'CN115062165A', source: 'membership', joinedAt: '2026-05-14T00:00:00.000Z' },
-    { inventorId: 'inv_003', patentId: 'CN110503207A', source: 'membership', joinedAt: '2026-05-14T00:00:00.000Z' }
+    { inventorId: 'isjian', patentId: '63943642', source: 'membership', joinedAt: '2026-05-14T00:00:00.000Z' },
+    { inventorId: 'zhao_jianliang_leon', patentId: 'CN114117510B', source: 'membership', joinedAt: '2026-05-14T00:00:00.000Z' }
   ],
   licensePurchasedAt: {
-    'CN110503207A': '2026-05-14T00:00:00.000Z'
+    'CN114117510B': '2026-05-14T00:00:00.000Z'
   }
 });
 
 const paidLicenses = sandbox.UserManager.getPurchasedLicensePatents({ paidOnly: true });
-assert.strictEqual(paidLicenses.some(patent => patent.id === 'CN115062165A'), false, 'free shared patents should not count as paid licenses');
+assert.strictEqual(paidLicenses.some(patent => patent.id === '63943642'), false, 'free shared patents should not count as paid licenses');
 assert.ok(paidLicenses.length >= 4, 'fixture should have enough paid licenses for Top 3 ranking');
 
 const advisorAssets = sandbox.UserManager.getAvailableAdvisorAssets();
-const freeSeatAsset = advisorAssets.find(asset => asset.patentId === 'CN115062165A');
+const freeSeatAsset = advisorAssets.find(asset => asset.patentId === '63943642');
 assert.ok(freeSeatAsset, 'free shared patent should become an advisor asset after joining a seat');
 assert.ok(freeSeatAsset.sourceLabel.includes('顾问席位'), 'free shared seat asset should show advisor-seat source');
 assert.strictEqual(freeSeatAsset.sourceLabel.includes('已购许可'), false, 'free shared purchased license alone should not be labeled as paid license');
-const privacyAssets = advisorAssets.filter(asset => asset.patentId === 'CN110503207A');
+const privacyAssets = advisorAssets.filter(asset => asset.patentId === 'CN114117510B');
 assert.strictEqual(privacyAssets.length, 1, 'paid license and advisor seat for the same patent should merge into one asset');
 assert.ok(privacyAssets[0].sourceLabel.includes('已购许可'));
 assert.ok(privacyAssets[0].sourceLabel.includes('顾问席位'));
 
 sandbox.ScholarMateWorkbench.setMode('advisor');
-const medicalCards = sandbox.ScholarMateWorkbench.renderAdvisorCandidates('基层医院影像诊断效率提升');
+const medicalCards = sandbox.ScholarMateWorkbench.renderAdvisorCandidates('large language model patent recommendation quality');
 assert.strictEqual(medicalCards.length, 3, 'advisor mode should render Top 3 advisor assets');
-assert.strictEqual(medicalCards[0].patent.id, 'CN115062165A', 'free shared advisor-seat patent should rank first for medical query');
+assert.strictEqual(medicalCards[0].patent.id, '63943642', 'free shared MA Jian advisor-seat patent should rank first for patent-quality query');
 assert.ok(nodes.get('workbenchResult').innerHTML.includes('顾问席位'));
 
-const cards = sandbox.ScholarMateWorkbench.renderAdvisorCandidates('金融交易隐私保护和上链合规');
+const cards = sandbox.ScholarMateWorkbench.renderAdvisorCandidates('blockchain private key storage security');
 assert.strictEqual(cards.length, 3, 'advisor mode should only render Top 3 advisor asset candidates');
-assert.strictEqual(cards[0].patent.id, 'CN110503207A', 'privacy/blockchain advisor asset should rank first for privacy query');
+assert.strictEqual(cards[0].patent.id, 'CN114117510B', 'private-key blockchain advisor asset should rank first for privacy query');
 assert.ok(nodes.get('workbenchResult').innerHTML.includes('深入交流'));
 assert.ok(nodes.get('workbenchSidebarBody').innerHTML.includes('对话历史'), 'conversation history should be visible in advisor mode');
 
 storage.set(sandbox.ChatSessions.STORAGE_KEY, JSON.stringify([
   {
     sessionId: 'delete_me',
-    inventorId: 'inv_001',
-    patentId: 'CN115062165A',
+    inventorId: 'isjian',
+    patentId: '63943642',
     projectId: '',
     title: '待删除会话',
     createdAt: '2026-05-16T00:00:00.000Z',
@@ -180,8 +180,8 @@ storage.set(sandbox.ChatSessions.STORAGE_KEY, JSON.stringify([
   },
   {
     sessionId: 'project_session',
-    inventorId: 'inv_005',
-    patentId: 'CN115051051A',
+    inventorId: 'zhao_jianliang_leon',
+    patentId: 'CN114117510B',
     projectId: 'project_123',
     title: '带项目的会话',
     createdAt: '2026-05-16T00:00:00.000Z',
@@ -203,7 +203,7 @@ assert.strictEqual(sandbox.ChatSessions.getSession('delete_me'), null, 'workbenc
 assert.ok(sandbox.ChatSessions.getSession('project_session'), 'workbench delete action should not delete unrelated project sessions');
 assert.strictEqual(nodes.get('workbenchSidebarBody').innerHTML.includes('待删除会话'), false, 'workbench sidebar should refresh after deletion');
 
-sandbox.ScholarMateWorkbench.startAdvisorChat('inv_001', 'CN115062165A', '请评估基层医院影像诊断试点价值');
+sandbox.ScholarMateWorkbench.startAdvisorChat('isjian', '63943642', '请评估专利质量评估试点价值');
 assert.ok(String(sandbox.location.href).includes('chat.html?'));
 assert.ok(String(sandbox.location.href).includes('draft='));
 
@@ -211,10 +211,10 @@ setUser({
   isLoggedIn: true,
   name: '只买免费专利企业',
   verification: { status: 'verified' },
-  purchasedLicenses: ['CN115062165A']
+  purchasedLicenses: ['63943642']
 });
 
-const emptyCards = sandbox.ScholarMateWorkbench.renderAdvisorCandidates('基层医院影像诊断效率提升');
+const emptyCards = sandbox.ScholarMateWorkbench.renderAdvisorCandidates('large language model patent recommendation quality');
 assert.strictEqual(emptyCards.length, 0, 'free shared licenses should still block deep advisor mode');
 assert.ok(nodes.get('workbenchResult').innerHTML.includes('您还没有可用数字学者'));
 
@@ -224,21 +224,21 @@ setUser({
   verification: { status: 'verified' },
   purchasedLicenses: [],
   digitalHumanSeats: [
-    { inventorId: 'inv_001', patentId: 'CN115062165A', source: 'membership', joinedAt: '2026-05-14T00:00:00.000Z' }
+    { inventorId: 'isjian', patentId: '63943642', source: 'membership', joinedAt: '2026-05-14T00:00:00.000Z' }
   ]
 });
 
-const freeSeatCards = sandbox.ScholarMateWorkbench.renderAdvisorCandidates('基层医院影像诊断效率提升');
+const freeSeatCards = sandbox.ScholarMateWorkbench.renderAdvisorCandidates('large language model patent recommendation quality');
 assert.strictEqual(freeSeatCards.length, 1, 'free shared advisor seat should work without paid licenses');
-assert.strictEqual(freeSeatCards[0].patent.id, 'CN115062165A');
+assert.strictEqual(freeSeatCards[0].patent.id, '63943642');
 assert.ok(nodes.get('workbenchResult').innerHTML.includes('深入交流'));
 
-sandbox.location.search = '?mode=advisor&q=%E5%9F%BA%E5%B1%82%E5%8C%BB%E9%99%A2%E5%BD%B1%E5%83%8F%E8%AF%8A%E6%96%AD%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87';
+sandbox.location.search = '?mode=advisor&q=large%20language%20model%20patent%20recommendation%20quality';
 sandbox.location.hash = '#advisor';
 nodes.get('workbenchInput').value = '';
 nodes.get('workbenchResult').innerHTML = '';
 sandbox.ScholarMateWorkbench.init();
-assert.strictEqual(nodes.get('workbenchInput').value, '基层医院影像诊断效率提升', 'advisor return URL should restore the previous homepage question');
+assert.strictEqual(nodes.get('workbenchInput').value, 'large language model patent recommendation quality', 'advisor return URL should restore the previous homepage question');
 assert.ok(nodes.get('workbenchResult').innerHTML.includes('深入交流'), 'advisor return URL should re-render candidate cards');
 assert.ok(sandbox.document.body.classList.contains('workbench-has-results'), 'advisor results should switch homepage into results layout mode');
 

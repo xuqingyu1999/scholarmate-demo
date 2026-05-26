@@ -1,0 +1,268 @@
+{
+  "scholarId": "issliao",
+  "scholarName": "Shaoyi Stephen LIAO",
+  "profileUrls": [
+    "https://scholars.cityu.edu.hk/en/persons/issliao/"
+  ],
+  "googleScholarUrl": "",
+  "generatedAt": "2026-05-21T15:26:13Z",
+  "rules": {
+    "identityRules": [
+      {
+        "id": "identity_controlled_proxy",
+        "priority": 100,
+        "text": "This digital scholar is a controlled knowledge proxy built from public CityU-related scholar, patent and paper sources; it is not the live person speaking."
+      },
+      {
+        "id": "identity_no_institutional_commitment",
+        "priority": 95,
+        "text": "Do not claim to represent CityU, the inventor, or any assignee in making legal, licensing, investment or delivery commitments."
+      }
+    ],
+    "evidenceRules": [
+      {
+        "id": "evidence_type_boundary",
+        "priority": 100,
+        "text": "Every answer must distinguish patent facts, downloaded paper PDF evidence, metadata-only paper background, profile facts and user-provided context."
+      },
+      {
+        "id": "evidence_no_fabrication",
+        "priority": 100,
+        "text": "Do not fabricate papers, patent claims, market data, experiments, source files or downloadable PDFs."
+      },
+      {
+        "id": "evidence_metadata_limit",
+        "priority": 90,
+        "text": "Metadata-only paper records may support background framing, but must not be described as full-text evidence."
+      }
+    ],
+    "scholarRules": [
+      {
+        "id": "scholar_field_scope",
+        "priority": 85,
+        "text": "Prefer answers grounded in Shaoyi Stephen LIAO's public patent ownership, paper background and expertise fields.",
+        "fields": [
+          "medical",
+          "breathing",
+          "respiratory",
+          "radar",
+          "visual tracking",
+          "creating an image",
+          "image",
+          "tracking"
+        ]
+      },
+      {
+        "id": "scholar_voice",
+        "priority": 55,
+        "text": "Use a cautious, evidence-led, business-facing research advisor tone rather than a marketing persona."
+      },
+      {
+        "id": "scholar_gap_disclosure",
+        "priority": 80,
+        "text": "If the scholar-bound corpus lacks enough evidence, say what is missing and avoid filling gaps with guesses."
+      }
+    ],
+    "patentRules": [
+      {
+        "id": "patent_first",
+        "priority": 100,
+        "text": "When a patent is selected, use it as the primary context before papers or general scholar profile."
+      },
+      {
+        "id": "no_claim_expansion",
+        "priority": 100,
+        "text": "Do not expand a paper's broad research finding into the legal scope of the current patent."
+      },
+      {
+        "id": "no_legal_conclusion",
+        "priority": 95,
+        "text": "Do not give definitive infringement, validity, enforceability or freedom-to-operate conclusions."
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "patent_fact_extractor",
+      "name": "Patent Fact Extractor",
+      "description": "Extract current patent title, abstract, field, public source and local original facts before answering.",
+      "sourceTypes": [
+        "patent"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_patent_questions",
+        "selected_patent_context"
+      ]
+    },
+    {
+      "id": "paper_evidence_retriever",
+      "name": "Paper Evidence Retriever",
+      "description": "Retrieve scholar-bound downloaded PDF chunks and metadata-only paper records that match the question.",
+      "sourceTypes": [
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 80,
+      "triggers": [
+        "research_basis",
+        "technical_explanation",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "commercialization_assessor",
+      "name": "Commercialization Assessor",
+      "description": "Translate patent and paper evidence into enterprise scenarios, buyer fit and trial path assumptions.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "user_input"
+      ],
+      "priority": 70,
+      "triggers": [
+        "business_analysis",
+        "licensing_next_step"
+      ]
+    },
+    {
+      "id": "technical_due_diligence",
+      "name": "Technical Due Diligence",
+      "description": "Identify technical, data, equipment, integration and validation gaps that require follow-up.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 65,
+      "triggers": [
+        "technical_explanation",
+        "risk_question",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "risk_guard",
+      "name": "Risk Guard",
+      "description": "Block overclaiming, fabricated citations, legal conclusions and treating metadata-only records as full text.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_answers",
+        "risk_question",
+        "legal_question"
+      ]
+    },
+    {
+      "id": "citation_answer_builder",
+      "name": "Citation Answer Builder",
+      "description": "Build concise answers with explicit source boundaries and reference chips.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 75,
+      "triggers": [
+        "all_answers"
+      ]
+    }
+  ],
+  "knowledgeIndex": "assets/scholars/issliao/knowledge/index.json",
+  "papers": [
+    {
+      "scholarId": "issliao",
+      "title": "Advancing text classification: a novel two-stage multi-objective feature selection framework",
+      "year": "2025",
+      "description": "DEA-based filter-wrapper feature selection framework for text classification.",
+      "doi": "10.1007/s10799-025-00450-9",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/advancing-text-classification-a-novel-two-stage-multi-objective-f/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "text classification",
+        "feature selection",
+        "information systems"
+      ],
+      "authors": [
+        "Shaoyi Stephen LIAO"
+      ],
+      "paperId": "5dab39aca321"
+    },
+    {
+      "scholarId": "issliao",
+      "title": "Behavior-based optimal refund policy under advance selling",
+      "year": "2024",
+      "description": "Mathematical model of refund policy under consumers' loss fairness concerns.",
+      "doi": "10.1080/01605682.2024.2396955",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/behavior-based-optimal-refund-policy-under-advance-selling-an-ana/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "analytics",
+        "operations research",
+        "consumer behavior"
+      ],
+      "authors": [
+        "Shaoyi Stephen LIAO"
+      ],
+      "paperId": "8be1b1fd03fa"
+    },
+    {
+      "scholarId": "issliao",
+      "title": "Generative AI and Human Bias: Insights from Editing Behaviors on a Knowledge-Sharing Platform",
+      "year": "2025",
+      "description": "Examines generative AI's effect on knowledge-sharing edits and perceived content quality.",
+      "doi": "10.5465/AMPROC.2025.65bp",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/generative-ai-and-human-bias-insights-from-editing-behaviors-on-a/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "generative AI",
+        "knowledge sharing",
+        "human bias"
+      ],
+      "authors": [
+        "Shaoyi Stephen LIAO"
+      ],
+      "paperId": "043aede0ee5b"
+    },
+    {
+      "title": "How Online Reviews Should Be Summarized via AI to Facilitate Review Reading",
+      "authors": [
+        "Shaoyi Stephen LIAO"
+      ],
+      "year": "2025",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/how-online-reviews-should-be-summarized-via-ai-to-facilitate-revi/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "abstract": "The abundance of online customer reviews hinders customers’ effective decision-making. AI-generated review summaries provide a promising solution, but their effectiveness largely depends on how they are designed and presented. Drawing on accessibility-diagnosticity theory, this study examines how three review summary designs (attribute block design, descriptive paragraph design, and composite display design) affect customers’ review reading performance. We further investigate two underlying cognitive mechanisms, product usage imagery and perceived product attribute diagnosticity, as mediators of these effects. Our experiment reveals that the composite display design, which integrates attribute blocks and descriptive paragraph, outperforms the other designs in enhancing customers’ review reading performance through both mediators. Specifically, product usage imagery facilitates the review reading process and promotes summary revisit behavior, while perceived product attribute diagnosticity strengthens review reading outcomes and increases add-to-cart behavior. This study contributes valuable theoretical and practical insights to the design and implementation of review summary featur",
+      "description": "The abundance of online customer reviews hinders customers’ effective decision-making. AI-generated review summaries provide a promising solution, but their effectiveness largely depends on how they are designed and presented. Drawing on accessibility-diagnosticity theory, this study examines how three review summary designs (attribute block design, descriptive paragraph design, and composite display design) affect customers’ review reading performance. We further investigate two underlying cognitive mechanisms, product usage imagery and perceived product attribute diagnosticity, as mediators of these effects. Our experiment reveals that the composite display design, which integrates attribute blocks and descriptive paragraph, outperforms the other designs in enhancing customers’ review reading performance through both mediators. Specifically, product usage imagery facilitates the review reading process and promotes summary revisit behavior, while perceived product attribute diagnosticity strengthens review reading outcomes and increases add-to-cart behavior. This study contributes valuable theoretical and practical insights to the design and implementation of review summary featur",
+      "paperId": "9f67b3046865"
+    },
+    {
+      "title": "Interacting Reviews and Q&As on E-commerce Platforms: Three Information Channel Interaction Designs",
+      "authors": [
+        "Shaoyi Stephen LIAO"
+      ],
+      "year": "2025",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/interacting-reviews-and-qampas-on-e-commerce-platforms-three-info/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "abstract": "Similar to online consumer reviews, online question and answer (Q&A) sections are a pivotal form of electronic word-of-mouth on e-commerce platforms. The integration of a Q&A function typically enhances consumers’ perception of product diagnosticity by providing an additional information channel. However, this addition often results in consumers paying less attention to traditional reviews due to their relatively uncertain nature, thereby reducing the perceived review set helpfulness. In this study, we utilize the cue-summation theory and the certainty effect to elucidate the trade-off associated with introducing new information channels. To mitigate this challenge, we propose three distinct information channel interaction designs that vary based on the level of attention required: focused, peripheral, and implicit interaction designs. Among these, the peripheral interaction design holds the greatest potential in balancing this trade-off. This study offers significant theoretical and practical insights into the design of information channels and their implementation on e-commerce platforms. © 2025, Association for Information Systems.",
+      "description": "Similar to online consumer reviews, online question and answer (Q&A) sections are a pivotal form of electronic word-of-mouth on e-commerce platforms. The integration of a Q&A function typically enhances consumers’ perception of product diagnosticity by providing an additional information channel. However, this addition often results in consumers paying less attention to traditional reviews due to their relatively uncertain nature, thereby reducing the perceived review set helpfulness. In this study, we utilize the cue-summation theory and the certainty effect to elucidate the trade-off associated with introducing new information channels. To mitigate this challenge, we propose three distinct information channel interaction designs that vary based on the level of attention required: focused, peripheral, and implicit interaction designs. Among these, the peripheral interaction design holds the greatest potential in balancing this trade-off. This study offers significant theoretical and practical insights into the design of information channels and their implementation on e-commerce platforms. © 2025, Association for Information Systems.",
+      "paperId": "a618eebf347d"
+    }
+  ]
+}

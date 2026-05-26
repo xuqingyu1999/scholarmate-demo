@@ -1,0 +1,275 @@
+{
+  "scholarId": "acmleung",
+  "scholarName": "Chung Man Alvin LEUNG",
+  "profileUrls": [
+    "https://scholars.cityu.edu.hk/en/persons/acmleung/",
+    "https://www.cb.cityu.edu.hk/People-and-Research/People/People-Details?PageSpeed=noscript&eid=acmleung"
+  ],
+  "googleScholarUrl": "",
+  "generatedAt": "2026-05-21T15:25:22Z",
+  "rules": {
+    "identityRules": [
+      {
+        "id": "identity_controlled_proxy",
+        "priority": 100,
+        "text": "This digital scholar is a controlled knowledge proxy built from public CityU-related scholar, patent and paper sources; it is not the live person speaking."
+      },
+      {
+        "id": "identity_no_institutional_commitment",
+        "priority": 95,
+        "text": "Do not claim to represent CityU, the inventor, or any assignee in making legal, licensing, investment or delivery commitments."
+      }
+    ],
+    "evidenceRules": [
+      {
+        "id": "evidence_type_boundary",
+        "priority": 100,
+        "text": "Every answer must distinguish patent facts, downloaded paper PDF evidence, metadata-only paper background, profile facts and user-provided context."
+      },
+      {
+        "id": "evidence_no_fabrication",
+        "priority": 100,
+        "text": "Do not fabricate papers, patent claims, market data, experiments, source files or downloadable PDFs."
+      },
+      {
+        "id": "evidence_metadata_limit",
+        "priority": 90,
+        "text": "Metadata-only paper records may support background framing, but must not be described as full-text evidence."
+      }
+    ],
+    "scholarRules": [
+      {
+        "id": "scholar_field_scope",
+        "priority": 85,
+        "text": "Prefer answers grounded in Chung Man Alvin LEUNG's public patent ownership, paper background and expertise fields.",
+        "fields": [
+          "blockchain",
+          "ethereum",
+          "nft",
+          "private key"
+        ]
+      },
+      {
+        "id": "scholar_voice",
+        "priority": 55,
+        "text": "Use a cautious, evidence-led, business-facing research advisor tone rather than a marketing persona."
+      },
+      {
+        "id": "scholar_gap_disclosure",
+        "priority": 80,
+        "text": "If the scholar-bound corpus lacks enough evidence, say what is missing and avoid filling gaps with guesses."
+      }
+    ],
+    "patentRules": [
+      {
+        "id": "patent_first",
+        "priority": 100,
+        "text": "When a patent is selected, use it as the primary context before papers or general scholar profile."
+      },
+      {
+        "id": "no_claim_expansion",
+        "priority": 100,
+        "text": "Do not expand a paper's broad research finding into the legal scope of the current patent."
+      },
+      {
+        "id": "no_legal_conclusion",
+        "priority": 95,
+        "text": "Do not give definitive infringement, validity, enforceability or freedom-to-operate conclusions."
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "patent_fact_extractor",
+      "name": "Patent Fact Extractor",
+      "description": "Extract current patent title, abstract, field, public source and local original facts before answering.",
+      "sourceTypes": [
+        "patent"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_patent_questions",
+        "selected_patent_context"
+      ]
+    },
+    {
+      "id": "paper_evidence_retriever",
+      "name": "Paper Evidence Retriever",
+      "description": "Retrieve scholar-bound downloaded PDF chunks and metadata-only paper records that match the question.",
+      "sourceTypes": [
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 80,
+      "triggers": [
+        "research_basis",
+        "technical_explanation",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "commercialization_assessor",
+      "name": "Commercialization Assessor",
+      "description": "Translate patent and paper evidence into enterprise scenarios, buyer fit and trial path assumptions.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "user_input"
+      ],
+      "priority": 70,
+      "triggers": [
+        "business_analysis",
+        "licensing_next_step"
+      ]
+    },
+    {
+      "id": "technical_due_diligence",
+      "name": "Technical Due Diligence",
+      "description": "Identify technical, data, equipment, integration and validation gaps that require follow-up.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 65,
+      "triggers": [
+        "technical_explanation",
+        "risk_question",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "risk_guard",
+      "name": "Risk Guard",
+      "description": "Block overclaiming, fabricated citations, legal conclusions and treating metadata-only records as full text.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_answers",
+        "risk_question",
+        "legal_question"
+      ]
+    },
+    {
+      "id": "citation_answer_builder",
+      "name": "Citation Answer Builder",
+      "description": "Build concise answers with explicit source boundaries and reference chips.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 75,
+      "triggers": [
+        "all_answers"
+      ]
+    }
+  ],
+  "knowledgeIndex": "assets/scholars/acmleung/knowledge/index.json",
+  "papers": [
+    {
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "description": "Discusses AI and Bright Internet approaches for transforming internet trust and safety.",
+      "doi": "10.1007/s10796-025-10632-z",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "pdfUrl": "https://link.springer.com/content/pdf/10.1007/s10796-025-10632-z.pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "topicTags": [
+        "artificial intelligence",
+        "bright internet",
+        "trust"
+      ],
+      "authors": [
+        "Chung Man Alvin LEUNG"
+      ],
+      "file": "assets/scholars/acmleung/papers/9dddc36e4b.pdf",
+      "downloadUrl": "https://link.springer.com/content/pdf/10.1007/s10796-025-10632-z.pdf",
+      "paperId": "0fb807dfa4dc"
+    },
+    {
+      "scholarId": "acmleung",
+      "title": "At your fingertips: Do augmented reality gestures reveal product-related emotion?",
+      "year": "2025",
+      "description": "Uses mobile AR touch gestures and explainable AI to infer product-related emotions.",
+      "doi": "10.1016/j.dss.2025.114595",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/at-your-fingertips-do-augmented-reality-gestures-reveal-product-r/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "augmented reality",
+        "emotion detection",
+        "explainable AI"
+      ],
+      "authors": [
+        "Chung Man Alvin LEUNG"
+      ],
+      "paperId": "e87e21772afc"
+    },
+    {
+      "scholarId": "acmleung",
+      "title": "Enhanced digital embeddedness and bubble mitigation in NFT marketplaces",
+      "year": "2025",
+      "description": "Difference-in-differences study of rarity-rank labels and NFT trading behavior.",
+      "doi": "10.1016/j.dss.2025.114407",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/enhanced-digital-embeddedness-and-bubble-mitigation-in-nft-market/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "NFT marketplace",
+        "digital embeddedness",
+        "trading behavior"
+      ],
+      "authors": [
+        "Chung Man Alvin LEUNG"
+      ],
+      "paperId": "cd0afd144d84"
+    },
+    {
+      "title": "Bot Moderation Dynamics in Online Investment Communities",
+      "authors": [
+        "Chung Man Alvin LEUNG"
+      ],
+      "year": "2025",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/bot-moderation-dynamics-in-online-investment-communities/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "abstract": "As retail investor users scale on social media platforms, maintaining the financial informativeness of crowd-generated content becomes difficult. While automated content moderation is widely used in platform governance, its effectiveness for specialized knowledge domains remains underexplored. This study examines how dramatic community expansion influences bot moderation effectiveness in online investment communities by analyzing the GameStop event on Reddit's r/WallStreetBets. Using 1.7 million posts and 419,000 bot moderation comments from 2020-2021, we find that different bot moderations yield varying outcomes, depending on their alignment with the wisdom of crowds boundary conditions. Image-related moderation becomes more effective in the community shift, while humor-embedded moderation grows less effective. Media-related moderation shows different time-dependent effects: positive for short- term returns but negative for longer-term predictions. These findings contribute to platform governance literature on how bot moderation maintains financial information quality during rapid community expansion and provide practical implications for social media platform operations. © 2025, ",
+      "description": "As retail investor users scale on social media platforms, maintaining the financial informativeness of crowd-generated content becomes difficult. While automated content moderation is widely used in platform governance, its effectiveness for specialized knowledge domains remains underexplored. This study examines how dramatic community expansion influences bot moderation effectiveness in online investment communities by analyzing the GameStop event on Reddit's r/WallStreetBets. Using 1.7 million posts and 419,000 bot moderation comments from 2020-2021, we find that different bot moderations yield varying outcomes, depending on their alignment with the wisdom of crowds boundary conditions. Image-related moderation becomes more effective in the community shift, while humor-embedded moderation grows less effective. Media-related moderation shows different time-dependent effects: positive for short- term returns but negative for longer-term predictions. These findings contribute to platform governance literature on how bot moderation maintains financial information quality during rapid community expansion and provide practical implications for social media platform operations. © 2025, ",
+      "paperId": "e35df48c851c"
+    },
+    {
+      "title": "Corporate Social Responsibility and Firm Value: Exploring the Moderating Effects of Information Technology-Enabled Knowledge Capabilities",
+      "authors": [
+        "Chung Man Alvin LEUNG"
+      ],
+      "year": "2024",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/corporate-social-responsibility-and-firm-value-exploring-the-mode/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "doi": "10.1108/INTR-03-2023-0202",
+      "abstract": "Purpose - A substantial amount of research has examined the firm value impact of corporate social responsibility (CSR). Nevertheless, the findings have been inconsistent, prompting researchers to identify contingencies under which the impact varies. This study examines how information technology (IT)-enabled knowledge capabilities moderate the relationship between CSR and firm value. Design/methodology/approach - We conducted the ordinary least squares (OLS) regression analysis on a sample of S&P 500 companies spanning from 2010 to 2017. We employed additional methods to test the robustness of the results, including the generalized method of moments (GMM) estimator and the two-stage least squares (2SLS) method. Findings - The results show that IT-enabled absorptive capability (IT-AC) and IT-enabled social integration capability (IT-SIC) positively moderate the CSR–value relationship. Further, their moderating effects vary in distinct ways when environmental dynamism changes, hinting at the distinct underlying rationales behind the moderating roles of IT-AC and IT-SIC. Research limitations/implications - This study improves the understanding of the business value of CSR and IT. It h",
+      "description": "Purpose - A substantial amount of research has examined the firm value impact of corporate social responsibility (CSR). Nevertheless, the findings have been inconsistent, prompting researchers to identify contingencies under which the impact varies. This study examines how information technology (IT)-enabled knowledge capabilities moderate the relationship between CSR and firm value. Design/methodology/approach - We conducted the ordinary least squares (OLS) regression analysis on a sample of S&P 500 companies spanning from 2010 to 2017. We employed additional methods to test the robustness of the results, including the generalized method of moments (GMM) estimator and the two-stage least squares (2SLS) method. Findings - The results show that IT-enabled absorptive capability (IT-AC) and IT-enabled social integration capability (IT-SIC) positively moderate the CSR–value relationship. Further, their moderating effects vary in distinct ways when environmental dynamism changes, hinting at the distinct underlying rationales behind the moderating roles of IT-AC and IT-SIC. Research limitations/implications - This study improves the understanding of the business value of CSR and IT. It h",
+      "openAccess": {
+        "isOpenAccess": false,
+        "status": "closed",
+        "url": "",
+        "repositoryHasFullText": false
+      },
+      "paperId": "9ceb92b77b32"
+    }
+  ]
+}

@@ -1,0 +1,654 @@
+{
+  "scholarId": "zhao_jianliang_leon",
+  "scholarName": "Jianliang Leon ZHAO",
+  "generatedAt": "2026-05-21T15:26:13Z",
+  "sourceTypes": [
+    "patent",
+    "paper_pdf",
+    "paper_metadata",
+    "profile",
+    "user_input"
+  ],
+  "paperCount": 11,
+  "downloadedPdfCount": 3,
+  "metadataOnlyCount": 8,
+  "chunkCount": 24,
+  "topics": [
+    "blockchain",
+    "digital finance",
+    "business innovation",
+    "financial innovation",
+    "crypto assets",
+    "smart contract",
+    "blockchain security",
+    "software lifecycle",
+    "cryptography",
+    "survey",
+    "smart manufacturing",
+    "cybersecurity",
+    "permissioned blockchain",
+    "optimization",
+    "anti-counterfeiting",
+    "traceability",
+    "ICO",
+    "blockchain finance",
+    "commercialization",
+    "knowledge graph",
+    "startup recommendation",
+    "technology commercialization",
+    "services computing",
+    "middleware"
+  ],
+  "chunks": [
+    {
+      "id": "fe762e37e784_p1_1",
+      "paperId": "fe762e37e784",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "EDITORIAL Open Access Overview of business innovations and research opportunities in blockchain and introduction to the special issue J. Leon Zhao1*, Shaokun Fan2 and Jiaqi Yan3 * Correspondence: jlzhao@cityu.edu.hk 1City University of Hong Kong, Hong Kong, China Full list of author information is available at the end of the article Abstract Blockchain has become a new frontier of venture capitals that has attracted the attention of banks, governments, and other business corporations. The recent blockchain related attempts included legal blockchains by Fadada.com and Microsoft and pork tracking blockchains by Walmart and IBM. Blockchain is poised to become the most exciting invention after the Internet; while the latter connects the world to enable new business models based on online business processes, the former will help resolve the tr",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "business innovation"
+      ],
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/b80a3eb92d.pdf"
+    },
+    {
+      "id": "fe762e37e784_p1_2",
+      "paperId": "fe762e37e784",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "t; while the latter connects the world to enable new business models based on online business processes, the former will help resolve the trust issue more efficiently via network computing. In this paper, we give an overview on blockchain research and development as well as introduce the papers in this special issue. We show that while blockchain has enabled Bitcoin, the most successful digital currency, its widespread adoption in finance and other business sectors will lead to many business innovations as well as many research opportunities. Keywords: Bitcoin, Blockchain, Business innovation, Public ledger, Computational trust Introduction Since Blockchain was originally conceptualized by Satoshi Nakamoto in 2008 as a core component to support transactions of the digital currency – Bitcoin, blockchain has been known to be the public ledg",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "business innovation"
+      ],
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/b80a3eb92d.pdf"
+    },
+    {
+      "id": "fe762e37e784_p1_3",
+      "paperId": "fe762e37e784",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "amoto in 2008 as a core component to support transactions of the digital currency – Bitcoin, blockchain has been known to be the public ledger for all transactions and resolved the double-spend problem by combining peer-to-peer technology with public-key cryptography. Literally, a blockchain is a chain of blocks of information that registers Bitcoin transactions; of course, there is a stringent set of rules that govern how to verify the validity of the block and make certain that the block will not be altered or disappear. The algorithms and the computational infrastructure of creating, inserting, and using the blocks are considered as the blockchain technology. While Blockchain was born with Bitcoin, its applications have gone far beyond Bitcoin or digital currency. Many people believe that blockchain could revolutionize many fields, suc",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "business innovation"
+      ],
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/b80a3eb92d.pdf"
+    },
+    {
+      "id": "fe762e37e784_p1_4",
+      "paperId": "fe762e37e784",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "its applications have gone far beyond Bitcoin or digital currency. Many people believe that blockchain could revolutionize many fields, such as finance, accounting, management, and law leading to three genera- tions of blockchains, namly, Blockchain 1.0 for digital currency, Blockchain 2.0 for digital finance, and Blockchain 3.0 for digital society. Interestingly, Blockchain 1.0 took a few years to mature starting from 2008, Blockchain 2.0 and 3.0 have emerged almost in paral- lel in an explosive manner around 2015. Nevertheless, while many experimental projects Financial Innovation © The Author(s). 2016 Open Access This article is distributed under the terms of the Creative Commons Attribution 4.0 International License (http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any me",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "business innovation"
+      ],
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/b80a3eb92d.pdf"
+    },
+    {
+      "id": "fe762e37e784_p1_5",
+      "paperId": "fe762e37e784",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "nternational License (http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons license, and indicate if changes were made. Zhao et al. Financial Innovation (2016) 2:28 DOI 10.1186/s40854-016-0049-2",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "business innovation"
+      ],
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/b80a3eb92d.pdf"
+    },
+    {
+      "id": "fe762e37e784_p2_1",
+      "paperId": "fe762e37e784",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "have mushroomed, it will take some years for Blockchain 2.0 and 3.0 to take hold and create real economic impacts. According to the search volumes of Bitcoin and blockchain in Fig. 1, Bitcoin had most of the search queries before the year of 2014. While blockchain was not very well recognized with the wave of Bitcoin, it is getting more and more attention from people in many industries recently. While blockchain has been generating enormous impacts to many aspects of our life, research on blockchain technology is still sparse. We conducted a search of “block- chain” in the Web of Science search engine provided by Thomson Reuters and got only 15 published articles in total (As of 11-30-2016). The earliest publication was in 2015, which is just one year before this special issue. We also searched the SSRN database which may include mainly w",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "business innovation"
+      ],
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/b80a3eb92d.pdf"
+    },
+    {
+      "id": "fe762e37e784_p2_2",
+      "paperId": "fe762e37e784",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "est publication was in 2015, which is just one year before this special issue. We also searched the SSRN database which may include mainly works that are research-in-progress. In total, we found 107 papers that are published in SSRN (As of 11-30-2016). Similar to the Web of Science data, most of these papers are published in the year of 2015 and 2016. The detailed numbers of papers published in both Web of Science and SSRN are shown in Table 1. Blockchain research The blockchain technology solves the double-spend problem with the help of public-key cryptography, whereby each user is assigned a private key and a public key is shared with all other users. The main idea of blockchain is a distributed database comprising records of transactions that are shared among participating parties. Each and every of these trans- actions is verified by",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "business innovation"
+      ],
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/b80a3eb92d.pdf"
+    },
+    {
+      "id": "fe762e37e784_p2_3",
+      "paperId": "fe762e37e784",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Overview of Business Innovations and Research Opportunities in Blockchain and Introduction to the Special Issue",
+      "year": "2016",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "abase comprising records of transactions that are shared among participating parties. Each and every of these trans- actions is verified by the consensus of a majority of the participants in the system, making fraudulent transactions unable to pass collective verification. Once a record is created and accepted by the blockchain, it can never be altered. Existing research on blockchain has been mainly focused on system efficiency, security and innovative applications. By design, efficiency is one of the most important concerns for blockchain. Block- chain requires a very strict verification process to create a new transaction record, which leads to a significant latency of confirmation time and waste of computing re- sources. Currently, it takes about 10 min for a transaction to be confirmed. In addition, thousands of nodes are running to",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "business innovation"
+      ],
+      "sourceUrl": "https://doi.org/10.1186/s40854-016-0049-2",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/b80a3eb92d.pdf"
+    },
+    {
+      "id": "cd90c0b07964_p1_1",
+      "paperId": "cd90c0b07964",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "Blockchain and digital finance Wei Xu1, Daning Hu2*, Karl Reiner Lang3 and J. Leon Zhao4 Blockchain technology and its applications in various business domains have attracted great attention from researchers and practitioners in recent years. Finance, which is arguably the most promising and well-known application domain, has been significantly transformed into digital finance by various novel and open technological and business innovations rooted in blockchain technology, such as decentralized finance and crypto- currency. Digital finance innovations like digital payments, crowdfunding, supply chain finance, and robo-advising have made significant progress. The main goal of this special issue is to deepen and broaden our understanding of the impacts, values, and challenges brought by blockchain technology and digital finance. Blockchain",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/6faa14dd0a.pdf"
+    },
+    {
+      "id": "cd90c0b07964_p1_2",
+      "paperId": "cd90c0b07964",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "eepen and broaden our understanding of the impacts, values, and challenges brought by blockchain technology and digital finance. Blockchain technology is a distributed ledger introduced for cryptocurrency in 2008 by Satoshi Nakamoto. This technology is poised to become one of the most exciting new inventions after the Internet as it resolves the trust issue efficiently via network computing (Zhao et al. 2016). The article in the Economist Magazine on October 31, 2015 suggested blockchain as the trust machine that would shape how businesses are operated and how transactions are executed. In Finance, it not only changes the way how financial information can be stored and processed securely and efficiently, but can also transform the principles and processes embedded in traditional centralized financial institutions. The articles included in",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/6faa14dd0a.pdf"
+    },
+    {
+      "id": "cd90c0b07964_p1_3",
+      "paperId": "cd90c0b07964",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "ly, but can also transform the principles and processes embedded in traditional centralized financial institutions. The articles included in this special issue show how blockchain technology can be applied in novel ways for supporting the transformation of business processes and operations in digital Finance. A large number of submissions were received in response to the call for papers on the theme of blockchain and digital finance. After an extensive review process, 15 of them were included in this 36th volume of Financial Innovation (FIN), Volume 8, No. 6 (2022). Next, we summarize the key outcomes of these articles and then identify an agenda for future research that has emanated from them. A summary of the special issue papers Since cryptocurrency is the earliest and most established application of blockchain tech- nology in digital",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/6faa14dd0a.pdf"
+    },
+    {
+      "id": "cd90c0b07964_p1_4",
+      "paperId": "cd90c0b07964",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "ary of the special issue papers Since cryptocurrency is the earliest and most established application of blockchain tech- nology in digital finance area, most papers in this special issue are related to this topic. These papers can mainly be categorized into four sub themes. The first one is mainly regarding to the price prediction of cryptocurrency and crypto-related assets. Gurrib et al. (2022) find that Fibonacci retracement, a popular technical analysis indicator, cap- tures energy stock prices better than energy cryptocurrencies. Critien et al. (2022) build Open Access © The Author(s) 2022. Open Access This article is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the origi",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/6faa14dd0a.pdf"
+    },
+    {
+      "id": "cd90c0b07964_p1_5",
+      "paperId": "cd90c0b07964",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "permits use, sharing, adaptation, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if changes were made. The images or other third party material in this article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the mate- rial. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit http://​ creat​iveco​mmons.​org/​licen​ses/​by/4.​0/. EDITORIAL Xu et al. Financial Innovation (2022) 8:97 https://doi.org/10.1186/s40854-022-00420-y",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/6faa14dd0a.pdf"
+    },
+    {
+      "id": "cd90c0b07964_p1_6",
+      "paperId": "cd90c0b07964",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "creat​iveco​mmons.​org/​licen​ses/​by/4.​0/. EDITORIAL Xu et al. Financial Innovation (2022) 8:97 https://doi.org/10.1186/s40854-022-00420-y Financial Innovation *Correspondence: hdaning@gmail.com 1 Renmin University of China, Beijing, China 2 Southern University of Science and Technology, Shenzhen, China 3 City University of New York, New York City, USA 4 The Chinese University of Hong Kong, Shenzhen, China",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/6faa14dd0a.pdf"
+    },
+    {
+      "id": "cd90c0b07964_p2_1",
+      "paperId": "cd90c0b07964",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "Page 2 of 4 Xu et al. Financial Innovation (2022) 8:97 a model to predict the direction and the magnitude of Bitcoin price changes by analyz- ing the sentiment and data volume of tweets. Li et al. (2022) propose a deep-learning model for forecasting the daily price changes in the Bitcoin market and algorithmic trad- ing. The proposed model obtains higher investment returns than benchmark models in a trading simulation. The second sub-theme is mainly about investor behavior and market phenomena in cryptocurrency markets. Blasco et al. (2022) study the herding effect among exchanges before the Bitcoin futures expiration date. Haykir and Yagli (2022) investigate financial bubbles in the cryptocurrency market during the COVID-19 pandemic. They suggest that bubbles are common in cryptocurrency markets, which is inconsistent with the effi- cien",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/6faa14dd0a.pdf"
+    },
+    {
+      "id": "cd90c0b07964_p2_2",
+      "paperId": "cd90c0b07964",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain and Digital Finance",
+      "year": "2022",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "rket during the COVID-19 pandemic. They suggest that bubbles are common in cryptocurrency markets, which is inconsistent with the effi- cient market hypothesis. Fratrič et al. (2022) design an agent-based model to reproduce Bitcoin market participants’ behaviors during the time of an alleged Bitcoin price manip- ulation. Hasan et al. (2022) examine the dynamics of liquidity connectedness in the cryp- tocurrency market. They report that there is a moderate liquidity connectedness among six major cryptocurrencies, with Bitcoin and Litecoin playing a significant role concern- ing the magnitude of connectedness. Moreover, Cui and Maghyereh (2022) study the higher-order moment co-movements and risk connectedness among cryptocurrencies before and during the COVID-19 pandemic. Lorenzo and Arroyo (2022) describe, sum- marize, and segment the main",
+      "topicTags": [
+        "blockchain",
+        "digital finance",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9702689/",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/6faa14dd0a.pdf"
+    },
+    {
+      "id": "3ea1c64b8396_p1_1",
+      "paperId": "3ea1c64b8396",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "Gang Kou · Yongqiang Li · Zongyi Zhang · J. Leon Zhao · Zhi Zhuo Editors Blockchain, Crypto Assets, and Financial Innovation A Decade of Insights and Advances",
+      "topicTags": [
+        "blockchain",
+        "crypto assets",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/59670ec885.pdf"
+    },
+    {
+      "id": "3ea1c64b8396_p3_1",
+      "paperId": "3ea1c64b8396",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 3,
+      "section": "pdf_text",
+      "text": "Gang Kou · Yongqiang Li · Zongyi Zhang · J. Leon Zhao · Zhi Zhuo Editors Blockchain, Crypto Assets, and Financial Innovation A Decade of Insights and Advances",
+      "topicTags": [
+        "blockchain",
+        "crypto assets",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/59670ec885.pdf"
+    },
+    {
+      "id": "3ea1c64b8396_p4_1",
+      "paperId": "3ea1c64b8396",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 4,
+      "section": "pdf_text",
+      "text": "Editors Gang Kou Southwestern University of Finance and Economics Chengdu, Sichuan, China Xiangjiang Laboratory Changsha, Hunan, China Zongyi Zhang Xiamen University Xiamen, Fujian, China Zhi Zhuo Southwestern University of Finance and Economics Chengdu, Sichuan, China Yongqiang Li Southwestern University of Finance and Economics Chengdu, Sichuan, China J. Leon Zhao Chinese University of Hong Kong (Shenzhen) Shenzhen, Guangdong, China ISBN 978-981-96-6838-0 ISBN 978-981-96-6839-7 (eBook) https://doi.org/10.1007/978-981-96-6839-7 This work was supported by Southwestern University of Finance and Economics. © The Editor(s) (if applicable) and The Author(s) 2025. This book is an open access publication. Open Access This book is licensed under the terms of the Creative Commons Attribution 4.0 International License (http://creativecommons.org/l",
+      "topicTags": [
+        "blockchain",
+        "crypto assets",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/59670ec885.pdf"
+    },
+    {
+      "id": "3ea1c64b8396_p4_2",
+      "paperId": "3ea1c64b8396",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 4,
+      "section": "pdf_text",
+      "text": "pen Access This book is licensed under the terms of the Creative Commons Attribution 4.0 International License (http://creativecommons.org/licenses/by/4.0/), which permits use, sharing, adaptation, distribution, and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons license and indicate if changes were made. The images or other third party material in this book are included in the book’s Creative Commons license, unless indicated otherwise in a credit line to the material. If material is not included in the book’s Creative Commons license and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. The use of general descriptive nam",
+      "topicTags": [
+        "blockchain",
+        "crypto assets",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/59670ec885.pdf"
+    },
+    {
+      "id": "3ea1c64b8396_p4_3",
+      "paperId": "3ea1c64b8396",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 4,
+      "section": "pdf_text",
+      "text": "tion or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. The use of general descriptive names, registered names, trademarks, service marks, etc. in this publication does not imply, even in the absence of a speciﬁc statement, that such names are exempt from the relevant protective laws and regulations and therefore free for general use. The publisher, the authors, and the editors are safe to assume that the advice and information in this book are believed to be true and accurate at the date of publication. Neither the publisher nor the authors or the editors give a warranty, expressed or implied, with respect to the material contained herein or for any errors or omissions that may have been made. The publisher remains neutral with regard to jurisdictional claims in published maps and institu",
+      "topicTags": [
+        "blockchain",
+        "crypto assets",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/59670ec885.pdf"
+    },
+    {
+      "id": "3ea1c64b8396_p4_4",
+      "paperId": "3ea1c64b8396",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 4,
+      "section": "pdf_text",
+      "text": "rrors or omissions that may have been made. The publisher remains neutral with regard to jurisdictional claims in published maps and institutional afﬁliations. This Springer imprint is published by the registered company Springer Nature Singapore Pte Ltd. The registered company address is: 152 Beach Road, #21-01/04 Gateway East, Singapore 189721, Singapore If disposing of this product, please recycle the paper.",
+      "topicTags": [
+        "blockchain",
+        "crypto assets",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/59670ec885.pdf"
+    },
+    {
+      "id": "3ea1c64b8396_p5_1",
+      "paperId": "3ea1c64b8396",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 5,
+      "section": "pdf_text",
+      "text": "Preface Over the past decade, ﬁnancial technology, particularly blockchain and cryptocurrencies, has undergone a remarkable evolution from their inception to their maturation. Along with the growth of digital currencies and cryptocurrencies, Financial Innovation has celebrated its ﬁrst ten years since its launch in 2015 and was indexed by the SSCI in 2019. As the ﬁrst cryptocurrency, the Bitcoin white paper was published in 2008 by Satoshi Nakamoto, marking the birth of digital currency and blockchain technology. In 2009, Bitcoin was ofﬁcially created on the basis of blockchain technology, which has character- istics such as decentralization, immutability, and anonymity. Many new digital currencies and related technologies, such as Ethereum and Litecoin, have also begun to emerge, the application scenarios and methods of digital currencie",
+      "topicTags": [
+        "blockchain",
+        "crypto assets",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/59670ec885.pdf"
+    },
+    {
+      "id": "3ea1c64b8396_p5_2",
+      "paperId": "3ea1c64b8396",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain, Crypto Assets, and Financial Innovation: A Decade of Insights and Advances",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 5,
+      "section": "pdf_text",
+      "text": "d related technologies, such as Ethereum and Litecoin, have also begun to emerge, the application scenarios and methods of digital currencies have begun to diversify, and the market scale has rapidly expanded. At this stage, digital currencies began to venture into areas such as payment, investment, lending, and obtaining a certain legal status in some countries. Since 2020, Bitcoin prices have once again broken through historical highs, and an increasing number of ﬁnancial institutions and businesses are beginning to embrace dig- ital currencies and explore the integration of digital currencies with the traditional ﬁnan- cial system. In addition, some countries have begun to explore the possibility of issuing central bank digital currencies (CBDCs). In terms of technology, blockchain technol- ogy has also been further developed and innov",
+      "topicTags": [
+        "blockchain",
+        "crypto assets",
+        "financial innovation"
+      ],
+      "sourceUrl": "https://link.springer.com/book/10.1007/978-981-96-6839-7",
+      "file": "assets/scholars/zhao_jianliang_leon/papers/59670ec885.pdf"
+    }
+  ],
+  "metadataRecords": [
+    {
+      "paperId": "39581bb5208e",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Smart Contract Security: A Software Lifecycle Perspective",
+      "year": "2019",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "smart contract",
+        "blockchain security",
+        "software lifecycle"
+      ],
+      "description": "Review of smart-contract vulnerabilities and defenses across design, implementation, testing, deployment, monitoring, and analysis.",
+      "sourceUrl": "https://doi.org/10.1109/ACCESS.2019.2946988"
+    },
+    {
+      "paperId": "3c92fda6dc46",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain Security: A Survey of Techniques and Research Directions",
+      "year": "2022",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "blockchain security",
+        "cryptography",
+        "survey"
+      ],
+      "description": "Survey of blockchain security at process, data, and infrastructure levels, relevant to cryptographic protection, storage, access, and infrastructure threats.",
+      "sourceUrl": "https://dblp.org/rec/journals/tsc/LengZZHB22"
+    },
+    {
+      "paperId": "2a730a27211c",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Blockchain-Secured Smart Manufacturing in Industry 4.0: A Survey",
+      "year": "2021",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "blockchain",
+        "smart manufacturing",
+        "cybersecurity"
+      ],
+      "description": "Survey of blockchain-secured manufacturing, including scalability, flexibility, and cybersecurity challenges.",
+      "sourceUrl": "https://dblp.org/rec/journals/tsmc/LengYZZLGCF21"
+    },
+    {
+      "paperId": "a2927b7423c9",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "ManuChain: Combining Permissioned Blockchain With a Holistic Optimization Model as Bi-Level Intelligence for Smart Manufacturing",
+      "year": "2020",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "medium-high",
+      "topicTags": [
+        "permissioned blockchain",
+        "smart manufacturing",
+        "optimization"
+      ],
+      "description": "Permissioned-blockchain architecture for smart manufacturing and decentralized coordination.",
+      "sourceUrl": "https://doi.org/10.1109/TSMC.2019.2930418"
+    },
+    {
+      "paperId": "7e8c600dd46f",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Makerchain: A Blockchain With Chemical Signature for Self-Organizing Process in Social Manufacturing",
+      "year": "2019",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "blockchain",
+        "anti-counterfeiting",
+        "traceability"
+      ],
+      "description": "Blockchain-driven decentralized model for product authenticity, anti-counterfeiting, smart contracts, and lifecycle traceability in social manufacturing.",
+      "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0959652619322309"
+    },
+    {
+      "paperId": "e1b42982672e",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Prediction of Initial Coin Offering Success Based on Team Knowledge and Expert Evaluation",
+      "year": "2021",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "ICO",
+        "blockchain finance",
+        "commercialization"
+      ],
+      "description": "Uses team knowledge and expert evaluation to predict ICO success; relevant to blockchain finance and commercialization.",
+      "sourceUrl": "https://www.sciencedirect.com/science/article/pii/S0167923621000841"
+    },
+    {
+      "paperId": "cc376ceb8d71",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "SocioLink: Leveraging Relational Information in Knowledge Graphs for Startup Recommendations",
+      "year": "2023",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "knowledge graph",
+        "startup recommendation",
+        "technology commercialization"
+      ],
+      "description": "Knowledge-graph and machine-learning framework for venture-capital startup recommendation; directly relevant to technology commercialization.",
+      "sourceUrl": "https://www.tandfonline.com/doi/abs/10.1080/07421222.2023.2196771"
+    },
+    {
+      "paperId": "88123fb8401d",
+      "scholarId": "zhao_jianliang_leon",
+      "title": "Services Computing as the Foundation of Enterprise Agility: Overview of Recent Advances and Introduction to the Special Issue",
+      "year": "2007",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "services computing",
+        "middleware",
+        "enterprise agility"
+      ],
+      "description": "Overview of service-oriented architecture, web services, services computing, and enterprise agility; relevant to middleware and information systems.",
+      "sourceUrl": "https://ideas.repec.org/a/spr/infosf/v9y2007i1d10.1007_s10796-007-9023-x.html"
+    }
+  ]
+}

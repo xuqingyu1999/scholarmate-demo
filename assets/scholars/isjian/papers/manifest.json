@@ -1,0 +1,274 @@
+{
+  "scholarId": "isjian",
+  "scholarName": "Jian MA",
+  "profileUrls": [
+    "https://scholars.cityu.edu.hk/en/persons/isjian/"
+  ],
+  "googleScholarUrl": "",
+  "generatedAt": "2026-05-21T15:25:08Z",
+  "rules": {
+    "identityRules": [
+      {
+        "id": "identity_controlled_proxy",
+        "priority": 100,
+        "text": "This digital scholar is a controlled knowledge proxy built from public CityU-related scholar, patent and paper sources; it is not the live person speaking."
+      },
+      {
+        "id": "identity_no_institutional_commitment",
+        "priority": 95,
+        "text": "Do not claim to represent CityU, the inventor, or any assignee in making legal, licensing, investment or delivery commitments."
+      }
+    ],
+    "evidenceRules": [
+      {
+        "id": "evidence_type_boundary",
+        "priority": 100,
+        "text": "Every answer must distinguish patent facts, downloaded paper PDF evidence, metadata-only paper background, profile facts and user-provided context."
+      },
+      {
+        "id": "evidence_no_fabrication",
+        "priority": 100,
+        "text": "Do not fabricate papers, patent claims, market data, experiments, source files or downloadable PDFs."
+      },
+      {
+        "id": "evidence_metadata_limit",
+        "priority": 90,
+        "text": "Metadata-only paper records may support background framing, but must not be described as full-text evidence."
+      }
+    ],
+    "scholarRules": [
+      {
+        "id": "scholar_field_scope",
+        "priority": 85,
+        "text": "Prefer answers grounded in Jian MA's public patent ownership, paper background and expertise fields.",
+        "fields": [
+          "large language model",
+          "patent recommendation",
+          "patent quality",
+          "heterogeneous data"
+        ]
+      },
+      {
+        "id": "scholar_voice",
+        "priority": 55,
+        "text": "Use a cautious, evidence-led, business-facing research advisor tone rather than a marketing persona."
+      },
+      {
+        "id": "scholar_gap_disclosure",
+        "priority": 80,
+        "text": "If the scholar-bound corpus lacks enough evidence, say what is missing and avoid filling gaps with guesses."
+      }
+    ],
+    "patentRules": [
+      {
+        "id": "patent_first",
+        "priority": 100,
+        "text": "When a patent is selected, use it as the primary context before papers or general scholar profile."
+      },
+      {
+        "id": "no_claim_expansion",
+        "priority": 100,
+        "text": "Do not expand a paper's broad research finding into the legal scope of the current patent."
+      },
+      {
+        "id": "no_legal_conclusion",
+        "priority": 95,
+        "text": "Do not give definitive infringement, validity, enforceability or freedom-to-operate conclusions."
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "patent_fact_extractor",
+      "name": "Patent Fact Extractor",
+      "description": "Extract current patent title, abstract, field, public source and local original facts before answering.",
+      "sourceTypes": [
+        "patent"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_patent_questions",
+        "selected_patent_context"
+      ]
+    },
+    {
+      "id": "paper_evidence_retriever",
+      "name": "Paper Evidence Retriever",
+      "description": "Retrieve scholar-bound downloaded PDF chunks and metadata-only paper records that match the question.",
+      "sourceTypes": [
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 80,
+      "triggers": [
+        "research_basis",
+        "technical_explanation",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "commercialization_assessor",
+      "name": "Commercialization Assessor",
+      "description": "Translate patent and paper evidence into enterprise scenarios, buyer fit and trial path assumptions.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "user_input"
+      ],
+      "priority": 70,
+      "triggers": [
+        "business_analysis",
+        "licensing_next_step"
+      ]
+    },
+    {
+      "id": "technical_due_diligence",
+      "name": "Technical Due Diligence",
+      "description": "Identify technical, data, equipment, integration and validation gaps that require follow-up.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata"
+      ],
+      "priority": 65,
+      "triggers": [
+        "technical_explanation",
+        "risk_question",
+        "business_analysis"
+      ]
+    },
+    {
+      "id": "risk_guard",
+      "name": "Risk Guard",
+      "description": "Block overclaiming, fabricated citations, legal conclusions and treating metadata-only records as full text.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 100,
+      "triggers": [
+        "all_answers",
+        "risk_question",
+        "legal_question"
+      ]
+    },
+    {
+      "id": "citation_answer_builder",
+      "name": "Citation Answer Builder",
+      "description": "Build concise answers with explicit source boundaries and reference chips.",
+      "sourceTypes": [
+        "patent",
+        "paper_pdf",
+        "paper_metadata",
+        "profile",
+        "user_input"
+      ],
+      "priority": 75,
+      "triggers": [
+        "all_answers"
+      ]
+    }
+  ],
+  "knowledgeIndex": "assets/scholars/isjian/knowledge/index.json",
+  "papers": [
+    {
+      "scholarId": "isjian",
+      "title": "Bridging Information Asymmetry in University-Industry Collaboration: MMKG SNR",
+      "year": "2025",
+      "description": "Multimodal knowledge graph and social-network ranking for matching firms to academics in university-industry collaboration.",
+      "doi": "10.1145/3766918.3766942",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/bridging-information-asymmetry-in-university-industry-collaborati/",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "university-industry collaboration",
+        "knowledge graph",
+        "recommendation"
+      ],
+      "authors": [
+        "Jian MA"
+      ],
+      "paperId": "d9b1b3b9026d"
+    },
+    {
+      "title": "Enhancing patent recommendations for product innovation: integrating industry relevance and technology trends with multi-view learning",
+      "authors": [
+        "Jian MA"
+      ],
+      "year": "2026",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/enhancing-patent-recommendations-for-product-innovation-integrati/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "doi": "10.1007/s11192-026-05592-3",
+      "abstract": "The rapid changes in the technological composition of industries drive companies to seek external patents to foster production innovation. Existing patent recommendation methods primarily analyze the textual and bibliographic features of a company’s historical patents but often overlook industry relevance of patents and the technology development trends. To address this, this paper proposes a multi-view learning-based patent recommendation (MVLPR) approach that integrates industry relevance and technology trends. A multi-label classification model is employed to identify the industrial sectors applicable to a patent, while a Long Short-Term Memory (LSTM) network layer is designed to capture technology development trends. Offline experiments demonstrate that MVLPR achieves a better balance between accuracy and diversity than baseline methods. Crucially, the industry sector view alleviates the cold-start problem for new companies by leveraging inter-company similarities within the same industry sector to provide prior signals of technological interest independent of individual historical patents. Furthermore, the technology trend analysis within the International Patent Classificatio",
+      "description": "The rapid changes in the technological composition of industries drive companies to seek external patents to foster production innovation. Existing patent recommendation methods primarily analyze the textual and bibliographic features of a company’s historical patents but often overlook industry relevance of patents and the technology development trends. To address this, this paper proposes a multi-view learning-based patent recommendation (MVLPR) approach that integrates industry relevance and technology trends. A multi-label classification model is employed to identify the industrial sectors applicable to a patent, while a Long Short-Term Memory (LSTM) network layer is designed to capture technology development trends. Offline experiments demonstrate that MVLPR achieves a better balance between accuracy and diversity than baseline methods. Crucially, the industry sector view alleviates the cold-start problem for new companies by leveraging inter-company similarities within the same industry sector to provide prior signals of technological interest independent of individual historical patents. Furthermore, the technology trend analysis within the International Patent Classificatio",
+      "openAccess": {
+        "isOpenAccess": false,
+        "status": "closed",
+        "url": "",
+        "repositoryHasFullText": false
+      },
+      "paperId": "d097a85c38ae"
+    },
+    {
+      "title": "Meeting companies’ innovative requirements on online technology trading platforms: A novel large language model-based framework",
+      "authors": [
+        "Jian MA"
+      ],
+      "year": "2025",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/meeting-companies-innovative-requirements-on-online-technology-tr/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "doi": "10.1016/j.ipm.2025.104392",
+      "abstract": "Online technology trading platforms (OTTPs) are critical for companies to publish technology requirements and identify solutions like patents. However, semantic gaps persist between market-driven needs and technical supply texts, which traditional methods fail to bridge. While large language models (LLMs) show promise, their effectiveness in OTTPs is limited by hallucination and temporal unawareness. We propose an LLM framework integrating the Hypothetical Document Embedding (HyDE) framework, where we generate pseudo-supply texts based on technical requirements. These texts are then matched with candidate patents using similarity calculations. To reduce hallucination, we use industry-specific knowledge graphs to guide the text generation process and introduce a self-reflective mechanism to refine the generated texts. To address the lack of time awareness, we enhance the knowledge graph with timestamps, turning it into a temporal knowledge graph. Additionally, we introduce the TPPR (Temporal Personalized PageRank) algorithm to improve the relevance of generated texts. Experiments show that our framework performs better than existing methods in Recall, Precision, and Mean Reciprocal ",
+      "description": "Online technology trading platforms (OTTPs) are critical for companies to publish technology requirements and identify solutions like patents. However, semantic gaps persist between market-driven needs and technical supply texts, which traditional methods fail to bridge. While large language models (LLMs) show promise, their effectiveness in OTTPs is limited by hallucination and temporal unawareness. We propose an LLM framework integrating the Hypothetical Document Embedding (HyDE) framework, where we generate pseudo-supply texts based on technical requirements. These texts are then matched with candidate patents using similarity calculations. To reduce hallucination, we use industry-specific knowledge graphs to guide the text generation process and introduce a self-reflective mechanism to refine the generated texts. To address the lack of time awareness, we enhance the knowledge graph with timestamps, turning it into a temporal knowledge graph. Additionally, we introduce the TPPR (Temporal Personalized PageRank) algorithm to improve the relevance of generated texts. Experiments show that our framework performs better than existing methods in Recall, Precision, and Mean Reciprocal ",
+      "openAccess": {
+        "isOpenAccess": false,
+        "status": "closed",
+        "url": "",
+        "repositoryHasFullText": false
+      },
+      "paperId": "ba43a3d65ef9"
+    },
+    {
+      "title": "An Interpretable Patent Quality Evaluation Method and System Based on Large Language Model",
+      "authors": [
+        "Jian MA"
+      ],
+      "year": "2025",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/an-interpretable-patent-quality-evaluation-method-and-system-base/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "Public scholarly background metadata for the digital advisor.",
+      "paperId": "8a20a5461f00"
+    },
+    {
+      "title": "An LLMs-based Multi-Agent Collaborative Framework for Intelligent Public Fund Allocation",
+      "authors": [
+        "Jian MA"
+      ],
+      "year": "2025",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/an-llms-based-multi-agent-collaborative-framework-for-intelligent/",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "doi": "10.1145/3766918.3766943",
+      "abstract": "With the continuous improvement of e-government platforms and the rapid development of artificial intelligence technology, an innovative public fund allocation model has emerged, which achieves precise allocation of public funds through automatic filling of application forms and intelligent verification of enterprise qualifications. However, existing studies still lacks systematic modeling of the implementation mechanism of this public fund allocation model. In response to the inherent complexity of the operating logic of this model and the unstructured characteristics of policy texts and enterprise data, this paper innovatively proposes a large language models-based multi-agent collaborative intelligent allocation method for public funds. This method consists of three core intelligent agents: policy agent, enterprise agent, and match agent. Among them, the policy agent is responsible for parsing policy texts and simulating government decision-making processes. The enterprise agent constructs the enterprise profile by integrating structured and unstructured data, and automatically generate funding application forms. The match agent is responsible for outputting the matching results",
+      "description": "With the continuous improvement of e-government platforms and the rapid development of artificial intelligence technology, an innovative public fund allocation model has emerged, which achieves precise allocation of public funds through automatic filling of application forms and intelligent verification of enterprise qualifications. However, existing studies still lacks systematic modeling of the implementation mechanism of this public fund allocation model. In response to the inherent complexity of the operating logic of this model and the unstructured characteristics of policy texts and enterprise data, this paper innovatively proposes a large language models-based multi-agent collaborative intelligent allocation method for public funds. This method consists of three core intelligent agents: policy agent, enterprise agent, and match agent. Among them, the policy agent is responsible for parsing policy texts and simulating government decision-making processes. The enterprise agent constructs the enterprise profile by integrating structured and unstructured data, and automatically generate funding application forms. The match agent is responsible for outputting the matching results",
+      "openAccess": {
+        "isOpenAccess": true,
+        "status": "gold",
+        "url": "https://doi.org/10.1145/3766918.3766943",
+        "repositoryHasFullText": true
+      },
+      "paperId": "8ae990d2129e"
+    }
+  ]
+}

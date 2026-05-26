@@ -42,7 +42,8 @@ docs/github-pages-deployment.md
 
 ## Prototype Notes
 
-- No backend, database, real payment, real enterprise verification, or legal patent authorization is connected.
+- No database, real payment, real enterprise verification, or legal patent authorization is connected.
 - Demo state is stored in the visitor browser via `localStorage`.
-- Optional LLM configuration is stored only in `sessionStorage`.
+- Local static usage does not run a real LLM chat. The chat page falls back to deterministic local advisor replies when `/api/chat` is unavailable.
+- Deployed LLM chat uses the serverless `/api/chat` proxy with `OPENAI_API_KEY`, `OPENAI_MODEL`, optional `OPENAI_BASE_URL`, and optional `CHAT_API_TOKEN` environment variables.
 - Semantic search can load a browser-side model remotely; if unavailable, local rule ranking is used.

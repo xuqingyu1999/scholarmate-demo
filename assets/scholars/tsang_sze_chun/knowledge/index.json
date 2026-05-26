@@ -1,0 +1,222 @@
+{
+  "scholarId": "tsang_sze_chun",
+  "scholarName": "Sze Chun TSANG",
+  "generatedAt": "2026-05-21T15:26:23Z",
+  "sourceTypes": [
+    "patent",
+    "paper_pdf",
+    "paper_metadata",
+    "profile",
+    "user_input"
+  ],
+  "paperCount": 3,
+  "downloadedPdfCount": 1,
+  "metadataOnlyCount": 2,
+  "chunkCount": 8,
+  "topics": [
+    "computational photography",
+    "light painting",
+    "robotic imaging",
+    "model slicing",
+    "octree",
+    "real-time rendering",
+    "robotics",
+    "swept volume"
+  ],
+  "chunks": [
+    {
+      "id": "3950b0a2ee6c_p1_1",
+      "paperId": "3950b0a2ee6c",
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational Light Painting and Kinetic Photography",
+      "year": "2018",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "Computational Light Painting and Kinetic Photography Yaozhun Huang City University of Hong Kong Hong Kong, China yaozhuang5-c@my.cityu.edu.hk Sze-Chun Tsang City University of Hong Kong Hong Kong, China szectsang2@cityu.edu.hk Hei-Ting Tamar Wong City University of Hong Kong Hong Kong, China httwong2-c@ad.cityu.edu.hk Miu-Ling Lam∗ City University of Hong Kong Hong Kong, China miu.lam@cityu.edu.hk Figure 1: A gallery of unedited long exposure photographs taken with our computation light painting (Triceratops and Cow models) and kinetic photography (Mermaid and Humpback Whale models) systems. The pink curves illustrate the display or camera motion. ABSTRACT We present a computational framework for creating swept volume light painting and kinetic photography. Unlike conventional light painting technique using hand-held point light source or",
+      "topicTags": [
+        "computational photography",
+        "light painting",
+        "robotic imaging"
+      ],
+      "sourceUrl": "https://dblp.org/rec/conf/npar/HuangTWL18",
+      "file": "assets/scholars/tsang_sze_chun/papers/cf73fe139b.pdf"
+    },
+    {
+      "id": "3950b0a2ee6c_p1_2",
+      "paperId": "3950b0a2ee6c",
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational Light Painting and Kinetic Photography",
+      "year": "2018",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "ting swept volume light painting and kinetic photography. Unlike conventional light painting technique using hand-held point light source or LED ar- rays, we move a flat-panel display with robot in a curved path. The display shows real-time rendered contours of a 3D object being sliced by the display plane along the path. All light contours are captured in a long exposure and constitute the virtual 3D object augmented in the real space. To ensure geometric accuracy, we use hand-eye calibration method to precisely obtain the transformation between the display and the robot. A path generation algorithm is developed to automatically yield the robot path that can best ∗Corresponding author Permission to make digital or hard copies of part or all of this work for personal or classroom use is granted without fee provided that copies are not mad",
+      "topicTags": [
+        "computational photography",
+        "light painting",
+        "robotic imaging"
+      ],
+      "sourceUrl": "https://dblp.org/rec/conf/npar/HuangTWL18",
+      "file": "assets/scholars/tsang_sze_chun/papers/cf73fe139b.pdf"
+    },
+    {
+      "id": "3950b0a2ee6c_p1_3",
+      "paperId": "3950b0a2ee6c",
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational Light Painting and Kinetic Photography",
+      "year": "2018",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "ake digital or hard copies of part or all of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page. Copyrights for third-party components of this work must be honored. For all other uses, contact the owner/author(s). Expressive ’18, August 17–19, 2018, Victoria, BC, Canada © 2018 Copyright held by the owner/author(s). ACM ISBN 978-1-4503-5892-7/18/08. https://doi.org/10.1145/3229147.3229167 accommodate the 3D shape of the target model. To further avoid shape distortion due to asynchronization between the display’s pose and the image content, we propose a real-time slicing method for arbitrary slicing direction. By organizing the triangular mesh into Octree data structure, the",
+      "topicTags": [
+        "computational photography",
+        "light painting",
+        "robotic imaging"
+      ],
+      "sourceUrl": "https://dblp.org/rec/conf/npar/HuangTWL18",
+      "file": "assets/scholars/tsang_sze_chun/papers/cf73fe139b.pdf"
+    },
+    {
+      "id": "3950b0a2ee6c_p1_4",
+      "paperId": "3950b0a2ee6c",
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational Light Painting and Kinetic Photography",
+      "year": "2018",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "nt, we propose a real-time slicing method for arbitrary slicing direction. By organizing the triangular mesh into Octree data structure, the approach can significantly reduce the computational time and improve the performance of real-time rendering. We study the optimal tree level for different ranges of triangle numbers so as to attain competitive computational time. Texture mapping is also implemented to produce colored light painting. We extend our methodologies to computational kinetic photography, which is dual to light painting. Instead of keeping the camera stationary, we move the camera with robot and capture long exposures of a stationary display showing light contours. We transform the display path for light painting to the camera path for kinetic photography. A variety of 3D models are used to verify that the proposed technique",
+      "topicTags": [
+        "computational photography",
+        "light painting",
+        "robotic imaging"
+      ],
+      "sourceUrl": "https://dblp.org/rec/conf/npar/HuangTWL18",
+      "file": "assets/scholars/tsang_sze_chun/papers/cf73fe139b.pdf"
+    },
+    {
+      "id": "3950b0a2ee6c_p1_5",
+      "paperId": "3950b0a2ee6c",
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational Light Painting and Kinetic Photography",
+      "year": "2018",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "ay path for light painting to the camera path for kinetic photography. A variety of 3D models are used to verify that the proposed techniques can produce stunning long exposures with high-fidelity volumetric imagery. The techniques have great poten- tial for innovative applications including animation, visible light communication, invisible information visualization and creative art.",
+      "topicTags": [
+        "computational photography",
+        "light painting",
+        "robotic imaging"
+      ],
+      "sourceUrl": "https://dblp.org/rec/conf/npar/HuangTWL18",
+      "file": "assets/scholars/tsang_sze_chun/papers/cf73fe139b.pdf"
+    },
+    {
+      "id": "3950b0a2ee6c_p2_1",
+      "paperId": "3950b0a2ee6c",
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational Light Painting and Kinetic Photography",
+      "year": "2018",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "Expressive ’18, August 17–19, 2018, Victoria, BC, Canada Yaozhun Huang, Sze-Chun Tsang, Hei-Ting Tamar Wong, and Miu-Ling Lam CCS CONCEPTS • Computing methodologies →Computational photography; Motion path planning; Vision for robotics; • Human-centered computing →Visualization systems and tools; KEYWORDS computational light painting, real-time rendering, model slicing ACM Reference Format: Yaozhun Huang, Sze-Chun Tsang, Hei-Ting Tamar Wong, and Miu-Ling Lam. 2018. Computational Light Painting and Kinetic Photography. In Expressive ’18: The Joint Symposium on Computational Aesthetics and Sketch Based Interfaces and Modeling and Non-Photorealistic Animation and Rendering, August 17–19, 2018, Victoria, BC, Canada. ACM, New York, NY, USA, 9 pages. https://doi.org/10.1145/3229147.3229167 1 INTRODUCTION Light painting is created by moving a lig",
+      "topicTags": [
+        "computational photography",
+        "light painting",
+        "robotic imaging"
+      ],
+      "sourceUrl": "https://dblp.org/rec/conf/npar/HuangTWL18",
+      "file": "assets/scholars/tsang_sze_chun/papers/cf73fe139b.pdf"
+    },
+    {
+      "id": "3950b0a2ee6c_p2_2",
+      "paperId": "3950b0a2ee6c",
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational Light Painting and Kinetic Photography",
+      "year": "2018",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "C, Canada. ACM, New York, NY, USA, 9 pages. https://doi.org/10.1145/3229147.3229167 1 INTRODUCTION Light painting is created by moving a light source in the space while being captured by long exposure. The technique has been used for over a century for artistic and scientific purposes. In 1889, physiologists and chronophotographers Étienne-Jules Marey and Georges Demeny created the first light painting when studying the movements of humans. They attached light bulbs at the joints of a human and took long exposure photographs when the person was walking. Light painting technique has been used by many famous artists and photographers including Man Ray, Pablo Picasso, Henri Matisse, and Gjon Mili. This aesthetic art form has engaged many professional photographers and hobbyists in the past and is still very popular now. Scientists and engine",
+      "topicTags": [
+        "computational photography",
+        "light painting",
+        "robotic imaging"
+      ],
+      "sourceUrl": "https://dblp.org/rec/conf/npar/HuangTWL18",
+      "file": "assets/scholars/tsang_sze_chun/papers/cf73fe139b.pdf"
+    },
+    {
+      "id": "3950b0a2ee6c_p2_3",
+      "paperId": "3950b0a2ee6c",
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational Light Painting and Kinetic Photography",
+      "year": "2018",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "esthetic art form has engaged many professional photographers and hobbyists in the past and is still very popular now. Scientists and engineers have also used light painting technique to visualize various forms of signals, such as invisible light and radio frequency, by varying the brightness or color of the light at different locations. A similar long exposure technique called kinetic photography can also create artistic light patterns. Rather than moving the light source, a camera is moved or thrown into the air (camera tossing) while its shutter opens. Both light painting and kinetic photography techniques involve the relative movement between the camera and the light source. The configuration of the two techniques are dual to each other. Sometimes kinetic photography is also called light painting. In conventional light painting, the l",
+      "topicTags": [
+        "computational photography",
+        "light painting",
+        "robotic imaging"
+      ],
+      "sourceUrl": "https://dblp.org/rec/conf/npar/HuangTWL18",
+      "file": "assets/scholars/tsang_sze_chun/papers/cf73fe139b.pdf"
+    }
+  ],
+  "metadataRecords": [
+    {
+      "paperId": "6781a54ba830",
+      "scholarId": "tsang_sze_chun",
+      "title": "Real-time model slicing in arbitrary direction using octree",
+      "year": "2017",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "medium-high",
+      "topicTags": [
+        "model slicing",
+        "octree",
+        "real-time rendering"
+      ],
+      "description": "SIGGRAPH poster on octree-based arbitrary-direction model slicing for real-time rendering.",
+      "sourceUrl": "https://doi.org/10.1145/3102163.3102185"
+    },
+    {
+      "paperId": "a71b64b92c81",
+      "scholarId": "tsang_sze_chun",
+      "title": "Computational swept volume light painting via robotic non-linear motion",
+      "year": "2016",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "medium-high",
+      "topicTags": [
+        "computational photography",
+        "robotics",
+        "swept volume"
+      ],
+      "description": "SIGGRAPH poster on robotic non-linear motion for swept-volume light painting.",
+      "sourceUrl": "https://doi.org/10.1145/2945078.2945105"
+    }
+  ]
+}

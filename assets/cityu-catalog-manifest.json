@@ -1,0 +1,120 @@
+{
+  "sourceXml": "C:\\Users\\12415\\OneDrive\\xwechat_files\\wxid_eygf0iqankh221_5414\\msg\\file\\2026-05\\0_20201_135169_16_1(1).xml",
+  "generatedAt": "2026-05-21T15:27:23Z",
+  "inventorCount": 9,
+  "patentCount": 16,
+  "patents": [
+    {
+      "id": "63943642",
+      "title": "An Interpretable Patent Quality Evaluation Method and System Based on Large Language Model",
+      "inventorId": "isjian",
+      "imageUrl": "",
+      "localOriginal": ""
+    },
+    {
+      "id": "63943652",
+      "title": "University Patent Recommendation Technology Based on Heterogeneous Data Fusion and Dynamic Attention Mechanism",
+      "inventorId": "isjian",
+      "imageUrl": "",
+      "localOriginal": ""
+    },
+    {
+      "id": "CN117950627A",
+      "title": "一種智能溯源及假新聞防範系統及防範方法",
+      "inventorId": "acmleung",
+      "imageUrl": "assets/patents/CN117950627A.png",
+      "localOriginal": "patent_originals/03_CN117950627A.pdf"
+    },
+    {
+      "id": "CN119563958A",
+      "title": "仿生熱調節織物和其構建方法",
+      "inventorId": "xingeyu",
+      "imageUrl": "assets/patents/CN119563958A.png",
+      "localOriginal": "patent_originals/04_CN119563958A.pdf"
+    },
+    {
+      "id": "US12571139B2",
+      "title": "Biomimetic Thermal Regulating Fabric and Method for Constructing the Same",
+      "inventorId": "xingeyu",
+      "imageUrl": "assets/patents/US12571139B2.png",
+      "localOriginal": "patent_originals/05_US12571139B2_USPTO.pdf"
+    },
+    {
+      "id": "US20230385365A1",
+      "title": "Prime-Number-Based Parallel Solver For Engineering Design Optimization Problems Of Polynomial Forms With Integer Variables",
+      "inventorId": "hanlinli",
+      "imageUrl": "assets/patents/US20230385365A1.png",
+      "localOriginal": "patent_originals/06_US20230385365A1.pdf"
+    },
+    {
+      "id": "CN112137620B",
+      "title": "Human Body Weak Respiratory Signal Detection Method Based on Ultra-wideband Radar",
+      "inventorId": "issliao",
+      "imageUrl": "assets/patents/CN112137620B.png",
+      "localOriginal": "patent_originals/07_CN112137620B.pdf"
+    },
+    {
+      "id": "CN114117510B",
+      "title": "一種隨機私鑰儲存方法及裝置、隨機私鑰調用方法及裝置",
+      "inventorId": "zhao_jianliang_leon",
+      "imageUrl": "assets/patents/CN114117510B.png",
+      "localOriginal": "patent_originals/08_CN114117510A.pdf"
+    },
+    {
+      "id": "CN114513317B",
+      "title": "一種抗分佈式拒絕服務攻擊方法、系統、設備及存儲介質",
+      "inventorId": "zhao_jianliang_leon",
+      "imageUrl": "assets/patents/CN114513317B.png",
+      "localOriginal": "patent_originals/09_CN114513317B.pdf"
+    },
+    {
+      "id": "CN114077631A",
+      "title": "一種區塊鏈應用系統中間件的數據交互方法及中間件系統",
+      "inventorId": "zhao_jianliang_leon",
+      "imageUrl": "assets/patents/CN114077631A.png",
+      "localOriginal": "patent_originals/10_CN114077631A.pdf"
+    },
+    {
+      "id": "US11386164B2",
+      "title": "Searching Electronic Documents Based on Example-based Search Query",
+      "inventorId": "ruiyunxu2",
+      "imageUrl": "assets/patents/US11386164B2.png",
+      "localOriginal": "patent_originals/11_US11386164B2.pdf"
+    },
+    {
+      "id": "CN111104831B",
+      "title": "Visual Tracking Method And Device, Computer Equipment And Medium",
+      "inventorId": "issliao",
+      "imageUrl": "assets/patents/CN111104831B.png",
+      "localOriginal": "patent_originals/12_CN111104831B.pdf"
+    },
+    {
+      "id": "CN111098849B",
+      "title": "New Energy Automobile Stability Control Method And System",
+      "inventorId": "issliao",
+      "imageUrl": "assets/patents/CN111098849B.png",
+      "localOriginal": "patent_originals/13_CN111098849B.pdf"
+    },
+    {
+      "id": "US10747759B2",
+      "title": "A System and Method for Conducting a Textual Data Search",
+      "inventorId": "ruiyunxu2",
+      "imageUrl": "assets/patents/US10747759B2.png",
+      "localOriginal": "patent_originals/14_US10747759B2.pdf"
+    },
+    {
+      "id": "US10432907B2",
+      "title": "An Electronic System for Creating an Image and a Method of Creating an Image",
+      "inventorId": "tsang_sze_chun",
+      "imageUrl": "assets/patents/US10432907B2.png",
+      "localOriginal": "patent_originals/15_US10432907B2.pdf"
+    },
+    {
+      "id": "USD738319S1",
+      "title": "Light Sensor",
+      "inventorId": "eeshc",
+      "imageUrl": "assets/patents/USD738319S1.png",
+      "localOriginal": "patent_originals/16_USD738319S1.pdf"
+    }
+  ]
+}

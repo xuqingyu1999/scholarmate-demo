@@ -69,35 +69,35 @@ assert.strictEqual(saved.provider, 'serverless-openai-compatible');
 assert.strictEqual(saved.model, 'serverless');
 assert.strictEqual(sessionStore.size, 0, 'sessionStorage should not persist secret LLM config');
 
-const inventor = { id: 'inv_001', name: 'Scholar A', affiliation: 'Institute A' };
+const inventor = { id: 'isjian', name: 'Jian MA', affiliation: 'City University of Hong Kong, Department of Information Systems' };
 const knowledgePatents = [
   {
-    id: 'CN115062165A',
-    publicationNumber: 'CN115062165A',
-    title: 'Medical imaging diagnosis with knowledge graph',
-    field: 'medical imaging',
-    summary: 'Diagnosis support with explicit evidence chain',
-    keywords: ['medical imaging', 'knowledge graph'],
-    inventorId: 'inv_001'
+    id: '63943642',
+    publicationNumber: '63943642',
+    title: 'Large language model patent recommendation method',
+    field: 'large language model patent recommendation',
+    summary: 'Patent recommendation with quality and heterogeneous data signals',
+    keywords: ['large language model', 'patent recommendation', 'patent quality'],
+    inventorId: 'isjian'
   }
 ];
 
 const boundaryPrompt = LlmClient.composeKnowledgeBoundaryPrompt({
   inventor,
   patents: knowledgePatents,
-  fieldName: 'medical imaging'
+  fieldName: 'large language model patent recommendation'
 });
 assert.ok(boundaryPrompt.includes('Layer 1'));
 assert.ok(boundaryPrompt.includes('Layer 2'));
 assert.ok(boundaryPrompt.includes('Layer 3'));
-assert.ok(boundaryPrompt.includes('CN115062165A'));
+assert.ok(boundaryPrompt.includes('63943642'));
 assert.ok(boundaryPrompt.includes(ZH_MARKER_EXAMPLE));
 
 const conversation = LlmClient.buildConversationMessages(
   [
     { role: 'user', content: 'Q1' },
-    { role: 'ai', content: 'A1\n\u3010\u4f9d\u636e\u3011CN115062165A' },
-    { role: 'assistant', content: 'A2\n\u3010\u4f9d\u636e\u3011CN115512810A' }
+    { role: 'ai', content: 'A1\n\u3010\u4f9d\u636e\u301163943642' },
+    { role: 'assistant', content: 'A2\n\u3010\u4f9d\u636e\u301163943652' }
   ],
   'Q2'
 );
@@ -134,7 +134,7 @@ assert.strictEqual(safeAdvisorMessages[1].content, 'latest question');
 const reply = await LlmClient.sendAdvisorChat({
   inventor,
   patent: knowledgePatents[0],
-  persona: { scholarId: 'inv_001', title: 'Test Scholar' },
+  persona: { scholarId: 'isjian', title: 'Patent Recommendation Digital Scholar' },
   knowledgePatents,
   patents: knowledgePatents,
   project: { title: 'project x', industry: 'health' },
@@ -153,8 +153,8 @@ assert.strictEqual(requests[0].options.headers['x-scholar-mate-chat-token'], 'wi
 const payload = JSON.parse(requests[0].options.body);
 assert.ok(!('messages' in payload), 'frontend should not send built messages array');
 assert.ok(!('model' in payload), 'frontend payload should not send model');
-assert.strictEqual(payload.inventorId, 'inv_001', 'frontend payload should send inventorId only');
-assert.strictEqual(payload.patentId, 'CN115062165A', 'frontend payload should send patentId only');
+assert.strictEqual(payload.inventorId, 'isjian', 'frontend payload should send inventorId only');
+assert.strictEqual(payload.patentId, '63943642', 'frontend payload should send patentId only');
 assert.ok(!('inventor' in payload), 'frontend payload should not send full inventor object');
 assert.ok(!('patent' in payload), 'frontend payload should not send full patent object');
 assert.ok(!('persona' in payload), 'frontend payload should not send persona objects');
@@ -171,8 +171,8 @@ assert.strictEqual(sessionStore.size, 0);
 delete sandbox.window.SCHOLARMATE_CHAT_TOKEN;
 requests.length = 0;
 await LlmClient.sendAdvisorChat({
-  inventorId: 'inv_001',
-  patentId: 'CN115062165A',
+  inventorId: 'isjian',
+  patentId: '63943642',
   question: 'another question'
 });
 assert.strictEqual(requests[0].options.headers['x-scholar-mate-chat-token'], 'meta-token-456', 'client should read token from meta tag when window token missing');

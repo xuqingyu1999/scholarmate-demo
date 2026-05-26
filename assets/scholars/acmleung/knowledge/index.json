@@ -1,0 +1,247 @@
+{
+  "scholarId": "acmleung",
+  "scholarName": "Chung Man Alvin LEUNG",
+  "generatedAt": "2026-05-21T15:25:22Z",
+  "sourceTypes": [
+    "patent",
+    "paper_pdf",
+    "paper_metadata",
+    "profile",
+    "user_input"
+  ],
+  "paperCount": 5,
+  "downloadedPdfCount": 1,
+  "metadataOnlyCount": 4,
+  "chunkCount": 8,
+  "topics": [
+    "artificial intelligence",
+    "bright internet",
+    "trust",
+    "augmented reality",
+    "emotion detection",
+    "explainable AI",
+    "NFT marketplace",
+    "digital embeddedness",
+    "trading behavior"
+  ],
+  "chunks": [
+    {
+      "id": "0fb807dfa4dc_p1_1",
+      "paperId": "0fb807dfa4dc",
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "Information Systems Frontiers (2025) 27:1337–1343 https://doi.org/10.1007/s10796-025-10632-z as it creates new uncertainties about evolving job roles and employment security. Of growing interest is the impact of Generative AI (GAI) products such as ChatGPT and Dall-E (Susarla et al., 2023). GAI platforms interact with users, generating texts and images from an expansive web of information. GAI tools are driven by large language models (LLMs) and typically are used in applications such as chatbots (Kushwaha & Kar, 2024). Beyond GAI in chatbots, AI is gradually percolating into different spheres of work in business. However, there is evidence that factors impacting user experiences and adop­ tion of AI tend to vary among stakeholders as roles for AI users continue to evolve (Kar & Kushwaha, 2023; Merhi, 2021). For example, a new area of wor",
+      "topicTags": [
+        "artificial intelligence",
+        "bright internet",
+        "trust"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "file": "assets/scholars/acmleung/papers/9dddc36e4b.pdf"
+    },
+    {
+      "id": "0fb807dfa4dc_p1_2",
+      "paperId": "0fb807dfa4dc",
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "tend to vary among stakeholders as roles for AI users continue to evolve (Kar & Kushwaha, 2023; Merhi, 2021). For example, a new area of work deliverables has emerged in recent job descriptions: prompt engineering, which requires proficiency in using AI to obtain suitable programming code or business documentation. This devel­ opment has been particularly striking in the information technology (IT) and IT-enabled services industries, which are gradually moving from a low-code to a no-code envi­ ronment. Goldman Sachs predicts that AI automation will eliminate 300 million jobs worldwide (Kelley, 2023), and GAI is expected to expedite these changes. Given how easily content can be generated using GAI, concerns are arising about the spread of GAI-produced mis­ information and disinformation using social media. This may create societal challe",
+      "topicTags": [
+        "artificial intelligence",
+        "bright internet",
+        "trust"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "file": "assets/scholars/acmleung/papers/9dddc36e4b.pdf"
+    },
+    {
+      "id": "0fb807dfa4dc_p1_3",
+      "paperId": "0fb807dfa4dc",
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "oncerns are arising about the spread of GAI-produced mis­ information and disinformation using social media. This may create societal challenges surrounding belief and trust in various platforms and institutions. Polarization of belief systems is likely to occur in virtual communities. Further echo-chamber effects may have a larger impact on the way polarization increases within virtual communities due to misuse of GAI-produced content. This could potentially have significant adverse impacts on various internet ecosys­ tems and their stakeholders. Recent editorial deliberations (Dwivedi et al., 2023) have highlighted how GAI can enhance productivity and change employment opportunities, particularly in terms of aug­ menting or complementing human skills. Some believe that 1 Introduction Artificial intelligence (AI) is the subject of growin",
+      "topicTags": [
+        "artificial intelligence",
+        "bright internet",
+        "trust"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "file": "assets/scholars/acmleung/papers/9dddc36e4b.pdf"
+    },
+    {
+      "id": "0fb807dfa4dc_p1_4",
+      "paperId": "0fb807dfa4dc",
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "terms of aug­ menting or complementing human skills. Some believe that 1 Introduction Artificial intelligence (AI) is the subject of growing interest and debate worldwide, based on both the benefits and the adverse impact it may have and is already having on indi­ viduals, societies, and polity. Many studies have highlighted how AI is having both positive and negative effects in orga­ nizations. For example, AI is creating efficiencies through automation and enhancing productivity in areas such as operations, financial management, marketing, and human resource management. It is also bringing about greater reliability in project outcomes and is helping with innova­ tion and standardization of processes. AI is now pervading online ecosystems such as social media, digital platforms, and sharing economy platforms, where it is creating more e",
+      "topicTags": [
+        "artificial intelligence",
+        "bright internet",
+        "trust"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "file": "assets/scholars/acmleung/papers/9dddc36e4b.pdf"
+    },
+    {
+      "id": "0fb807dfa4dc_p1_5",
+      "paperId": "0fb807dfa4dc",
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "s. AI is now pervading online ecosystems such as social media, digital platforms, and sharing economy platforms, where it is creating more engaging user experiences through content and user recom­ mendations. However, AI also has detrimental effects, such as contributing to technostress among users and employees Indranil Bose indranil.bose@neoma-bs.fr Arpan Kumar Kar arpankar@iitd.ac.in Gene Moo Lee gene.lee@sauder.ubc.ca Alvin Chung Man Leung acmleung@cityu.edu.hk Dan J. Kim dan.kim@unt.edu 1 NEOMA Business School, 59 rue Pierre Taittinger, Reims 51100, France 2 Indian Institute of Technology Delhi Hauz Khas, New Delhi 110016, India 3 University of British Columbia, Vancouver, Canada 4 City University of Hong Kong, Hong Kong, Hong Kong 5 University of North Texas, Denton, TX 76203, USA Published online: 23 August 2025 © The Author(s), un",
+      "topicTags": [
+        "artificial intelligence",
+        "bright internet",
+        "trust"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "file": "assets/scholars/acmleung/papers/9dddc36e4b.pdf"
+    },
+    {
+      "id": "0fb807dfa4dc_p1_6",
+      "paperId": "0fb807dfa4dc",
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 1,
+      "section": "pdf_text",
+      "text": "y of Hong Kong, Hong Kong, Hong Kong 5 University of North Texas, Denton, TX 76203, USA Published online: 23 August 2025 © The Author(s), under exclusive licence to Springer Science+Business Media, LLC, part of Springer Nature 2025 Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future Indranil Bose1 · Arpan Kumar Kar2 · Gene Moo Lee3 · Alvin Chung Man Leung4 · Dan J. Kim5 1 3",
+      "topicTags": [
+        "artificial intelligence",
+        "bright internet",
+        "trust"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "file": "assets/scholars/acmleung/papers/9dddc36e4b.pdf"
+    },
+    {
+      "id": "0fb807dfa4dc_p2_1",
+      "paperId": "0fb807dfa4dc",
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "Information Systems Frontiers (2025) 27:1337–1343 GAI may negatively impact the cognitive skills and critical thinking abilities of human users. However, others believe that industry and academia need to embrace GAI and cre­ ate environments that foster higher-level cognitive skills and innovation (Susarla et al., 2023). Many concerns about data privacy, fairness, accountability, and trust have been highlighted in recent editorials on the adverse impacts of AI (Mikalef et al., 2022; Sivarajah et al., 2023). It is widely argued that while AI may enable digital transformation, we must also work to ensure sustainable societies in the future (Pappas et al., 2023). Through this special issue, we aim to spark critical reflec­ tion, cross-disciplinary dialogue, and practical innovation. We invited scholars, policymakers, and practitioners to con",
+      "topicTags": [
+        "artificial intelligence",
+        "bright internet",
+        "trust"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "file": "assets/scholars/acmleung/papers/9dddc36e4b.pdf"
+    },
+    {
+      "id": "0fb807dfa4dc_p2_2",
+      "paperId": "0fb807dfa4dc",
+      "scholarId": "acmleung",
+      "title": "Artificial Intelligence and the Bright Internet: Transforming the Internet for a Better Future",
+      "year": "2025",
+      "sourceType": "paper_pdf",
+      "downloadStatus": "downloaded_pdf",
+      "confidence": "high",
+      "page": 2,
+      "section": "pdf_text",
+      "text": "rk critical reflec­ tion, cross-disciplinary dialogue, and practical innovation. We invited scholars, policymakers, and practitioners to contribute to and extend the Bright Internet and Bright AI paradigm—bridging the gap between what is technically possible, what is ethically necessary, and what is globally sustainable. This special issue brought together leading researchers and practitioners to explore how we can reimag­ ine and re-engineer the foundations of cyberspace and AI to serve the public good. 2 The Bright Internet and Bright AI Framework We are living through a defining moment in the digital age. As global internet connectivity expands and AI becomes increasingly powerful and pervasive, societies are confronted with a dual reality. While these technologies offer transfor­ mative benefits—enhancing productivity, decision-making",
+      "topicTags": [
+        "artificial intelligence",
+        "bright internet",
+        "trust"
+      ],
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/artificial-intelligence-and-the-bright-internet-transforming-the-/",
+      "file": "assets/scholars/acmleung/papers/9dddc36e4b.pdf"
+    }
+  ],
+  "metadataRecords": [
+    {
+      "paperId": "e87e21772afc",
+      "scholarId": "acmleung",
+      "title": "At your fingertips: Do augmented reality gestures reveal product-related emotion?",
+      "year": "2025",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "augmented reality",
+        "emotion detection",
+        "explainable AI"
+      ],
+      "description": "Uses mobile AR touch gestures and explainable AI to infer product-related emotions.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/at-your-fingertips-do-augmented-reality-gestures-reveal-product-r/"
+    },
+    {
+      "paperId": "cd0afd144d84",
+      "scholarId": "acmleung",
+      "title": "Enhanced digital embeddedness and bubble mitigation in NFT marketplaces",
+      "year": "2025",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "high",
+      "topicTags": [
+        "NFT marketplace",
+        "digital embeddedness",
+        "trading behavior"
+      ],
+      "description": "Difference-in-differences study of rarity-rank labels and NFT trading behavior.",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/enhanced-digital-embeddedness-and-bubble-mitigation-in-nft-market/"
+    },
+    {
+      "paperId": "e35df48c851c",
+      "scholarId": "acmleung",
+      "title": "Bot Moderation Dynamics in Online Investment Communities",
+      "year": "2025",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "As retail investor users scale on social media platforms, maintaining the financial informativeness of crowd-generated content becomes difficult. While automated content moderation is widely used in platform governance, its effectiveness for specialized knowledge domains remains underexplored. This study examines how dramatic community expansion influences bot moderation effectiveness in online investment communities by analyzing the GameStop event on Reddit's r/WallStreetBets. Using 1.7 million posts and 419,000 bot moderation comments from 2020-2021, we find that different bot moderations yield varying outcomes, depending on their alignment with the wisdom of crowds boundary conditions. Image-related moderation becomes more effective in the community shift, while humor-embedded moderation grows less effective. Media-related moderation shows different time-dependent effects: positive for short- term returns but negative for longer-term predictions. These findings contribute to platform governance literature on how bot moderation maintains financial information quality during rapid community expansion and provide practical implications for social media platform operations. © 2025,",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/bot-moderation-dynamics-in-online-investment-communities/"
+    },
+    {
+      "paperId": "9ceb92b77b32",
+      "scholarId": "acmleung",
+      "title": "Corporate Social Responsibility and Firm Value: Exploring the Moderating Effects of Information Technology-Enabled Knowledge Capabilities",
+      "year": "2024",
+      "sourceType": "paper_metadata",
+      "downloadStatus": "metadata_only",
+      "confidence": "auto",
+      "topicTags": [],
+      "description": "Purpose - A substantial amount of research has examined the firm value impact of corporate social responsibility (CSR). Nevertheless, the findings have been inconsistent, prompting researchers to identify contingencies under which the impact varies. This study examines how information technology (IT)-enabled knowledge capabilities moderate the relationship between CSR and firm value. Design/methodology/approach - We conducted the ordinary least squares (OLS) regression analysis on a sample of S&P 500 companies spanning from 2010 to 2017. We employed additional methods to test the robustness of the results, including the generalized method of moments (GMM) estimator and the two-stage least squares (2SLS) method. Findings - The results show that IT-enabled absorptive capability (IT-AC) and IT-enabled social integration capability (IT-SIC) positively moderate the CSR–value relationship. Further, their moderating effects vary in distinct ways when environmental dynamism changes, hinting at the distinct underlying rationales behind the moderating roles of IT-AC and IT-SIC. Research limitations/implications - This study improves the understanding of the business value of CSR and IT. It h",
+      "sourceUrl": "https://scholars.cityu.edu.hk/en/publications/corporate-social-responsibility-and-firm-value-exploring-the-mode/"
+    }
+  ]
+}
