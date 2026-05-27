@@ -497,7 +497,7 @@ const ScholarMate = {
     createPatentMediaHtml(patent, variant = 'card') {
         const mediaUrl = patent.imageUrl || '';
         const isImage = /\.(png|jpg|jpeg|webp)(\?.*)?$/i.test(mediaUrl);
-        const alt = `${patent.publicationNumber || patent.id} 专利附图`;
+        const alt = `${patent.publicationNumber || patent.id} 专利预览`;
         if (isImage) {
             return `<img src="${this.escapeHtml(mediaUrl)}" alt="${this.escapeHtml(alt)}" class="patent-card__image">`;
         }
@@ -520,7 +520,7 @@ const ScholarMate = {
             : `<div class="patent-card__price">${this.escapeHtml(licenseLabel)}</div>`;
         const sourceHtml = `
             <div class="patent-card__source">
-                <span>${this.escapeHtml(patent.sourceName || 'Google Patents')}</span>
+                <span>${this.escapeHtml(patent.sourceName || 'CityUHK Scholars')}</span>
                 <span>${this.escapeHtml(patent.leadInventor || inventor.name)}</span>
                 <span>${this.escapeHtml(patent.assignee || inventor.affiliation || '')}</span>
                 ${patent.sourceUrl ? `<a href="${this.escapeHtml(patent.sourceUrl)}" target="_blank" rel="noopener noreferrer">查看公开来源</a>` : ''}
@@ -553,7 +553,7 @@ const ScholarMate = {
                 <div class="patent-card__chat">
                     <button class="patent-card__chat-btn" onclick="ScholarMate.handleListChatClick('${this.escapeHtml(inventor.id)}', '${this.escapeHtml(patent.id)}', '${this.escapeHtml(inventor.name)}')" title="与${this.escapeHtml(inventor.name)}对话">
                         <img src="${this.escapeHtml(inventor.avatar)}" alt="${this.escapeHtml(inventor.name)}" class="patent-card__chat-avatar">
-                        <span class="patent-card__chat-label">问顾问</span>
+                        <span class="patent-card__chat-label">问教授</span>
                     </button>
                 </div>
             </article>
@@ -739,7 +739,7 @@ const ScholarMate = {
 
         // 1. 检查登录状态
         if (!user || !user.isLoggedIn) {
-            if (confirm('注册企业账号后可试聊数字顾问，是否前往用户中心？')) {
+            if (confirm('注册企业账号后可试聊教授数字学者，是否前往用户中心？')) {
                 UserManager.saveUser(UserManager.ensureEnterpriseUser());
                 window.location.href = this.getMobileBottomNavHref('user-center.html#enterprise-verification');
             }
@@ -9156,7 +9156,30 @@ function derivePatentPricing(patent) {
     };
 }
 
-patents.forEach(patent => Object.assign(patent, derivePatentPricing(patent)));
+const PATENT_DETAIL_TEXT_EXTRACTION_STATUS = {
+    US12571139B2: 'limited_or_image_based',
+    US20230385365A1: 'limited_or_image_based'
+};
+
+function derivePatentDetailEvidenceAudit(patent) {
+    const hasLocalOriginal = Boolean(patent.localOriginal);
+    return {
+        originalStatus: hasLocalOriginal ? 'local_original_available' : 'metadata_only',
+        hasLocalOriginal,
+        localOriginal: patent.localOriginal || '',
+        originalType: hasLocalOriginal && /\.pdf(\?.*)?$/i.test(patent.localOriginal) ? 'pdf' : (hasLocalOriginal ? 'other' : 'cityu_metadata'),
+        textExtractionStatus: hasLocalOriginal
+            ? (PATENT_DETAIL_TEXT_EXTRACTION_STATUS[patent.id] || 'extractable_preview_text')
+            : 'not_available',
+        verifiedSectionKeys: Object.keys(patent.verifiedSections || {})
+    };
+}
+
+patents.forEach(patent => {
+    Object.assign(patent, derivePatentPricing(patent));
+    patent.verifiedSections = patent.verifiedSections || {};
+    patent.detailEvidenceAudit = derivePatentDetailEvidenceAudit(patent);
+});
 
 const patentDetails = patents.reduce((details, patent) => {
     details[patent.id] = {

@@ -45,13 +45,13 @@
                             <img src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2296%22%20height%3D%2296%22%20viewBox%3D%220%200%2096%2096%22%3E%3Crect%20width%3D%2296%22%20height%3D%2296%22%20rx%3D%2218%22%20fill%3D%22%232563eb%22%2F%3E%3Ctext%20x%3D%2248%22%20y%3D%2257%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2220%22%20font-weight%3D%22700%22%20fill%3D%22%23fff%22%3ECU%3C%2Ftext%3E%3C%2Fsvg%3E" alt="CityU 数字学者">
                         </div>
                         <div class="chat-inventor-info__name">CityU 数字学者</div>
-                        <div class="chat-inventor-info__badge">数字顾问</div>
+                        <div class="chat-inventor-info__badge">数字学者</div>
                         <div class="chat-inventor-info__affiliation">City University of Hong Kong</div>
                         <div class="chat-inventor-info__expertise">
                             <span class="tag">CityUHK Scholars</span>
                             <span class="tag">专利证据</span>
                         </div>
-                        <p class="chat-inventor-info__bio">数字顾问基于公开专利文本、首席发明人和权利人元数据生成，仅用于技术沟通原型。</p>
+                        <p class="chat-inventor-info__bio">数字学者基于公开专利文本、首席发明人和权利人元数据生成，仅用于技术沟通原型。</p>
                     </div>
 
                     <div class="chat-session-panel">
@@ -502,7 +502,7 @@
             input.value = '';
             input.style.height = 'auto';
             updateTokenDisplay();
-            appendMessage('ai', '\u6b63\u5728\u8c03\u7528\u670d\u52a1\u7aef\u987e\u95ee\u56de\u590d...', new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
+            appendMessage('ai', '正在思考...', new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
             try {
                 const reply = await LlmClient.sendAdvisorChat({
                     inventorId: inventor.id,
@@ -519,14 +519,14 @@
             } catch (error) {
                 removeTransientThinkingMessage();
                 document.getElementById('localFallbackBtn').style.display = '';
-                appendMessage('ai', `\u670d\u52a1\u7aef\u987e\u95ee\u6682\u65f6\u4e0d\u53ef\u7528\uff1a${LlmClient.safeErrorMessage(error)}\u3002\u53ef\u5148\u4f7f\u7528\u201c\u672c\u5730\u6a21\u62df\u56de\u590d\u201d\u7ee7\u7eed\u6f14\u793a\u3002`, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
+                appendMessage('ai', `暂时没有得到实时回复：${LlmClient.safeErrorMessage(error)}。可先使用“本地模拟回复”继续演示。`, new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), false);
                 sendLocalFallbackForLastQuestion();
             }
         }
 
         function removeTransientThinkingMessage() {
             const messages = Array.from(document.querySelectorAll('.chat-message--ai .chat-message__content'));
-            const thinking = messages.reverse().find(node => node.textContent.includes('\u6b63\u5728\u8c03\u7528\u670d\u52a1\u7aef\u987e\u95ee\u56de\u590d'));
+            const thinking = messages.reverse().find(node => node.textContent.includes('正在思考...'));
             if (thinking) thinking.closest('.chat-message').remove();
         }
 

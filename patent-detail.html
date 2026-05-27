@@ -34,23 +34,8 @@
         <!-- 详情头部 -->
         <section class="detail-header">
             <div class="container">
-                <h1 class="detail-header__title">一种基于人工智能的医疗诊断系统及方法</h1>
-                <div class="detail-header__meta">
-                    <span class="detail-header__meta-item">
-                        <span>🏷️</span> 发明专利
-                    </span>
-                    <span class="detail-header__meta-item">
-                        <span>📅</span> 2022-09-16
-                    </span>
-                    <span class="detail-header__meta-item">
-                        <span>👁️</span> 1,234 次浏览
-                    </span>
-                    <span class="detail-header__meta-item">
-                        <span>📂</span> 人工智能 / 医疗健康
-                    </span>
-                    <span class="detail-header__meta-item">
-                        <span>🔢</span> CN115062165A
-                    </span>
+                <h1 class="detail-header__title">专利详情</h1>
+                <div class="detail-header__meta" aria-live="polite">
                 </div>
             </div>
         </section>
@@ -69,42 +54,16 @@
                         <!-- 专利摘要 -->
                         <div class="detail-section">
                             <h2 class="detail-section__title">专利摘要</h2>
-                            <p class="text-secondary" style="line-height: 1.8;">
-                                本发明公开了一种基于人工智能的医疗诊断系统及方法，该系统包括数据采集模块、预处理模块、深度学习分析模块和诊断输出模块。数据采集模块用于获取患者的医学影像数据；预处理模块对影像数据进行去噪和增强处理；深度学习分析模块采用卷积神经网络对预处理后的影像进行分析，提取特征并生成诊断建议；诊断输出模块将分析结果以可视化方式展示给医生。本发明能够有效辅助医生进行疾病诊断，提高诊断效率和准确性，特别适用于早期癌症筛查和疑难杂症诊断。
-                            </p>
+                            <p id="detailPatentSummary" class="text-secondary" style="line-height: 1.8;"></p>
                         </div>
 
                         <!-- 技术领域 -->
                         <div class="detail-section">
                             <h2 class="detail-section__title">技术领域</h2>
-                            <p class="text-secondary">
-                                本发明属于人工智能技术领域，具体涉及医学影像处理和计算机辅助诊断技术。
-                            </p>
+                            <p id="detailTechnicalField" class="text-secondary"></p>
                         </div>
 
-                        <!-- 背景技术 -->
-                        <div class="detail-section">
-                            <h2 class="detail-section__title">背景技术</h2>
-                            <p class="text-secondary" style="line-height: 1.8;">
-                                随着医学影像技术的快速发展，医生每天需要阅读大量的医学影像，如X光片、CT扫描、MRI等。传统的人工阅片方式存在效率低、主观性强等问题，特别是在基层医疗机构，专业影像医生资源匮乏，导致诊断质量和效率难以保证。虽然已有一些计算机辅助诊断系统，但存在准确率不高、泛化能力差等缺点，无法满足临床实际需求。
-                            </p>
-                        </div>
-
-                        <!-- 发明内容 -->
-                        <div class="detail-section">
-                            <h2 class="detail-section__title">发明内容</h2>
-                            <p class="text-secondary" style="line-height: 1.8;">
-                                本发明的目的是提供一种基于人工智能的医疗诊断系统及方法，以解决现有技术中诊断效率低、准确率不高的问题。本发明采用深度学习算法，通过大量标注数据训练模型，能够自动识别医学影像中的异常区域，并给出诊断建议。系统支持多模态影像输入，可同时处理CT、MRI、X光等多种影像类型。此外，系统还具有迁移学习能力，可以针对不同医院的数据进行个性化优化，提高诊断准确率。
-                            </p>
-                        </div>
-
-                        <!-- 附图说明 -->
-                        <div class="detail-section">
-                            <h2 class="detail-section__title">附图说明</h2>
-                            <p class="text-secondary mb-4">图1为本发明的系统架构图</p>
-                            <p class="text-secondary mb-4">图2为本发明的方法流程图</p>
-                            <div id="detailFigureGrid" class="grid grid--2" style="gap: var(--space-3);"></div>
-                        </div>
+                        <div id="verifiedPatentSections"></div>
                     </div>
 
                     <!-- 右侧侧边栏 -->
@@ -116,7 +75,7 @@
                                 <span class="detail-price__unit"> / 免费共享专利</span>
                             </div>
                             <div class="detail-actions">
-                                <button class="btn btn--primary btn--lg btn--full" onclick="handleChatClick()">问数字顾问</button>
+                                <button id="detailPrimaryChatButton" class="btn btn--primary btn--lg btn--full" onclick="handleChatClick()">问教授</button>
                                 <button class="btn btn--outline btn--lg btn--full" onclick="submitDetailTradeIntent()">提交交易意向</button>
                                 <button class="btn btn--outline btn--lg btn--full" onclick="handleDetailFavoriteClick()">收藏专利</button>
                                 <button class="btn btn--outline btn--lg btn--full" onclick="openAppointmentModal()">📅 预约真人</button>
@@ -124,7 +83,7 @@
                             <div class="mt-4 text-center"><span class="text-light" id="detailContactHint" style="font-size: var(--font-sm);">通过平台提交交易意向后对接</span></div>
                         </div>
 
-                        <!-- 数字顾问卡片 -->
+                        <!-- 数字学者卡片 -->
                         <div class="inventor-chat-card" id="inventorCard">
                             <div class="inventor-chat-card__header">
                                 <div class="inventor-chat-card__avatar">
@@ -133,7 +92,7 @@
                                 <div class="inventor-chat-card__info">
                                     <div class="inventor-chat-card__name">
                                         <span>张明远</span>
-                                        <span class="inventor-chat-card__badge">数字顾问</span>
+                                        <span class="inventor-chat-card__badge">数字学者</span>
                                     </div>
                                     <div class="inventor-chat-card__expertise">
                                         <span class="tag tag--sm">人工智能</span>
@@ -141,14 +100,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="inventor-chat-card__bio">数字顾问基于公开专利文本、首席发明人和权利人元数据生成，仅用于技术沟通原型。</p>
+                            <p class="inventor-chat-card__bio">数字学者基于公开专利文本、首席发明人和权利人元数据生成，仅用于技术沟通原型。</p>
                             <div class="inventor-chat-card__status" id="chatStatus">
                                 <span class="status-dot status-dot--authorized"></span>
                                 <span class="inventor-chat-card__status-text">可免费对话</span>
                                 <span class="inventor-chat-card__token-hint">约消耗 30 Token/次</span>
                             </div>
-                            <button class="btn btn--primary btn--full" onclick="handleChatClick()">
-                                <span>💬</span> 与发明人对话
+                            <button id="inventorCardChatButton" class="btn btn--primary btn--full" onclick="handleChatClick()">
+                                <span>💬</span> 问教授
                             </button>
                         </div>
 
@@ -158,10 +117,10 @@
                                 <h3 class="font-semibold mb-4">权利人/来源信息</h3>
                                 <div class="flex items-center gap-3 mb-4">
                                     <div id="assigneeInitials" style="width: 48px; height: 48px; background: var(--primary-light); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; color: var(--primary); font-weight: var(--font-semibold);">
-                                        GP
+                                        CU
                                     </div>
                                     <div>
-                                        <div class="font-medium" id="assigneeName">Google Patents 公开记录</div>
+                                        <div class="font-medium" id="assigneeName">CityUHK Scholars</div>
                                         <div class="text-light" id="assigneeRole" style="font-size: var(--font-sm);">公开来源元数据</div>
                                     </div>
                                 </div>
@@ -255,10 +214,10 @@
 
             <div class="license-info">
                 <div class="license-info__patent">
-                    <img src="https://patentimages.storage.googleapis.com/4a/78/c5/283d0ee82d6d3b/220814202250.png" alt="专利图片" class="license-info__img">
+                    <img src="" alt="专利预览" class="license-info__img">
                     <div>
-                        <div class="font-medium">一种基于人工智能的医疗诊断系统及方法</div>
-                        <div class="text-secondary" style="font-size: var(--font-sm);">专利号：CN115062165A</div>
+                        <div class="font-medium">专利资料</div>
+                        <div class="text-secondary" style="font-size: var(--font-sm);">专利号：--</div>
                     </div>
                 </div>
                 <div class="license-info__price">
@@ -463,6 +422,7 @@
 
         function renderDetailContext() {
             document.querySelector('.detail-header__title').textContent = currentPatent.title;
+            updateProfessorCtas();
             const headerMeta = document.querySelector('.detail-header__meta');
             if (headerMeta) {
                 headerMeta.innerHTML = `
@@ -472,10 +432,9 @@
                     ${currentPatent.sourceName ? `<span class="detail-header__meta-item"><span>↗</span> ${ScholarMate.escapeHtml(currentPatent.sourceName)}</span>` : ''}
                 `;
             }
-            const detailSections = document.querySelectorAll('.detail-section');
-            const summaryText = detailSections[1]?.querySelector('p.text-secondary');
+            const summaryText = document.getElementById('detailPatentSummary');
             if (summaryText) summaryText.textContent = currentPatent.summary;
-            const fieldText = detailSections[2]?.querySelector('p.text-secondary');
+            const fieldText = document.getElementById('detailTechnicalField');
             if (fieldText) fieldText.textContent = `${currentPatent.field} / ${currentPatent.industry}`;
             const priceCard = document.querySelector('.detail-price-card');
             if (priceCard) {
@@ -488,15 +447,20 @@
             document.querySelector('.inventor-chat-card__avatar img').alt = currentPatent.inventor.name;
             document.querySelector('.inventor-chat-card__name span:first-child').textContent = currentPatent.inventor.name;
             document.querySelector('.inventor-chat-card__expertise').innerHTML = currentPatent.inventor.expertise.map(item => `<span class="tag tag--sm">${item}</span>`).join('');
+            const licenseImage = document.querySelector('.license-info__img');
+            if (licenseImage) {
+                licenseImage.src = currentPatent.imageUrl || 'scholarmate.svg';
+                licenseImage.alt = `${currentPatent.publicationNumber || currentPatent.id} 专利预览`;
+            }
             document.querySelector('.license-info__patent .font-medium').textContent = currentPatent.title;
             document.querySelector('.license-info__patent .text-secondary').textContent = `专利号：${currentPatent.id}`;
             document.querySelector('.license-info__price-value').textContent = ScholarMateBusinessCore.getPatentLicenseLabel(currentPatent);
             const assigneeName = document.getElementById('assigneeName');
-            if (assigneeName) assigneeName.textContent = currentPatent.assignee || 'Google Patents 公开记录';
+            if (assigneeName) assigneeName.textContent = currentPatent.assignee || currentPatent.sourceName || 'CityUHK Scholars';
             const assigneeRole = document.getElementById('assigneeRole');
             if (assigneeRole) assigneeRole.textContent = `首席发明人：${currentPatent.leadInventor || currentPatent.inventor.name}`;
             const assigneeInitials = document.getElementById('assigneeInitials');
-            if (assigneeInitials) assigneeInitials.textContent = (currentPatent.leadInventor || currentPatent.inventor.name || 'GP').slice(0, 2);
+            if (assigneeInitials) assigneeInitials.textContent = (currentPatent.leadInventor || currentPatent.inventor.name || 'CU').slice(0, 2);
             const assigneeMeta = document.getElementById('assigneeMeta');
             if (assigneeMeta) {
                 assigneeMeta.innerHTML = [
@@ -517,24 +481,59 @@
                     ['公开状态', currentPatent.legalStatus || '--']
                 ].map(([label, value]) => `<div class="flex justify-between mb-2"><span>${ScholarMate.escapeHtml(label)}</span><span class="font-medium">${ScholarMate.escapeHtml(value)}</span></div>`).join('');
             }
+            renderVerifiedPatentSections();
             renderPatentMedia();
             renderRelatedPatents();
             renderPatentSourceCard();
         }
 
+        function formatProfessorCta(inventorName, prefix = '问') {
+            const name = String(inventorName || '').trim();
+            return name ? `${prefix}${name}教授` : `${prefix}教授`;
+        }
+
+        function updateProfessorCtas() {
+            const primary = document.getElementById('detailPrimaryChatButton');
+            if (primary) primary.textContent = formatProfessorCta(currentPatent.inventor.name);
+            const cardButton = document.getElementById('inventorCardChatButton');
+            if (cardButton) cardButton.innerHTML = `<span>💬</span> ${ScholarMate.escapeHtml(formatProfessorCta(currentPatent.inventor.name, '问'))}`;
+        }
+
+        function normalizeVerifiedSectionContent(value) {
+            if (Array.isArray(value)) {
+                return value.map(item => String(item || '').trim()).filter(Boolean);
+            }
+            const text = String(value || '').trim();
+            return text ? [text] : [];
+        }
+
+        function renderVerifiedPatentSections() {
+            const container = document.getElementById('verifiedPatentSections');
+            if (!container) return;
+            const sections = currentPatent.verifiedSections || {};
+            const sectionDefs = [
+                { title: '背景技术', keys: ['background', 'technicalBackground', 'backgroundTechnology'] },
+                { title: '发明内容', keys: ['inventionContent', 'summaryOfInvention', 'invention'] },
+                { title: '附图说明', keys: ['figureDescriptions', 'drawings', 'briefDescriptionOfDrawings'] }
+            ];
+
+            const html = sectionDefs.map(def => {
+                const content = def.keys.flatMap(key => normalizeVerifiedSectionContent(sections[key]));
+                if (!content.length) return '';
+                return `
+                    <section class="detail-section detail-section--verified">
+                        <h2 class="detail-section__title">${ScholarMate.escapeHtml(def.title)}</h2>
+                        ${content.map(item => `<p class="text-secondary" style="line-height: 1.8;">${ScholarMate.escapeHtml(item)}</p>`).join('')}
+                    </section>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+        }
+
         function renderPatentMedia() {
             const media = document.getElementById('detailPatentMedia');
             if (media) media.innerHTML = ScholarMate.createPatentMediaHtml(currentPatent, 'detail');
-            const figures = document.getElementById('detailFigureGrid');
-            if (figures) {
-                const links = [currentPatent.imageUrl, currentPatent.pdfUrl].filter(Boolean);
-                figures.innerHTML = links.slice(0, 2).map((url, index) => {
-                    const isImage = /\.(png|jpg|jpeg|webp)(\?.*)?$/i.test(url);
-                    return isImage
-                        ? `<img src="${ScholarMate.escapeHtml(url)}" alt="${ScholarMate.escapeHtml(currentPatent.publicationNumber)} 附图 ${index + 1}" style="border-radius: var(--radius-md); width: 100%;">`
-                        : `<a class="patent-document-preview" href="${ScholarMate.escapeHtml(url)}" target="_blank" rel="noopener noreferrer"><span class="patent-document-preview__source">公开文本</span><strong>${ScholarMate.escapeHtml(currentPatent.publicationNumber)}</strong><small>${ScholarMate.escapeHtml(currentPatent.sourceName || '公开来源')}</small></a>`;
-                }).join('');
-            }
         }
 
         function renderRelatedPatents() {
@@ -615,7 +614,7 @@
         // 处理对话按钮点击
         function handleChatClick() {
             if (!UserManager.isLoggedIn()) {
-                if (confirm('注册企业账号后可试聊数字顾问，是否前往用户中心？')) {
+                if (confirm('注册企业账号后可试聊教授数字学者，是否前往用户中心？')) {
                     UserManager.registerEnterprise();
                     window.location.href = 'user-center.html#enterprise-verification';
                 }
