@@ -1,0 +1,178 @@
+[
+  {
+    "id": "license-option-evaluation",
+    "title": "Option and Evaluation License Sequencing",
+    "sourceType": "collab_playbook",
+    "category": "licensing",
+    "summary": "Common university technology-transfer practice can use a short option or evaluation license before a longer exclusive or non-exclusive commercial license.",
+    "snippet": "Use a time-boxed option or evaluation license first, define evaluation milestones and materials, then negotiate commercial license terms only if the milestones are met.",
+    "topicTags": ["option", "evaluation license", "license sequencing", "exclusive license", "non-exclusive license"],
+    "cnTopicTags": ["许可", "评估许可", "选择权", "独占许可", "非独占许可", "合作"],
+    "cnSummary": "常见高校技术转移实践可以先用短期选择权或评估许可降低双方不确定性，再讨论长期独占或非独占商业许可。",
+    "cnSnippet": "先设定有期限的评估许可或选择权，明确评估材料和里程碑，达到条件后再谈商业许可条款。",
+    "sourceUrls": [
+      "https://otl.stanford.edu/industry/licensing-process",
+      "https://comotion.uw.edu/licensing/licensing-faqs/"
+    ]
+  },
+  {
+    "id": "background-ip-definition",
+    "title": "Background IP and Foreground IP Separation",
+    "sourceType": "collab_playbook",
+    "category": "ip",
+    "summary": "University-industry collaborations commonly separate pre-existing background IP from project-created foreground IP and define limited use rights.",
+    "snippet": "List background IP from each party at project start, define whether project foreground IP is owned by the creator or assigned/licensed, and avoid implying automatic transfer.",
+    "topicTags": ["background IP", "foreground IP", "ownership", "use rights", "intellectual property"],
+    "cnTopicTags": ["知识产权", "背景IP", "前景IP", "所有权", "使用权"],
+    "cnSummary": "高校产学研合作通常要区分项目开始前已有的背景知识产权和项目中产生的前景知识产权。",
+    "cnSnippet": "项目开始时列明各方背景IP，并约定项目产生的前景IP归属、使用权或许可安排，避免暗示自动转让。",
+    "sourceUrls": [
+      "https://ipira.berkeley.edu/industry/standard-agreements",
+      "https://partnerships.ncsu.edu/common-negotiation-areas/"
+    ]
+  },
+  {
+    "id": "nda-publication-balance",
+    "title": "NDA and Publication Review Window",
+    "sourceType": "collab_playbook",
+    "category": "confidentiality",
+    "summary": "A common structure balances confidential information protection with a bounded review period for academic publication.",
+    "snippet": "Set NDA scope, mark confidential materials clearly, and use a publication review window to remove confidential information or file protection before public release.",
+    "topicTags": ["NDA", "CDA", "publication", "confidentiality", "review window"],
+    "cnTopicTags": ["保密", "NDA", "CDA", "发表", "出版审查", "审查窗口"],
+    "cnSummary": "常见做法是在保护保密信息的同时，保留有边界的学术发表审查窗口。",
+    "cnSnippet": "明确保密范围和材料标识，设置发表前审查窗口，用于移除保密信息或先申请保护。",
+    "sourceUrls": [
+      "https://nda.mit.edu/index.html",
+      "https://otl.stanford.edu/industrial-contracts-office-ico"
+    ]
+  },
+  {
+    "id": "field-of-use-definition",
+    "title": "Field-of-Use and Territory Boundaries",
+    "sourceType": "collab_playbook",
+    "category": "licensing",
+    "summary": "Exclusive rights are often bounded by field-of-use, geography, term, and diligence rather than granted as unlimited rights.",
+    "snippet": "Define field-of-use, territory, term, sublicense rights, diligence milestones, and reversion triggers if commercialization is not pursued.",
+    "topicTags": ["field of use", "territory", "exclusive license", "non-exclusive license", "diligence"],
+    "cnTopicTags": ["使用领域", "地域", "独占许可", "非独占许可", "勤勉义务"],
+    "cnSummary": "独占权利通常会按使用领域、地域、期限和商业化勤勉义务加以限定。",
+    "cnSnippet": "明确使用领域、地域、期限、再许可权、勤勉里程碑和未推进商业化时的回转机制。",
+    "sourceUrls": [
+      "https://otl.stanford.edu/industry/licensing-process",
+      "https://www.techtransfer.nih.gov/partnerships/licensing-faqs"
+    ]
+  },
+  {
+    "id": "fees-royalty-payment",
+    "title": "Fees, Royalties, and Payment Structure",
+    "sourceType": "collab_playbook",
+    "category": "commercial_terms",
+    "summary": "University licenses may include different payment components, but exact fees and royalties are institution- and negotiation-specific.",
+    "snippet": "Discuss possible components such as upfront fees, running royalties, patent-cost reimbursement, milestones, minimum annual royalties, or equity, without stating a guaranteed rate.",
+    "topicTags": ["fees", "royalty", "milestone payment", "equity", "patent cost"],
+    "cnTopicTags": ["费用", "版税", "里程碑付款", "股权", "专利费用"],
+    "cnSummary": "高校许可费用可能包含多种组成，但具体费率和版税通常取决于机构和谈判。",
+    "cnSnippet": "可以讨论预付款、持续版税、专利费用报销、里程碑付款、最低年费或股权等组成，但不要给出保证费率。",
+    "sourceUrls": [
+      "https://comotion.uw.edu/licensing/licensing-faqs/",
+      "https://www.techtransfer.nih.gov/partnerships/licensing-faqs"
+    ]
+  },
+  {
+    "id": "sponsored-research-agreement",
+    "title": "Sponsored Research Agreement Routing",
+    "sourceType": "collab_playbook",
+    "category": "sponsored_research",
+    "summary": "When a company funds new research rather than licensing existing IP, universities typically route the work through sponsored research contracting.",
+    "snippet": "Clarify whether the project is licensing existing patent rights, sponsoring new research, or both; sponsored research agreements handle scope, deliverables, budget, publication, and IP options.",
+    "topicTags": ["sponsored research agreement", "SRA", "research scope", "deliverables", "budget"],
+    "cnTopicTags": ["赞助研究", "SRA", "研究范围", "交付物", "预算", "合作协议"],
+    "cnSummary": "如果企业资助新研究而不是只许可已有IP，通常需要通过赞助研究合同处理。",
+    "cnSnippet": "先区分是许可已有专利、赞助新研究，还是两者都有；SRA 处理研究范围、交付物、预算、发表和IP选项。",
+    "sourceUrls": [
+      "https://otl.stanford.edu/industrial-contracts-office-ico",
+      "https://ipira.berkeley.edu/industry/standard-agreements"
+    ]
+  },
+  {
+    "id": "milestone-governance",
+    "title": "Milestone and Governance Cadence",
+    "sourceType": "collab_playbook",
+    "category": "governance",
+    "summary": "Joint steering meetings and milestone gates are common tools for aligning research progress and commercialization decisions.",
+    "snippet": "Use periodic governance meetings, named technical and business owners, escalation paths, and objective milestone gates to decide continue, pivot, or stop.",
+    "topicTags": ["governance", "milestone", "steering committee", "escalation", "project cadence"],
+    "cnTopicTags": ["治理", "里程碑", "联合指导委员会", "升级路径", "项目节奏"],
+    "cnSummary": "联合治理会议和里程碑门槛常用于同步研究进展和商业化决策。",
+    "cnSnippet": "设置定期治理会议、技术和业务负责人、升级路径和客观里程碑，用于决定继续、调整或停止。",
+    "sourceUrls": [
+      "https://partnerships.ncsu.edu/common-negotiation-areas/",
+      "https://otl.stanford.edu/industrial-contracts-office-ico"
+    ]
+  },
+  {
+    "id": "data-rights-boundaries",
+    "title": "Data Access and Use Right Boundaries",
+    "sourceType": "collab_playbook",
+    "category": "data",
+    "summary": "Data rights are usually separated into access rights, use rights, retention, model-training rights, and redistribution limits.",
+    "snippet": "Specify whether data can be copied, retained, used for model training, combined with other datasets, or redistributed; include privacy, security, and deletion obligations.",
+    "topicTags": ["data rights", "model training", "privacy", "security", "retention"],
+    "cnTopicTags": ["数据权利", "模型训练", "隐私", "安全", "留存", "删除"],
+    "cnSummary": "数据权利通常要区分访问权、使用权、留存、模型训练权和再分发限制。",
+    "cnSnippet": "明确数据是否可复制、留存、用于模型训练、合并其他数据或再分发，并加入隐私、安全和删除义务。",
+    "sourceUrls": [
+      "https://ipira.berkeley.edu/industry/standard-agreements",
+      "https://partnerships.ncsu.edu/common-negotiation-areas/"
+    ]
+  },
+  {
+    "id": "trl-poc-validation",
+    "title": "TRL, Proof-of-Concept, and Pilot Validation",
+    "sourceType": "collab_playbook",
+    "category": "validation",
+    "summary": "Companies often need to turn a research result into a proof-of-concept or pilot with measurable readiness and acceptance criteria.",
+    "snippet": "Ask for current TRL, proof-of-concept evidence, pilot environment, validation metrics, integration dependencies, and the minimum data needed for a go/no-go decision.",
+    "topicTags": ["TRL", "proof of concept", "PoC", "pilot", "validation metrics"],
+    "cnTopicTags": ["TRL", "技术成熟度", "概念验证", "PoC", "试点", "验证指标"],
+    "cnSummary": "企业通常需要把研究成果转成可衡量的概念验证或试点。",
+    "cnSnippet": "询问当前技术成熟度、概念验证证据、试点环境、验证指标、集成依赖和 go/no-go 所需最小数据。",
+    "sourceUrls": [
+      "https://www.utrgv.edu/research/departments/research-operations/otc/tech-readiness-levels/index.htm",
+      "https://otl.stanford.edu/industry/licensing-process"
+    ]
+  },
+  {
+    "id": "compliance-liability-boundary",
+    "title": "Compliance, Safety, and Liability Boundary",
+    "sourceType": "collab_playbook",
+    "category": "risk",
+    "summary": "University collaboration discussions should separate technical feasibility from regulatory, safety, legal, and liability conclusions.",
+    "snippet": "Identify required regulatory review, cybersecurity/privacy controls, safety validation, warranty limits, indemnity expectations, and the need for formal legal or compliance review.",
+    "topicTags": ["compliance", "liability", "safety", "regulatory", "privacy", "cybersecurity"],
+    "cnTopicTags": ["合规", "责任", "安全", "监管", "隐私", "网络安全", "法律审查"],
+    "cnSummary": "合作讨论中应区分技术可行性与监管、安全、法律和责任结论。",
+    "cnSnippet": "识别所需监管审查、网络安全和隐私控制、安全验证、担保限制、赔偿期望，以及正式法律或合规审查。",
+    "sourceUrls": [
+      "https://partnerships.ncsu.edu/common-negotiation-areas/",
+      "https://www.techtransfer.nih.gov/partnerships/licensing-faqs"
+    ]
+  },
+  {
+    "id": "no-legal-advice-boundary",
+    "title": "Playbook Boundary: Not Legal Advice or CityU Terms",
+    "sourceType": "collab_playbook",
+    "category": "boundary",
+    "summary": "Generic playbook entries are educational only and cannot replace institution-specific policy, official terms, or legal advice.",
+    "snippet": "Treat these entries as generic university technology-transfer practice only; they are not CityU official policy, contract terms, legal advice, freedom-to-operate conclusions, or commercial promises.",
+    "topicTags": ["boundary", "legal advice", "official policy", "CityU terms", "freedom to operate"],
+    "cnTopicTags": ["边界", "法律意见", "官方政策", "CityU条款", "自由实施", "侵权", "承诺"],
+    "cnSummary": "通用 playbook 仅作教育性参考，不能替代机构特定政策、官方条款或法律意见。",
+    "cnSnippet": "这些内容只是通用高校技术转移实践，不是 CityU 官方政策、合同条款、法律意见、自由实施结论或商业承诺。",
+    "sourceUrls": [
+      "https://otl.stanford.edu/industry",
+      "https://www.techtransfer.nih.gov/partnerships/licensing-faqs"
+    ]
+  }
+]

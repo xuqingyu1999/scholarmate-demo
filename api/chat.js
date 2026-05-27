@@ -9,9 +9,22 @@ const MAX_BODY_BYTES = 64 * 1024;
 const MAX_QUESTION_CHARS = 4000;
 const MAX_HISTORY_TURNS = 12;
 const MAX_HISTORY_CONTENT_CHARS = 1000;
-const FORBIDDEN_CLIENT_FIELDS = ['messages', 'inventor', 'patent', 'persona', 'personas', 'patents', 'knowledgePatents'];
+const FORBIDDEN_CLIENT_FIELDS = [
+    'messages',
+    'inventor',
+    'patent',
+    'persona',
+    'personas',
+    'patents',
+    'knowledgePatents',
+    'knowledgeIndex',
+    'paperManifest',
+    'collaborationPlaybook',
+    'advisorEvidenceContext'
+];
 
 let cachedLlmClient = null;
+let cachedAdvisorRag = null;
 let cachedTrustedData = null;
 
 function createStorageStub() {
@@ -26,15 +39,29 @@ function createStorageStub() {
 
 function loadLlmClient() {
     if (cachedLlmClient) return cachedLlmClient;
+    const advisorRag = loadAdvisorRag();
     const sourcePath = path.resolve(__dirname, '../scripts/llm-client.js');
     const source = fs.readFileSync(sourcePath, 'utf8');
-    const sandbox = { console };
+    const sandbox = { console, ScholarMateAdvisorRag: advisorRag };
     sandbox.globalThis = sandbox;
     vm.createContext(sandbox);
     vm.runInContext(source, sandbox);
     if (!sandbox.LlmClient) throw new Error('LlmClient unavailable');
     cachedLlmClient = sandbox.LlmClient;
     return cachedLlmClient;
+}
+
+function loadAdvisorRag() {
+    if (cachedAdvisorRag) return cachedAdvisorRag;
+    const sourcePath = path.resolve(__dirname, '../scripts/advisor-rag.js');
+    const source = fs.readFileSync(sourcePath, 'utf8');
+    const sandbox = { console };
+    sandbox.globalThis = sandbox;
+    vm.createContext(sandbox);
+    vm.runInContext(source, sandbox);
+    if (!sandbox.ScholarMateAdvisorRag) throw new Error('ScholarMateAdvisorRag unavailable');
+    cachedAdvisorRag = sandbox.ScholarMateAdvisorRag;
+    return cachedAdvisorRag;
 }
 
 function loadTrustedData() {
@@ -44,6 +71,8 @@ function loadTrustedData() {
     const mainSource = fs.readFileSync(mainSourcePath, 'utf8');
     const personasPath = path.resolve(__dirname, '../assets/scholars/personas.json');
     const personas = JSON.parse(fs.readFileSync(personasPath, 'utf8'));
+    const collaborationPlaybookPath = path.resolve(__dirname, '../data/collaboration-playbook.json');
+    const collaborationPlaybook = JSON.parse(fs.readFileSync(collaborationPlaybookPath, 'utf8'));
 
     const sandbox = {
         console,
@@ -72,11 +101,37 @@ function loadTrustedData() {
 
     cachedTrustedData = {
         personas: personas && typeof personas === 'object' ? personas : {},
+        collaborationPlaybook: Array.isArray(collaborationPlaybook) ? collaborationPlaybook : [],
         inventorsById: new Map(inventors.map(item => [item.id, item])),
         patentsById: new Map(patents.map(item => [item.id, item])),
         patents
     };
     return cachedTrustedData;
+}
+
+function loadJsonIfExists(filePath, fallbackValue) {
+    try {
+        if (!fs.existsSync(filePath)) return fallbackValue;
+        return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    } catch (error) {
+        return fallbackValue;
+    }
+}
+
+function loadScholarKnowledgeAssets(inventorId) {
+    const safeId = String(inventorId || '').replace(/[^A-Za-z0-9_-]/g, '');
+    if (!safeId) return { knowledgeIndex: {}, paperManifest: {} };
+    const scholarRoot = path.resolve(__dirname, '../assets/scholars', safeId);
+    return {
+        knowledgeIndex: loadJsonIfExists(path.join(scholarRoot, 'knowledge/index.json'), {}),
+        paperManifest: loadJsonIfExists(path.join(scholarRoot, 'papers/manifest.json'), {})
+    };
+}
+
+function isRagEnabled(env) {
+    const mode = String(env && env.SCHOLARMATE_RAG_MODE || '').trim().toLowerCase();
+    const disabled = String(env && env.SCHOLARMATE_RAG_DISABLED || '').trim().toLowerCase();
+    return mode !== 'off' && disabled !== '1' && disabled !== 'true';
 }
 
 function normalizeBaseURL(baseURL) {
@@ -211,7 +266,7 @@ function validateBaseRequest(body) {
     return null;
 }
 
-function buildTrustedAdvisorContext(body) {
+function buildTrustedAdvisorContext(body, options = {}) {
     const data = loadTrustedData();
     const inventorId = String(body.inventorId || '').trim();
     const patentId = String(body.patentId || '').trim();
@@ -225,16 +280,23 @@ function buildTrustedAdvisorContext(body) {
     if (historyResult.error) return { error: historyResult.error };
 
     const knowledgePatents = data.patents.filter(item => item && item.inventorId === inventorId);
+    const scholarAssets = loadScholarKnowledgeAssets(inventorId);
     return {
         value: {
             inventor,
             patent,
             persona: data.personas[inventorId] || null,
             knowledgePatents,
+            knowledgeIndex: scholarAssets.knowledgeIndex && Object.keys(scholarAssets.knowledgeIndex).length
+                ? scholarAssets.knowledgeIndex
+                : (inventor.knowledgeIndex || {}),
+            paperManifest: scholarAssets.paperManifest || {},
+            collaborationPlaybook: data.collaborationPlaybook,
             project: sanitizeProject(body.project),
             user: sanitizeUser(body.user || {}),
             history: historyResult.value,
-            question: String(body.question || '').trim()
+            question: String(body.question || '').trim(),
+            ragEnabled: options.ragEnabled !== false
         }
     };
 }
@@ -275,7 +337,9 @@ export function createHandler({ env = process.env, fetchImpl = fetch } = {}) {
             return res.status(400).json({ error: validationError });
         }
 
-        const trustedContextResult = buildTrustedAdvisorContext(body);
+        const trustedContextResult = buildTrustedAdvisorContext(body, {
+            ragEnabled: isRagEnabled(env)
+        });
         if (trustedContextResult.error) {
             return res.status(400).json({ error: trustedContextResult.error });
         }

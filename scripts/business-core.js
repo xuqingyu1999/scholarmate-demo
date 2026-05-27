@@ -863,6 +863,13 @@
             }));
     }
 
+    function getAdvisorRagApi() {
+        if (global && global.ScholarMateAdvisorRag && typeof global.ScholarMateAdvisorRag.buildEvidenceContext === 'function') {
+            return global.ScholarMateAdvisorRag;
+        }
+        return null;
+    }
+
     function buildAdvisorContext(context = {}) {
         const inventor = context.inventor || {};
         const patent = context.patent || {};
@@ -881,7 +888,38 @@
             sourceUrl: patent.sourceUrl || patent.pdfUrl || '',
             text: patent.summary || patent.statusNote || ''
         }];
-        const paperEvidence = selectPaperEvidence({ inventor, patent, project, question, intent });
+        const ragApi = getAdvisorRagApi();
+        const advisorEvidenceContext = ragApi
+            ? ragApi.buildEvidenceContext({
+                inventor,
+                patent,
+                knowledgePatents: context.knowledgePatents || [patent],
+                knowledgeIndex: inventor.knowledgeIndex || context.knowledgeIndex || {},
+                paperManifest: context.paperManifest || {},
+                collaborationPlaybook: context.collaborationPlaybook || [],
+                question,
+                ragEnabled: context.ragEnabled
+            })
+            : null;
+        const paperEvidence = advisorEvidenceContext && Array.isArray(advisorEvidenceContext.evidencePackets)
+            ? advisorEvidenceContext.evidencePackets
+                .filter(item => item && /^paper_/.test(item.sourceType || ''))
+                .map(item => ({
+                    paperId: item.id || '',
+                    title: item.title || 'Untitled paper',
+                    year: item.year || '',
+                    sourceType: item.sourceType || 'paper_metadata',
+                    sourceLabel: sourceTypeLabel(item.sourceType || 'paper_metadata'),
+                    downloadStatus: item.sourceType === 'paper_pdf' ? 'downloaded_pdf' : 'metadata_only',
+                    confidence: item.metadataOnly ? 'metadata_only' : 'high',
+                    topicTags: asArray(item.topicTags),
+                    sourceUrl: item.sourceUrl || '',
+                    file: item.sourceFile || '',
+                    page: item.page || null,
+                    text: String(item.snippet || '').slice(0, 700),
+                    score: Number(item.score || 0)
+                }))
+            : selectPaperEvidence({ inventor, patent, project, question, intent });
         const references = patentFacts
             .filter(item => item.sourceUrl || item.title)
             .map(item => ({
@@ -897,7 +935,17 @@
                 sourceUrl: item.sourceUrl,
                 file: item.file || '',
                 page: item.page || null
-            })));
+            })))
+            .concat((advisorEvidenceContext && Array.isArray(advisorEvidenceContext.evidencePackets)
+                ? advisorEvidenceContext.evidencePackets
+                    .filter(item => item && item.sourceType === 'collab_playbook')
+                    .map(item => ({
+                        type: item.sourceType,
+                        label: sourceTypeLabel(item.sourceType),
+                        title: item.title || 'Generic collaboration practice',
+                        sourceUrl: item.sourceUrl || ''
+                    }))
+                : []));
         return {
             scholarId: inventor.id || '',
             scholarName: inventor.name || context.inventorName || '数字学者',
@@ -906,6 +954,7 @@
             activeRules,
             triggeredSkills,
             patentFacts,
+            advisorEvidenceContext,
             paperEvidence,
             references,
             sourceBoundaries: {

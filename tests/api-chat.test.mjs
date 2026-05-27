@@ -153,7 +153,7 @@ function createMockRes() {
         inventorId: 'isjian',
         patentId: '63943642',
         history: [{ role: 'user', content: 'history question' }],
-        question: 'latest question',
+        question: 'university patent recommendation knowledge graph research basis',
         user: { name: 'Alice', companyName: 'Acme' }
       }
     },
@@ -175,11 +175,69 @@ function createMockRes() {
     ['system', 'user'],
     'upstream payload should include only system + latest user question'
   );
-  assert.strictEqual(requestBody.messages[1].content, 'latest question');
+  assert.strictEqual(requestBody.messages[1].content, 'university patent recommendation knowledge graph research basis');
   assert.ok(
     requestBody.messages[0].content.includes('history question'),
     'history should be embedded in system prompt as untrusted transcript only'
   );
+  assert.ok(
+    requestBody.messages[0].content.includes('Retrieved Evidence Packets'),
+    'serverless prompt should include trusted RAG evidence packets rebuilt on the server'
+  );
+  assert.ok(
+    requestBody.messages[0].content.includes('PATENT:63943642'),
+    'serverless prompt should include the current CityU patent citation key'
+  );
+  assert.ok(
+    requestBody.messages[0].content.includes('metadata-only'),
+    'serverless prompt should include metadata-only evidence boundaries'
+  );
+  assert.ok(
+    requestBody.messages[0].content.includes('paper_metadata'),
+    'serverless prompt should include scholar paper metadata when only metadata records are available'
+  );
+}
+
+{
+  const upstreamCalls = [];
+  const handler = createHandler({
+    env: {
+      OPENAI_API_KEY: 'sk-secret-key',
+      OPENAI_BASE_URL: 'https://example.test/v1/',
+      OPENAI_MODEL: 'gpt-test'
+    },
+    fetchImpl: async (url, options) => {
+      upstreamCalls.push({ url, options });
+      return {
+        ok: true,
+        status: 200,
+        statusText: 'OK',
+        async json() {
+          return { choices: [{ message: { content: 'upstream reply' } }] };
+        }
+      };
+    }
+  });
+  const res = createMockRes();
+  await handler(
+    {
+      method: 'POST',
+      body: {
+        inventorId: 'zhao_jianliang_leon',
+        patentId: 'CN114117510B',
+        question: '区块链私钥专利的 research basis 是什么？如果企业只想先做 evaluation license，边界怎么说？'
+      }
+    },
+    res
+  );
+  assert.strictEqual(res.statusCode, 200);
+  const requestBody = JSON.parse(upstreamCalls[0].options.body);
+  const systemPrompt = requestBody.messages[0].content;
+  assert.ok(systemPrompt.includes('Retrieved Evidence Packets'));
+  assert.ok(systemPrompt.includes('PATENT:CN114117510B'));
+  assert.ok(systemPrompt.includes('paper_pdf'), 'Zhao blockchain research questions should include PDF paper evidence');
+  assert.ok(systemPrompt.includes('collab_playbook'), 'licensing questions should include generic collaboration playbook evidence');
+  assert.ok(systemPrompt.includes('not CityU official'), 'playbook evidence should be bounded away from CityU official terms');
 }
 
 {
@@ -201,6 +259,33 @@ function createMockRes() {
     res
   );
   assert.strictEqual(res.statusCode, 413);
+}
+
+{
+  const handler = createHandler({
+    env: {
+      OPENAI_API_KEY: 'sk-secret-key',
+      OPENAI_MODEL: 'gpt-test'
+    },
+    fetchImpl: async () => {
+      throw new Error('should not call upstream when client sends trusted evidence fields directly');
+    }
+  });
+  const res = createMockRes();
+  await handler(
+    {
+      method: 'POST',
+      body: {
+        inventorId: 'isjian',
+        patentId: '63943642',
+        question: 'hello',
+        knowledgePatents: []
+      }
+    },
+    res
+  );
+  assert.strictEqual(res.statusCode, 400);
+  assert.ok(/knowledgePatents/i.test(String(res.payload.error || '')));
 }
 
 {
