@@ -78,6 +78,40 @@
                         <button class="btn btn--outline btn--sm chat-history-toggle" type="button" onclick="toggleChatSidebar()">会话</button>
                     </div>
 
+                    <div class="chat-context-panel" aria-label="数字学者资料源与知识边界">
+                        <details class="chat-context-card chat-sources-panel">
+                            <summary>
+                                <span>资料源</span>
+                                <a href="patent-detail.html" id="chatSourceDetailLink">当前专利</a>
+                            </summary>
+                            <div class="chat-source-list" id="chatSourceList"></div>
+                        </details>
+
+                        <details class="chat-context-card chat-boundary-panel">
+                            <summary>
+                                <span>可信边界</span>
+                            </summary>
+                            <div class="chat-boundary-grid" id="chatBoundaryPanel"></div>
+                        </details>
+
+                        <details class="chat-context-card chat-quick-questions">
+                            <summary>
+                                <span>建议提问</span>
+                            </summary>
+                            <div class="chat-quick-questions__list">
+                                <button class="chat-quick-question" onclick="sendQuickQuestion('请基于专利证据说明这项技术的核心优势。')">
+                                    基于专利证据说明核心优势
+                                </button>
+                                <button class="chat-quick-question" onclick="sendQuickQuestion('这项技术落地时最需要验证哪些条件？')">
+                                    落地时最需要验证哪些条件？
+                                </button>
+                                <button class="chat-quick-question" onclick="sendQuickQuestion('哪些问题属于公开材料无法回答的范围？')">
+                                    哪些问题超出公开材料？
+                                </button>
+                            </div>
+                        </details>
+                    </div>
+
                     <div class="chat-messages" id="chatMessages">
                         <!-- AI 欢迎消息 -->
                         <div class="chat-message chat-message--ai">
@@ -113,38 +147,6 @@
                     </div>
                 </div>
 
-                <!-- 右侧：资料源与可信边界 -->
-                <aside class="chat-right-panel" aria-label="数字学者资料源与知识边界">
-                    <section class="chat-trust-card chat-sources-panel">
-                        <div class="chat-trust-card__header">
-                            <span>资料源</span>
-                            <a href="patent-detail.html" id="chatSourceDetailLink">当前专利</a>
-                        </div>
-                        <div class="chat-source-list" id="chatSourceList"></div>
-                    </section>
-
-                    <section class="chat-trust-card chat-boundary-panel">
-                        <div class="chat-trust-card__header">
-                            <span>可信边界</span>
-                        </div>
-                        <div class="chat-boundary-grid" id="chatBoundaryPanel"></div>
-                    </section>
-
-                    <section class="chat-trust-card chat-quick-questions">
-                        <div class="chat-quick-questions__title">建议提问</div>
-                        <div class="chat-quick-questions__list">
-                            <button class="chat-quick-question" onclick="sendQuickQuestion('请基于专利证据说明这项技术的核心优势。')">
-                                基于专利证据说明核心优势
-                            </button>
-                            <button class="chat-quick-question" onclick="sendQuickQuestion('这项技术落地时最需要验证哪些条件？')">
-                                落地时最需要验证哪些条件？
-                            </button>
-                            <button class="chat-quick-question" onclick="sendQuickQuestion('哪些问题属于公开材料无法回答的范围？')">
-                                哪些问题超出公开材料？
-                            </button>
-                        </div>
-                    </section>
-                </aside>
             </div>
         </div>
     </main>
@@ -580,7 +582,7 @@
                     }
                 </div>
                 <div>
-                    <div class="chat-message__content">${ScholarMate.formatMessage(visibleContent)}</div>
+                    <div class="chat-message__content">${isAI ? ScholarMate.formatAssistantMessage(visibleContent) : ScholarMate.formatMessage(visibleContent)}</div>
                     <div class="chat-message__time">${ScholarMate.escapeHtml(time)}</div>
                     ${isAI && evidenceItems.length ? renderEvidenceCard(evidenceItems) : ''}
                 </div>
@@ -637,7 +639,7 @@
 
         function autoResize(textarea) {
             textarea.style.height = 'auto';
-            textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+            textarea.style.height = Math.min(textarea.scrollHeight, 220) + 'px';
         }
 
         document.addEventListener('DOMContentLoaded', initChat);

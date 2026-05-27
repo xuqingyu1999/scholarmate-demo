@@ -130,6 +130,20 @@ assert.ok(
   'history should only be embedded inside untrusted system transcript'
 );
 assert.strictEqual(safeAdvisorMessages[1].content, 'latest question');
+assert.ok(
+  safeAdvisorMessages[0].content.includes('Professor-style answer contract'),
+  'advisor prompt should include an explicit professor-style answer contract'
+);
+for (const heading of ['核心判断', '依据', '适用条件', '风险边界', '下一步建议']) {
+  assert.ok(
+    safeAdvisorMessages[0].content.includes(heading),
+    `advisor prompt should require the ${heading} section`
+  );
+}
+assert.ok(
+  safeAdvisorMessages[0].content.includes('Answer in Simplified Chinese'),
+  'advisor prompt should explicitly require Simplified Chinese answers'
+);
 
 const reply = await LlmClient.sendAdvisorChat({
   inventor,

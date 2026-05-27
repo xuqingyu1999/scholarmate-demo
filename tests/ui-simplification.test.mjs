@@ -37,13 +37,19 @@ for (const marker of removedChatChrome) {
   );
 }
 
-for (const marker of ['chat-sources-panel', 'chat-boundary-panel', 'chat-right-panel']) {
+for (const marker of ['chat-sources-panel', 'chat-boundary-panel', 'chat-context-panel']) {
   assert.equal(
     chatHtml.includes(marker),
     true,
-    `chat.html should include NotebookLM-style trust panel: ${marker}`
+    `chat.html should include in-chat trust context: ${marker}`
   );
 }
+
+assert.equal(
+  chatHtml.includes('<aside class="chat-right-panel"'),
+  false,
+  'chat.html should not keep the old permanent right-side trust column'
+);
 
 assert.match(chatHtml, /renderEvidenceCard/, 'chat evidence rendering should remain available');
 assert.match(chatHtml, /sendLocalFallbackForLastQuestion/, 'local demo fallback should remain available');

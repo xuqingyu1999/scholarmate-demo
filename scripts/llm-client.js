@@ -269,6 +269,23 @@
         return scoped;
     }
 
+    function composeAnswerStylePrompt() {
+        return [
+            '## Professor-style answer contract',
+            'Answer in Simplified Chinese as a CityU professor-style digital scholar, not as a generic sales consultant.',
+            'Use lightweight Markdown. Use exactly these bold section headings, in this order:',
+            '**核心判断**',
+            '**依据**',
+            '**适用条件**',
+            '**风险边界**',
+            '**下一步建议**',
+            'Put the conclusion first. Keep paragraphs compact and use bullet lists only when they improve scanning.',
+            'Do not invent undisclosed patent sections, experimental results, licensing terms, legal conclusions, or non-public CityU commitments.',
+            'If evidence is weak or metadata-only, say so plainly in the relevant section.',
+            'If Layer 1 patent evidence is used, append the evidence marker after the final section and put nothing after the marker.'
+        ].join('\n');
+    }
+
     function composeSystemPrompt(context) {
         const ctx = context || {};
         const inventor = ctx.inventor || {};
@@ -311,6 +328,7 @@
         ].join('\n');
         return [
             basePrompt,
+            composeAnswerStylePrompt(),
             composePersonaPrompt(persona, inventor),
             composeKnowledgeBoundaryPrompt({
                 persona,

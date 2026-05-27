@@ -77,7 +77,7 @@ assert.strictEqual(BusinessCore.isEnterpriseVerified(verifiedUser), true);
 
 const memberUser = BusinessCore.activateMembership(verifiedUser, 'professional');
 assert.strictEqual(memberUser.membership.projectLimit, 8);
-assert.strictEqual(memberUser.membership.dailyTokenLimit, 500);
+assert.strictEqual(memberUser.membership.dailyTokenLimit, 1000);
 assert.strictEqual(BusinessCore.canCreateDemandProject(memberUser, Array(8).fill({})).allowed, false);
 assert.strictEqual(BusinessCore.canCreateDemandProject(memberUser, Array(7).fill({})).allowed, true);
 

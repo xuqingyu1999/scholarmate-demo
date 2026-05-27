@@ -18,7 +18,7 @@
             name: '专业版',
             price: '¥299/年',
             projectLimit: 8,
-            dailyTokenLimit: 500,
+            dailyTokenLimit: 1000,
             advisorSeatLimit: 10,
             maxInventors: 10,
             licenseDiscount: '资料许可 9 折',
@@ -29,7 +29,7 @@
             name: '企业版',
             price: '¥799/年',
             projectLimit: 30,
-            dailyTokenLimit: 2000,
+            dailyTokenLimit: 5000,
             advisorSeatLimit: Infinity,
             maxInventors: Infinity,
             licenseDiscount: '资料许可 8 折',
@@ -968,33 +968,40 @@
         const patent = context.patent || {};
         const inventor = context.inventor || {};
         const advisorContext = context.advisorContext || buildAdvisorContext(context);
-        const question = advisorContext.question || context.question || '这项专利适合我们吗？';
-        const inventorName = context.inventorName || inventor.name || advisorContext.scholarName || '数字学者';
-        const projectTitle = project.title || '当前技术需求';
-        const industry = project.industry || patent.industry || '目标行业';
-        const stage = project.stage || '评估阶段';
-        const patentTitle = patent.title || '这项专利';
-        const expertise = Array.isArray(inventor.expertise) && inventor.expertise.length
-            ? `我的公开研究/专利背景覆盖${inventor.expertise.slice(0, 4).join('、')}。`
-            : '';
-        const skillHint = advisorContext.triggeredSkills.length
-            ? `本轮我会按${advisorContext.triggeredSkills.slice(0, 4).map(skill => skill.name || skill.id).join('、')}来处理，并让风险护栏先挡住过度承诺。`
-            : '本轮我会先核对当前专利事实，再给出保守建议。';
+        const question = advisorContext.question || context.question || '\u8fd9\u9879\u4e13\u5229\u9002\u5408\u6211\u4eec\u5417\uff1f';
+        const inventorName = context.inventorName || inventor.name || advisorContext.scholarName || '\u6570\u5b57\u5b66\u8005';
+        const projectTitle = project.title || '\u5f53\u524d\u6280\u672f\u9700\u6c42';
+        const industry = project.industry || patent.industry || patent.field || '\u76ee\u6807\u573a\u666f';
+        const stage = project.stage || '\u8bc4\u4f30\u9636\u6bb5';
+        const patentTitle = patent.title || '\u8fd9\u9879\u4e13\u5229';
+        const summary = patent.summary ? String(patent.summary).slice(0, 180) : '\u5f53\u524d\u53ea\u6709\u516c\u5f00\u5143\u6570\u636e\u6216\u6458\u8981\u53ef\u7528\uff0c\u9700\u8981\u7ee7\u7eed\u6838\u5bf9\u539f\u6587\u8bc1\u636e\u3002';
         const paperHint = summarizePaperEvidence(advisorContext.paperEvidence || []);
         const references = summarizeReferences(advisorContext.references || []);
         const isLegalRisk = advisorContext.intent && advisorContext.intent.id === 'legal_risk';
-        const summary = patent.summary ? `当前公开摘要显示：${String(patent.summary).slice(0, 180)}。` : '';
+        const riskBoundary = isLegalRisk
+            ? '\u6211\u4e0d\u80fd\u76f4\u63a5\u5224\u65ad\u662f\u5426\u4fb5\u6743\u3001\u662f\u5426\u4e00\u5b9a\u6709\u6548\u6216\u662f\u5426\u53ef\u4ee5\u81ea\u7531\u5b9e\u65bd\uff1b\u8fd9\u9700\u8981\u7ed3\u5408\u6743\u5229\u8981\u6c42\u3001\u5730\u57df\u3001\u671f\u9650\u3001\u73b0\u6709\u6280\u672f\u548c\u5f8b\u5e08\u68c0\u7d22\u610f\u89c1\u505a\u6b63\u5f0f FTO/\u6cd5\u5f8b\u8bc4\u4f30\u3002'
+            : '\u5f53\u524d\u56de\u7b54\u53ea\u57fa\u4e8e\u516c\u5f00\u4e13\u5229\u3001\u516c\u5f00\u5b66\u8005\u8d44\u6599\u548c\u9886\u57df\u5e38\u8bc6\uff1b\u4e0d\u80fd\u66ff\u4ee3\u6b63\u5f0f\u6cd5\u5f8b\u610f\u89c1\u3001CityU \u5b98\u65b9\u6388\u6743\u627f\u8bfa\u3001\u672a\u516c\u5f00\u5b9e\u9a8c\u6570\u636e\u6216\u5546\u4e1a\u6761\u6b3e\u3002';
 
         return [
-            `我是${inventorName}的数字学者代理。结合“${projectTitle}”这个需求，我会用企业能理解的方式回答：${question}`,
-            `${expertise}${skillHint}`,
-            `从当前专利看，“${patentTitle}”应先放在${industry}场景里做${stage}验证。它的价值不是单纯说“技术先进”，而是看能否缩短你们从评估、试点到落地的路径。${summary}`,
-            paperHint,
-            isLegalRisk
-                ? '风险边界上，我不能直接判断是否侵权、是否一定有效或是否可以自由实施；这需要结合权利要求、地域、期限、现有技术和律师检索意见做正式 FTO/法律评估。'
-                : '建议重点核验三件事：第一，现有数据、设备或业务系统能否接入；第二，预算是否覆盖二次适配和试点；第三，内部是否有业务部门愿意参与验证。论文背景可以增强技术理解，但不能等同于专利许可、产品承诺或商业结果。',
-            `${references} 如果这些条件基本成立，下一步可以提交交易意向，让平台把需求、专利资料和后续顾问沟通串起来。`
-        ].join('\n\n');
+            '**\u6838\u5fc3\u5224\u65ad**',
+            `\u6211\u662f${inventorName}\u7684\u6570\u5b57\u5b66\u8005\u4ee3\u7406\u3002\u7ed3\u5408\u201c${projectTitle}\u201d\u8fd9\u4e2a\u9700\u6c42\uff0c\u6211\u4f1a\u7528\u4f01\u4e1a\u80fd\u7406\u89e3\u7684\u65b9\u5f0f\u5148\u7ed9\u7ed3\u8bba\uff1a${patentTitle}\u53ef\u4ee5\u8fdb\u5165${industry}\u7684${stage}\u9a8c\u8bc1\uff0c\u4f46\u662f\u5426\u503c\u5f97\u7ee7\u7eed\u63a8\u8fdb\uff0c\u8981\u770b\u6570\u636e/\u7cfb\u7edf\u63a5\u5165\u3001\u8bd5\u70b9\u6210\u672c\u548c\u4e1a\u52a1\u90e8\u95e8\u914d\u5408\u5ea6\u3002`,
+            '',
+            '**\u4f9d\u636e**',
+            `- \u5f53\u524d\u95ee\u9898\uff1a${question}`,
+            `- \u5f53\u524d\u4e13\u5229\uff1a${summary}`,
+            `- \u5b66\u8005\u4e0e\u8bba\u6587\u80cc\u666f\uff1a${paperHint}`,
+            '',
+            '**\u9002\u7528\u6761\u4ef6**',
+            `- \u4e1a\u52a1\u573a\u666f\u8981\u548c${patent.field || patent.industry || '\u4e13\u5229\u516c\u5f00\u6280\u672f\u9886\u57df'}\u5339\u914d\u3002`,
+            '- \u4f01\u4e1a\u4fa7\u8981\u80fd\u63d0\u4f9b\u8bd5\u70b9\u6570\u636e\u3001\u63a5\u53e3\u6216\u771f\u5b9e\u6d41\u7a0b\u6837\u672c\u3002',
+            '- \u9884\u7b97\u8981\u8986\u76d6\u4e8c\u6b21\u9002\u914d\u3001\u9a8c\u8bc1\u548c\u5185\u90e8\u534f\u540c\uff0c\u800c\u4e0d\u53ea\u662f\u8d2d\u4e70\u8d44\u6599\u3002',
+            '',
+            '**\u98ce\u9669\u8fb9\u754c**',
+            riskBoundary,
+            '',
+            '**\u4e0b\u4e00\u6b65\u5efa\u8bae**',
+            `${references} \u5982\u679c\u8fd9\u4e9b\u6761\u4ef6\u57fa\u672c\u6210\u7acb\uff0c\u4e0b\u4e00\u6b65\u53ef\u4ee5\u63d0\u4ea4\u4ea4\u6613\u610f\u5411\uff0c\u8ba9\u5e73\u53f0\u628a\u9700\u6c42\u3001\u4e13\u5229\u8d44\u6599\u548c\u540e\u7eed\u987e\u95ee\u6c9f\u901a\u4e32\u8d77\u6765\uff1b\u5982\u679c\u6761\u4ef6\u8fd8\u4e0d\u6e05\u695a\uff0c\u5148\u628a\u8bd5\u70b9\u573a\u666f\u3001\u6570\u636e\u6765\u6e90\u548c\u9a8c\u6536\u6307\u6807\u8865\u9f50\u3002`
+        ].join('\\n');
     }
 
     global.ScholarMateBusinessCore = {

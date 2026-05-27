@@ -1013,6 +1013,58 @@ const ScholarMate = {
 
     formatMessage(value) {
         return this.escapeHtml(value).replace(/\n/g, '<br>');
+    },
+
+    formatAssistantMessage(value) {
+        const inline = text => String(text || '')
+            .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
+        const lines = this.escapeHtml(value).replace(/\r\n?/g, '\n').split('\n');
+        const html = [];
+        let listType = '';
+        let paragraph = [];
+
+        const closeList = () => {
+            if (!listType) return;
+            html.push(`</${listType}>`);
+            listType = '';
+        };
+        const flushParagraph = () => {
+            if (!paragraph.length) return;
+            html.push(`<p>${paragraph.map(inline).join('<br>')}</p>`);
+            paragraph = [];
+        };
+        const openList = type => {
+            flushParagraph();
+            if (listType === type) return;
+            closeList();
+            listType = type;
+            html.push(`<${type}>`);
+        };
+
+        lines.forEach(line => {
+            const bullet = line.match(/^\s*[-*]\s+(.+)$/);
+            const ordered = line.match(/^\s*\d+[.)]\s+(.+)$/);
+            if (!line.trim()) {
+                flushParagraph();
+                closeList();
+                return;
+            }
+            if (bullet) {
+                openList('ul');
+                html.push(`<li>${inline(bullet[1])}</li>`);
+                return;
+            }
+            if (ordered) {
+                openList('ol');
+                html.push(`<li>${inline(ordered[1])}</li>`);
+                return;
+            }
+            closeList();
+            paragraph.push(line);
+        });
+        flushParagraph();
+        closeList();
+        return html.join('');
     }
 };
 

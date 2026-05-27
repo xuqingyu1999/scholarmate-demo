@@ -11,8 +11,11 @@ const BusinessCore = sandbox.ScholarMateBusinessCore;
 
 assert.strictEqual(BusinessCore.MEMBERSHIP_PLANS.free.advisorSeatLimit, 0);
 assert.strictEqual(BusinessCore.MEMBERSHIP_PLANS.free.maxInventors, 0);
+assert.strictEqual(BusinessCore.MEMBERSHIP_PLANS.free.dailyTokenLimit, 100);
 assert.strictEqual(BusinessCore.MEMBERSHIP_PLANS.professional.advisorSeatLimit, 10);
+assert.strictEqual(BusinessCore.MEMBERSHIP_PLANS.professional.dailyTokenLimit, 1000);
 assert.strictEqual(BusinessCore.MEMBERSHIP_PLANS.enterprise.advisorSeatLimit, Infinity);
+assert.strictEqual(BusinessCore.MEMBERSHIP_PLANS.enterprise.dailyTokenLimit, 5000);
 assert.strictEqual(BusinessCore.getAdvisorSeatLimit({ level: 'free', maxInventors: 3 }), 0);
 assert.strictEqual(BusinessCore.getAdvisorSeatLimit({ level: 'professional', maxInventors: 3 }), 3);
 assert.strictEqual(BusinessCore.getAdvisorSeatLimit({ level: 'enterprise', advisorSeatLimit: null, maxInventors: null }), Infinity);
