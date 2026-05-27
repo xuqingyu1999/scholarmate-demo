@@ -164,6 +164,26 @@ assert.ok(Array.isArray(payload.history), 'frontend payload may send sanitized h
 assert.ok(payload.user && payload.user.name === 'Alice' && payload.user.companyName === 'Acme', 'frontend payload should keep only sanitized user fields');
 assert.ok(!('phone' in (payload.user || {})), 'frontend payload should not include extra user secrets');
 
+requests.length = 0;
+await LlmClient.sendAdvisorChat({
+  inventorId: 'isjian',
+  patentId: '63943642',
+  history: [
+    { role: 'assistant', content: `${'assistant reply '.repeat(90)}\n\u3010\u4f9d\u636e\u301163943642` },
+    { role: 'user', content: 'follow-up context '.repeat(80) }
+  ],
+  question: 'second question'
+});
+const longHistoryPayload = JSON.parse(requests[0].options.body);
+assert.ok(
+  longHistoryPayload.history.every(item => item.content.length <= 1000),
+  'frontend should clamp each history turn to the server history limit before sending follow-up requests'
+);
+assert.ok(
+  !longHistoryPayload.history[0].content.includes(ZH_MARKER_EXAMPLE.slice(0, 4)),
+  'assistant history should still remove trailing evidence markers before truncation'
+);
+
 LlmClient.clearConfig();
 assert.strictEqual(LlmClient.getConfig().provider, 'serverless-openai-compatible');
 assert.strictEqual(sessionStore.size, 0);
@@ -176,5 +196,32 @@ await LlmClient.sendAdvisorChat({
   question: 'another question'
 });
 assert.strictEqual(requests[0].options.headers['x-scholar-mate-chat-token'], 'meta-token-456', 'client should read token from meta tag when window token missing');
+
+sandbox.fetch = async () => ({
+  ok: false,
+  status: 400,
+  statusText: 'Bad Request',
+  async json() {
+    return { error: 'history content too long (max 1000)' };
+  }
+});
+
+let rejectedError = null;
+try {
+  await LlmClient.sendAdvisorChat({
+    inventorId: 'isjian',
+    patentId: '63943642',
+    history: [{ role: 'user', content: 'hello' }],
+    question: 'bad request case'
+  });
+} catch (error) {
+  rejectedError = error;
+}
+assert.ok(rejectedError, 'client should reject non-OK serverless chat responses');
+assert.strictEqual(
+  LlmClient.safeErrorMessage(rejectedError),
+  'Request details need adjustment.',
+  '400 validation errors should not be presented as model service outages'
+);
 
 console.log('llm-client tests passed');

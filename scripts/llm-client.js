@@ -11,6 +11,7 @@
         provider: 'serverless-openai-compatible',
         model: 'serverless'
     });
+    const MAX_HISTORY_CONTENT_CHARS = 1000;
     const EVIDENCE_MARKER_REGEX = /\s*\u3010\u4f9d\u636e\u3011\s*[A-Za-z0-9_,\uFF0C\u3001\-\s]+$/;
 
     function getConfig() {
@@ -46,6 +47,9 @@
         }
         if (/format invalid|choices|message\.content/i.test(message)) {
             return 'Model response format invalid.';
+        }
+        if (/LLM request rejected|LLM request failed 4\d\d|history content too long|question too long|required|unknown inventorId|unknown patentId|mismatch|json object|body too large/i.test(message)) {
+            return 'Request details need adjustment.';
         }
         if (/LLM request failed|upstream/i.test(message)) {
             return 'Model service temporarily unavailable.';
@@ -89,7 +93,11 @@
 
         if (!response.ok) {
             const status = Number(response.status || 500);
-            throw new Error(`LLM request failed ${status}`);
+            const serverError = parsedPayload && (parsedPayload.error || parsedPayload.detail)
+                ? `: ${parsedPayload.error || parsedPayload.detail}`
+                : '';
+            const prefix = status >= 400 && status < 500 ? 'LLM request rejected' : 'LLM request failed';
+            throw new Error(`${prefix} ${status}${serverError}`);
         }
 
         return parseServerlessPayload(parsedPayload);
@@ -119,14 +127,21 @@
         return '';
     }
 
+    function clampHistoryContent(content) {
+        const text = String(content || '').trim();
+        if (text.length <= MAX_HISTORY_CONTENT_CHARS) return text;
+        return `${text.slice(0, MAX_HISTORY_CONTENT_CHARS - 3).trimEnd()}...`;
+    }
+
     function sanitizeTranscriptHistory(history) {
         return (Array.isArray(history) ? history : [])
             .slice(-12)
             .map(item => {
                 const role = normalizeTranscriptRole(item && item.role);
-                const content = role === 'assistant'
+                const rawContent = role === 'assistant'
                     ? stripTrailingEvidenceMarker(item && item.content)
                     : String(item && item.content || '').trim();
+                const content = clampHistoryContent(rawContent);
                 return role && content ? { role, content } : null;
             })
             .filter(Boolean);
