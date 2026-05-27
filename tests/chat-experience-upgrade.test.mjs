@@ -7,6 +7,18 @@ const businessSource = fs.readFileSync(new URL('../scripts/business-core.js', im
 const chatHtml = fs.readFileSync(new URL('../chat.html', import.meta.url), 'utf8');
 const styles = fs.readFileSync(new URL('../styles/main.css', import.meta.url), 'utf8');
 const membershipHtml = fs.readFileSync(new URL('../membership.html', import.meta.url), 'utf8');
+const normalizedStyles = styles.replace(/\r\n/g, '\n');
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function cssRule(selector) {
+  const pattern = new RegExp(`(?:^|\\n)${escapeRegExp(selector)}\\s*\\{([\\s\\S]*?)\\n\\}`, 'm');
+  const match = normalizedStyles.match(pattern);
+  assert.ok(match, `missing CSS rule for ${selector}`);
+  return match[1];
+}
 
 const mainSandbox = {
   console,
@@ -69,6 +81,48 @@ assert.ok(!styles.includes('grid-template-columns: 260px minmax(0, 1fr) 300px'),
 assert.ok(styles.includes('min-height: 72px'), 'composer should start larger than a single-line input');
 assert.ok(styles.includes('max-height: 220px'), 'composer should expand up to about 220px');
 assert.ok(chatHtml.includes('Math.min(textarea.scrollHeight, 220)'), 'auto resize should match the 220px composer cap');
+
+const chatPageRule = cssRule('body.chat-page');
+assert.ok(chatPageRule.includes('height: 100dvh'), 'chat page body should be locked to the dynamic viewport height');
+assert.ok(chatPageRule.includes('overflow: hidden'), 'chat page body should not become the primary scroll container');
+
+const chatPageMainRule = cssRule('body.chat-page main');
+assert.ok(chatPageMainRule.includes('height: calc(100dvh -'), 'chat main should fill the viewport below the navbar');
+assert.ok(chatPageMainRule.includes('overflow: hidden'), 'chat main should keep overflow inside the shell');
+
+const shellContainerRule = cssRule('.chat-shell-container');
+assert.ok(shellContainerRule.includes('height: 100%'), 'chat shell container should continue the fixed-height chain');
+assert.ok(shellContainerRule.includes('min-height: 0'), 'chat shell container should allow nested scroll children to shrink');
+assert.ok(chatHtml.includes('class="container chat-shell-container"'), 'chat.html should mark the chat container as the shell container');
+
+const chatLayoutRule = cssRule('.chat-layout');
+assert.ok(chatLayoutRule.includes('height: 100%'), 'chat layout should fill the shell container');
+assert.ok(chatLayoutRule.includes('min-height: 0'), 'chat layout should allow the message pane to own scrolling');
+assert.ok(chatLayoutRule.includes('overflow: hidden'), 'chat layout should prevent whole-page scroll growth');
+
+const chatMainRule = cssRule('.chat-main');
+assert.ok(chatMainRule.includes('height: 100%'), 'chat main should fill the layout height');
+assert.ok(chatMainRule.includes('min-height: 0'), 'chat main should allow chat messages to shrink');
+assert.ok(chatMainRule.includes('overflow: hidden'), 'chat main should keep header/context/input fixed in the shell');
+assert.ok(
+  normalizedStyles.includes('.chat-header,\n.chat-context-panel,\n.chat-input-area {\n    flex: 0 0 auto;'),
+  'chat header, context panel, and input area should keep fixed shell slots'
+);
+
+const chatMessagesRule = cssRule('.chat-messages');
+assert.ok(chatMessagesRule.includes('min-height: 0'), 'chat messages should be allowed to shrink inside the flex column');
+assert.ok(chatMessagesRule.includes('overflow-y: auto'), 'chat messages should be the vertical scroll container');
+assert.ok(chatMessagesRule.includes('scrollbar-gutter: stable'), 'chat messages should reserve space for the internal scrollbar');
+assert.ok(chatMessagesRule.includes('scrollbar-width: thin'), 'chat messages should use a thin internal scrollbar');
+
+const contextIndex = chatHtml.indexOf('class="chat-context-panel"');
+const messagesIndex = chatHtml.indexOf('class="chat-messages"');
+const inputIndex = chatHtml.indexOf('class="chat-input-area"');
+assert.ok(contextIndex > -1 && messagesIndex > -1 && inputIndex > -1, 'chat shell regions should exist');
+assert.ok(contextIndex < messagesIndex, 'context panel should sit above the message scroll area');
+assert.ok(messagesIndex < inputIndex, 'input area should remain below the message scroll area inside chat-main');
+assert.ok(!normalizedStyles.includes('body.chat-page .chat-input-area {\n        position: sticky;'), 'mobile chat input should not use a page-level sticky overlay');
+assert.ok(!normalizedStyles.includes('body.mobile-preview-mode.chat-page .chat-input-area {\n    position: fixed;'), 'mobile preview chat input should not use a page-level fixed overlay');
 
 const businessSandbox = { console };
 vm.createContext(businessSandbox);
