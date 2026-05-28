@@ -10,6 +10,22 @@
     "cnTopicTags": ["许可", "评估许可", "选择权", "独占许可", "非独占许可", "合作"],
     "cnSummary": "常见高校技术转移实践可以先用短期选择权或评估许可降低双方不确定性，再讨论长期独占或非独占商业许可。",
     "cnSnippet": "先设定有期限的评估许可或选择权，明确评估材料和里程碑，达到条件后再谈商业许可条款。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Beijing S&T Achievement Transformation FAQ Manual 2024",
+        "url": "https://www.beijing.gov.cn/ywdt/gzdt/202411/P020241202584173529020.pdf",
+        "reason": "Practical mainland FAQ source for staged transformation, licensing, and transaction-path questions."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Peking University Technology Transfer and Licensing Management Measures",
+        "url": "https://kjkfb.pku.edu.cn/beijingdaxuejishuzhuanranghexukeguanlibanfa.pdf",
+        "reason": "University-level mainland reference for technology transfer and licensing governance."
+      }
+    ],
     "sourceUrls": [
       "https://otl.stanford.edu/industry/licensing-process",
       "https://comotion.uw.edu/licensing/licensing-faqs/"
@@ -26,6 +42,22 @@
     "cnTopicTags": ["知识产权", "背景IP", "前景IP", "所有权", "使用权"],
     "cnSummary": "高校产学研合作通常要区分项目开始前已有的背景知识产权和项目中产生的前景知识产权。",
     "cnSnippet": "项目开始时列明各方背景IP，并约定项目产生的前景IP归属、使用权或许可安排，避免暗示自动转让。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Pilot plan on granting researchers ownership or long-term use rights for service inventions",
+        "url": "https://www.gov.cn/zhengce/zhengceku/2020-05/19/content_5512908.htm",
+        "reason": "Central mainland policy source for ownership/use-right framing in S&T achievement transformation."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Peking University Technology Transfer and Licensing Management Measures",
+        "url": "https://kjkfb.pku.edu.cn/beijingdaxuejishuzhuanranghexukeguanlibanfa.pdf",
+        "reason": "University-level mainland reference for technology transfer ownership and licensing governance."
+      }
+    ],
     "sourceUrls": [
       "https://ipira.berkeley.edu/industry/standard-agreements",
       "https://partnerships.ncsu.edu/common-negotiation-areas/"
@@ -42,6 +74,22 @@
     "cnTopicTags": ["保密", "NDA", "CDA", "发表", "出版审查", "审查窗口"],
     "cnSummary": "常见做法是在保护保密信息的同时，保留有边界的学术发表审查窗口。",
     "cnSnippet": "明确保密范围和材料标识，设置发表前审查窗口，用于移除保密信息或先申请保护。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Beijing S&T Achievement Transformation FAQ Manual 2024",
+        "url": "https://www.beijing.gov.cn/ywdt/gzdt/202411/P020241202584173529020.pdf",
+        "reason": "Mainland practical FAQ source for confidentiality and transaction-process discussions."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Shanghai University S&T Achievement Transformation Workflow Rules",
+        "url": "https://kyglb.shu.edu.cn/info/1074/1801.htm",
+        "reason": "Mainland university workflow reference for transformation-process governance."
+      }
+    ],
     "sourceUrls": [
       "https://nda.mit.edu/index.html",
       "https://otl.stanford.edu/industrial-contracts-office-ico"
@@ -58,6 +106,22 @@
     "cnTopicTags": ["使用领域", "地域", "独占许可", "非独占许可", "勤勉义务"],
     "cnSummary": "独占权利通常会按使用领域、地域、期限和商业化勤勉义务加以限定。",
     "cnSnippet": "明确使用领域、地域、期限、再许可权、勤勉里程碑和未推进商业化时的回转机制。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Peking University Technology Transfer and Licensing Management Measures",
+        "url": "https://kjkfb.pku.edu.cn/beijingdaxuejishuzhuanranghexukeguanlibanfa.pdf",
+        "reason": "University-level mainland reference for technology transfer and licensing-scope governance."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Beijing S&T Achievement Transformation FAQ Manual 2024",
+        "url": "https://www.beijing.gov.cn/ywdt/gzdt/202411/P020241202584173529020.pdf",
+        "reason": "Practical mainland FAQ source for transaction paths and commercialization terms."
+      }
+    ],
     "sourceUrls": [
       "https://otl.stanford.edu/industry/licensing-process",
       "https://www.techtransfer.nih.gov/partnerships/licensing-faqs"
@@ -74,6 +138,22 @@
     "cnTopicTags": ["费用", "版税", "里程碑付款", "股权", "专利费用"],
     "cnSummary": "高校许可费用可能包含多种组成，但具体费率和版税通常取决于机构和谈判。",
     "cnSnippet": "可以讨论预付款、持续版税、专利费用报销、里程碑付款、最低年费或股权等组成，但不要给出保证费率。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Beijing S&T Achievement Transformation FAQ Manual 2024",
+        "url": "https://www.beijing.gov.cn/ywdt/gzdt/202411/P020241202584173529020.pdf",
+        "reason": "Mainland practical FAQ source for pricing, transaction, and transformation-process questions."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Policy on ownership or long-term use-right pilots for service S&T achievements",
+        "url": "https://www.gov.cn/zhengce/zhengceku/2020-05/19/content_5512908.htm",
+        "reason": "Central mainland policy context for benefit allocation and transformation incentives."
+      }
+    ],
     "sourceUrls": [
       "https://comotion.uw.edu/licensing/licensing-faqs/",
       "https://www.techtransfer.nih.gov/partnerships/licensing-faqs"
@@ -90,6 +170,22 @@
     "cnTopicTags": ["赞助研究", "SRA", "研究范围", "交付物", "预算", "合作协议"],
     "cnSummary": "如果企业资助新研究而不是只许可已有IP，通常需要通过赞助研究合同处理。",
     "cnSnippet": "先区分是许可已有专利、赞助新研究，还是两者都有；SRA 处理研究范围、交付物、预算、发表和IP选项。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Shanghai University S&T Achievement Transformation Workflow Rules",
+        "url": "https://kyglb.shu.edu.cn/info/1074/1801.htm",
+        "reason": "Mainland university reference for transformation workflow and project routing."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Beijing S&T Achievement Transformation FAQ Manual 2024",
+        "url": "https://www.beijing.gov.cn/ywdt/gzdt/202411/P020241202584173529020.pdf",
+        "reason": "Practical mainland FAQ source for distinguishing transformation transaction paths."
+      }
+    ],
     "sourceUrls": [
       "https://otl.stanford.edu/industrial-contracts-office-ico",
       "https://ipira.berkeley.edu/industry/standard-agreements"
@@ -106,6 +202,22 @@
     "cnTopicTags": ["治理", "里程碑", "联合指导委员会", "升级路径", "项目节奏"],
     "cnSummary": "联合治理会议和里程碑门槛常用于同步研究进展和商业化决策。",
     "cnSnippet": "设置定期治理会议、技术和业务负责人、升级路径和客观里程碑，用于决定继续、调整或停止。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Shanghai University S&T Achievement Transformation Workflow Rules",
+        "url": "https://kyglb.shu.edu.cn/info/1074/1801.htm",
+        "reason": "Mainland university workflow source for staged approvals and governance."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Shanghai Jiao Tong University S&T Achievement Transformation Overview",
+        "url": "https://www.physics.sjtu.edu.cn/qtgl/5496.html",
+        "reason": "Mainland university practice source for institutional transformation process framing."
+      }
+    ],
     "sourceUrls": [
       "https://partnerships.ncsu.edu/common-negotiation-areas/",
       "https://otl.stanford.edu/industrial-contracts-office-ico"
@@ -122,6 +234,22 @@
     "cnTopicTags": ["数据权利", "模型训练", "隐私", "安全", "留存", "删除"],
     "cnSummary": "数据权利通常要区分访问权、使用权、留存、模型训练权和再分发限制。",
     "cnSnippet": "明确数据是否可复制、留存、用于模型训练、合并其他数据或再分发，并加入隐私、安全和删除义务。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Beijing S&T Achievement Transformation FAQ Manual 2024",
+        "url": "https://www.beijing.gov.cn/ywdt/gzdt/202411/P020241202584173529020.pdf",
+        "reason": "Practical mainland FAQ source for collaboration-process questions involving data and materials."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Peking University Technology Transfer and Licensing Management Measures",
+        "url": "https://kjkfb.pku.edu.cn/beijingdaxuejishuzhuanranghexukeguanlibanfa.pdf",
+        "reason": "University-level mainland reference for licensing governance when technology/data rights interact."
+      }
+    ],
     "sourceUrls": [
       "https://ipira.berkeley.edu/industry/standard-agreements",
       "https://partnerships.ncsu.edu/common-negotiation-areas/"
@@ -138,6 +266,22 @@
     "cnTopicTags": ["TRL", "技术成熟度", "概念验证", "PoC", "试点", "验证指标"],
     "cnSummary": "企业通常需要把研究成果转成可衡量的概念验证或试点。",
     "cnSnippet": "询问当前技术成熟度、概念验证证据、试点环境、验证指标、集成依赖和 go/no-go 所需最小数据。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Beijing S&T Achievement Transformation FAQ Manual 2024",
+        "url": "https://www.beijing.gov.cn/ywdt/gzdt/202411/P020241202584173529020.pdf",
+        "reason": "Mainland practical source for proof, validation, and transaction readiness questions."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Tsinghua University Technology Transfer Overview",
+        "url": "https://www.tsinghua.edu.cn/kxyj/jszy.htm",
+        "reason": "Mainland university technology-transfer reference for moving research outputs toward application."
+      }
+    ],
     "sourceUrls": [
       "https://www.utrgv.edu/research/departments/research-operations/otc/tech-readiness-levels/index.htm",
       "https://otl.stanford.edu/industry/licensing-process"
@@ -154,6 +298,22 @@
     "cnTopicTags": ["合规", "责任", "安全", "监管", "隐私", "网络安全", "法律审查"],
     "cnSummary": "合作讨论中应区分技术可行性与监管、安全、法律和责任结论。",
     "cnSnippet": "识别所需监管审查、网络安全和隐私控制、安全验证、担保限制、赔偿期望，以及正式法律或合规审查。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Beijing S&T Achievement Transformation FAQ Manual 2024",
+        "url": "https://www.beijing.gov.cn/ywdt/gzdt/202411/P020241202584173529020.pdf",
+        "reason": "Practical mainland FAQ source for risk, compliance, and transaction-boundary questions."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Peking University Technology Transfer and Licensing Management Measures",
+        "url": "https://kjkfb.pku.edu.cn/beijingdaxuejishuzhuanranghexukeguanlibanfa.pdf",
+        "reason": "University-level mainland reference for governance boundaries in technology transfer."
+      }
+    ],
     "sourceUrls": [
       "https://partnerships.ncsu.edu/common-negotiation-areas/",
       "https://www.techtransfer.nih.gov/partnerships/licensing-faqs"
@@ -170,6 +330,22 @@
     "cnTopicTags": ["边界", "法律意见", "官方政策", "CityU条款", "自由实施", "侵权", "承诺"],
     "cnSummary": "通用 playbook 仅作教育性参考，不能替代机构特定政策、官方条款或法律意见。",
     "cnSnippet": "这些内容只是通用高校技术转移实践，不是 CityU 官方政策、合同条款、法律意见、自由实施结论或商业承诺。",
+    "boundaryNote": "Generic mainland/university technology-transfer practice only; not CityU official terms.",
+    "cnBoundaryNote": "仅为通用中国内地/高校技术转移实践，不是 CityU 官方条款。",
+    "sourceRationale": [
+      {
+        "region": "mainland_china",
+        "title": "Ministry/Government policy context on S&T achievement transformation",
+        "url": "https://www.gov.cn/zhengce/zhengceku/2020-05/19/content_5512908.htm",
+        "reason": "Central mainland policy context, used only for generic practice boundaries."
+      },
+      {
+        "region": "mainland_china",
+        "title": "Beijing S&T Achievement Transformation FAQ Manual 2024",
+        "url": "https://www.beijing.gov.cn/ywdt/gzdt/202411/P020241202584173529020.pdf",
+        "reason": "Practical mainland FAQ source for explaining that general guidance does not replace official terms or legal advice."
+      }
+    ],
     "sourceUrls": [
       "https://otl.stanford.edu/industry",
       "https://www.techtransfer.nih.gov/partnerships/licensing-faqs"

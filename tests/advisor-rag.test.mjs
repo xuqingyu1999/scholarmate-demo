@@ -108,11 +108,16 @@ const playbook = JSON.parse(fs.readFileSync(new URL('../data/collaboration-playb
     context.evidencePackets.some(item => item.sourceType === 'collab_playbook' && /license|IP|NDA|publication/i.test(`${item.title} ${item.snippet}`)),
     'industry collaboration questions should retrieve generic collaboration playbook packets'
   );
+  const playbookPacket = context.evidencePackets.find(item => item.sourceType === 'collab_playbook');
+  assert.strictEqual(playbookPacket.sourceRegion, 'mainland_china');
+  assert.ok(/gov\.cn|pku\.edu\.cn|tsinghua\.edu\.cn|shu\.edu\.cn|sjtu\.edu\.cn/.test(playbookPacket.sourceUrl));
+  assert.ok(Array.isArray(playbookPacket.sourceRationale));
   const prompt = AdvisorRag.formatEvidencePacketsForPrompt(context);
   assert.ok(prompt.includes('Retrieved Evidence Packets'));
   assert.ok(prompt.includes('collab_playbook'));
   assert.ok(prompt.includes('metadata-only'));
   assert.ok(prompt.includes('not CityU official'));
+  assert.ok(prompt.includes('source rationale'));
 }
 
 {

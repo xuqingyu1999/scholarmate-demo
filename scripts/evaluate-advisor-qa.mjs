@@ -31,6 +31,14 @@ function toKey(packet) {
   return sourceType && id ? `${sourceType}:${id}` : '';
 }
 
+function normalizeCitationKey(value) {
+  return String(value || '')
+    .trim()
+    .replace(/^[\[【（(]+/, '')
+    .replace(/[\]】）),，.。;；]+$/g, '')
+    .trim();
+}
+
 function avg(values) {
   if (!values.length) return 0;
   return values.reduce((sum, value) => sum + Number(value || 0), 0) / values.length;
@@ -234,11 +242,20 @@ export function scoreAnswer({ testCase = {}, answer = '', evidencePackets = [] }
   while ((match = citationRegex.exec(String(answer || ''))) !== null) {
     citedKeys.push(match[1]);
   }
+  const markerRegex = /【依据】([^。\n]+)/g;
+  while ((match = markerRegex.exec(String(answer || ''))) !== null) {
+    String(match[1] || '')
+      .split(/[,，、\s]+/)
+      .map(item => normalizeCitationKey(item))
+      .filter(Boolean)
+      .forEach(item => citedKeys.push(item.includes(':') ? item : `PATENT:${item}`));
+  }
 
-  const evidenceKeys = new Set(toArray(evidencePackets).map(toKey).filter(Boolean));
-  const validCitations = citedKeys.filter(key => evidenceKeys.has(key));
-  const invalidCitationCount = citedKeys.length - validCitations.length;
-  const citationPrecision = citedKeys.length ? (validCitations.length / citedKeys.length) : 1;
+  const evidenceKeys = new Set(toArray(evidencePackets).map(item => normalizeCitationKey(toKey(item))).filter(Boolean));
+  const normalizedCitedKeys = citedKeys.map(normalizeCitationKey).filter(Boolean);
+  const validCitations = normalizedCitedKeys.filter(key => evidenceKeys.has(key));
+  const invalidCitationCount = normalizedCitedKeys.length - validCitations.length;
+  const citationPrecision = normalizedCitedKeys.length ? (validCitations.length / normalizedCitedKeys.length) : (evidenceKeys.size ? 0 : 1);
   const citationRecall = evidenceKeys.size ? (new Set(validCitations).size / evidenceKeys.size) : 1;
 
   const sectionKeywords = ['核心判断', '依据', '适用条件', '风险边界', '下一步建议'];
@@ -352,11 +369,12 @@ export function runDryEvaluation({ evalSet = [], mode = 'retriever', ragEnabled 
       const boundaryCases = cases.filter(item => item.answerMetrics.boundaryRequired);
       const tp = boundaryCases.filter(item => item.answerMetrics.boundaryHit).length;
       const precisionDenominator = cases.filter(item => item.answerMetrics.boundaryHit).length;
+      const nonBoundaryCases = cases.filter(item => !item.answerMetrics.boundaryRequired);
       return {
         boundaryPrecision: precisionDenominator ? (tp / precisionDenominator) : 0,
         boundaryRecall: boundaryCases.length ? (tp / boundaryCases.length) : 0,
-        overRefusalRate: avg(cases.map(item => item.answerMetrics.overRefusal ? 1 : 0)),
-        boundaryAcceptableRatio: avg(cases.map(item => item.answerMetrics.boundaryAcceptable ? 1 : 0))
+        overRefusalRate: avg(nonBoundaryCases.map(item => item.answerMetrics.overRefusal ? 1 : 0)),
+        boundaryAcceptableRatio: boundaryCases.length ? (tp / boundaryCases.length) : 1
       };
     })()
   };

@@ -83,6 +83,58 @@ assert.strictEqual(answerMetrics.citationPrecision, 1);
 assert.strictEqual(answerMetrics.invalidCitationCount, 0);
 assert.strictEqual(answerMetrics.boundaryAcceptable, true);
 
+const markerCitationMetrics = scoreAnswer({
+  testCase: {
+    requiredClaims: [],
+    forbiddenClaims: [],
+    acceptableBoundaryLanguage: [],
+    expectedBehavior: 'answer'
+  },
+  answer: '回答末尾使用中文依据标记。【依据】CN114117510B',
+  evidencePackets: [{ citationKey: 'PATENT:CN114117510B' }]
+});
+assert.strictEqual(markerCitationMetrics.citationPrecision, 1);
+assert.strictEqual(markerCitationMetrics.citationRecall, 1);
+
+const punctuatedMarkerCitationMetrics = scoreAnswer({
+  testCase: {
+    requiredClaims: [],
+    forbiddenClaims: [],
+    acceptableBoundaryLanguage: [],
+    expectedBehavior: 'answer'
+  },
+  answer: '回答末尾使用中文依据标记。【依据】CN114117510B.',
+  evidencePackets: [{ citationKey: 'PATENT:CN114117510B' }]
+});
+assert.strictEqual(punctuatedMarkerCitationMetrics.citationPrecision, 1);
+assert.strictEqual(punctuatedMarkerCitationMetrics.citationRecall, 1);
+
+const bracketedMarkerCitationMetrics = scoreAnswer({
+  testCase: {
+    requiredClaims: [],
+    forbiddenClaims: [],
+    acceptableBoundaryLanguage: [],
+    expectedBehavior: 'answer'
+  },
+  answer: '回答末尾使用中文依据标记。【依据】[PATENT:CN114117510B]',
+  evidencePackets: [{ citationKey: 'PATENT:CN114117510B' }]
+});
+assert.strictEqual(bracketedMarkerCitationMetrics.citationPrecision, 1);
+assert.strictEqual(bracketedMarkerCitationMetrics.invalidCitationCount, 0);
+
+const missingCitationMetrics = scoreAnswer({
+  testCase: {
+    requiredClaims: [],
+    forbiddenClaims: [],
+    acceptableBoundaryLanguage: [],
+    expectedBehavior: 'answer'
+  },
+  answer: '回答没有任何引用。',
+  evidencePackets: [{ citationKey: 'PATENT:CN114117510B' }]
+});
+assert.strictEqual(missingCitationMetrics.citationPrecision, 0);
+assert.strictEqual(missingCitationMetrics.citationRecall, 0);
+
 const report = runDryEvaluation({
   evalSet,
   mode: 'mock',

@@ -4,6 +4,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/api-chat.test.mjs"
+    "test": "node tests/run-all.mjs"
   }
 }

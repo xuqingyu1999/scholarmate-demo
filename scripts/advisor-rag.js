@@ -74,6 +74,7 @@
     }
 
     function textForPlaybook(entry) {
+        const sourceRationale = asArray(entry && entry.sourceRationale);
         return [
             entry && entry.id,
             entry && entry.category,
@@ -84,6 +85,14 @@
             asArray(entry && entry.cnTopicTags).join(' '),
             entry && entry.cnSummary,
             entry && entry.cnSnippet,
+            entry && entry.boundaryNote,
+            entry && entry.cnBoundaryNote,
+            sourceRationale.map(source => [
+                source && source.region,
+                source && source.title,
+                source && source.reason,
+                source && source.url
+            ].filter(Boolean).join(' ')).join(' '),
             asArray(entry && entry.sourceUrls).join(' ')
         ].filter(Boolean).join(' ');
     }
@@ -153,18 +162,51 @@
         };
     }
 
+    function selectPlaybookSource(entry) {
+        const rationale = asArray(entry && entry.sourceRationale);
+        const mainland = rationale.find(source => source && source.region === 'mainland_china' && source.url)
+            || rationale.find(source => source && source.url);
+        if (mainland) {
+            return {
+                url: String(mainland.url || ''),
+                title: String(mainland.title || ''),
+                region: String(mainland.region || ''),
+                reason: String(mainland.reason || '')
+            };
+        }
+        return {
+            url: String((entry && (entry.sourceUrl || asArray(entry.sourceUrls)[0])) || ''),
+            title: '',
+            region: '',
+            reason: ''
+        };
+    }
+
+    function buildPlaybookSnippet(entry, selectedSource) {
+        const base = [
+            entry && (entry.cnSnippet || entry.snippet || entry.cnSummary || entry.summary),
+            entry && (entry.cnBoundaryNote || entry.boundaryNote),
+            selectedSource && selectedSource.reason ? `source rationale: ${selectedSource.reason}` : ''
+        ].filter(Boolean).join(' ');
+        return String(base || '').replace(/\s+/g, ' ').trim().slice(0, 700);
+    }
+
     function buildPlaybookPacket(entry) {
         const id = String(entry && entry.id || '').trim();
         if (!id) return null;
+        const selectedSource = selectPlaybookSource(entry);
         return {
             id,
             citationKey: `PLAYBOOK:${id}`,
             sourceType: 'collab_playbook',
             title: String((entry && entry.title) || 'Generic collaboration practice'),
-            sourceUrl: String((entry && (entry.sourceUrl || asArray(entry.sourceUrls)[0])) || ''),
+            sourceUrl: selectedSource.url,
+            sourceTitle: selectedSource.title,
+            sourceRegion: selectedSource.region,
+            sourceRationale: asArray(entry && entry.sourceRationale),
             sourceFile: '',
             page: null,
-            snippet: String((entry && (entry.snippet || entry.summary || '')) || '').slice(0, 700),
+            snippet: buildPlaybookSnippet(entry, selectedSource),
             metadataOnly: false
         };
     }
@@ -352,6 +394,9 @@
             lines.push('  <<EVIDENCE_TEXT_START>>');
             lines.push(`  title: ${packet.title}`);
             lines.push(`  source: ${sourceRef}${pagePart}`);
+            if (packet.sourceTitle || packet.sourceRegion) {
+                lines.push(`  source rationale: ${[packet.sourceRegion, packet.sourceTitle].filter(Boolean).join(' | ')}`);
+            }
             lines.push(`  snippet: ${String(packet.snippet || '').replace(/\s+/g, ' ').trim()}`);
             lines.push('  <<EVIDENCE_TEXT_END>>');
         }
